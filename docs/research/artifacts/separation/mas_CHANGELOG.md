@@ -1,0 +1,438 @@
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+## Unreleased
+
+## 0.1.20 - 2026-10-02
+
+### Changed
+
+- Requires `mlx-audio-io>=1.3.23`, whose extension no longer links MLX: it
+  works with any MLX from 0.32.0 on without a rebuild, and its loads are about
+  15% faster. Output is unchanged. The README's rebuild instructions for an MLX
+  version mismatch are replaced by upgrading `mlx-audio-io`.
+- `--write_workers` (and the `write_workers` performance default) is now 4
+  (was 2). FLAC output got 11-16% faster end to end on a 3:15 track (M4 Pro,
+  M4 Max); WAV is unaffected.
+- Startup no longer runs `ffmpeg -version`: nothing in this package uses
+  FFmpeg, so the probe cost ~50 ms per run and refused to start on Macs
+  without FFmpeg installed. `check_ffmpeg_installed()` remains for callers.
+- Demucs hardware detection reads sysctl and the GPU core count in-process
+  (sysctlbyname, IOKit) instead of spawning four subprocesses (~25 ms).
+- Loading a cached model no longer re-hashes its weights on every run (~70 ms
+  saved per run; a Demucs model loads in ~30 ms instead of ~100 ms). After a full
+  SHA-256 check passes, a `.verified.json` stamp next to the weights records the
+  digest with the file's size, mtime, inode, device and ctime; later loads skip
+  the hash only while all of those match, so any write to the file through the
+  filesystem brings the full check back. Safetensors cannot execute code on
+  load, so the digest only guards against corrupted caches.
+
+## 0.1.19 - 2026-10-02
+
+### Fixed
+
+- **Demucs output now matches upstream for every model.** Measured end to end
+  against PyTorch Demucs (`demucs.api`, shifts 0, same input), per stem:
+  htdemucs, htdemucs_ft, htdemucs_6s and hdemucs_mmi 75-82 dB SNR (scale
+  invariant) as 16-bit WAV, where the residual is the 16-bit quantization floor
+  on every stem, including htdemucs_6s's near-silent piano stem.
+  `tests/test_demucs_upstream_parity.py` now compares each architecture with
+  upstream. The fixes, shared with demucs-mlx:
+  - The cross-transformer fed the frequency branch the time branch's updated
+    output instead of its input to the layer (htdemucs family matched upstream
+    at 18-24 dB during 0.1.19 development).
+  - `LocalState` attention contracted the softmax weights over the wrong axis;
+    hdemucs_mmi matched upstream at only 10-19 dB in every earlier release.
+  - The time-domain Demucs resampler, `MultiWrap` padding and bias, the Wiener
+    output layout and the missing `mx.angle` were wrong or crashed (only
+    reachable through `demucs_mlx`'s own model list).
+  - Chunks run at upstream's lengths: a custom `--demucs_segment_size` matched
+    at 18-25 dB (and produced garbage output earlier in 0.1.19 development);
+    it now matches at 72-79 dB.
+- **Stems are written with their channels intact.** A (channels, frames) stem
+  was transposed into a strided view that mlx-audio-io 1.3.21 reads as raw
+  memory, scrambling every Demucs stem and, with `--write_workers 1`, every
+  other architecture's. Stems are now passed with their layout and written
+  without a copy.
+- **MDX-Net output was wrong in every release.** UVR's ONNX exports give the
+  TDF linears no bias, but the model was built with one, and the bias kept its
+  random initial value: every run produced different, degraded stems
+  (UVR-MDX-NET-Inst_HQ_3 matched python-audio-separator at 35-38 dB). The
+  linears now follow the checkpoint, and Inst_HQ_3, Kim_Vocal_2 and
+  UVR_MDXNET_KARA_2 match python-audio-separator at 58-63 dB and repeat
+  bit-exactly. A model whose weights are only partly mapped (UVR-MDX-NET-Voc_FT,
+  kuielab_a_vocals, Reverb_HQ_By_FoxJoy) still separates incorrectly, and now
+  says so when it loads.
+- A failed write no longer vanishes or hangs. An error in the writer thread's
+  fallback path killed the thread without recording the error, so `flush()`
+  succeeded, the file was reported written, and `close()` waited forever (for
+  example 24-bit input written as FLAC). The error now fails the file, and the
+  writer stays usable for the next one.
+- A `Separator` built on one thread now works on another (a GUI or server
+  worker): side streams are per thread, and weights and cached arrays are
+  materialized when they are created.
+- Scaling a silent stem up to `--amplification` no longer divides by zero.
+
+### Changed
+
+- Demucs default shifts is 1 across the CLI, `Separator` and the embedded API,
+  as upstream. It was 2 (two full passes); `--demucs_shifts 2` restores it.
+- Demucs shift offsets are unseeded by default, as upstream: with one shift
+  the offset still varies per run. `--demucs_seed <int>` makes runs reproduce.
+- Demucs batch size defaults to `auto`, now sized from measurements: 3 on M4
+  Pro and 32-core M4 Max (1.5-1.9% faster than 2), 8 on 40-core M4 Max with at
+  least 64 GB, 2 elsewhere. Chunks are spread evenly over the batches the target
+  implies; it no longer drops to batch 2 whenever 2 divides the chunk count.
+- Demucs overlap-add is streamed through the fused Metal kernel: peak memory on
+  a 21.7-minute track is 6.66 GB end to end, against 9.46 GB in 0.1.18.
+- Demucs attention runs its kernel in fp16 with fp32 projections. The previous
+  fp16 path also rounded the projections and matched upstream at 72-79 dB; the
+  kernel alone matches within 0.5 dB of fp32 and is about 3% faster than fp32.
+  `--demucs_attention_precision fp32` (or
+  `MLX_AUDIO_SEPARATOR_DEMUCS_ATTENTION_FP16=0`) selects fp32.
+- RoFormer `--single_stem` runs only the heads and inverse STFTs of the
+  requested stem when the model outputs that stem, with bit-identical output.
+- Demucs separation, including `python -m mlx_audio_separator.demucs_mlx`,
+  no longer imports NumPy, and stems go to mlx-audio-io as MLX arrays without
+  host copies.
+- `experimental_demucs_apply_concat_batching` has no effect (it has not since
+  this release's Demucs rewrite) and now says so. Its environment variable and
+  `MLX_AUDIO_SEPARATOR_DETERMINISTIC_ACCUMULATION` are gone.
+- The experimental Neural Engine path for the first HTDemucs convolution
+  (`python -m mlx_audio_separator.demucs_mlx.separate --ane-time-encoder`) now
+  works: its native Core ML bridge ships in the wheel, it moves MLX buffers to
+  Core ML without NumPy, and the `ane` / `ane-convert` extras install its runtime
+  and converter. It matches the GPU path at 68-92 dB but is not faster on M4 Pro
+  or M4 Max.
+- Dependencies: MLX >= 0.32.3, `mlx-audio-io` >= 1.3.22 (strided arrays
+  written correctly, which also fixes VR output), `mlx-spectro` >= 0.9.10.
+- Obsolete optimization notebooks were removed from `docs/`; `docs/tuning.md`
+  holds the current defaults and their measurements.
+
+## 0.1.18 - 2026-09-28
+
+### Added
+
+- ZFTurbo Mel-Band-RoFormer Vocals v1 is available through the standard model
+  catalog as `mel-roformer-zfturbo-vocals-v1-mlx`. It downloads the published MLX
+  weights and config, uses the built-in RoFormer implementation to isolate vocals,
+  and derives an instrumental stem.
+
+## 0.1.17 - 2026-09-23
+
+### Added
+
+- `MLX_AUDIO_SEPARATOR_NO_LEGACY_CACHE=1` skips adopting models from the old
+  `/tmp/audio-separator-models/` default. That fallback reaches outside `$HOME`,
+  so a first-run check that only points `HOME` at an empty directory still
+  started with a warm model cache and could not prove first-run behaviour.
+  Unset, the fallback behaves exactly as before.
+
+## 0.1.16 - 2026-09-23
+
+### Changed
+
+- The release smoke gate installs the published artifact by URL resolved from the
+  release API, instead of resolving the version through the package index. The two
+  content-negotiated renderings of `/simple/<project>/` can serve different
+  snapshots, so an index resolve could fail for a version that was published and
+  intact.
+- The publish step refuses to run when the version is already on the index unless
+  `allow_existing` is set, so a re-dispatch cannot skip the upload and still report
+  success.
+- Publishing to PyPI now requires a matching TestPyPI release, with `skip_rc_check`
+  to override.
+- A `Release (GitHub)` workflow creates the tag and release from the same dispatch
+  that verifies the version, instead of by hand.
+
+The published distribution is unchanged: this repository does not ship `.github/`
+in its sdist, so this release exists only to keep the tag level with `main`.
+
+## 0.1.15 - 2026-09-23
+
+### Added
+
+- A Troubleshooting section covering the one upgrade hazard this stack has:
+  `mlx-audio-io` compiles its native extension on your machine against the MLX
+  installed at the time, so changing MLX afterwards leaves a binary that fails
+  at import with `Symbol not found: __ZN3mlx4core6astype...`. The rebuild recipe
+  is spelled out, including why `cmake`, `ninja` and `--no-cache-dir` are part
+  of it. Reported in #4.
+
+## 0.1.14 - 2026-09-23
+
+### Fixed
+
+- `uv.lock` refreshed to the released stack (mlx-audio-io 1.3.14, mlx-spectro
+  0.9.4). It had pinned mlx-audio-io 1.3.12 and mlx-spectro 0.9.2, so a
+  `uv sync` checkout built against versions older than the ones the package
+  requires.
+
+## 0.1.13 - 2026-09-23
+
+### Changed
+
+- **Downloaded models no longer default into `/tmp`.** `model_file_dir`
+  defaulted to `/tmp/audio-separator-models/`. macOS clears `/tmp` on boot, so
+  every reboot cost a multi-gigabyte re-download, and `/tmp` is world-writable:
+  whichever user creates that directory first owns it, and
+  `download_file_if_not_exists` returns early for any file already at the target
+  path without checking it. Every checkpoint load is `weights_only=True` or
+  protobuf parsing, so a planted file means wrong output rather than code
+  execution — but a cache in a directory another user controls is still the
+  wrong place for it. The default is now
+  `~/.cache/mlx-audio-separator/models`; `--model_file_dir` and
+  `AUDIO_SEPARATOR_MODEL_DIR` are unchanged and still win. Files in the old
+  directory — including the converted `.safetensors` the loaders write beside a
+  checkpoint, which is never downloaded and would otherwise have made a
+  torch-free install reconvert — are hard-linked across on first use, so nothing
+  is fetched or converted twice and no extra disk is used.
+
+## 0.1.12 - 2026-09-23
+
+### Fixed
+
+- **Converted Demucs weights no longer share a directory with demucs-mlx.**
+  Both packages wrote `<model>_config.json` and `<model>.safetensors` into
+  `~/.cache/demucs-mlx` under config schemas that reject each other, and as of
+  0.1.10 and demucs-mlx 1.4.8 both rebuild a cache they cannot read -- so with
+  the two installed side by side (which is the default, since demucs-mlx does
+  not depend on mlx-weights and falls back to that directory) every alternating
+  run reconverted, each time needing torch and the upstream checkpoint. This
+  package now writes to `~/.cache/mlx-audio-separator/demucs`, and never to
+  demucs-mlx's directory. A cache left in the old location by an earlier release
+  is still read, so upgrading costs no reconversion.
+  `MLX_AUDIO_SEPARATOR_DEMUCS_CACHE_DIR` overrides the location.
+
+## 0.1.11 - 2026-09-23
+
+### Fixed
+
+- **The CLI exited 0 when every file failed.** `separate()` logs a file it
+  could not process and moves on, so one bad input does not abort a batch --
+  but the CLI then printed `Separation complete! Output file(s):` with an empty
+  list and exited 0 regardless, so a run that produced nothing looked like a
+  success to any script wrapping it. It now reports each failure and exits 1,
+  whether some files succeeded or none did. `Separator.failed_files` lists
+  `(path, message)` for the last `separate()` call, so library callers can make
+  the same distinction.
+
+## 0.1.10 - 2026-09-23
+
+### Fixed
+
+- **Demucs produced no output on a machine with no mlx-spectro tuning cache
+  yet.** 0.1.9 compiles the Demucs forward, and the STFT inside it picks its
+  Metal threadgroup size by timing candidates -- which needs `mx.eval`, and MLX
+  forbids `mx.eval` inside a compile trace. On a first run the separation ended
+  with `no usable threadgroup size for n_fft=4096, hop=1024` and wrote no stems;
+  once any uncompiled call had populated the cache, the same command worked, so
+  it did not reproduce on a machine that had already run one. The first call at
+  each input shape now runs eagerly and the next one compiles. Its output is
+  used, so the warm-up costs nothing, and compiled output still tracks the eager
+  path at 120-138 dB SNR across `htdemucs`, `htdemucs_6s` and `hdemucs_mmi`.
+  Requires mlx-spectro 0.9.2, which also stops tuning from raising under a
+  trace.
+- **An unreadable Demucs cache now regenerates instead of raising.**
+  `get_mlx_model` caught only `FileNotFoundError`, so a cache that existed but
+  failed validation raised `SafeCacheError` to the caller -- with nothing saying
+  that regenerating was the fix. Caches written before 0.1.8 lack fields the
+  hardened loader requires, and demucs-mlx writes a differently-shaped config
+  into the same `~/.cache/demucs-mlx` directory, so either upgrading or having
+  both packages installed could produce it. An unusable cache is now rebuilt,
+  which is also the right response to a digest mismatch. Errors that are not
+  about the cache still propagate.
+
+## 0.1.9 - 2026-09-23
+
+### Added
+
+- **The Demucs forward is compiled.** `mx.compile` on the model forward is worth
+  **+15.9%** end to end on a 60 s track, or **+16.8%** together with the
+  overlap-add change below, measured on an idle M4 against a same-config control
+  (noise floor 1.04%). It is faster on the first call too — 0.671 s against
+  0.776 s on a 20 s clip with no warmup — so there is no cold-start cost.
+  Compilation reassociates floating-point adds, so output is 107–115 dB SNR from
+  the eager path, verified on `htdemucs`, `htdemucs_6s` and `hdemucs_mmi`.
+  `MLX_AUDIO_SEPARATOR_DEMUCS_COMPILE=0` restores the eager forward.
+- `scripts/perf/ab_harness.py`, an A/B harness that runs one process per arm,
+  rotates the arm order, and computes a noise floor from same-config control
+  arms. On an idle machine it resolves to 0.04%.
+
+### Changed
+
+- **Demucs overlap-add evaluates after every update rather than every 8.**
+  **+4.3%** end to end on a 60 s track, output bit-identical. Sweeping the
+  interval on an idle M4 against a same-config control (noise floor 0.62%):
+  1 → +4.3%, 2 → +3.5%, 4 → +1.7%, 16 → +1.0%.
+- **Roformer/MDXC precision now defaults to fp32.** bf16 measures no faster on
+  current hardware — dead on a same-config control at a 0.04% noise floor — and
+  costs ~78 dB SNR, so fp32 is the better default. `--precision bf16` and
+  `MLX_ENABLE_AMP=1` remain available.
+- Release workflows set the version from the workflow input before building,
+  wait up to 10 minutes for a new file to reach every CDN mirror, and retry the
+  install.
+
+### Fixed
+
+- **Fused GroupNorm Metal kernels: added a missing threadgroup barrier.** The
+  three-pass reduction shares one `shared_sums` array, and pass 2 could overwrite
+  the group mean before every simdgroup had read it. With the barrier, relative
+  error at real htdemucs shapes drops from 1.6e-02 to **2.0e-07**, output becomes
+  run-to-run deterministic, and end-to-end SNR against the unfused path is
+  **118.2 dB**. The kernels stay opt-in via
+  `MLX_AUDIO_SEPARATOR_FUSED_GROUPNORM_MODE=all`, since the unfused path is the
+  same speed. New tests cover parity and determinism at the real shapes.
+- Loading a Demucs cache written by a different MLX version no longer suggests
+  reconverting. One cache produces bit-identical stems under 0.31.2 and 0.32.2,
+  and the strict loader already rejects a genuinely incompatible cache.
+
+## 0.1.8 - 2026-09-22
+
+### Fixed
+
+### Changed
+
+- **Demucs defaults now match the parity configuration out of the box.** Fused
+  GroupNorm/GLU Metal kernels are off by default. Measured on a 45 s clip through
+  `htdemucs`, enabling them costs ~20 dB SNR against the unfused path (19.7 dB on drums,
+  23.7 dB on other) -- audible, not float noise -- because the kernel uses an
+  erf-approximation GELU and threadgroup reductions whose width varies with tensor shape.
+  They are not faster either (0.783 s fused vs 0.776 s unfused, median of five runs).
+  Out-of-the-box SNR against the parity configuration goes from ~20 dB to ~130 dB.
+  `MLX_AUDIO_SEPARATOR_FUSED_GROUPNORM_MODE=all` restores them for benchmarking.
+- **Demucs batch size default is 2, was 8.** Measured: 0.872 s vs 1.870 s on a 45 s clip
+  and 3.901 s vs 5.524 s on a 195 s one, at 4.75 GB vs 9.20 GB peak memory. The old
+  `latency_safe_v2` value of 12 was ~10x slower than 2. All speed-mode profiles and the
+  auto-tune candidate list now use the measured optimum, and the value lives in one
+  place (`demucs_mlx/defaults.py`) so the CLI, API and `apply_model` cannot drift apart.
+- **Experimental flags no longer clobber the environment.** Ten `MLX_AUDIO_SEPARATOR_*`
+  variables were written unconditionally on every run, silently overriding anything a
+  user exported -- including `MLX_AUDIO_SEPARATOR_GN_GLU_MULTIGROUP`, which the docs told
+  users to set and which therefore could never work. Six of the ten have no CLI flag, so
+  the environment was the only way to reach them. A variable is now only written when the
+  caller actually supplied the corresponding `performance_params` key.
+- **VR batch size default is 2, was 1.** Measured through `metalq` on
+  `UVR-BVE-4B_SN-44100-2`: 2.975 s vs 3.488 s on a 45 s clip and 16.364 s vs 17.946 s on
+  a 195 s one, for 5.00 GB vs 3.24 GB peak. Batch 1 is never the fastest option. Batch 4
+  is marginally quicker on long inputs (15.073 s) but costs another 2.5 GB, which is the
+  wrong trade for a default on a 16 GB machine; batch 8 is slower than 1. Output across
+  every batch size differs by at most 3.052e-05, exactly one pcm16 LSB -- encoding
+  rounding, not divergence. The retired `latency_safe_v2` profile had used 2 here, but it
+  was never measured and never the default.
+- **`deferred` cache clearing and 2 stem-writer threads are now the defaults.** Measured
+  on a 195 s track to FLAC: 21.0 s against 22.4-25.3 s, bit-identical output (max abs
+  diff 0.000e+00 on every stem), ~70 MB more peak RSS. This was the only thing
+  `--speed_mode latency_safe_v3` actually did. Note that a writer thread is now spawned
+  by default, which matters if you embed the library in a constrained process; pass
+  `--write_workers 1` to restore serial writes.
+- **`--speed_mode` is deprecated, accepted and ignored**, and will be removed in the next
+  major version. `latency_safe` never did anything -- it set the values that were already
+  the defaults the day it shipped. `latency_safe_v2` raised the Demucs batch to 12, which
+  measures ~10x slower than 2. `latency_safe_v3`'s settings are now the defaults. Passing
+  any of them logs a warning and changes nothing; the nine `scripts/perf/configs/*.json`
+  that pinned a profile now say `default`, which is what they resolve to.
+- **The library no longer calls `warnings.filterwarnings("ignore")`.** `Separator()` was
+  silencing every warning in the host process at any log level above DEBUG. That is not a
+  library's call to make, and it was hiding real defects: three leaked file handles in
+  `core.py` (now closed) and the `FutureWarning` telling users their legacy Demucs pickle
+  cache would not be loaded.
+- **`--demucs_seed` defaults to a fixed seed**, so repeated runs on the same input
+  reproduce. Pass `--demucs_seed random` for the previous per-run variation.
+- **New `--precision {auto,bf16,fp32}` flag.** bf16 was already enabled for
+  Roformer/MDXC transformers with no flag and no documentation. Measured on BS-Roformer
+  it is ~15% faster and differs from fp32 by ~70 dB SNR (max abs diff 6.1e-05, around the
+  16-bit LSB), so it stays the default -- but it is now discoverable and switchable.
+- A missing `demucs` package during conversion now reports the missing `[convert]` extra
+  instead of "Refusing to load Demucs checkpoint with unrestricted deserialization",
+  which pointed at a security problem that did not exist.
+- Always use `mx.slice_update()` for overlap-add accumulation instead of gating on
+  `mlx >= 0.31.2`. The declared floor was `mlx >= 0.31.0`, so 0.31.0 and 0.31.1 silently
+  took the corrupting `array.at[...].add()` path. MLX fixed the underlying strided
+  scatter-add bug in 0.32.0; `mx.slice_update()` is correct on every supported version.
+  Set `MLX_AUDIO_SEPARATOR_UNSAFE_SLICE_ADD=1` to benchmark the legacy path.
+- Raise the minimum MLX version to 0.31.2 and allow 0.32.x (`mlx>=0.31.2,<0.33`).
+  Verified end to end against MLX 0.32.2: all suites pass and Demucs output is
+  bit-identical to 0.31.2 (max abs diff 0.000e+00 on every stem). Note that MLX fixed
+  the strided scatter-add bug in 0.32.0, so the `mx.slice_update` accumulation this
+  release makes unconditional is now belt-and-braces on 0.32.x rather than load-bearing.
+  Timed on an otherwise idle Mac mini (M4) with two `uv` environments identical except
+  for MLX, arms alternating each round: 6.757 s median on 0.31.2 vs 6.647 s on 0.32.2
+  over 16 timed separations each (+/-2.2% and +/-1.9% spread), i.e. **1.02x** with
+  median and best agreeing. Peak memory 4.67 GB on both. Upgrading is safe on speed.
+- A Demucs cache written by a different MLX version no longer prints
+  `Consider reconverting`. The check compared version strings exactly and advised a
+  torch-requiring, multi-minute reconversion on any difference. It is wrong: one cache
+  produces bit-identical stems (0.000e+00, and deterministic run to run) under both
+  0.31.2 and 0.32.2, and the strict loader added this release already raises on a
+  genuinely incompatible cache. A warning now fires only when a version is outside the
+  supported range, and goes through `warnings.warn` rather than `print`.
+
+## 0.1.7 - 2026-08-12
+
+### Changed
+
+- Run Ruff across the full repository in CI and clean the existing lint baseline.
+- Update GitHub-hosted workflow actions to Node.js 24-native major versions.
+
+### Security
+
+- Load official Demucs packages with PyTorch's restricted weight-only deserializer and a narrow compatibility allowlist instead of the unrestricted upstream repository loader.
+- Replace Demucs MLX pickle caches with versioned safetensors plus validated JSON metadata; legacy `*_mlx.pkl` files are ignored and safely regenerated rather than deserialized.
+- Fail closed on incomplete, malformed, or digest-mismatched Demucs caches without downgrading to pickle.
+
+## 0.1.6 - 2026-08-12
+
+### Security
+
+- Use restricted weight-only deserialization for direct RoFormer, MDX23C, and VR PyTorch checkpoint conversion paths.
+- Reject PyTorch versions older than 2.6 before reading checkpoints because CVE-2025-32434 affects weight-only loading in earlier releases.
+
+### Changed
+
+- Require PyTorch 2.6 or newer for the optional `convert` dependency group.
+- Continue supporting plain tensor state dictionaries and `state_dict`/`model` wrappers while intentionally rejecting checkpoints containing arbitrary Python objects.
+
+## 0.1.5 - 2026-06-13
+
+### Fixed
+
+- Work around MLX 0.31.2 contiguous slice-update corruption in split-mode and chunked overlap-add accumulators by using explicit `mx.slice_update()` accumulation on affected MLX versions.
+
+## 0.1.4 - 2026-03-06
+
+### Changed
+
+- All audio loading paths use `mac.load(path, sr=target)` for resampling, which now auto-selects `soxr_vhq` quality when available (via upstream mlx-audio-io 1.3.9).
+- Demucs CLI (`separate.py`) no longer raises `ValueError` when input sample rate differs from model sample rate — it resamples automatically.
+- Demucs audio pipeline (`separate.py`, `api.py`) now uses native MLX arrays end-to-end instead of numpy intermediaries.
+- `mlx_backend.resample_mx()` uses direct `mac.resample()` instead of writing/reading a temp file.
+- Removed unnecessary MLX→numpy→MLX round-trips in `audio_chunking` and `VRSeparator`.
+- Bumped minimum `mlx-audio-io` to `>=1.3.9`.
+
+## 0.1.1 - 2026-02-24
+
+### Added
+
+- Benchmark reliability hardening:
+  - Invalid-output detection (`stems == 0`, missing files, empty files).
+  - Narrow one-time redownload retry for corrupted archive signatures.
+  - Demucs benchmark preflight skip behavior when conversion dependency is missing.
+- Loader recovery and compatibility updates across VR/MDX/MDXC families.
+- Strict benchmark diagnostics path to preserve inner exception context in benchmark outputs.
+- MLX-native MDX23C (`tfc_tdf_v3`) support and checkpoint conversion/cache path.
+- Release/readiness and reproducibility documentation improvements.
+
+### Changed
+
+- Compile policy update:
+  - MDX23C compiled forward remains available behind opt-in runtime flags.
+  - Roformer compile paths (shapeless/static compiled demix) are currently disabled by policy.
+- CLI help text and README now document current compile-path behavior explicitly.
+
+### Fixed
+
+- Multiple benchmark false-positive success cases.
+- Model-loader mismatch families in VR, MDX, and MDXC routing.
+- Silent/opaque benchmark failure surfaces now report actionable diagnostics.

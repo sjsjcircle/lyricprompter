@@ -1,0 +1,6 @@
+synctoolbox
+librosa
+numba
+numpy
+torch>=2.13
+audio-separator[cpu]>=0.47

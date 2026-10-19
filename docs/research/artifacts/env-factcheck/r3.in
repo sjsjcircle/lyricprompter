@@ -1,0 +1,10 @@
+torch>=2.13
+torchaudio
+audio-separator[cpu]>=0.47
+librosa>=1.0
+onnxruntime>=1.31
+sounddevice
+soxr
+fastapi
+uvicorn[standard]
+audioread

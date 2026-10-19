@@ -1,0 +1,8 @@
+[project]
+name = "nofloor"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = ["torch", "torchaudio", "onnxruntime", "audio-separator[cpu]", "librosa", "audioread"]
+[tool.uv]
+environments = ["sys_platform == 'darwin' and platform_machine == 'arm64'"]
+override-dependencies = ["samplerate>=0.2.4"]

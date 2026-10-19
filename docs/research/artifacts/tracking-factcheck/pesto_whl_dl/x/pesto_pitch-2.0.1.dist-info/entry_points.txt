@@ -1,0 +1,2 @@
+[console_scripts]
+pesto = pesto.main:pesto

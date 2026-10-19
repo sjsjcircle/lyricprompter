@@ -1,0 +1,410 @@
+          SIMPLE TEMPO MODELS FOR REAL-TIME MUSIC TRACKING
+
+                                                                                                        Gerhard Widmer
+                     Andreas Arzt                                                             Department of Computational Perception
+         Department of Computational Perception                                                  Johannes Kepler University Linz
+            Johannes Kepler University Linz                                                       The Austrian Research Institute
+                                                                                                 for Artificial Intelligence (OFAI)
+
+
+
+                                ABSTRACT                                           like western classical music, where close synchronization
+                                                                                   between the solo and the accompanying parts are required,
+The paper describes a simple but effective method for in-                          Arshia Cont’s system ‘Antescofo’ [2] addresses a slightly
+corporating automatically learned tempo models into real-                          different domain, namely, contemporary music by com-
+time music tracking systems. In particular, instead of train-                      posers like Boulez, Cage and Stockhausen, with musical
+ing our system with ‘rehearsal data’ by a particular per-                          characteristics quite different from ‘classical’ music. Dur-
+former, we provide it with many different interpretations                          ing the tracking process both systems are guided by sophis-
+of a given piece, possibly by many different performers.                           ticated tempo models.
+During the tracking process the system continuously re-                                In contrast to the above-mentioned systems, which are
+combines this information to come up with an accurate                              based on probabilistic models, our music follower uses On-
+tempo hypothesis. We present this approach in the context                          line Dynamic Time Warping (ODTW) as its basic tracking
+of a real-time tracking system that is robust to almost ar-                        algorithm (at multiple levels – see Section 3). Even with-
+bitrary deviations from the score (e.g. omissions, forward                         out a predictive model of tempo, this algorithm is surpris-
+and backward jumps, unexpected repetitions or re-starts)                           ingly robust. But for passages with extremely expressive
+by the live performer.                                                             timing, knowledge about plausible performance strategies
+                                                                                   is needed to improve the precision of real-time alignment.
+                         1. INTRODUCTION                                           In this paper we will show two simple and very general
+                                                                                   ways of doing so, the second of which actually permits the
+Real-time audio tracking systems, which listen to a musi-                          system to adapt to different ways of playing without sepa-
+cal performance through a microphone and automatically                             rate training each time.
+recognize at any time the current position in the musical                              In the following, we first re-capitulate the basic prin-
+score, even if the live performance varies in tempo and                            ciples of our approach to on-line music following (Sec-
+sound, promise to be useful in a wide range of applications.                       tion 2), briefly point to a recent extension that makes the
+They can serve as a (musical) partner to the performer(s)                          algorithm robust to almost arbitrary disruptions in a per-
+by e.g. automatically accompanying them, interacting with                          formance (Section 3; the details of this are described in a
+them or supplementing their art by the creation of visual-                         separate paper [3]), and then describe two simple, but ef-
+izations of their performance.                                                     fective ways of introducing expressive tempo information
+    In this paper we propose a very simple and general meth-                       into the tracking process in Sections 4 and 5.
+od for incorporating learned tempo models into real-time
+music trackers. These tempo models need not reflect one
+specific way of how to perform a piece of music, but rather                             2. A HIGHLY ROBUST MUSIC TRACKER
+illustrate many different possible performance strategies
+                                                                                   Our approach to score following is via audio-to-audio align-
+(in terms of timing and tempo). We present this approach
+                                                                                   ment. That is, rather than trying to transcribe the incoming
+in the context of a real-time music tracking system that is
+                                                                                   audio stream into discrete notes and align the transcrip-
+extremely robust in the face of almost arbitrary structural
+                                                                                   tion to the score, we first convert a MIDI version of the
+changes (e.g. disruptions or re-starts) during a live perfor-
+                                                                                   given score into a sound file by using a software synthe-
+mance.
+                                                                                   sizer. The result is a ‘machine-like’, low-quality rendition
+    This unique ability distinguishes our real-time tracking
+                                                                                   of the piece, in which, due to the information stored in the
+system from the two major advanced score followers that
+                                                                                   MIDI file, we know the time of every event (e.g. note on-
+have been developed in recent years. These systems have
+                                                                                   sets).
+two quite different domains in mind. While Christopher
+Raphael’s ‘Music Plus One’ [1] focuses on the automatic
+accompaniment of music containing a quite regular pulse,                           2.1 Data Representation
+                                                                                   The score audio stream and the live input stream to be
+Copyright: c 2010 Andreas Arzt et al. This is an open-access article distributed   aligned are represented as sequences of analysis frames,
+under the terms of the Creative Commons Attribution License 3.0 Unported, which    computed via a windowed FFT of the signal with a ham-
+permits unrestricted use, distribution, and reproduction in any medium, provided   ming window of size 46ms and a hop size of 20ms. The
+the original author and source are credited.                                       data is mapped into 84 frequency bins, spread linearly up
+to 370Hz and logarithmically above, with semitone spac-
+ing. In order to emphasize note onsets, which are the most
+important indicators of musical timing, only the increase in
+energy in each bin relative to the previous frame is stored.
+
+2.2 On-line Dynamic Time Warping (ODTW)
+This algorithm is the core of our real-time audio tracking
+system. ODTW takes two time series describing the au-
+dio signals – one known completely beforehand (the score)
+and one coming in in real time (the live performance) –,
+computes an on-line alignment, and at any time returns the
+current position in the score. In the following we only give
+a short intuitive description of this algorithm, for further
+details we refer the reader to [4].
+    Dynamic Time Warping (DTW) is an off-line alignment
+method for two time series based on a local cost measure
+and an alignment cost matrix computed using dynamic pro-
+gramming, where each cell contains the costs of the opti-
+mal alignment up to this cell. After the matrix computa-
+tion is completed the optimal alignment path is obtained
+by tracing the dynamic programming recursion backwards          Figure 1. Illustration of the ODTW algorithm, showing
+(backward path).                                                the iteratively computed forward path (white), the much
+    Originally proposed by Dixon in [4], the ODTW algo-         more accurate backward path (grey, also catching the one
+rithm is based on the standard DTW algorithm, but has two       onset that the forward path misaligned), and the correct
+important properties making it useable in real-time sys-        note onsets (yellow crosses, annotated beforehand). In the
+tems: the alignment is computed incrementally by always         background the local alignment costs for all pairs of cells
+expanding the matrix into the direction (row or column)         are displayed. Also note the white areas in the upper left
+containing the minimal costs (forward path), and it has lin-    and lower right corners, illustrating the constrained path
+ear time and space complexity, as only a fixed number of        computation around the forward path.
+cells around the forward path is computed.
+    At any time during the alignment it is also possible to
+compute a backward path starting at the current position,       system in the face of possible repetitions and to avoid ran-
+producing an off-line alignment of the two time series which    dom jumps between identical parts in the score, we also
+generally is much more accurate. This constantly updated,       introduced automatically computed information about the
+very accurate alignment of the last couple of seconds will      structure of the piece to be tracked. We chose to call our
+be used heavily throughout this paper. See also Figure 1        new approach ‘Any-time Music Tracking’, as the system is
+for an illustration of the above-mentioned concepts.            continuously ready to receive input and find out what the
+    Improvements to this algorithm, focusing both on adap-      performers are doing, and where they are in the piece.
+tivity and robustness, were presented in [5] and are incor-
+porated in our system, including the ‘backward-forward             Figure 2 visually demonstrates the capabilities of our
+strategy’, which reconsiders past decisions (using the back-    system. In this case 5 different performances of the Prelude
+ward path) and tries to improve the precision of the current    in G minor Op. 23 No. 5 by Sergei Rachmaninoff are
+score position hypothesis.                                      tracked that start not at the beginning, but 20 bars into the
+    In the following, we will give a short description of a     piece. While the basic system finds the correct position
+dynamic and general solution to the problem of how to           after a long timespan (basically by chance), our ‘any-time’
+deal with structural changes effectively on-line, and then      tracker almost instantly identifies the correct position.
+describe and evaluate our main new contribution: two ways           While testing this real-time tracking system with com-
+to estimate the current tempo of a performance on-line, and     plex piano music played with a lot of expressive freedom in
+how to use this information to improve the alignment.           terms of tempo changes, we realized the need for a tempo
+                                                                model to improve the alignment accuracy and the robust-
+                                                                ness of our system. In the following we propose two simple
+ 3. ‘ANY-TIME’ REAL-TIME AUDIO TRACKING
+                                                                tempo models, one only based on the analysis of the most
+In [3] we introduced a unique feature to this system, namely    recent couple of seconds of the live performance (Section
+the ability to cope with arbitrary structural deviations from   4) and one having access to automatically extracted ad-
+the score during a live performance. At the core is a pro-      ditional knowledge about possible future tempo develop-
+cess that continually updates and evaluates high-level hy-      ments (Section 5). The result will be a robust real-time
+potheses about possible current positions in the score, which   tracker that is able to adapt to and even anticipate tempo
+are then verified or rejected by multiple instances of the      changes of the performer, thus leading to a significant in-
+basic alignment algorithm described above. To guide our         crease in alignment precision.
+                   Alignment Errors on the Prelude by Rachmaninov (without bars 0-20)   formation completely, for robustness considerations.
+                  25                                                                                            Pn
+                                                                                                                       (t ∗ i)
+                  20                                                                                       t = i=1 Pn i                           (1)
+                                                                                                                      i=1 i
+                  15
+
+
+  Error in Bars
+                  10
+                                      b)                                                   Of course, due to the simplicity of the procedure and
+                                                                                        especially the fact that only information older than 1 sec-
+                  5
+                           a)                                                           ond is used, this tempo estimation can recognize tempo
+                  0                                                                     changes only with some delay. However, the computation
+                  -5
+                                                                                        is very fast, which is important for real-time applications,
+                       0        50          100        150           200         250    and it proved very useful for the task we have in mind.
+                                            Time (Seconds)
+
+Figure 2. ’Starting in the middle’: A visual comparison                                 4.2 Feeding Tempo Information to the ODTW
+of the capabilities of the tracker in [5] and the ‘any-time’
+                                                                                        Based on the observation that both the alignment preci-
+real-time tracking system described in [3]. 5 performances
+                                                                                        sion and the robustness directly depend on the similarity
+of the g minor Prelude by Rachmaninoff, with bars 0-20
+                                                                                        between the tempo of the performance and the score rep-
+missing, are aligned to the score by both systems. For all
+                                                                                        resentation, we now use the current tempo estimate to alter
+performances, the ‘any-time’ real-time tracker (a) almost
+                                                                                        the score representation on the fly, stretching or compress-
+instantly identifies the correct position, while the old sys-
+                                                                                        ing it to match the tempo of the performance as closely as
+tem (b) finds the correct position by mere chance.
+                                                                                        possible. This is done by altering the sequence of feature
+                                                                                        vectors representing the score audio. The relative tempo is
+                  4. A (VERY) SIMPLE TEMPO MODEL                                        directly used as the probability to compress or extend the
+                                                                                        sequence by either adding new vectors or removing vec-
+4.1 Computation of the Current Tempo                                                    tors.
+                                                                                            More precisely, after every incoming frame from the
+The computation of the current tempo of the performance                                 live performance, and before the actual path computation,
+(relative to the score representation) is based on a con-                               the current relative tempo t is computed as given above,
+stantly updated backward path starting in the current po-                               where t = 1 means that the live performance and the score
+sition of the forward calculation. As the backward path, in                             representation currently are in the exact same tempo and
+contrast to the forward path which has to make its decisions                            t > 1 means that the performance is faster than the score
+on-line, has perfect information about the performance – at                             representation. The current position in the score ps is given
+least up to the current position in the performance –, it is                            by the forward path and thus coincides with the index of
+much more accurate and reliable than the forward path (see                              the last processed frame of the score representation. If
+also Figure 1).                                                                         a newly computed random number r between 0 and 1 is
+    Intuitively, the slope of such a backward path represents                           larger than t (or 1t if t > 1) an alteration step takes place.
+the relative tempo differences between the score represen-                              If t > 1, a feature vector is removed from the score repre-
+tation and the actual performance. Given a perfect align-                               sentation by replacing ps +1 and ps +2 with a mean vector
+ment, the slope between the last two onsets would give a                                of ps + 1 and ps + 2. And if t < 1, a new feature vector,
+very good estimation about the current tempo. But as the                                computed as the mean of ps and ps + 1 is inserted next into
+correctness of the alignment of these last onsets generally                             the sequence between ps and ps +1. As our system is based
+is quite uncertain, one has to discard the last few onsets                              on features emphasizing note onsets, score feature vectors
+and use a larger window over more note onsets to come up                                representing onsets (which are known from the score) are
+with a reliable tempo estimation.                                                       not duplicated, as more (and wrong) onsets would be in-
+    In particular, our tempo computation algorithm uses a                               troduced to the score representation. In such cases the al-
+method described in [6]. It is based on a rectified version of                          teration process is postponed until the next frame. Further-
+the backward alignment path, where the path between note                                more, to avoid that the system could get stuck at one frame,
+onsets is discarded and the onsets (known from the score                                alterations may take place at most 3 times in a row.
+representation) are instead linearly connected. In this way,
+possible instabilities of the alignment path between onsets
+                                                                                          5. ‘LEARNING’ TEMPO DEVIATIONS FROM
+(as, e.g., between the 2nd and 3rd onset in the lower left
+                                                                                                 DIFFERENT PERFORMERS
+corner in Fig.1) are smoothed away.
+    After computing this path, the n = 20 most recent note                              As will be shown later in Section 6, the introduction of this
+onsets which lie at least 1 second in the past are selected,                            very simple tempo model – simply using the current esti-
+and the local tempo for each onset is computed by consid-                               mated tempo to stretch/compress the reference score audio
+ering the slope of the rectified path in a window with size 3                           – already leads to considerably improved tracking results.
+seconds centered on the onset. This results in a vector vt of                           But especially at phrase boundaries with huge changes in
+length n of relative tempo deviations from the score repre-                             tempo (e.g. a slow-down or a speed-up by a factor of 2
+sentation. Finally, an estimate of the current relative tempo                           is not uncommon, see also Figure 3) the above-mentioned
+t is computed using Eq.1, which emphasizes more recent                                  delay in the recognition of tempo changes still results in
+tempo developments while not discarding older tempo in-                                 large alignment errors. Furthermore, such tempo changes
+                                                               Tempo Curves
+                 180
+                 160
+                 140
+
+
+
+
+   Tempo (bpm)
+                 120
+                 100
+                 80
+                 60          Alexeev
+                           Ashkenazy
+                 40             Biret
+                 20          Gavrilov
+                              Shelley
+                  0
+                       0                50   100          150                  200          250             300             350
+                                                                Time (Beats)
+
+
+Figure 3. Tempo curves (at the level of quarter notes) automatically extracted from 5 different commercial recordings of
+the Prelude Op. 23 No. 5 by Rachmaninoff. Note especially the slow-down around beat 130 and the subsequent speed-up
+around beat 190 and the generally big differences in timing between the performances.
+
+
+are very hard to catch instantly, even with more reactive           value of tempo curve i.
+tempo models. To cope with this problem we came up with                                 Pn
+                                                                                               [(ti,oj + ti,oj+1 )si ]
+an automatic and very general way to provide the system                             t = i=1                                   (2)
+with information about possible ways in which a performer                                             2
+might shape the tempo of the piece.                                 Intuitively, the tempo is estimated as the mean of the tempo
+                                                                    estimates at these 2 onsets, which in turn are computed
+   First we extract tempo curves from various different             as a weighted sum of the (scaled) tempi in the stored per-
+performances (audio recordings) of the piece in question.           formance curves, with each curve contributing according
+Again, as for the real-time tempo estimation, this is done          to its local similarity to the current performance. Please
+completely automatically using the method described in              note that this approach somewhat differs from typical ways
+[6] (see Section 4.1), but as the whole performance is known        of training a score follower to follow a particular perfor-
+beforehand and the tempo analysis can be done off-line              mance. We are not feeding the system with ‘rehearsal data’
+there is now no need for further smoothing of the tempo             by a particular musician, but with many different ways of
+computation. These tempo curves (see Figure 3) are di-              how to perform the piece in question, as the analyzed per-
+rectly imported into our real-time tracking system.                 formances may be by different performers and differ heav-
+                                                                    ily in their interpretation style. The system then decides
+   We use this additional information during the tracking           on-line at every iteration how to weigh the curves, effec-
+process to compute a tempo estimate based not only on               tively selecting a mixture of the curves which represents
+tracking information about the last couple of seconds, but          the current performance best.
+also on similarities to other known performances. More
+precisely, as before, after every iteration of the path com-                            6. EVALUATION
+putation algorithm the vector vt containing tempo infor-
+mation at note onsets is updated based on the backward              The precision of our system was thoroughly tested on vari-
+path and the above-mentioned local tempo computation                ous pieces of music (see Table 1), with very well known
+method. But now the tempo curve of the live performance             musicians like Vladimir Horowitz, Vladimir Ashkenazy
+over the last w = 50 onsets, again located at least 1 sec-          and Daniel Barenboim amongst the performers. While we
+ond in the past, is compared to the previously stored tempo         currently focus on classical piano music, to show the inde-
+curves at the same position. To do this all n tempo curves          pendence of specific instruments we also tested our system
+are first normalized to represent the same mean tempo over          on an oboe sonata by Mozart and the 1st movement of the
+these w onsets as the live performance. The Euclidean dis-          5th symphony by Beethoven.
+tances between the curve of the live performance and the                As for the evaluation reference alignments of the perfor-
+stored curves are computed. These distances are inverted            mances are needed, Table 1 also indicates how the ground
+and normalized to sum up to 1, thus now representing the            truth data was prepared. For the performance excerpts of
+similarity to the tempo curve of the live performance.              the Ballade Op. 38 No. 1 by Chopin (CB) we have ac-
+                                                                    cess to very accurate data about every note onset (‘match-
+    Based on the stored tempo curves our system can now             files’), as these were recorded on a computer-monitored
+estimate the tempo at the current position. As the current          grand piano. For the performances of the 3 movements of
+position should be somewhere between the last aligned on-           Mozart’s Sonata KV279 (MS) the evaluation is based on
+set oj and the onset oj+1 to be aligned next, we compute            exact information about every beat time, which was manu-
+the current tempo t according to Formula 2, where ti,oj and         ally compiled. The evaluation of the other pieces is based
+ti,oj+1 represent the (scaled) tempo information of curve i         on off-line alignments produced by our system, which gen-
+at onset oj and oj+1 respectively, and si is the similarity         erally are much more precise than on-line alignments. We
+ ID        Composer           Piece Name                            Instruments                    # Perf.    Eval. Type
+ BF        Bach               Fugue BMV847                          Piano                          7          Offline Align.
+ BS        Beethoven          5th Symphony, 1st Movement            Orchestra                      5          Offline Align.
+ CB        Chopin             Ballade Op. 38 No. 1 (excerpt)        Piano                          22         Match
+ CW        Chopin             Waltz Op. 34 No. 1                    Piano                          8          Offline Align.
+ MO1       Mozart             Oboe Quartet KV370 Mov. 1             Oboe, Violin, Viola, Cello     5          Offline Align.
+ MO3       Mozart             Oboe Quartet KV370 Mov. 3             Oboe, Violin, Viola, Cello     5          Offline Align.
+ MS1       Mozart             Sonata KV279 Mov. 1                   Piano                          5          Beats
+ MS2       Mozart             Sonata KV279 Mov. 2                   Piano                          5          Beats
+ MS3       Mozart             Sonata KV279 Mov. 3                   Piano                          5          Beats
+ RP        Rachmaninoff       Prelude Op. 23 No. 5                  Piano                          5          Offline Align.
+ SI        Schubert           Impromptu D935 No. 2                  Piano                          12         Offline Align.
+
+                       Table 1. The data set used for the evaluation of our real-time tracking system.
+
+
+
+are well aware that this information is not guaranteed to         cially for the Schubert Impromptu (SI), the Rachmaninov
+be entirely accurate, but we manually checked the align-          Prelude (RP) and the Chopin Waltz (CW), for which the
+ments for obvious errors and are quite confident that the re-     number of missed notes is more than halved. Nonetheless
+sults based on these alignments are reasonable, especially        these kinds of music still pose a great challenge to real-
+as evaluations of CB and MS based on these alignments             time tracking systems. As the results for the Beethoven
+led to very similar numbers compared to the evaluation on         Symphony (BS) show, our system can also cope quite well
+the correct reference alignments.                                 with orchestral music and does not depend on specific in-
+    For all pieces we used audio files synthesized from pub-      struments. This is also supported by the results on the
+licly available ‘flat’ MIDI files with fixed tempo as score       Oboe Quartet (MO).
+representation, only the MIDI representing the Beethoven              As was to be expected, the results for pieces with less
+Symphony contained sparse tempo annotations.                      extreme tempo deviations were improved to a much smaller
+    The evaluation took the form of a cross-validation. Ev-       extent. Further investigation showed that as intended, the
+ery performance in our data set (Table 1) was aligned with        ‘learned’ tempo curves guided the alignment path more ac-
+3 algorithms: the system introduced in [5] with only mi-          curately and more reactively during huge tempo changes
+nor changes and optimizations; the system including the           (i.e., at phrase boundaries).
+simple tempo model (Section 4); and the tempo model that              Unfortunately it is not easy to make comparisons be-
+has access to a set of possible performance strategies (Sec-      tween different approaches in the literature, as the focus
+tion 5). For the latter, all recordings pertaining to the given   on a particular kind of music (e.g. contemporary vs. ro-
+piece were used except, of course, for the performance cur-       mantic piano music or monophonic vs. heavily polyphonic
+rently being aligned. The result, for each performance and        music) and the area of application (e.g. automatic accom-
+each algorithm, is a set of events with detection times in        paniment vs. visualization of music) have a huge influence
+milliseconds.                                                     on the design of the system. That makes it hard to com-
+    The evaluation itself was performed as proposed in [7].       pile a well-balanced ground truth database suitable for all
+For each event i the difference (offset ei ) in milliseconds      systems.
+to the reference alignment is computed. An event i is re-             With this in mind, and the fact that most of our results
+ported as missing if it is aligned with ei > 250ms. This          are currently only computed relative to off-line alignments
+percentage of notes thus misaligned (or, inversely, the per-      as ground truth, we merely want to point out some obser-
+centage of correctly aligned notes) is the main performance       vations. First there is an overlap between our data set and
+measure for a real-time music tracking system. Further            the one used for the evaluation of ‘Antescofo’ [2], which
+statistics, providing information about the alignment preci-      was already used professionally in a number of live per-
+sion on those events that were correctly matched, and thus        formances. Using the same evaluation metrics, our sys-
+computed on ei excluding missed events (eci ), are the av-        tem performed significantly better (1.9% vs. 9.33% missed
+erage error, defined as the mean over the absolute values         notes) on the Fugue by Bach (BF). Of course the result for
+of all eci , the mean error, defined as the regular mean with-    ‘Antescofo’ is based on only 1 single performance, which
+out taking the absolute value, and the standard deviation of      may not even be in our data set. Furthermore, we are
+eci . Finally two measures are computed which sum up the          quite sure that our system will perform significantly worse
+overall performance of the system: the piecewise precision        than ‘Antescofo’ on sparse monophonic data, as we do not
+rate (PP) as the average of the percentage of correctly de-       explicitly detect note onsets and our forward path tends
+tected events for each group of performances (see Table 1)        to ‘randomly’ wander around during long pauses between
+and the overall precision rate (OP) on the whole database.        note onsets. Also, we allow our system to report notes
+    Table 2 summarizes the results. Clearly, both tempo           early while ‘Antescofo’ is purely reactive, thus effectively
+models lead to large improvements in tracking accuracy            giving our system twice as large a window to report onsets
+for pieces played with a lot of expressive freedom, espe-         ‘correctly’. While for the task of automatic accompani-
+               No Tempo Model                          Simple Tempo Model               ‘Learned’ Tempo Model
+              Offset (ms)        %                      Offset (ms)       %               Offset (ms)         %
+     ID  Avg.   Mean STD       Miss               Avg.    Mean STD      Miss         Avg.    Mean STD       Miss
+     BF  52.1   -15.3 70.4     2.7%               41.7    0.1      61.3 2.2%         41.3    -0.3     59.3  1.9%
+     BS  84.1   4.3      106.5 15.9%              79.0    -11.6 100.8 15.0%          78.3    -6.4     100.3 13.9%
+     CB  63.1   16.6     83.7  10.9%              62.4    8.6      83.8 10.0%        63.1    3.9      85.2  9.9%
+     CW 86.3    -24.6 107.1 27.6%                 78.7    -23.2 99.2    16.3%        75.4    -20.2 95.7     11.9%
+     MO1 94.8   -75.7 89.1     15.0%              70.1    -22.8 90.0    7.0%         72.1    -30.5 89.9     6.9%
+     MO3 99.9   -84.5 85.3     18.4%              64.3    -18.0 84.0    7.9%         65.7    -16.9 85.8     7.0%
+     MS1 47.4   13.8     64.5  3.6%               44.9    9.7      62.5 3.3%         42.7    10.1     59.5  3.2%
+     MS2 85.6   -21.3 104.8 19.8%                 71.8    -4.7     93.7 13.8%        73.3    -6.4     94.5  11.3%
+     MS3 44.1   28.7     58.4  3.9%               40.2    6.7      59.5 3.3%         39.5    9.9      58.5  2.1%
+     RP  79.8   -18.7 102.0 31.8%                 75.5    -10.5 96.8    17.1%        70.9    -10.6 93.2     14.8%
+     SI  107.3 -59.2 113.9 41.8%                  77.9    -32.8 95.2    23.6%        78.7    -33.1 95.7     20.1%
+     OP              83.2%                                     89.7%                              91.1%
+      PP             81.1%                                     87.9%                              91.4%
+
+                        Table 2. Real-time alignment results for all 3 evaluated systems (see text).
+
+
+
+ment notes reported early are very bothersome, we think         both an estimation of the timing and an analysis of the in-
+that for the task of real-time music visualization, which is    coming audio frames. Furthermore we should think about
+our current focus, this is more tolerable.                      ways to use the extracted tempo information to further im-
+   Unfortunately, we could not find a comparable evalu-         prove the high level ‘any-time’ tracking process (not de-
+ation of ‘Music Plus One’ [1], which, like our system,          scribed in this paper – see [3]).
+focuses on classical music. However, a number of live
+demonstrations and available videos suggest that the sys-                     8. ACKNOWLEDGEMENTS
+tem works very well in real-time accompaniment settings,
+not only reacting to tempo changes, but actually predicting     This research is supported by the City of Linz, the Federal
+them quite well.                                                State of Upper Austria, and the Austrian Federal Ministry
+   That said, our real-time tracking system combines com-       for Transport, Innovation and Technology, and the Aus-
+petitive alignment results with a unique feature not found      trian Science Fund (FWF) under project number TRP 109-
+in the above-mentioned systems: the ability to cope with        N23.
+arbitrary jumps of the performer(s) on-line by continuously
+tracking the performance at a coarser level and refining hy-                        9. REFERENCES
+potheses about the current score position (see Section 3).
+This not only allows to, e.g., automatically cope with arbi-    [1] C. Raphael, “Current directions with music plus one,”
+trary rehearsal situations, where the musician(s) may keep          in Proc. of the Sound and Music Computing Confer-
+repeating parts of the piece over and over, but effectively         ence (SMC), (Porto, Portugal), 2009.
+makes it impossible for the system to get lost. (Detailed
+experimental proof of that can be found in [3].)                [2] A. Cont, “A coupled duration-focused architecture for
+                                                                    realtime music to score alignment,” IEEE Transactions
+                                                                    on Pattern Analysis and Machine Intelligence, vol. 99,
+      7. CONCLUSION AND FUTURE WORK                                 2009.
+We have presented a new approach to the incorporation
+                                                                [3] A. Arzt and G. Widmer, “Towards effective ‘any-
+of tempo information into a very robust real-time track-
+                                                                    time’ music tracking,” in Proc. of the Starting AI Re-
+ing system that is capable of dealing on-line with almost
+                                                                    searchers’ Symposium (STAIRS 2010), European Con-
+arbitrary structural deviations from the score. We demon-
+                                                                    ference on Artificial Intelligence (ECAI), (Lisbon, Por-
+strated two ways to compute a tempo estimate, one only
+                                                                    tugal), 2010.
+based on the alignment of the last couple of seconds of the
+performance, and one additionally based on a collection of      [4] S. Dixon, “An on-line time warping algorithm for
+previously extracted possible timing patterns, thus giving          tracking musical performances,” in Proc. of the 19th
+the system the means to anticipate tempo changes of the             International Joint Conference on Artificial Intelli-
+performer. The system was evaluated on a range of pieces            gence (IJCAI), (Edinburgh, Scotland), 2005.
+from Western classical music. Both tempo models lead
+to significantly improved alignment results, especially for     [5] A. Arzt, G. Widmer, and S. Dixon, “Automatic page
+pieces played with a lot of expressive freedom.                     turning for musicians via real-time machine listening,”
+   An important direction for future work is the introduc-          in Proc. of the 18th European Conference on Artificial
+tion of explicit event detection into our system, based on          Intelligence (ECAI), (Patras, Greece), 2008.
+[6] M. Mueller, V. Konz, A. Scharfstein, S. Ewert, and
+    M. Clausen, “Towards automated extraction of tempo
+    parameters from expressive music recordings,” in Proc.
+    of the International Society for Music Information Re-
+    trieval Conference (ISMIR), (Kobe, Japan), 2009.
+
+[7] A. Cont, D. Schwarz, N. Schnell, and C. Raphael,
+    “Evaluation of real-time audio-to-score alignment,” in
+    Proc. of the 8th International Conference on Music In-
+    formation Retrieval (ISMIR), (Vienna, Austria), 2007.
+

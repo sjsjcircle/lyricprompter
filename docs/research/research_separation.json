@@ -1,0 +1,167 @@
+{
+ "topic": "separation",
+ "recommendation": "STACK. Run the offline separation step with python-audio-separator (PyPI \"audio-separator\" 0.47.0, released 2026-08-27, MIT). Give it its own uv venv on Python 3.12, outside the alignment/tracking environment, and call it as a subprocess or worker. It brings torch 2.14.1 (cp312 macOS 14+ arm64 wheels). On Apple Silicon the package requires torch>=2.13,<3. Every RoFormer, Demucs and VR model runs on PyTorch MPS, and ONNX MDX models use the ONNX Runtime CoreML execution provider. Use 3.12, not 3.13: onnx-weekly, a required dependency, currently publishes no macOS cp313 wheel, so it would have to build from source. 3.14.1 is explicitly excluded. Through the Python API you load a catalog model by filename, separate, and get WAVs written to output_dir. The catalog has 80+ RoFormer models, including all the vocal, karaoke and de-reverb models below. Models download automatically from GitHub releases on first use. Set model_file_dir to a persistent cache, because the default is /tmp/audio-separator-models and macOS clears /tmp on reboot.\n\nDEFAULT MODELS FOR THE PREP CHAIN. Separation runs at 44.1 kHz stereo. Only afterwards are copies downmixed and resampled to 16 kHz mono for the tracker and aligner.\n(1) Vocals and instrumental: bs_roformer_vocals_resurrection_unwa.ckpt (unwa BS-RoFormer \"Resurrection\" vocals; 204 MB). It scores 11.34 dB vocal SDR on MVSep Multisong and has a very high \"bleedless\" score (39.99), meaning little instrument leakage. That matters more for alignment and phoneme features than \"fullness\". Output stems are named \"vocals\" and \"other\".\nLicense-clean drop-in: vocals_mel_band_roformer.ckpt (Kim Mel-Band RoFormer, MIT on Hugging Face, 913 MB). It scores about 10.98 dB on Multisong and 12.6 median on audio-separator's own MUSDB evaluation, the top entry there.\n(2) Lead vs backing: bs_roformer_karaoke_frazer_becruily.ckpt (204 MB). MVSep reports 10.11 dB lead-vocal SDR, the best downloadable single karaoke model. Feed it the FULL MIX. Its \"Vocals\" output is the lead; \"Instrumental\" is the accompaniment plus backing vocals. Alternatives are mel_band_roformer_karaoke_aufr33_viperx_sdr_10.1956.ckpt or the built-in ensemble_preset=\"karaoke\" (3 models, about 10.6 dB).\n(3) Optional de-reverb on the lead stem only (these models are trained on vocals only): dereverb_mel_band_roformer_mono_anvuew.ckpt (913 MB, GPL-3.0 weights). Its stems are \"noreverb\" and \"reverb\".\nFAST FALLBACK: demucs-mlx 1.6.1 with htdemucs (MIT, 160 MB of MLX safetensors, no PyTorch). The author measured 114x realtime on an M4 Max, so a 4-minute song should take seconds. Expect clearly lower vocal quality: Demucs v4 vocals score about 8.2–8.4 dB on Multisong vs about 11.3 for current RoFormers, with more hi-hat and synth bleed. Inside audio-separator, the equivalent is htdemucs.yaml, measured at about 30 s per 4-minute song on an M4 Pro.\n\nRUNTIME ON THIS MACHINE CLASS. audio-separator PR #298 benchmarked v0.47.0 on an Apple M4 Pro with 24 GB, the same RAM as this M5 Pro. Times are warm medians for a 99 s stereo track. Kim Mel-Band: 27.2 s at fp32, 24.1 s with autocast, 18.0 s with torch.compile. Mel karaoke: 27.1 s. BS-RoFormer viperx-1297: 63.0 s fp32, 46.3 s compiled. HTDemucs: 12.4 s. VR DeEcho: 12.8 s. Scaled to a 4-minute song: Kim about 1.0–1.1 min, viperx-1297 about 2.5 min, htdemucs about 30 s. The dim-256 BS models (Resurrection, karaoke frazer) are smaller and should take roughly 0.5–1.2 min each. That figure is my estimate, not a measurement. The full vocals + karaoke + de-reverb chain is therefore about 2–4 minutes per song, done once offline and cached. The M5 Pro GPU (16 cores with neural accelerators) should match or beat the M4 Pro. Run the benchmark script below to confirm. The MLX port mlx-audio-separator measured 2.16x faster than audio-separator for BS-RoFormer, though that comparison predates PR #298's 14–34% MPS speedups.\n\nSHOULD YOU DE-REVERB OR SPLIT LEAD AND BACKING? For the vocal-only live mode, yes on both, for the reference. A direct vocal mic or channel carries only the lead singer(s) and is essentially dry if tapped before the effects. A reference that still has backing harmonies and reverb tails adds pitch classes and sustained energy the live input lacks, which directly hurts the chroma and phoneme DTW cost. So the default vocal-only reference should be lead_dry (karaoke, then de-reverb), with the full vocals stem as a per-song fallback. Fall back when the karaoke lead is near-silent where lyrics exist, which happens with hard-panned leads or duets. Note how the karaoke models behave: simultaneous main singers, doubles and ad-libs all count as \"lead\", and only true background vocals are removed. That suits a summed vocal bus (for example several K-pop members) but not tracking one member's mic.\nFor forced alignment, align on the lead stem by default. Align parenthetical or backing lyric lines on the full vocals stem, because they are absent from the lead. Treat de-reverb as an A/B option chosen by aligner confidence, not as always-on. The anvuew models are aggressive: they collapse the signal to mono, remove off-center harmonies and effects, and can thin breathy or falsetto syllables, which helps word-end timing but can delete soft syllables.\nFor full-mix mode, the reference is the original mix. Also keep the instrumental stem. If the show plays the original MR (backing track), it is a near-exact reference that ignores the singer's deviations.\n\nDEMUCS STATUS. facebookresearch/demucs is archived (last push April 2024). The official continuation is adefossez/demucs; v4.1.0 was published to PyPI on 2026-07-11. It has modern packaging, uses sphn instead of torchaudio for inference, loads checkpoints with weights_only=False for torch>=2.6, and hosts weights on Hugging Face. pip install demucs works with torch 2.14 and the CLI auto-selects MPS. The maintainer says it is not under active development, so it is a maintained-but-frozen fallback, not the main path.\n\nNEWEST MODELS (2025–2026). The best downloadable vocal checkpoints are unwa's BS-RoFormer Leap and Leap Xe (Hugging Face pcunwa/BS-Roformer-Leap; 11.72 and 11.79 dB on Multisong; about 268 MB; no license stated). Also new is ZFTurbo's BS PolarFormer, a BS-RoFormer with PoPE (11.00 dB; 102 MB fp16; released from the MIT-licensed MSST repository). Neither is in the audio-separator catalog. To try them, use the cloned MSST repo's inference.py in a separate venv: it auto-selects MPS, while the PyPI \"msst\" 0.1.0 package pins torch<2.12. MVSep's own 124-band BS-RoFormer (12.33 dB) and its SCNet XL IHF vocal and karaoke models are available only through MVSep's service. Public SCNet weights were trained on MUSDB only (about 9.7 dB vocals) and are not worth using here.",
+ "alternatives": [
+  {
+   "name": "python-audio-separator 0.47.0 + RoFormer models (RECOMMENDED)",
+   "pros": "One Python API covers vocal, karaoke and de-reverb models from the UVR community catalog (80+ RoFormers) with automatic download. Runs on PyTorch MPS, with CoreML for ONNX models. Optional autocast, native fp16 and regional torch.compile are verified for RoFormers on MPS, and compile cuts warm time by 26–34%. Built-in ensembles and presets (vocal_balanced, vocal_clean, karaoke). MIT code; actively maintained (releases Jul–Aug 2026; repo pushed 2026-10-01).",
+   "cons": "Only catalog models load; unknown filenames raise ValueError. Strict pins (samplerate==0.1.0, beartype<0.19, rotary-embedding-torch<0.7, numpy>=2, torch>=2.13). samplerate 0.1.0 ships an x86-only dylib on arm64 (issue #293, open). diffq builds from source on Python 3.11/3.12. Most community weights carry no license, or a GPL/non-commercial one."
+  },
+  {
+   "name": "demucs-mlx 1.6.1 (fast fallback)",
+   "pros": "MIT. Native MLX port of Demucs with no PyTorch at inference. htdemucs measured at 114x realtime warm on an M4 Max (PyTorch MPS: 42x), so a 4-minute song takes seconds. 160 MB of SHA-checked safetensors from Hugging Face. The stem='vocals' option runs only the htdemucs_ft vocal specialist. Simple Python API returning numpy arrays.",
+   "cons": "Demucs v4 vocal quality is about 3 dB below current RoFormers on out-of-domain material, with more bleed. Small single-maintainer project (44 stars). Requires mlx 0.32.x. MLX caches a lot of GPU memory, so cap it with mx.set_cache_limit on 24 GB."
+  },
+  {
+   "name": "demucs 4.1.0 (adefossez/demucs, PyTorch)",
+   "pros": "Officially maintained continuation, released 2026-07-11. Works with torch>=2.6 and the 2.14 line; no torchaudio needed for inference; weights on Hugging Face; MIT code and weights. demucs.api.Separator Python API. About 30 s per 4-minute song for htdemucs on M4 Pro-class MPS.",
+   "cons": "Maintainer says no active development. Lower vocal SDR than RoFormers. The Python API defaults to cuda/cpu, so pass device='mps'. htdemucs_ft is a bag of 4 models (4x slower). STFT runs on the CPU when the model is on MPS."
+  },
+  {
+   "name": "mlx-audio-separator 0.1.20",
+   "pros": "MLX port of the audio-separator catalog (RoFormer, MDXC, MDX, VR, Demucs) with the same Separator API. Measured 2.16x faster than audio-separator for BS-RoFormer viperx-1297 and 2.5x for a Mel instrumental model on an M4 mini. 163/163 catalog models passed its release gate. MIT.",
+   "cons": "Very young (17 stars, single maintainer). First run converts .ckpt files and needs the [convert] extra (torch). Its catalog snapshot lacks the BS karaoke models (frazer/becruily, anvuew). The speed comparison predates audio-separator's own MPS optimizations."
+  },
+  {
+   "name": "ZFTurbo Music-Source-Separation-Training (MSST) inference.py / PyPI 'msst' 0.1.0",
+   "pros": "Loads any config+checkpoint, so it can run the newest models: BS-RoFormer Leap Xe (best downloadable vocal SDR, 11.79) and BS PolarFormer (102 MB fp16, MIT-licensed release). The repo's inference.py auto-selects MPS. MIT code.",
+   "cons": "PyPI msst pins torch<2.12, which conflicts with audio-separator's >=2.13, and its documented API covers CUDA/CPU only. The repo's requirements.txt is heavy (bitsandbytes, wandb, transformers~=4.35, protobuf 3.20). Needs a separate venv; you manage configs and checkpoints yourself."
+  },
+  {
+   "name": "openmirlab bs-roformer-infer / melband-roformer-infer",
+   "pros": "Lightweight inference wrappers with registries that include Leap, HyperACE, karaoke and de-reverb checkpoints, SHA-verified.",
+   "cons": "bs-roformer-infer explicitly refuses device='mps' (Torch CUDA/CPU only), so it would run on the CPU on a Mac. Small projects."
+  },
+  {
+   "name": "MVSep.com API (cloud)",
+   "pros": "Highest scores: BS-RoFormer 124-band 12.33 dB vocal SDR, MVSep Team 3-stem karaoke (lead/back/instrumental), SCNet XL IHF models.",
+   "cons": "Not local; paid queue or API; uploads copyrighted audio; proprietary models. Unsuitable for an offline, reproducible prep pipeline."
+  }
+ ],
+ "key_facts": [
+  {
+   "claim": "audio-separator latest is 0.47.0 (2026-08-27), requires Python >=3.10,!=3.14.1, MIT. On darwin arm64 it requires torch>=2.13,<3; the [cpu] extra adds onnxruntime>=1.17. Default load_model() model is model_bs_roformer_ep_317_sdr_12.9755.ckpt.",
+   "source": "https://pypi.org/pypi/audio-separator/json ; github.com/nomadkaraoke/python-audio-separator pyproject.toml and separator.py",
+   "confidence": "high"
+  },
+  {
+   "claim": "On Apple Silicon, audio-separator runs RoFormer, MDXC, VR and Demucs models on PyTorch MPS and ONNX MDX models with the CoreML execution provider. Autocast, native fp16 and regional torch.compile are verified for Mel/BS-RoFormer on MPS.",
+   "source": "python-audio-separator README (Apple Silicon section and the inference precision and compilation section)",
+   "confidence": "high"
+  },
+  {
+   "claim": "Measured MPS timings, Apple M4 Pro 24 GB, audio-separator PR #298 build, 99 s stereo input, warm medians. Kim Mel-Band: 27.2 s fp32 / 24.1 s autocast / 18.0 s torch.compile. Mel karaoke: 27.1 s. BS-RoFormer viperx-1297: 63.0 s fp32 / 54.1 s autocast / 46.3 s compile. HTDemucs: 12.4 s. VR DeEcho: 12.8 s.",
+   "source": "https://github.com/nomadkaraoke/python-audio-separator/pull/298",
+   "confidence": "high"
+  },
+  {
+   "claim": "Scaled to a 4-minute song on M4/M5 Pro-class MPS: Kim Mel about 1.0–1.1 min, viperx BS-RoFormer about 2.5 min, htdemucs about 30 s. Dim-256 BS models (Resurrection, karaoke frazer) are estimated at about 0.5–1.2 min each, and the full vocals + karaoke + de-reverb chain at about 2–4 min.",
+   "source": "Linear extrapolation from PR #298 numbers plus model-size reasoning (my estimate)",
+   "confidence": "medium"
+  },
+  {
+   "claim": "MVSep Multisong vocal SDR for downloadable models: BS-RoFormer Leap Xe (unwa) 11.79; Leap 11.72; anvuew BS vocals FT1 11.47; becruily Mel 'deux' 11.37; Resurrection vocals 11.34; BS-RoFormer SW 11.30–11.36. The proprietary MVSep BS-RoFormer 124-band scores 12.33.",
+   "source": "https://mvsep.com/quality_checker/multisong_leaderboard?sort=vocals (pages 1–4)",
+   "confidence": "high"
+  },
+  {
+   "claim": "Multisong vocal SDR of older public models: viperx BS-RoFormer 1297: 10.87; Kim Mel-Band RoFormer: 10.98; BS PolarFormer: 11.00; HTDemucs4 FT vocals: 8.38; htdemucs 4-stem vocals: 8.24.",
+   "source": "ZFTurbo MSST docs/pretrained_models.md",
+   "confidence": "high"
+  },
+  {
+   "claim": "Community bleedless/fullness/SDR metrics: Resurrection vocals 39.99/15.14/11.34; Revive 2 40.07/15.13/10.97 (dim 512, depth 12, slow); Mel FT2 bleedless 39.30/15.77/11.05.",
+   "source": "deton24 separation guide snapshot 2026-03-15, bundled in python-audio-separator/docs",
+   "confidence": "medium"
+  },
+  {
+   "claim": "Karaoke (lead vs backing): BS-RoFormer karaoke by frazer & becruily has lead SDR 10.11, the best downloadable single model as of MVSep's 2025-09 post. The MVSep Team BS karaoke (10.41) is MVSep-only. A 3-model ensemble reaches about 10.6. These models treat simultaneous main singers, doubles and ad-libs as lead, and struggle with leads that are not centered.",
+   "source": "https://mvsep.com/news/64 ; deton24 guide; python-audio-separator ensemble_presets.json",
+   "confidence": "medium"
+  },
+  {
+   "claim": "Download sizes: Resurrection vocals 204.5 MB; karaoke frazer/becruily 204.4 MB; Kim Mel vocals 913.1 MB; Mel karaoke aufr33/viperx 913.1 MB; Mel karaoke becruily 1719 MB; anvuew Mel de-reverb (each variant) 913.1 MB; anvuew BS de-reverb 22.5050 204.5 MB; viperx BS 1297 639.3 MB; BS-Roformer-SW 699.4 MB; Big Beta 6X 1708 MB; Leap Xe vocals 267.8 MB; BS PolarFormer fp16 102.4 MB; UVR-MDX-NET-Voc_FT.onnx 66.8 MB; UVR-DeEcho-DeReverb.pth 223.7 MB; demucs-mlx htdemucs 160 MB.",
+   "source": "HTTP HEAD on GitHub release assets (TRvlvr/model_repo, nomadkaraoke model-configs, ZFTurbo releases) and the Hugging Face tree API",
+   "confidence": "high"
+  },
+  {
+   "claim": "Weight licenses. Kim Mel-Band RoFormer: MIT. Demucs: MIT. anvuew models (karaoke_bs_roformer, dereverb_mel/bs, BS-RoFormer vocals): GPL-3.0. Sucial dereverb-echo: CC BY-NC-SA 4.0. becruily 'deux' and 'delimit': CC BY-NC 4.0. unwa (Resurrection, Revive, FT, Big Beta, Leap), becruily karaoke/vocals, Gabox and viperx (TRvlvr): no license stated. BS-Roformer-SW: provenance and license unknown.",
+   "source": "Hugging Face model API license tags; GitHub repo license fields; bs-roformer-infer README",
+   "confidence": "high"
+  },
+  {
+   "claim": "facebookresearch/demucs is archived (last push 2024-04-24). adefossez/demucs is the officially maintained continuation: v4.1.0 on PyPI 2026-07-11 (Python>=3.10, torch>=2.1, sphn instead of torchaudio for inference, weights_only=False for torch>=2.6, weights on HF). The maintainer says he is not actively working on it.",
+   "source": "GitHub API repos/facebookresearch/demucs; adefossez/demucs README and docs/release.md; PyPI",
+   "confidence": "high"
+  },
+  {
+   "claim": "demucs CLI auto-selects MPS on Apple Silicon, but demucs.api.Separator defaults to device='cuda' if available else 'cpu', so pass device='mps' explicitly.",
+   "source": "adefossez/demucs demucs/separate.py and demucs/api.py",
+   "confidence": "high"
+  },
+  {
+   "claim": "demucs-mlx 1.6.1 (2026-10-05): htdemucs 120 s clip in 1.05 s on M4 Max (114x RT) vs 2.82 s on PyTorch 2.14.1 MPS and 19.4 s on CPU. Requires mlx 0.32.x. stem='vocals' with htdemucs_ft runs only the vocal specialist.",
+   "source": "github.com/ssmall256/demucs-mlx README and demucs_mlx/api.py",
+   "confidence": "high"
+  },
+  {
+   "claim": "mlx-audio-separator 0.1.20 runs the audio-separator catalog on MLX: 2.16x faster than PAS for model_bs_roformer_ep_317, 2.5x for a Mel model, 1.4x for htdemucs_ft (M4 mini). BS-Roformer-SW took 21.0 s for a 195 s track. Converting .ckpt files needs the [convert] extra (torch).",
+   "source": "github.com/ssmall256/mlx-audio-separator README, docs/release-validation.md, CHANGELOG.md",
+   "confidence": "high"
+  },
+  {
+   "claim": "samplerate==0.1.0, pinned by audio-separator, bundles an x86_64-only libsamplerate.dylib, so importing it fails on arm64 (issue #293, open; 0.2.4 works). audio-separator only reaches samplerate through librosa sinc_* resampling in VR-arch modelparams; the RoFormer and Demucs paths do not import it.",
+   "source": "https://github.com/nomadkaraoke/python-audio-separator/issues/293 ; grep of audio_separator source",
+   "confidence": "medium"
+  },
+  {
+   "claim": "onnx-weekly (an audio-separator dependency) publishes macOS arm64 wheels for cp311, cp312, cp314 and cp315 but not cp313 in recent dev builds. onnxruntime 1.31.0 requires Python >=3.11. diffq 0.2.4 has macOS arm64 wheels only up to cp310, so it builds from sdist with Cython (needs Xcode CLT).",
+   "source": "PyPI JSON for onnx-weekly, onnxruntime, diffq",
+   "confidence": "high"
+  },
+  {
+   "claim": "anvuew de-reverb models are meant for isolated vocals only. They were trained on mono single-singer dry vocals, so output tends toward mono, and they remove off-center harmonies and effects. The mono_sdr_20.4029 variant fixed a training alignment bug and de-reverbs more strongly.",
+   "source": "huggingface.co/anvuew/dereverb_mel_band_roformer README; deton24 guide de-reverb section",
+   "confidence": "medium"
+  },
+  {
+   "claim": "audio-separator separate() returns output filenames relative to output_dir. Stem names come from the model YAML: Resurrection 'vocals'/'other'; karaoke frazer 'Vocals'/'Instrumental'; anvuew de-reverb 'noreverb'/'reverb'. custom_output_names keys are matched case-insensitively. Default normalization_threshold=0.9 scales a stem down only when its peak exceeds 0.9.",
+   "source": "audio_separator/separator/common_separator.py and mdxc_separator.py; nomadkaraoke model-configs YAMLs",
+   "confidence": "high"
+  },
+  {
+   "claim": "The PyPI msst 0.1.0 package (2026-09-09) pins torch<2.12 and Python <3.14; its API docs cover CUDA or CPU only. The repo's inference.py picks MPS when available.",
+   "source": "PyPI msst JSON; MSST docs/compatibility.md and inference.py",
+   "confidence": "high"
+  }
+ ],
+ "code_snippets": "# ---------- 0) Environment: a separate venv just for separation (Python 3.12) ----------\nuv venv -p 3.12 ~/.venvs/lp-sep && source ~/.venvs/lp-sep/bin/activate\nuv pip install \"audio-separator[cpu]==0.47.0\" soxr soundfile   # pulls torch 2.14.1 (MPS), onnxruntime 1.31 (CoreML EP)\n# Only if you will use VR-arch models (UVR-DeEcho-DeReverb.pth, BVE ...): replace the x86-only samplerate 0.1.0\necho \"samplerate==0.2.4\" > /tmp/sep-overrides.txt && uv pip install --override /tmp/sep-overrides.txt \"audio-separator[cpu]==0.47.0\"\naudio-separator --env_info   # expect: \"setting Torch device to MPS\" + \"CoreMLExecutionProvider available\"\nuv pip install \"demucs-mlx==1.6.1\"                               # fast fallback, no torch needed\n\n# ---------- 1) Default prep chain (Python API) ----------\nimport os, pathlib, soundfile as sf, soxr\nfrom audio_separator.separator import Separator\n\nMODEL_DIR = os.path.expanduser(\"~/.cache/lyrics-prompter/sep-models\")   # NOT the default /tmp/...\nM_VOCALS   = \"bs_roformer_vocals_resurrection_unwa.ckpt\"   # license-clean alt: \"vocals_mel_band_roformer.ckpt\" (MIT)\nM_KARAOKE  = \"bs_roformer_karaoke_frazer_becruily.ckpt\"    # input = FULL MIX; 'Vocals' = lead\nM_DEREVERB = \"dereverb_mel_band_roformer_mono_anvuew.ckpt\" # input = vocal stem only (GPL-3.0 weights)\n\ndef separate_song(mix_path: str, out_dir: str, lead=True, dereverb=True) -> dict:\n    out = pathlib.Path(out_dir); out.mkdir(parents=True, exist_ok=True)\n    sep = Separator(model_file_dir=MODEL_DIR, output_dir=str(out), output_format=\"WAV\",\n                    normalization_threshold=1.0,   # keep relative stem gains\n                    use_autocast=True)             # verified for RoFormers on MPS (~10-16% faster)\n    sep.load_model(model_filename=M_VOCALS)\n    sep.separate(mix_path, {\"vocals\": \"vocals\", \"other\": \"instrumental\"})  # keys = model stem names (case-insensitive)\n    res = {\"vocals\": out / \"vocals.wav\", \"instrumental\": out / \"instrumental.wav\"}\n    if lead:\n        sep.load_model(model_filename=M_KARAOKE)\n        sep.separate(mix_path, {\"Vocals\": \"lead\", \"Instrumental\": \"inst_plus_bv\"})\n        res[\"lead\"] = out / \"lead.wav\"\n    if dereverb:\n        sep.load_model(model_filename=M_DEREVERB)\n        sep.separate(str(res.get(\"lead\", res[\"vocals\"])), {\"noreverb\": \"lead_dry\", \"reverb\": \"lead_reverb\"})\n        res[\"lead_dry\"] = out / \"lead_dry.wav\"\n    for k, p in res.items():   # returned names are relative to output_dir; check files really exist (cf. issue #297)\n        if not p.exists() or p.stat().st_size == 0:\n            raise RuntimeError(f\"stem {k} missing: {p}\")\n    return res\n\ndef to_16k_mono(src, dst):  # tracker / aligner input; apply the SAME resampler to the live path\n    y, sr = sf.read(src, dtype=\"float32\", always_2d=True)\n    sf.write(dst, soxr.resample(y.mean(axis=1), sr, 16000, quality=\"HQ\"), 16000, subtype=\"FLOAT\")\n\n# Mapping for live modes:\n#   mode (a) live full mix  -> reference = original mix (keep instrumental.wav too; it is exact if the show plays the original MR)\n#   mode (b) live vocal-only -> reference = lead_dry.wav (fallback: vocals.wav when the lead is silent on lyric lines)\n\n# ---------- 2) Fast fallback: demucs-mlx (MLX/Metal, MIT) ----------\nfrom demucs_mlx import Separator as DSep\nd = DSep(model=\"htdemucs\")                                   # or DSep(model=\"htdemucs_ft\", stem=\"vocals\")\nmix, stems = d.separate(\"song.wav\")                           # numpy arrays (channels, samples) @ d.samplerate (44100)\nvocals = stems[\"vocals\"]; instrumental = stems[\"drums\"] + stems[\"bass\"] + stems[\"other\"]\npaths = d.separate(\"song.wav\", output_dir=\"stems_dm\", as_float=True)  # -> {\"vocals\": Path, ...}\n\n# ---------- 3) Demucs 4.1.0 (PyTorch) - pass device explicitly ----------\nimport demucs.api\nfrom pathlib import Path\ns = demucs.api.Separator(model=\"htdemucs_ft\", device=\"mps\", shifts=1, overlap=0.25)\norigin, st = s.separate_audio_file(Path(\"song.wav\"))\ndemucs.api.save_audio(st[\"vocals\"], \"vocals.wav\", samplerate=s.samplerate)\n\n# ---------- 4) MLX port of the same RoFormer catalog (optional, about 1.5-2x faster) ----------\n# uv pip install \"mlx-audio-separator[convert]==0.1.20\"   (torch only needed for first-time .ckpt -> safetensors)\nfrom mlx_audio_separator import Separator as MSep\nms = MSep(output_dir=\"stems_mlx\", save_converted_safetensors=True)\nms.load_model(\"bs_roformer_vocals_resurrection_unwa.ckpt\")\nms.separate(\"song.wav\", {\"vocals\": \"vocals\", \"other\": \"instrumental\"})\n\n# ---------- 5) Newest non-catalog checkpoints (Leap Xe / PolarFormer) via the MSST repo, separate venv ----------\n# git clone https://github.com/ZFTurbo/Music-Source-Separation-Training msst && cd msst\n# uv venv -p 3.12 && uv pip install \"msst[bs_roformer]\"      # pins torch<2.12; inference.py auto-uses MPS\n# python inference.py --model_type bs_roformer --config_path leap_xe_config_voc.yaml \\\n#   --start_check_point bs_leap_xe_voc.ckpt --input_folder in/ --store_dir out/ --extract_instrumental\n\n# ---------- 6) Benchmark on THIS M5 Pro (please run before fixing defaults) ----------\n# ffmpeg -i song.mp3 -t 240 -ac 2 -ar 44100 bench_4min.wav\nimport time\nb = Separator(model_file_dir=MODEL_DIR, output_dir=\"bench_out\", use_autocast=True)\nfor m in [M_VOCALS, \"vocals_mel_band_roformer.ckpt\", M_KARAOKE, M_DEREVERB, \"htdemucs.yaml\"]:\n    b.load_model(model_filename=m); b.separate(\"bench_4min.wav\")              # warm-up\n    t = time.perf_counter(); b.separate(\"bench_4min.wav\"); print(m, round(time.perf_counter() - t, 1), \"s\")",
+ "pitfalls": [
+  "Python version: use 3.12. With 3.13, onnx-weekly (a hard audio-separator dependency) has no macOS cp313 wheel in recent builds, so it builds from source. 3.14.1 is excluded by audio-separator. msst supports at most 3.13.",
+  "diffq (required by audio-separator on macOS) has arm64 wheels only up to cp310, so it compiles from sdist with Cython. Xcode CLT is present at /Library/Developer/CommandLineTools; without it the install fails.",
+  "samplerate==0.1.0 (exact pin) bundles an x86_64-only dylib (issue #293, still open). RoFormer and Demucs paths are unaffected. VR-arch models using librosa sinc_* resampling (e.g. UVR-DeEcho-DeReverb.pth, UVR-BVE) will fail to import it. Override to samplerate==0.2.4 with uv --override; pip check will then report a conflict.",
+  "The default model_file_dir is /tmp/audio-separator-models/, which macOS clears on reboot, forcing 0.2–1.7 GB re-downloads per model. Set model_file_dir to a persistent cache, ideally vendored with recorded SHA-256. Model hosting is GitHub releases (TRvlvr/model_repo plus nomadkaraoke model-configs). A 2026-07 audit by bs-roformer-infer found several TRvlvr URLs returning 404; audio-separator falls back to its own mirror.",
+  "separate() returns filenames relative to output_dir, not absolute paths. Stem names are model-specific ('vocals'/'other', 'Vocals'/'Instrumental', 'noreverb'/'reverb'). Use a separate output_dir per song, or fixed custom names will overwrite each other. Always check that output files exist: issue #297 reports the Resurrection INSTRUMENTAL model silently writing nothing in 0.44.5.",
+  "audio-separator only loads catalog models; any other filename raises ValueError. Leap Xe, PolarFormer and HyperACE need MSST or another loader. MSST pins torch<2.12, conflicting with audio-separator's torch>=2.13 on arm64, and its requirements.txt is very heavy. Use a separate venv and a subprocess.",
+  "Keep separation isolated from the alignment and tracking environment. Its pins (beartype<0.19, rotary-embedding-torch<0.7, numpy>=2, torch>=2.13, onnx-weekly) can clash with aligner stacks. Treat it as a cached offline step keyed by audio hash + model name + package version.",
+  "demucs.api.Separator defaults to cuda/cpu, so pass device='mps'. Only the CLI auto-detects MPS. htdemucs_ft is a 4-model bag (4x slower), so use demucs-mlx stem='vocals' for the vocal specialist. HT models allow a maximum segment of 7.8 s.",
+  "torch.compile (use_torch_compile) only pays off when warm and for repeated input shapes. Each new song length can trigger recompilation, so for one-shot prep benchmark eager mode with autocast first.",
+  "Normalization: the default normalization_threshold=0.9 peak-limits each stem independently, so vocals + instrumental may no longer sum to the mix. Use 1.0 if you need energy comparisons such as vocal-activity detection or lead/vocal energy ratios.",
+  "Karaoke models fail on hard-panned or non-center leads. They treat duets, simultaneous singers, doubles and ad-libs as 'lead', so backing-vocal lyric lines (often in parentheses) disappear from the lead stem; align those on the full vocals stem. Decide per song with a lead-vs-vocals energy check on lyric lines.",
+  "anvuew de-reverb models expect a vocal stem, not a mix. They collapse to mono, remove off-center harmonies and effects, and can remove breathy or falsetto syllables. Never feed the dry stem to the aligner blindly: A/B against the wet lead using aligner confidence. Also, some Sucial de-reverb checkpoints fail to load in recent audio-separator (issue #245) and are CC BY-NC-SA anyway.",
+  "Licensing: the top community weights (unwa, becruily, Gabox, viperx) carry no license, and anvuew's are GPL-3.0. Sucial and becruily 'deux' are non-commercial. For anything commercial, restrict to Kim Mel-Band RoFormer (MIT), Demucs (MIT), and ZFTurbo MSST release weights (MIT repo, e.g. BS PolarFormer).",
+  "Run separation at 44.1 kHz stereo. Downmix and resample to 16 kHz only afterwards, and use the same resampler (e.g. soxr HQ) for reference and live features. Do not run models on 16 kHz input.",
+  "K-pop and J-pop production (vocal chops, vocoded or auto-tuned hooks, dense synths) often puts non-lyric vocal material into the vocal stem. Public benchmarks are mostly Western pop, so validate on a few target songs per language.",
+  "The vocal-only tracking reference contains long silences during instrumental breaks, and so does the live vocal input. DTW has nothing to track there, so the tracker needs a 'hold/advance at tempo' policy for known gaps derived from the reference vocal-activity mask.",
+  "MLX on 24 GB: demucs-mlx and mlx-audio-separator keep large Metal buffer caches (16–31 GB reported on a 128 GB machine), so call mx.set_cache_limit(). audio-separator automatically spills full-track buffers to CPU for long inputs; tune with AUDIO_SEPARATOR_MPS_BUFFER_BUDGET_GIB if needed. AUDIO_SEPARATOR_FORCE_CPU_COMPLEX=1 is the escape hatch for MPS complex-op bugs."
+ ],
+ "open_questions": [
+  "Is the prompter research or personal use, or will it be distributed commercially? This decides between Resurrection, karaoke frazer and anvuew de-reverb (unlicensed or GPL) and the MIT-only set (Kim Mel-Band, Demucs, ZFTurbo releases).",
+  "In vocal-only mode, is the live input a summed vocal bus (all singers) or one singer's mic? Karaoke 'lead' includes all simultaneous main singers, so a single-member mic would need per-member references, which separation cannot provide.",
+  "Is the live vocal tapped before effects (dry) or after (with reverb/delay)? If after, the de-reverbed reference may match worse than the wet lead stem.",
+  "In full-mix mode, does the show play the original MR (backing track) or a live band? If the MR, the instrumental stem is a near-exact reference worth adding as a tracking feature stream.",
+  "Actual runtimes on the M5 Pro (16-core GPU) are unmeasured here. Run the benchmark snippet to confirm the roughly 2–4 min per song estimate for the full chain and to choose eager vs autocast vs compile.",
+  "Does de-reverb improve the chosen forced aligner's (MMS/CTC or Whisper-based) syllable boundaries on Korean, Japanese and English material? This needs an empirical A/B on a few songs.",
+  "Whether to add Leap Xe or PolarFormer via MSST (about +0.4 dB SDR) is worth an extra venv. That depends on whether alignment errors trace back to separation bleed at all."
+ ]
+}

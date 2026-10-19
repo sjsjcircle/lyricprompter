@@ -1,0 +1,42 @@
+# Private reference repo (no LICENSE, all rights reserved) — local use only, never commit/publish
+_reference/
+docs/research/artifacts/**/refrepo/
+docs/research/artifacts/reference-repo/
+docs/research/artifacts/reference-repo-factcheck/
+docs/research/artifacts/tracking/raw/llt/
+
+# third-party repo clones (nested .git) and re-downloadable research downloads
+docs/research/artifacts/**/*_repo/
+docs/research/artifacts/**/repo/
+docs/research/artifacts/**/repo_*/
+docs/research/artifacts/**/dl_*/
+docs/research/artifacts/**/cache/
+docs/research/artifacts/environment/pypi/
+
+# Model caches / large data
+.cache/
+data/research-testsets/
+data/stems/
+songs/**/*.wav
+songs/**/*.flac
+songs/**/*.npz
+
+# Copyrighted song content (lyrics text) — keep local
+songs/**/lyrics.txt
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# OS / editors
+.DS_Store
+.omc/
+
+# user clone of the original reference repo (private, unlicensed)
+live-lyrics-tracking/
+
+# local experiments / eval outputs
+scratch/

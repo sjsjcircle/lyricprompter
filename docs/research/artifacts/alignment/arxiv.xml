@@ -1,0 +1,697 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/OhuD3VO1eH8PsG/6HjG3fpnqiug</id>
+  <title>arXiv Query: search_query=all:"lyrics alignment"&amp;id_list=&amp;start=0&amp;max_results=40</title>
+  <updated>2026-10-12T05:57:03Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22lyrics+alignment%22&amp;start=0&amp;max_results=40&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>40</opensearch:itemsPerPage>
+  <opensearch:totalResults>19</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2607.24873v1</id>
+    <title>MusiChat: Vibe Composing for Music Creation</title>
+    <updated>2026-07-27T03:51:40Z</updated>
+    <link href="https://arxiv.org/abs/2607.24873v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.24873v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent advances in AI music generation have enabled users to create complete musical pieces from natural-language prompts. However, most existing systems follow a prompt-and-regenerate paradigm, making iterative refinement difficult because users must repeatedly recreate compositions instead of directly evolving existing musical ideas. We present MusiChat, a conversational vibe composing system that enables collaborative human-AI music creation through natural-language interaction and iterative refinement. At the core of MusiChat is a hierarchical controllable music generation framework that separates lyric-aligned musical structure generation from expressive surface realization, allowing flexible stylistic transformations and structure-preserving edits. The system integrates a large language model with a hybrid symbolic music engine through a memory-augmented architecture that maintains the active composition state and user history across interactions. A hybrid intent-routing mechanism further enables efficient interpretation of both precise musical edits and open-ended creative requests. Rather than regenerating compositions from scratch, MusiChat incrementally transforms an evolving musical artifact while preserving relevant musical structure and user intent. We evaluate MusiChat through objective analysis and human studies, achieving 95.31% and 100% accuracy for single- and multi-turn interactions, respectively, and obtaining like-to-dislike ratios of 2:1 for melody naturalness and 3:1 for musical quality. Our results demonstrate that MusiChat supports coherent multi-turn music authoring and interactive human-AI co-creation through a conversational interface.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-27T03:51:40Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Callie C. Liao</name>
+    </author>
+    <author>
+      <name>Duoduo Liao</name>
+    </author>
+    <author>
+      <name>Ellie L. Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.01790v2</id>
+    <title>Shao: Scaling Acoustic Token Language Models Toward High-Fidelity Music Generation</title>
+    <updated>2026-07-06T10:05:57Z</updated>
+    <link href="https://arxiv.org/abs/2605.01790v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.01790v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>A common design pattern in high-quality music generation is to handle structure and fidelity in different representation spaces: a generator first models high-level structure, followed by diffusion-based or neural decoding stages that reconstruct fine details. In this work, we explore an alternative view: both may be progressively modeled within a single deep acoustic-token hierarchy. To study this, we build a 64-layer residual vector quantization (RVQ) acoustic representation and propose a two-stage coarse-to-fine generation framework. A backbone model first generates coarse acoustic tokens for the full track, and a super-resolution model then completes finer tokens within the same acoustic token space. The super-resolution stage works at full-track scale and refines tokens layer by layer while running in parallel over time, leading to a fixed 62-step inference process. To jointly improve lyric alignment and fine-detail reconstruction, we further introduce hybrid-attention training: the alignment objective uses causal attention, while layer-wise refinement uses full attention. A key finding is that text-vocal alignment can emerge within pure acoustic-token language modeling, without requiring a separate semantic token stage. Moreover, initializing the super-resolution model from the trained backbone significantly improves convergence and final quality. Taken together, our results suggest that high-quality music generation can be effectively pursued without separating structure and fidelity into heterogeneous representation spaces. Instead, both can be progressively modeled within a unified acoustic-token hierarchy, pointing toward a simpler and more unified path to high-quality music generation.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-03T09:13:20Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Jiafeng Liu</name>
+    </author>
+    <author>
+      <name>Yuanliang Dong</name>
+    </author>
+    <author>
+      <name>Hongjia Liu</name>
+    </author>
+    <author>
+      <name>Yuqing Cheng</name>
+    </author>
+    <author>
+      <name>Zhancheng Guo</name>
+    </author>
+    <author>
+      <name>Huijing Liang</name>
+    </author>
+    <author>
+      <name>Wenbo Zhan</name>
+    </author>
+    <author>
+      <name>Yuming Sun</name>
+    </author>
+    <author>
+      <name>Xiaobing Li</name>
+    </author>
+    <author>
+      <name>Feng Yu</name>
+    </author>
+    <author>
+      <name>Maosong Sun</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.11262v2</id>
+    <title>Scalable Music Cover Retrieval Using Lyrics-Aligned Audio Embeddings</title>
+    <updated>2026-09-16T08:01:38Z</updated>
+    <link href="https://arxiv.org/abs/2601.11262v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.11262v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Music Cover Retrieval, also known as Version Identification, aims to recognize distinct renditions of the same underlying musical work, a task central to catalog management, copyright enforcement, and music retrieval. State-of-the-art approaches have largely focused on harmonic and melodic features, employing increasingly complex audio pipelines designed to be invariant to musical attributes that often vary widely across covers. While effective, these methods demand substantial training time and computational resources. By contrast, lyrics constitute a strong invariant across covers, though their use has been limited by the difficulty of extracting them accurately and efficiently from polyphonic audio. Early methods relied on simple frameworks that limited downstream performance, while more recent systems deliver stronger results but require large models integrated within complex multimodal architectures. We introduce LIVI (Lyrics-Informed Version Identification), an approach that seeks to balance retrieval accuracy with computational efficiency. First, LIVI leverages supervision from state-of-the-art transcription and text embedding models during training to achieve retrieval accuracy on par with--or superior to--harmonic-based systems. Second, LIVI remains lightweight and efficient by removing the transcription step at inference, challenging the dominance of complexity-heavy pipelines.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.IR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-16T13:11:38Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Joanne Affolter</name>
+    </author>
+    <author>
+      <name>Benjamin Martin</name>
+    </author>
+    <author>
+      <name>Elena V. Epure</name>
+    </author>
+    <author>
+      <name>Gabriel Meseguer-Brocal</name>
+    </author>
+    <author>
+      <name>Frédéric Kaplan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.20224v3</id>
+    <title>DuoTok: Source-Aware Dual-Track Music Tokenization for Vocal-Accompaniment Generation</title>
+    <updated>2026-09-13T02:24:13Z</updated>
+    <link href="https://arxiv.org/abs/2511.20224v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.20224v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Multi-track music generation requires tokens that preserve acoustic fidelity, support sequence modeling, and maintain cross-track structure. Reconstruction-oriented codecs retain acoustic detail but are difficult to model, while semantic tokenizers may sacrifice fidelity or cross-track alignment. We present DuoTok, a source-aware dual-track music tokenizer for vocal-accompaniment generation based on staged disentanglement. DuoTok first learns a semantic audio representation through self-supervised pretraining, then shapes source-aware structure using feature replacement noise and multi-task supervision: spectral reconstruction, music source separation regularization, and an ASR head for lyric alignment. It freezes the encoder and learns hard-routed codebooks for vocals and accompaniment, while a diffusion decoder restores fine acoustic detail from discrete tokens.
+  Across public benchmarks, DuoTok achieves a favorable predictability-fidelity trade-off at ultra-low bitrate. Under held-constant dual-track language modeling, it improves both unconditional vocal-accompaniment modeling and vocal-conditioned accompaniment prediction. Controlled diagnostics show larger predictability costs under cross-track corruption and greater gains from longer temporal context, supporting stronger use of cross-track and temporal structure rather than merely easier local prediction. DuoTok also maintains competitive reconstruction quality and preserves control-relevant musical attributes in its discrete space. These results suggest that tokenizer design is a core modeling problem for multi-track music generation, beyond compression alone.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-25T11:53:57Z</published>
+    <arxiv:comment>Accepted at ACM Multimedia 2026 (MM '26). Updated to the accepted version, with author-version formatting. 9 pages, 4 figures, 6 tables. Project page: https://eps-acoustic-revolution-lab.github.io/DUO_TOK/</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Rui Lin</name>
+    </author>
+    <author>
+      <name>Zhiyue Wu</name>
+    </author>
+    <author>
+      <name>Jiahe Lei</name>
+    </author>
+    <author>
+      <name>Kangdi Wang</name>
+    </author>
+    <author>
+      <name>Weixiong Chen</name>
+    </author>
+    <author>
+      <name>Junyu Dai</name>
+    </author>
+    <author>
+      <name>Tao Jiang</name>
+    </author>
+    <arxiv:doi>10.1145/3767308.3836425</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1145/3767308.3836425" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.22950v3</id>
+    <title>DiffRhythm 2: Efficient and High Fidelity Song Generation via Block Flow Matching</title>
+    <updated>2026-02-03T05:17:34Z</updated>
+    <link href="https://arxiv.org/abs/2510.22950v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.22950v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Generating full-length, high-quality songs is challenging, as it requires maintaining long-term coherence both across text and music modalities and within the music modality itself. Existing non-autoregressive (NAR) frameworks, while capable of producing high-quality songs, often struggle with the alignment between lyrics and vocal. Concurrently, catering to diverse musical preferences necessitates reinforcement learning from human feedback (RLHF). However, existing methods often rely on merging multiple models during multi-preference optimization, which results in significant performance degradation. To address these challenges, we introduce DiffRhythm 2, an end-to-end framework designed for high-fidelity, controllable song generation. To tackle the lyric alignment problem, DiffRhythm 2 employs a semi-autoregressive architecture based on block flow matching. This design enables faithful alignment of lyrics to singing vocals without relying on external labels and constraints, all while preserving the high generation quality and efficiency of NAR models. To make this framework computationally tractable for long sequences, we implement a music variational autoencoder (VAE) that achieves a low frame rate of 5 Hz while still enabling high-fidelity audio reconstruction. In addition, to overcome the limitations of multi-preference optimization in RLHF, we propose cross-pair preference optimization. This method effectively mitigates the performance drop typically associated with model merging, allowing for more robust optimization across diverse human preferences. We further enhance musicality and structural coherence by introducing stochastic block representation alignment loss.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-27T03:08:24Z</published>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Yuepeng Jiang</name>
+    </author>
+    <author>
+      <name>Huakang Chen</name>
+    </author>
+    <author>
+      <name>Ziqian Ning</name>
+    </author>
+    <author>
+      <name>Jixun Yao</name>
+    </author>
+    <author>
+      <name>Zerui Han</name>
+    </author>
+    <author>
+      <name>Di Wu</name>
+    </author>
+    <author>
+      <name>Meng Meng</name>
+    </author>
+    <author>
+      <name>Jian Luan</name>
+    </author>
+    <author>
+      <name>Zhonghua Fu</name>
+    </author>
+    <author>
+      <name>Lei Xie</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.00045v1</id>
+    <title>ACE-Step: A Step Towards Music Generation Foundation Model</title>
+    <updated>2025-05-28T12:23:09Z</updated>
+    <link href="https://arxiv.org/abs/2506.00045v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.00045v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We introduce ACE-Step, a novel open-source foundation model for music generation that overcomes key limitations of existing approaches and achieves state-of-the-art performance through a holistic architectural design. Current methods face inherent trade-offs between generation speed, musical coherence, and controllability. For example, LLM-based models (e.g. Yue, SongGen) excel at lyric alignment but suffer from slow inference and structural artifacts. Diffusion models (e.g. DiffRhythm), on the other hand, enable faster synthesis but often lack long-range structural coherence. ACE-Step bridges this gap by integrating diffusion-based generation with Sana's Deep Compression AutoEncoder (DCAE) and a lightweight linear transformer. It also leverages MERT and m-hubert to align semantic representations (REPA) during training, allowing rapid convergence. As a result, our model synthesizes up to 4 minutes of music in just 20 seconds on an A100 GPU-15x faster than LLM-based baselines-while achieving superior musical coherence and lyric alignment across melody, harmony, and rhythm metrics. Moreover, ACE-Step preserves fine-grained acoustic details, enabling advanced control mechanisms such as voice cloning, lyric editing, remixing, and track generation (e.g. lyric2vocal, singing2accompaniment). Rather than building yet another end-to-end text-to-music pipeline, our vision is to establish a foundation model for music AI: a fast, general-purpose, efficient yet flexible architecture that makes it easy to train subtasks on top of it. This paves the way for the development of powerful tools that seamlessly integrate into the creative workflows of music artists, producers, and content creators. In short, our goal is to build a stable diffusion moment for music. The code, the model weights and the demo are available at: https://ace-step.github.io/.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-28T12:23:09Z</published>
+    <arxiv:comment>14 pages, 5 figures, ace-step's tech report</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Junmin Gong</name>
+    </author>
+    <author>
+      <name>Sean Zhao</name>
+    </author>
+    <author>
+      <name>Sen Wang</name>
+    </author>
+    <author>
+      <name>Shengyuan Xu</name>
+    </author>
+    <author>
+      <name>Joe Guo</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.08638v2</id>
+    <title>YuE: Scaling Open Foundation Models for Long-Form Music Generation</title>
+    <updated>2025-09-15T12:56:59Z</updated>
+    <link href="https://arxiv.org/abs/2503.08638v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.08638v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We tackle the task of long-form music generation--particularly the challenging \textbf{lyrics-to-song} problem--by introducing YuE, a family of open foundation models based on the LLaMA2 architecture. Specifically, YuE scales to trillions of tokens and generates up to five minutes of music while maintaining lyrical alignment, coherent musical structure, and engaging vocal melodies with appropriate accompaniment. It achieves this through (1) track-decoupled next-token prediction to overcome dense mixture signals, (2) structural progressive conditioning for long-context lyrical alignment, and (3) a multitask, multiphase pre-training recipe to converge and generalize. In addition, we redesign the in-context learning technique for music generation, enabling versatile style transfer (e.g., converting Japanese city pop into an English rap while preserving the original accompaniment) and bidirectional generation. Through extensive evaluation, we demonstrate that YuE matches or even surpasses some of the proprietary systems in musicality and vocal agility. In addition, fine-tuning YuE enables additional controls and enhanced support for tail languages. Furthermore, beyond generation, we show that YuE's learned representations can perform well on music understanding tasks, where the results of YuE match or exceed state-of-the-art methods on the MARBLE benchmark. Keywords: lyrics2song, song generation, long-form, foundation model, music generation</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-11T17:26:50Z</published>
+    <arxiv:comment>https://github.com/multimodal-art-projection/YuE</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Ruibin Yuan</name>
+    </author>
+    <author>
+      <name>Hanfeng Lin</name>
+    </author>
+    <author>
+      <name>Shuyue Guo</name>
+    </author>
+    <author>
+      <name>Ge Zhang</name>
+    </author>
+    <author>
+      <name>Jiahao Pan</name>
+    </author>
+    <author>
+      <name>Yongyi Zang</name>
+    </author>
+    <author>
+      <name>Haohe Liu</name>
+    </author>
+    <author>
+      <name>Yiming Liang</name>
+    </author>
+    <author>
+      <name>Wenye Ma</name>
+    </author>
+    <author>
+      <name>Xingjian Du</name>
+    </author>
+    <author>
+      <name>Xinrun Du</name>
+    </author>
+    <author>
+      <name>Zhen Ye</name>
+    </author>
+    <author>
+      <name>Tianyu Zheng</name>
+    </author>
+    <author>
+      <name>Zhengxuan Jiang</name>
+    </author>
+    <author>
+      <name>Yinghao Ma</name>
+    </author>
+    <author>
+      <name>Minghao Liu</name>
+    </author>
+    <author>
+      <name>Zeyue Tian</name>
+    </author>
+    <author>
+      <name>Ziya Zhou</name>
+    </author>
+    <author>
+      <name>Liumeng Xue</name>
+    </author>
+    <author>
+      <name>Xingwei Qu</name>
+    </author>
+    <author>
+      <name>Yizhi Li</name>
+    </author>
+    <author>
+      <name>Shangda Wu</name>
+    </author>
+    <author>
+      <name>Tianhao Shen</name>
+    </author>
+    <author>
+      <name>Ziyang Ma</name>
+    </author>
+    <author>
+      <name>Jun Zhan</name>
+    </author>
+    <author>
+      <name>Chunhui Wang</name>
+    </author>
+    <author>
+      <name>Yatian Wang</name>
+    </author>
+    <author>
+      <name>Xiaowei Chi</name>
+    </author>
+    <author>
+      <name>Xinyue Zhang</name>
+    </author>
+    <author>
+      <name>Zhenzhu Yang</name>
+    </author>
+    <author>
+      <name>Xiangzhou Wang</name>
+    </author>
+    <author>
+      <name>Shansong Liu</name>
+    </author>
+    <author>
+      <name>Lingrui Mei</name>
+    </author>
+    <author>
+      <name>Peng Li</name>
+    </author>
+    <author>
+      <name>Junjie Wang</name>
+    </author>
+    <author>
+      <name>Jianwei Yu</name>
+    </author>
+    <author>
+      <name>Guojian Pang</name>
+    </author>
+    <author>
+      <name>Xu Li</name>
+    </author>
+    <author>
+      <name>Zihao Wang</name>
+    </author>
+    <author>
+      <name>Xiaohuan Zhou</name>
+    </author>
+    <author>
+      <name>Lijun Yu</name>
+    </author>
+    <author>
+      <name>Emmanouil Benetos</name>
+    </author>
+    <author>
+      <name>Yong Chen</name>
+    </author>
+    <author>
+      <name>Chenghua Lin</name>
+    </author>
+    <author>
+      <name>Xie Chen</name>
+    </author>
+    <author>
+      <name>Gus Xia</name>
+    </author>
+    <author>
+      <name>Zhaoxiang Zhang</name>
+    </author>
+    <author>
+      <name>Chao Zhang</name>
+    </author>
+    <author>
+      <name>Wenhu Chen</name>
+    </author>
+    <author>
+      <name>Xinyu Zhou</name>
+    </author>
+    <author>
+      <name>Xipeng Qiu</name>
+    </author>
+    <author>
+      <name>Roger Dannenberg</name>
+    </author>
+    <author>
+      <name>Jiaheng Liu</name>
+    </author>
+    <author>
+      <name>Jian Yang</name>
+    </author>
+    <author>
+      <name>Wenhao Huang</name>
+    </author>
+    <author>
+      <name>Wei Xue</name>
+    </author>
+    <author>
+      <name>Xu Tan</name>
+    </author>
+    <author>
+      <name>Yike Guo</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2412.04202v1</id>
+    <title>Relationships between Keywords and Strong Beats in Lyrical Music</title>
+    <updated>2024-12-05T14:40:27Z</updated>
+    <link href="https://arxiv.org/abs/2412.04202v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2412.04202v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Artificial Intelligence (AI) song generation has emerged as a popular topic, yet the focus on exploring the latent correlations between specific lyrical and rhythmic features remains limited. In contrast, this pilot study particularly investigates the relationships between keywords and rhythmically stressed features such as strong beats in songs. It focuses on several key elements: keywords or non-keywords, stressed or unstressed syllables, and strong or weak beats, with the aim of uncovering insightful correlations. Experimental results indicate that, on average, 80.8\% of keywords land on strong beats, whereas 62\% of non-keywords fall on weak beats. The relationship between stressed syllables and strong or weak beats is weak, revealing that keywords have the strongest relationships with strong beats. Additionally, the lyrics-rhythm matching score, a key matching metric measuring keywords on strong beats and non-keywords on weak beats across various time signatures, is 0.765, while the matching score for syllable types is 0.495. This study demonstrates that word types strongly align with their corresponding beat types, as evidenced by the distinct patterns, whereas syllable types exhibit a much weaker alignment. This disparity underscores the greater reliability of word types in capturing rhythmic structures in music, highlighting their crucial role in effective rhythmic matching and analysis. We also conclude that keywords that consistently align with strong beats are more reliable indicators of lyrics-rhythm associations, providing valuable insights for AI-driven song generation through enhanced structural analysis. Furthermore, our development of tailored Lyrics-Rhythm Matching (LRM) metrics maximizes lyrical alignments with corresponding beat stresses, and our novel LRM file format captures critical lyrical and rhythmic information without needing original sheet music.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-12-05T14:40:27Z</published>
+    <arxiv:comment>Accepted by IEEE BigData 2024</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <arxiv:journal_ref>IEEE BigData, Year: 2024; Pages: 3191-3199</arxiv:journal_ref>
+    <author>
+      <name>Callie C. Liao</name>
+    </author>
+    <author>
+      <name>Duoduo Liao</name>
+    </author>
+    <author>
+      <name>Ellie L. Zhang</name>
+    </author>
+    <arxiv:doi>10.1109/BigData62323.2024.10825973</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/BigData62323.2024.10825973" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2401.09200v1</id>
+    <title>A Real-Time Lyrics Alignment System Using Chroma And Phonetic Features For Classical Vocal Performance</title>
+    <updated>2024-01-17T13:25:32Z</updated>
+    <link href="https://arxiv.org/abs/2401.09200v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2401.09200v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The goal of real-time lyrics alignment is to take live singing audio as input and to pinpoint the exact position within given lyrics on the fly. The task can benefit real-world applications such as the automatic subtitling of live concerts or operas. However, designing a real-time model poses a great challenge due to the constraints of only using past input and operating within a minimal latency. Furthermore, due to the lack of datasets for real-time models for lyrics alignment, previous studies have mostly evaluated with private in-house datasets, resulting in a lack of standard evaluation methods. This paper presents a real-time lyrics alignment system for classical vocal performances with two contributions. First, we improve the lyrics alignment algorithm by finding an optimal combination of chromagram and phonetic posteriorgram (PPG) that capture melodic and phonetics features of the singing voice, respectively. Second, we recast the Schubert Winterreise Dataset (SWD) which contains multiple performance renditions of the same pieces as an evaluation set for the real-time lyrics alignment.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-01-17T13:25:32Z</published>
+    <arxiv:comment>To Appear IEEE ICASSP 2024</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Jiyun Park</name>
+    </author>
+    <author>
+      <name>Sangeon Yong</name>
+    </author>
+    <author>
+      <name>Taegyun Kwon</name>
+    </author>
+    <author>
+      <name>Juhan Nam</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2311.12488v1</id>
+    <title>Adapting pretrained speech model for Mandarin lyrics transcription and alignment</title>
+    <updated>2023-11-21T09:59:18Z</updated>
+    <link href="https://arxiv.org/abs/2311.12488v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2311.12488v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The tasks of automatic lyrics transcription and lyrics alignment have witnessed significant performance improvements in the past few years. However, most of the previous works only focus on English in which large-scale datasets are available. In this paper, we address lyrics transcription and alignment of polyphonic Mandarin pop music in a low-resource setting. To deal with the data scarcity issue, we adapt pretrained Whisper model and fine-tune it on a monophonic Mandarin singing dataset. With the use of data augmentation and source separation model, results show that the proposed method achieves a character error rate of less than 18% on a Mandarin polyphonic dataset for lyrics transcription, and a mean absolute error of 0.071 seconds for lyrics alignment. Our results demonstrate the potential of adapting a pretrained speech model for lyrics transcription and alignment in low-resource scenarios.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-11-21T09:59:18Z</published>
+    <arxiv:comment>Accepted by ASRU 2023</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Jun-You Wang</name>
+    </author>
+    <author>
+      <name>Chon-In Leong</name>
+    </author>
+    <author>
+      <name>Yu-Chen Lin</name>
+    </author>
+    <author>
+      <name>Li Su</name>
+    </author>
+    <author>
+      <name>Jyh-Shing Roger Jang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2307.04377v1</id>
+    <title>HCLAS-X: Hierarchical and Cascaded Lyrics Alignment System Using Multimodal Cross-Correlation</title>
+    <updated>2023-07-10T07:22:06Z</updated>
+    <link href="https://arxiv.org/abs/2307.04377v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2307.04377v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this work, we address the challenge of lyrics alignment, which involves aligning the lyrics and vocal components of songs. This problem requires the alignment of two distinct modalities, namely text and audio. To overcome this challenge, we propose a model that is trained in a supervised manner, utilizing the cross-correlation matrix of latent representations between vocals and lyrics. Our system is designed in a hierarchical and cascaded manner. It predicts synced time first on a sentence-level and subsequently on a word-level. This design enables the system to process long sequences, as the cross-correlation uses quadratic memory with respect to sequence length. In our experiments, we demonstrate that our proposed system achieves a significant improvement in mean average error, showcasing its robustness in comparison to the previous state-of-the-art model. Additionally, we conduct a qualitative analysis of the system after successfully deploying it in several music streaming services.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-07-10T07:22:06Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Minsung Kang</name>
+    </author>
+    <author>
+      <name>Soochul Park</name>
+    </author>
+    <author>
+      <name>Keunwoo Choi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2306.07744v1</id>
+    <title>Contrastive Learning-Based Audio to Lyrics Alignment for Multiple Languages</title>
+    <updated>2023-06-13T13:01:02Z</updated>
+    <link href="https://arxiv.org/abs/2306.07744v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2306.07744v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Lyrics alignment gained considerable attention in recent years. State-of-the-art systems either re-use established speech recognition toolkits, or design end-to-end solutions involving a Connectionist Temporal Classification (CTC) loss. However, both approaches suffer from specific weaknesses: toolkits are known for their complexity, and CTC systems use a loss designed for transcription which can limit alignment accuracy. In this paper, we use instead a contrastive learning procedure that derives cross-modal embeddings linking the audio and text domains. This way, we obtain a novel system that is simple to train end-to-end, can make use of weakly annotated training data, jointly learns a powerful text model, and is tailored to alignment. The system is not only the first to yield an average absolute error below 0.2 seconds on the standard Jamendo dataset but it is also robust to other languages, even when trained on English data only. Finally, we release word-level alignments for the JamendoLyrics Multi-Lang dataset.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-06-13T13:01:02Z</published>
+    <arxiv:comment>5 pages, accepted at the International Conference on Acoustics, Speech, and Signal Processing (ICASSP) 2023</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <arxiv:journal_ref>ICASSP 2023 - 2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Rhodes Island, Greece, 2023, pp. 1-5</arxiv:journal_ref>
+    <author>
+      <name>Simon Durand</name>
+    </author>
+    <author>
+      <name>Daniel Stoller</name>
+    </author>
+    <author>
+      <name>Sebastian Ewert</name>
+    </author>
+    <arxiv:doi>10.1109/ICASSP49357.2023.10096725</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/ICASSP49357.2023.10096725" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2305.07760v2</id>
+    <title>Unsupervised Melody-Guided Lyrics Generation</title>
+    <updated>2023-05-26T00:56:58Z</updated>
+    <link href="https://arxiv.org/abs/2305.07760v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2305.07760v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic song writing is a topic of significant practical interest. However, its research is largely hindered by the lack of training data due to copyright concerns and challenged by its creative nature. Most noticeably, prior works often fall short of modeling the cross-modal correlation between melody and lyrics due to limited parallel data, hence generating lyrics that are less singable. Existing works also lack effective mechanisms for content control, a much desired feature for democratizing song creation for people with limited music background. In this work, we propose to generate pleasantly listenable lyrics without training on melody-lyric aligned data. Instead, we design a hierarchical lyric generation framework that disentangles training (based purely on text) from inference (melody-guided text generation). At inference time, we leverage the crucial alignments between melody and lyrics and compile the given melody into constraints to guide the generation process. Evaluation results show that our model can generate high-quality lyrics that are more singable, intelligible, coherent, and in rhyme than strong baselines including those supervised on parallel data.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MM" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-05-12T20:57:20Z</published>
+    <arxiv:comment>Presented at AAAI23 CreativeAI workshop (Non-Archival). A later version is accepted to ACL23</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Yufei Tian</name>
+    </author>
+    <author>
+      <name>Anjali Narayan-Chen</name>
+    </author>
+    <author>
+      <name>Shereen Oraby</name>
+    </author>
+    <author>
+      <name>Alessandra Cervone</name>
+    </author>
+    <author>
+      <name>Gunnar Sigurdsson</name>
+    </author>
+    <author>
+      <name>Chenyang Tao</name>
+    </author>
+    <author>
+      <name>Wenbo Zhao</name>
+    </author>
+    <author>
+      <name>Tagyoung Chung</name>
+    </author>
+    <author>
+      <name>Jing Huang</name>
+    </author>
+    <author>
+      <name>Nanyun Peng</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2202.01646v1</id>
+    <title>Improving Lyrics Alignment through Joint Pitch Detection</title>
+    <updated>2022-02-03T15:43:19Z</updated>
+    <link href="https://arxiv.org/abs/2202.01646v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2202.01646v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In recent years, the accuracy of automatic lyrics alignment methods has increased considerably. Yet, many current approaches employ frameworks designed for automatic speech recognition (ASR) and do not exploit properties specific to music. Pitch is one important musical attribute of singing voice but it is often ignored by current systems as the lyrics content is considered independent of the pitch. In practice, however, there is a temporal correlation between the two as note starts often correlate with phoneme starts. At the same time the pitch is usually annotated with high temporal accuracy in ground truth data while the timing of lyrics is often only available at the line (or word) level. In this paper, we propose a multi-task learning approach for lyrics alignment that incorporates pitch and thus can make use of a new source of highly accurate temporal information. Our results show that the accuracy of the alignment result is indeed improved by our approach. As an additional contribution, we show that integrating boundary detection in the forced-alignment algorithm reduces cross-line errors, which improves the accuracy even further.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SP" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-02-03T15:43:19Z</published>
+    <arxiv:comment>To appear in Proc. ICASSP 2022</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Jiawen Huang</name>
+    </author>
+    <author>
+      <name>Emmanouil Benetos</name>
+    </author>
+    <author>
+      <name>Sebastian Ewert</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2107.14496v1</id>
+    <title>On-Line Audio-to-Lyrics Alignment Based on a Reference Performance</title>
+    <updated>2021-07-30T08:57:13Z</updated>
+    <link href="https://arxiv.org/abs/2107.14496v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2107.14496v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Audio-to-lyrics alignment has become an increasingly active research task in MIR, supported by the emergence of several open-source datasets of audio recordings with word-level lyrics annotations. However, there are still a number of open problems, such as a lack of robustness in the face of severe duration mismatches between audio and lyrics representation; a certain degree of language-specificity caused by acoustic differences across languages; and the fact that most successful methods in the field are not suited to work in real-time. Real-time lyrics alignment (tracking) would have many useful applications, such as fully automated subtitle display in live concerts and opera. In this work, we describe the first real-time-capable audio-to-lyrics alignment pipeline that is able to robustly track the lyrics of different languages, without additional language information. The proposed model predicts, for each audio frame, a probability vector over (European) phoneme classes, using a very small temporal context, and aligns this vector with a phoneme posteriogram matrix computed beforehand from another recording of the same work, which serves as a reference and a proxy to the written-out lyrics. We evaluate our system's tracking accuracy on the challenging genre of classical opera. Finally, robustness to out-of-training languages is demonstrated in an experiment on Jingju (Beijing opera).</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-07-30T08:57:13Z</published>
+    <arxiv:comment>8 pages, 1 figure, In Proceedings of the 22nd International Society for Music Information Retrieval (ISMIR) Conference, Online, 2021</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Charles Brazier</name>
+    </author>
+    <author>
+      <name>Gerhard Widmer</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2102.09202v1</id>
+    <title>Low Resource Audio-to-Lyrics Alignment From Polyphonic Music Recordings</title>
+    <updated>2021-02-18T07:54:56Z</updated>
+    <link href="https://arxiv.org/abs/2102.09202v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2102.09202v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Lyrics alignment in long music recordings can be memory exhaustive when performed in a single pass. In this study, we present a novel method that performs audio-to-lyrics alignment with a low memory consumption footprint regardless of the duration of the music recording. The proposed system first spots the anchoring words within the audio signal. With respect to these anchors, the recording is then segmented and a second-pass alignment is performed to obtain the word timings. We show that our audio-to-lyrics alignment system performs competitively with the state-of-the-art, while requiring much less computational resources. In addition, we utilise our lyrics alignment system to segment the music recordings into sentence-level chunks. Notably on the segmented recordings, we report the lyrics transcription scores on a number of benchmark test sets. Finally, our experiments highlight the importance of the source separation step for good performance on the transcription and alignment tasks. For reproducibility, we publicly share our code with the research community.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-02-18T07:54:56Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Emir Demirel</name>
+    </author>
+    <author>
+      <name>Sven Ahlbäck</name>
+    </author>
+    <author>
+      <name>Simon Dixon</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2008.02070v1</id>
+    <title>Content based singing voice source separation via strong conditioning using aligned phonemes</title>
+    <updated>2020-08-05T12:25:24Z</updated>
+    <link href="https://arxiv.org/abs/2008.02070v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2008.02070v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Informed source separation has recently gained renewed interest with the introduction of neural networks and the availability of large multitrack datasets containing both the mixture and the separated sources. These approaches use prior information about the target source to improve separation. Historically, Music Information Retrieval researchers have focused primarily on score-informed source separation, but more recent approaches explore lyrics-informed source separation. However, because of the lack of multitrack datasets with time-aligned lyrics, models use weak conditioning with non-aligned lyrics. In this paper, we present a multimodal multitrack dataset with lyrics aligned in time at the word level with phonetic information as well as explore strong conditioning using the aligned phonemes. Our model follows a U-Net architecture and takes as input both the magnitude spectrogram of a musical mixture and a matrix with aligned phonetic information. The phoneme matrix is embedded to obtain the parameters that control Feature-wise Linear Modulation (FiLM) layers. These layers condition the U-Net feature maps to adapt the separation process to the presence of different phonemes via affine transformations. We show that phoneme conditioning can be successfully applied to improve singing voice source separation.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-08-05T12:25:24Z</published>
+    <arxiv:comment>21st International Society for Music Information Retrieval Conference 11-15 October 2020, Montreal, Canada</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Gabriel Meseguer-Brocal</name>
+    </author>
+    <author>
+      <name>Geoffroy Peeters</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1909.10200v2</id>
+    <title>Automatic Lyrics Alignment and Transcription in Polyphonic Music: Does Background Music Help?</title>
+    <updated>2019-10-22T07:21:56Z</updated>
+    <link href="https://arxiv.org/abs/1909.10200v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1909.10200v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Background music affects lyrics intelligibility of singing vocals in a music piece. Automatic lyrics alignment and transcription in polyphonic music are challenging tasks because the singing vocals are corrupted by the background music. In this work, we propose to learn music genre-specific characteristics to train polyphonic acoustic models. We first compare several automatic speech recognition pipelines for the application of lyrics transcription. We then present the lyrics alignment and transcription performance of music-informed acoustic models for the best-performing pipeline, and systematically study the impact of music genre and language model on the performance. With such genre-based approach, we explicitly model the music without removing it during acoustic modeling. The proposed approach outperforms all competing systems in the lyrics alignment and transcription tasks on several well-known polyphonic test datasets.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2019-09-23T07:57:07Z</published>
+    <arxiv:comment>Submitted to 45th International Conference on Acoustics, Speech, and Signal Processing (ICASSP 2020)</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Chitralekha Gupta</name>
+    </author>
+    <author>
+      <name>Emre Yılmaz</name>
+    </author>
+    <author>
+      <name>Haizhou Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1902.06797v1</id>
+    <title>End-to-end Lyrics Alignment for Polyphonic Music Using an Audio-to-Character Recognition Model</title>
+    <updated>2019-02-18T20:53:55Z</updated>
+    <link href="https://arxiv.org/abs/1902.06797v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1902.06797v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Time-aligned lyrics can enrich the music listening experience by enabling karaoke, text-based song retrieval and intra-song navigation, and other applications. Compared to text-to-speech alignment, lyrics alignment remains highly challenging, despite many attempts to combine numerous sub-modules including vocal separation and detection in an effort to break down the problem. Furthermore, training required fine-grained annotations to be available in some form. Here, we present a novel system based on a modified Wave-U-Net architecture, which predicts character probabilities directly from raw audio using learnt multi-scale representations of the various signal components. There are no sub-modules whose interdependencies need to be optimized. Our training procedure is designed to work with weak, line-level annotations available in the real world. With a mean alignment error of 0.35s on a standard dataset our system outperforms the state-of-the-art by an order of magnitude.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2019-02-18T20:53:55Z</published>
+    <arxiv:comment>5 pages (1 for references), 2 figures, 2 tables. Camera-ready version, accepted at the International Conference on Acoustics, Speech, and Signal Processing 2019 (ICASSP)</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Daniel Stoller</name>
+    </author>
+    <author>
+      <name>Simon Durand</name>
+    </author>
+    <author>
+      <name>Sebastian Ewert</name>
+    </author>
+  </entry>
+</feed>

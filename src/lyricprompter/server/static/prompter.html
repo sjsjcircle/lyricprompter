@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Prompter</title>
+<link rel="stylesheet" href="/static/prompter.css">
+</head>
+<body>
+<main id="stage" aria-live="off">
+  <header id="hud">
+    <span id="status" class="status" data-status="offline"><i></i><b>Disconnected</b></span>
+    <span id="title"></span>
+  </header>
+  <section id="reel">
+    <p class="ln prev" id="ln-prev"></p>
+    <div class="focus-wrap" id="focus-wrap">
+      <p class="ln cur" id="ln-cur"></p>
+      <div id="cue" hidden><span id="cue-fill"></span><span id="cue-sec"></span></div>
+    </div>
+    <p class="ln next" id="ln-next1"></p>
+    <p class="ln next2" id="ln-next2"></p>
+  </section>
+  <section id="page" hidden><div id="page-in"></div></section>
+  <p id="empty" hidden>Waiting for a song from the console.</p>
+  <div id="conf" aria-hidden="true"><span></span></div>
+</main>
+
+<aside id="settings" hidden>
+  <h2>Prompter</h2>
+  <label>Layout
+    <select id="s-layout">
+      <option value="line">Line by line</option>
+      <option value="page">Multiple lines</option>
+    </select>
+  </label>
+  <label>Max lines <output id="o-lines"></output><input id="s-lines" type="range" min="1" max="8" step="1"></label>
+  <label>Lead time <output id="o-lead"></output><input id="s-lead" type="range" min="0" max="5" step="0.1"></label>
+  <label>Text size <output id="o-size"></output><input id="s-size" type="range" min="0.5" max="2" step="0.05"></label>
+  <label>Upcoming lines <output id="o-prev"></output><input id="s-prev" type="range" min="0" max="2" step="1"></label>
+  <label class="check"><input id="s-wipe" type="checkbox"> Syllable highlight</label>
+  <label class="check"><input id="s-mirror" type="checkbox"> Mirror for teleprompter glass</label>
+  <div class="row">
+    <button id="b-full" type="button">Full screen</button>
+    <button id="b-reset" type="button" title="Drop this screen's own settings">Use console settings</button>
+    <button id="b-close" type="button">Close</button>
+  </div>
+  <p class="hint">Keys: F full screen, L line by line / multiple lines, W syllable highlight, M mirror, + and − text size, S settings. Changes here stay on this screen until the console changes the same setting.</p>
+</aside>
+<script type="module" src="/static/prompter.js"></script>
+</body>
+</html>

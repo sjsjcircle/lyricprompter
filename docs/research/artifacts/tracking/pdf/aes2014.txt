@@ -1,0 +1,114 @@
+The Complete Classical Music Companion
+V0.9
+Andreas Arzt1 , Sebastian Böck1 , Sebastian Flossmann1 , Harald Frostel1 , Martin Gasser2 , and Gerhard Widmer1,2
+1 Johannes Kepler University, Linz, Austria
+
+2 Austrian Research Institute for Artificial Intelligence (OFAI), Vienna, Austria
+
+
+Correspondence should be addressed to Andreas Arzt (andreas.arzt@jku.at)
+
+ABSTRACT
+We present a first integrated prototype towards our long-term goal of building a complete classical music
+companion. When listening to a live performance of classical piano music, our system is able to almost
+instantly identify the piece that is being played, and the position within the piece. It then tracks the
+performance via an accurate and robust score following algorithm and shows the sheet music accordingly.
+Furthermore, the system continuously re-evaluates its current position hypotheses within a database of scores
+(roughly 1,000,000 notes!) and is capable of detecting arbitrary ‘jumps’ by the performer (e.g., leaving out
+repetitions, re-starts at any position, etc.) – not only within a piece, but within the complete database of
+classical piano scores.
+
+
+1. THE COMPLETE CLASSICAL MUSIC COM-                                  musician(s), e.g., jumps to a different position or an en-
+PANION                                                                tirely a different piece – as long as the piece being played
+The ‘Complete Classical Music Companion’ is a long-                   is part of the database. Generally, detecting these jumps
+term endeavour of ours, with the goal of building a ver-              takes between 5 and 10 seconds. The system is tolerant
+satile system that is able to follow and understand live              to performance errors and slight variations, and indepen-
+performances of classical music (at least to some extent),            dent of the tempo in which the piece is being played.
+and to be of use both for musicians and for consumers of
+classical music. In this paper we present a first prototype           The basic system described above enables a range of pos-
+that has two important capabilities that we believe such a            sible applications. One of the main goals of our compan-
+system must possess: (1) automatic identification of the              ion is to enhance the listening experience for the con-
+piece it is listening to, and (2) following the progress of           sumer of classical music. Our vision is to ultimately
+the performer(s) within the score over time.                          see our system implemented on a mobile device (i.e., a
+To support these two capabilities, the companion is pro-              smart phone or a tablet computer), which then can be
+vided with a database of sheet music in symbolic form.                used when listening to music at home or at a concert
+Currently the database includes, amongst others, the                  hall. The user can be automatically presented with the
+complete solo piano works by Chopin and the com-                      respective sheet music, with a marker showing the exact
+plete Beethoven piano sonatas, and consists of roughly                position. Additionally, the system can present meta-data,
+1,000,000 notes in total. When listening to classical mu-             like information about the structure of the piece and his-
+sic (so far piano music only, due to restrictions of the              torical information about piece and composer, and give
+transcription component, see Section 2), our system is                hints about what to listen for at specific moments.
+able to identify, within a few seconds, the piece that is
+being played, and the position within this piece. It then             Also, performers might use our system during practice,
+tracks the progress of the performers over time, i.e., at             as the system can follow them and show the sheet music
+any time the current position in the score is computed.               accordingly, even if they repeat a section over and over or
+Furthermore, it continuously re-evaluates its hypothesis              only play parts of the score they need to rehearse. They
+and tries to match the current input stream to the com-               can simply sit down at the piano, query the sheet music
+plete database. Thus, it is able to follow any action of the          by playing the first few beats, and start practicing.
+
+
+                   AES 53RD INTERNATIONAL CONFERENCE, London, UK, 2014 January 27–29
+                                                1
+Arzt et al.                                                                  The Complete Classical Music Companion V0.9
+
+
+
+                                                                          method [2]. This process is continuously running in the
+              Live Performance              Musical Score
+                                              Database                    background, regularly providing new piece and (rough)
+                                                                          position hypotheses for the tracking component.
+                                                                          The more precise tracking component takes these rough
+                                                                          hypotheses and initialises individual trackers at these po-
+                                                                          sitions, which try to match the current audio input to
+                                                                          these respective positions in the sheet music (for more
+                                                                          information about the tracking algorithm see [1]). The
+                                                                          trackers try to follow the progress of the musician(s) over
+                                                                          time. At each point in time, a single tracker, which
+                                                                          produces the least costs during the alignment process,
+                                                                          is marked as active, i.e., represents our system’s belief
+                                                                          about the current position in the database. At regular
+                   'Any-time' On-line Music Tracker                       intervals, trackers which have large alignment costs are
+                          Instant Piece Recognizer                        stopped and reinitialised with new position hypotheses
+                                                                          computed by the recogniser.
+          Note Recognizer            Symbolic Music
+        (On-line Audio-to-Pitch         Matcher
+             Transcriptor)           (Fingerprinter)                      3. CONCLUSION AND FUTURE WORK
+                                                                          We have presented a first prototype of a system that iden-
+                    Multi Agent Music Tracking System
+                                                                          tifies and tracks music in real time, using a very large
+                                                                          score database. Besides trying to remove the restriction
+                                                                          to piano music, we are now in the progress of integrating
+                                                                          additional features, such as an algorithm that automati-
+                                                                          cally classifies the sound it is listening to (e.g., music,
+                                                                          speech, applause or silence). That will make it possible
+                                                                          to react more naturally to the typical sound environment
+     Output: Score Position                Possible Applications          of a concert hall.
+
+                                                                          4. ACKNOWLEDGEMENTS
+                                                                          This research is supported by the Austrian Science Fund
+                                                                          (FWF) under project numbers Z159, TRP 109-N23 and
+                                                                          the EU FP7 Project PHENICX (grant no. 601166).
+                   Fig. 1: System Overview
+                                                                          5. REFERENCES
+                                                                           [1] A. Arzt, G. Widmer and S. Dixon. Adaptive Dis-
+2. SYSTEM OVERVIEW
+                                                                               tance Normalization for Real-time Music Tracking.
+                                                                               In Proceedings of the European Signal Processing
+Figure 1 gives an overview of our music companion. The                         Conference. 2012.
+system consists of two main components that are running
+in parallel: (1) an ‘Instant Piece and Position Recogniser’                [2] A. Arzt, S. Böck and G. Widmer. Fast Identification
+and (2) a ‘Multi Agent Music Tracking System’.                                 of Piece and Score Position via Symbolic Finger-
+                                                                               printing. In Proceedings of the International Con-
+The recogniser is based on an on-line piano music tran-                        ference on Music Information Retrieval, 2012.
+scription algorithm [3], which takes the audio stream and
+translates it into symbolic information (a list of pitches                 [3] S. Böck and M. Schedl. Polyphonic Piano Note
+with time stamps). The list of notes of the last seconds                       Transcription with Recurrent Neural Networks. In
+of the live performance is then matched to the database                        Proceedings of the International Conference on
+of sheet music via a tempo-independent fingerprinting                          Acoustics, Speech, and Signal Processing, 2012.
+
+
+
+                 AES 53RD INTERNATIONAL CONFERENCE, London, UK, 2014 January 27–29
+                                                                   Page 2 of 2
+

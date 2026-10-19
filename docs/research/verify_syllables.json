@@ -1,0 +1,131 @@
+{
+ "topic": "syllables",
+ "checked": [
+  {
+   "claim": "Japanese stack versions/licenses: pyopenjtalk-plus 0.4.1.post9 (2026-08-11, MIT, py>=3.10, wheels cp310-cp314, deps numpy/pydantic/sudachipy/sudachidict_core); cutlet 0.5.2 (2026-07-01, MIT); fugashi 1.5.2 (MIT AND BSD-3-Clause, cp39-cp314); unidic-lite 1.0.8 (2021); unidic 1.1.0; sudachipy 0.7.0 (2026-09-24, Apache-2.0, cp310-abi3); sudachidict-core 20260723.1; pykakasi 2.3.0 (GPL-3.0+); jaconv 0.5.0 (MIT)",
+   "status": "confirmed",
+   "evidence": "PyPI JSON on 2026-10-12 matches every version, date and license. pyopenjtalk-plus macOS wheels are universal2, which includes arm64, for cp310-cp314. requires_dist is numpy>=1.24, pydantic<3, sudachipy, sudachidict_core, typing-extensions, with extras onnxruntime/marine/tsqyomi."
+  },
+  {
+   "claim": "Korean/English/general versions/licenses: uroman 1.3.1.1; g2pk2 0.0.3 Apache-2.0; python-mecab-ko 1.3.7 BSD; kiwipiepy 0.24.0 Apache cp39-abi3; korean-romanizer 0.28.0 GPL-3; hangul-romanize 0.1.0 no license; pyphen 0.18.1 tri-license; cmudict 1.1.3 GPL-3.0+; g2p-en 2.1.0; nltk 3.10.3; num2words 0.5.14 LGPL; regex 2026.9.29 Apache-2.0",
+   "status": "confirmed",
+   "evidence": "PyPI JSON matches every version. Two small license details: regex's license_expression is 'Apache-2.0 AND CNRI-Python'. uroman's PyPI classifier says Apache, but the actual text is MIT-style plus a required acknowledgement sentence, as the report says, and GitHub reports NOASSERTION."
+  },
+  {
+   "claim": "python-mecab-ko 1.3.7 has macOS arm64 wheels only for cp38-cp312; mecab-ko 1.0.2 has cp313 wheels but g2pk2 imports `mecab`; therefore pin Python 3.12 (misaki also <3.13)",
+   "status": "confirmed",
+   "evidence": "The wheel list has cp38/39/310/311/312 macosx_11_0_arm64 only. mecab-ko's README uses `import mecab_ko as MeCab`, a different module name. misaki 0.9.4 requires_python is '<3.13,>=3.8'. The 3.12 cap comes from g2pk2 alone and goes away if g2pk2 is dropped (see recommendation)."
+  },
+  {
+   "claim": "pyopenjtalk-plus gives the most lyric-appropriate readings (明日->アシタ, 何を->ナニヲ, 走り出せ->ハシリダセ, 2人->フタリ, 1000年->センネン, 3月14日->サンガツジューヨッカ); unidic-lite/sudachi/pykakasi each fail several",
+   "status": "confirmed",
+   "evidence": "Re-ran in the existing py3.12.15 venv and every reading reproduced. unidic-lite gives アス/ナン/ハシリデセ/2ニン/1000ネン/3ガツ14カ. sudachi gives アス/ナン/ハシリデセ/イチレイレイレイネン, but sudachi DID read 2人 correctly as フタリ. pykakasi additionally reads 今日は as こんにちは and 3月14日 as 3がつ14にち."
+  },
+  {
+   "claim": "run_frontend() rewrites the surface (2人->二人, ASCII->full-width), so spans must be re-anchored with a custom NFKC+find routine (ja_nodes)",
+   "status": "partially-true",
+   "evidence": "run_frontend('2人')[0]['string'] == '二人' is confirmed. However, pyopenjtalk-plus 0.4.1.post9 also ships pyopenjtalk.g2p_mapping(text), which returns 'char_span' into the ORIGINAL input plus read/pron/phonemes per surface. Verified: 'ｶﾞｯｺｳ'->(0,5), '1000'->surface 千 span (0,4), '14日'->十四日 span (2,5), 'R','&','B' -> separate spans, '100%' -> 百(7,10) + ％(10,11).",
+   "correction": "Use pyopenjtalk.g2p_mapping() for Japanese spans. The hand-written re-anchoring heuristic is not needed."
+  },
+  {
+   "claim": "`pron` gives ー long vowels, は->ワ and を->オ",
+   "status": "partially-true",
+   "evidence": "は->ワ (今日は->キョーワ) and へ->エ (未来へ->ミライエ) are confirmed, and long vowels are marked with ー. But pron keeps particle を as ヲ (地球を回せ -> チキューヲマワセ; g2p_mapping also gives read=ヲ, pron=ヲ). The prototype's own kana table maps を/ヲ->'o', so its output is still correct.",
+   "correction": "pron does not convert を; the romanization table must (and does) map ヲ->o."
+  },
+  {
+   "claim": "Original pyopenjtalk 0.4.1 has no macOS arm64 wheels; pyopenjtalk-plus warns about missing ONNX Runtime (Nani prediction disabled) unless installed with [onnxruntime]",
+   "status": "confirmed",
+   "evidence": "PyPI pyopenjtalk 0.4.1 files: sdist only. The warning appears on every run. The pyopenjtalk-plus README says the [onnxruntime] extra enables the 何 なに/なん classifier, and also documents the [tsqyomi] extra, a context-aware heteronym reading model downloaded from Hugging Face, which the report did not mention."
+  },
+  {
+   "claim": "uroman API Uroman().romanize_string(s, lcode=None, rom_format=RomFormat.STR|EDGES|ALTS|LATTICE); hangul edges are one per block; per-syllable romanization equals whole-string; Japanese edges merge っ/ー; kanji become pinyin",
+   "status": "confirmed",
+   "evidence": "The signature matches. 18 hangul words, including double finals (값, 닭, 앉아, 괜찮아, 뷁), give the same output per syllable and as a whole word. 꽃잎을 EDGES = [(0,1,'ggoc'),(1,2,'ip'),(2,3,'eul')]. ラーメン待って -> [(0,2,'raa'),...,(5,7,'tte')]. 東京タワー -> 'dongjingtawaa' and 待 -> 'dai'. The uroman README itself says kanji are romanized as Chinese."
+  },
+  {
+   "claim": "Custom Hepburn mora table is preferable to uroman for Japanese",
+   "status": "confirmed",
+   "evidence": "For plain kana the table is identical to uroman (shi/chi/tsu/fu/ji/zu, を->o, ん->n). uroman is inconsistent on extended katakana: ふぁ->fua, てぃ->tei but ティ->ti, でゅ->deyu, うぃ->ui, シェ->shie, ヴァ->vua. The report's fa/ti/dyu/wi/she/va is more phonetic and mora-exact. One small gap: ヵ/ヶ map to ''."
+  },
+  {
+   "claim": "torchaudio 2.11.0 still exports functional.forced_align/merge_tokens/TokenSpan and pipelines.MMS_FA/Wav2Vec2FABundle; labels '-' + a i e n o u t s r m k l d g h y b p w c v j z f ' q x + '*'; tokenizer takes List[str], aligner returns List[List[TokenSpan]]",
+   "status": "confirmed",
+   "evidence": "Checked the v2.11.0 source via the GitHub API (functional/__init__.py, pipelines/__init__.py, impl.py get_labels docstring, aligner.py). Stronger than 'pin and re-check': the v2.10.0 release notes say forced_align is preserved permanently, and the v2.11.0 notes say it is compatible with future torch versions. torchaudio 2.11.0 (2026-03-23) is still the latest even though torch is at 2.14.1, so torchaudio no longer releases in lockstep with torch. The MMS_FA checkpoint URL is live (HTTP 200, 1,262,047,414 bytes)."
+  },
+  {
+   "claim": "MMS_FA tutorial: normalize_uroman = lowercase, ’->', non [a-z' ] -> space, collapse; trained on 23k hours / 1100+ languages; CJK needs segmentation first",
+   "status": "confirmed",
+   "evidence": "The quotes match the tutorial page. One addition: the tutorial runs the Perl uroman.pl, and MMS was trained with the Perl uroman (last version 1.2.8). The recommended PyPI uroman 1.3.1.1 is the newer Python port with 'various small improvements', so there is a small risk of drift from the training romanization."
+  },
+  {
+   "claim": "g2pk2 keeps block count for pure hangul but is wrong on numbers/English and some rules (꽃잎을->꼰니블, 24시간->이사시간, 2명의->이명의, 10년->심년, baby->베이비, R&B->아&비, whole-line 날려->랄려); ~15 ms/call",
+   "status": "confirmed",
+   "evidence": "Every listed output reproduced. The correct standard pronunciation is [꼰니플], so this is a real g2pk2 error. Per-word calls also lose cross-word liaison (옷 입어 -> 옫 이버, where the standard is [오디버]). Calls took 25-50 ms each, but the machine's load average was 45-60, so ~15 ms on an idle machine is plausible."
+  },
+  {
+   "claim": "g2pk2 side effects: nltk.download('cmudict') at import; G2p() runs pip install python-mecab-ko via subprocess if `mecab` missing",
+   "status": "confirmed",
+   "evidence": "In g2pk2/g2pk2.py, lines 12-15 do try nltk.data.find('corpora/cmudict.zip') except: nltk.download('cmudict'). check_mecab() runs subprocess.Popen([sys.executable,'-m','pip','install','python-mecab-ko']). ~/nltk_data/corpora was created at 14:54."
+  },
+  {
+   "claim": "g2p_en 2.1.0 fails on nltk 3.10.3 (needs averaged_perceptron_tagger_eng)",
+   "status": "confirmed",
+   "evidence": "g2p_en/g2p.py downloads the old 'averaged_perceptron_tagger'. nltk 3.10.3 nltk/tag/__init__.py maps 'eng' to 'taggers/averaged_perceptron_tagger_eng/'."
+  },
+  {
+   "claim": "pyphen en_US: left=1,right=1 produces garbage; default margins under-split (tonight, gonna, lyrics, Tokyo; somebody->some-body)",
+   "status": "confirmed",
+   "evidence": "Default Pyphen.__init__ margins are left=2, right=2. Defaults give tonight/lyrics/Tokyo/gonna/rhythm unsplit and some-body. left=1,right=1 gives rhyth-m, lyric-s, Toky-o, o-h. As a control, nltk SyllableTokenizer is worse (so-me-bo-dy, bea-u-ti-ful, e-ve-ryt-hing), so the CMUdict+pyphen reconcile approach is the right call."
+  },
+  {
+   "claim": "NFKC changes length (ｶﾞ 2->1, ㌔ 1->2) and converts compatibility jamo to conjoining; ー, 〜, ・ are Script=Common",
+   "status": "confirmed",
+   "evidence": "Verified with regex 2026.9.29 / unicodedata: ｶﾞ->ガ, ㌔->キロ, ㅋ U+314B -> U+110F. ー/〜/・ fail \\p{Katakana}, match \\p{Script=Common} and match \\p{scx=Katakana}. Additionally, OpenJTALK reads 〜 as a pause '、' (g2p_mapping('空〜あ〜あ')), which confirms 〜 must be rewritten to ー before analysis."
+  },
+  {
+   "claim": "cutlet use_foreign_spelling=True yields 'Tokyo tower', 'love song'; built-in exceptions (Tokyo)",
+   "status": "confirmed",
+   "evidence": "Cutlet.__init__(system='hepburn', use_foreign_spelling=True, ...). The default gives 'Tokyo tower de love song'. With use_foreign_spelling=False it gives 'Tokyo tawaa de rabu songu', so the Tokyo exception persists."
+  },
+  {
+   "claim": "sudachipy Dictionary.create() deprecated in favour of Dictionary.tokenizer()",
+   "status": "confirmed",
+   "evidence": "Calling it emits: DeprecationWarning: Dictionary.create() is deprecated, use Dictionary.tokenizer() instead."
+  },
+  {
+   "claim": "Prototype lyricsprep.py works and all span round-trip asserts pass",
+   "status": "partially-true",
+   "evidence": "I copied it to my scratch and ran it on mixed.txt, edge.txt, long.txt (770 align tokens), and the asserts pass. My extra probes found number bugs. 20살 -> 스물 should be 스무 (native 20 before a counter). 1번째 -> 한 번째 should be 첫 번째. 1번 타자 -> 한 번 should be 일 번 (Sino ordinal), though this one is flagged needs_review. Gikun via markup (本気(マジ), 地球(ほし)) works.",
+   "correction": "Fix the native numeral prenominal forms (스무, 첫) and treat 번 as ambiguous."
+  },
+  {
+   "claim": "Runtime: ~1.8-6 s cold start (OpenJTalk ~2 s, g2pk2+mecab ~1.5 s, cmudict 0.15 s), ~6.5 ms/line warm",
+   "status": "unverifiable",
+   "evidence": "The machine was at load average 45-60 from parallel agents. Measured: pyopenjtalk import 1.0-2.0 s, g2pk2 init 1.1-5.5 s, cmudict.dict() 0.9-5.3 s, and uroman Uroman() init 5.8-25 s. Full parse of 63 lines took 7.8-8.6 s wall. The report leaves out uroman init, which is the largest single cold-start cost. Warm per-line cost is negligible either way, and this is offline prep, so it does not affect the decision."
+  },
+  {
+   "claim": "For char-level CTC, Korean liaison leaves the character sequence unchanged; only the syllable boundary attribution moves",
+   "status": "confirmed",
+   "evidence": "Holds by construction, since uroman per-syllable concatenation equals whole-word (ggoc+ip+eul = ggo+ci+peul as a letter string). Corollary the report misses: liaison needs no G2P at all. Align the orthographic letters, then reassign the coda letters to the next syllable when that syllable starts with ㅇ, using a ~20-line jamo rule. Also, MMS was trained on ORTHOGRAPHIC uroman, so the g2pk2 'pron' variant may score worse. The report's per-song CTC-score selection is a reasonable hedge but is still unmeasured."
+  },
+  {
+   "claim": "g2pk3 1.4 (MIT) adds Japanese transliteration and a rule-20 fix",
+   "status": "confirmed",
+   "evidence": "The PyPI description says '제20조항 오류 문제 해결' and '일본어 발음 전사 추가'. It requires jamo, g2p_en and pyopenjtalk."
+  }
+ ],
+ "recommendation_assessment": "The architecture is sound and the facts it rests on largely check out. The report recommends a deterministic, span-indexed Song->Line->Word->Syllable->AlignUnit tree, with pyopenjtalk-plus for Japanese readings, per-syllable uroman for Korean, CMUdict-count plus pyphen-split for English, and sung-order expansion of repeats and sections. Versions, licenses, wheel availability, torchaudio MMS_FA/forced_align availability in 2.11.0, the uroman behaviour and the g2pk2 bugs and side effects all reproduced, and the prototype runs with all span asserts passing. I would change six things:\n\n(1) Japanese spans. Replace the hand-written ja_nodes() re-anchoring with pyopenjtalk.g2p_mapping(), already in the installed 0.4.1.post9. It returns char_span into the original text, verified on half-width kana, 1000->千 and 14日->十四日.\n\n(2) Japanese reading choice. Use pyopenjtalk.run_mecab_nbest_features() to produce alternatives for heteronyms (今日 キョウ/コンニチ, 何 ナニ/ナン, 明日 アシタ/アス) and pick the one with the higher CTC score on the vocal stem. Install the [onnxruntime] extra (何 model) and consider [tsqyomi]. Keep recurring lyric readings in a pyopenjtalk user dictionary via update_global_jtalk_with_user_dict with is_reading_protected. J-pop gikun (宇宙=そら, 本気=マジ, 地球=ほし) still cannot be inferred. Flag low-confidence words for operator review, and optionally pre-fill furigana suggestions with an LLM or ASR on the separated vocal.\n\n(3) Korean. Make g2pk2 optional, not default. Orthographic uroman matches MMS training, and liaison can be applied after alignment by moving coda letters to the next syllable. Dropping g2pk2 removes the nltk download at import, the pip-install subprocess and the Python ≤3.12 cap. 3.12 is still a fine project default. If a pronunciation variant is wanted, g2pkiwi (kiwipiepy, abi3) avoids python-mecab-ko.\n\n(4) Korean numbers. Fix the native-numeral prenominal forms (스무 살, 첫 번째) and treat 번 as ambiguous. kiwipiepy's SN+NNB tags give a more robust number+counter detector than a suffix list.\n\n(5) Aligner-agnostic output. The alignment track is evaluating Qwen3-ForcedAligner-0.6B, which takes native ja/ko/en text, but its model card lists only 'Speech' audio, so singing is untested. Every unit should therefore expose native-script text plus char spans, not only `roman`.\n\n(6) torchaudio. Note that torchaudio is frozen at 2.11.0 (forward-compatible with torch 2.14 per its release notes). Since 2.9, torchaudio.load/save are implemented on TorchCodec, so load audio with soundfile or librosa.",
+ "missed_options": [
+  "pyopenjtalk.g2p_mapping() (pyopenjtalk-plus >=0.4.1.post9): per-surface char_span into the original input, plus read/pron/phonemes. It removes the custom NFKC+find re-anchoring.",
+  "pyopenjtalk.run_mecab_nbest_features(text, max_paths): N-best readings for heteronyms, which can be scored acoustically with the MMS_FA emission to pick the sung reading automatically.",
+  "pyopenjtalk-plus extras: [onnxruntime] for the 何 なに/なん classifier and [tsqyomi] for a context-aware heteronym reading model from Hugging Face. Also the user dictionary (update_global_jtalk_with_user_dict with UserDictionaryEntry(is_reading_protected=True)) for recurring lyric gikun.",
+  "Dependency-free Korean liaison (연음): align orthographic uroman letters, then move the coda consonant tokens to the next ㅇ-initial syllable using jamo arithmetic. This replaces g2pk2 for the timing-relevant effect.",
+  "g2pkiwi 0.1.0 (Apache-2.0, 2022, g2pK fork on kiwipiepy abi3 wheels): avoids python-mecab-ko and the Python ≤3.12 cap if a pronunciation variant is still wanted.",
+  "kiwipiepy 0.24.0 morphological tags (SN number + NNB counter) for native vs Sino-Korean numeral choice, instead of a hard-coded counter suffix list.",
+  "Qwen3-ForcedAligner-0.6B (qwen-asr 0.0.6, Apache-2.0): native-script ja/ko/en forced alignment. The front-end should also emit native text units and spans for it; its card lists audio type 'Speech' only, so singing needs testing. stable-ts align() and ctc-forced-aligner 1.0.2 (an MMS wrapper with uroman, star token and chunking) are other consumers worth keeping compatible.",
+  "ASR on the separated vocal (e.g. Qwen3-ASR, which lists singing/BGM support) or LLM-suggested furigana, to surface gikun and reading mismatches for operator review before alignment.",
+  "Raw CMUdict data file (BSD-style) instead of the GPL-3.0 `cmudict` PyPI wrapper if closed-source distribution matters (the report lists this only as an open question).",
+  "Load audio with soundfile/librosa rather than torchaudio.load: since torchaudio 2.9, load/save are implemented on TorchCodec, which adds a dependency."
+ ]
+}

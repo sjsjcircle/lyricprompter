@@ -1,0 +1,234 @@
+{
+ "topic": "environment",
+ "recommendation": "RECOMMENDATION: use Python 3.12 (uv-managed CPython 3.12.15) in a uv project venv on macOS arm64, with torch 2.14.1 + torchaudio 2.11.0 + torchcodec 0.17.0, numpy 2.5.x, scipy 1.18.x, numba 0.68 / llvmlite 0.50, librosa 1.0.0, soundfile 0.14, sounddevice 0.5.6, soxr 1.1.0, audio-separator[cpu] 0.47.0, ctc-forced-aligner from GitHub (MahmoudAshraf97, not PyPI), onnxruntime 1.31.0, transformers 5.19, fastapi 0.143 / starlette 1.7 / uvicorn[standard] 0.54 / pydantic 2.14. I installed this exact set on this Mac (M5 Pro, macOS 26.3.1, Xcode CLT present). `uv lock` resolved 117 packages and `uv sync` finished with no errors. Every module imported, MPS is available, and `audio-separator --env_info` reports MPS for torch models and CoreMLExecutionProvider for ONNX. The validated project is at /private/tmp/claude-501/-Users-sunjaewon-projects-Performance-live-lyrics-tracking/a1551f14-1847-4d65-a2d8-137d02c33533/scratchpad/research/environment/proj (pyproject.toml, uv.lock, src/lyricprompter/server.py).\n\nWHY 3.12. Python 3.11 is out: numpy 2.5.x, scipy 1.18.x and librosa 1.0.0 all declare requires_python >=3.12. On 3.11 you get stuck on numpy 2.4 / scipy 1.17 / librosa 0.11, and uv also dropped back to torch 2.11 / audio-separator 0.45. Python 3.13 also works: I installed and smoke-tested it with the same samplerate override. The cost is more source builds (mojimoji has no cp313 wheel; python-mecab-ko has wheels only up to cp312) and pydub needs audioop-lts (pulled in automatically). Python 3.14 resolves only when the macOS target is 14 or later, audio-separator explicitly excludes 3.14.1, and it was not tested. Don't use miniconda base (3.14). On 3.12 every binary dependency has an arm64 wheel except two that build cleanly with Xcode CLT: diffq 0.2.4 (Cython sdist) and ctc-forced-aligner (pybind11 C++ extension). unidic-lite is a data-only sdist.\n\nTHREE PACKAGING FIXES ARE REQUIRED (all verified):\n(1) audio-separator 0.47.0 pins samplerate==0.1.0. Its bundled libsamplerate.dylib is x86_64-only, so `import samplerate` raises OSError on arm64. Override it with `[tool.uv] override-dependencies = [\"samplerate>=0.2.4\"]`. audio-separator never imports samplerate itself, and librosa only loads it lazily.\n(2) audio-separator imports `audioread` (VR arch and spec_utils) but doesn't declare it. It used to arrive through librosa, and librosa 1.0 removed the audioread backend. Without it, `from audio_separator.separator import Separator` fails, so add `audioread` explicitly.\n(3) The PyPI package `ctc-forced-aligner` 1.0.2 is a different project: Deskpai's ONNX fork (homepage deskpai/ctc_forced_aligner, Feb 2025, sdist only), even though it uses the same import name. Install MahmoudAshraf97's maintained version from git (commit 64293cc, 2026-09-07, __version__ 0.3.0) through `[tool.uv.sources]`. It depends on uroman, nltk, torch, torchcodec, transformers>=4.34 and Unidecode, loads audio through the ffmpeg CLI, and builds a pybind11 extension.\nAlso: always give lower bounds (torch>=2.13, onnxruntime>=1.31, audio-separator>=0.47). Without them uv picked older versions in my resolution tests. Add `environments = [\"sys_platform == 'darwin' and platform_machine == 'arm64'\"]` so the lock doesn't solve the CUDA and Linux branches.\n\nTORCHAUDIO STATUS. torchaudio is in maintenance mode, and 2.11.0 (2026-03-23) is its final release line. Its README says it \"works with torch 2.11 and with every future torch release\", with no torch pin, and it still ships macOS arm64 wheels for cp310–cp314. What remains: transforms (MelSpectrogram, Resample …), functional (including forced_align and lfilter), compliance.kaldi, models, and pipelines (MMS_FA is present; tested). `torchaudio.load/save` still exist but go through torchcodec. StreamReader/StreamWriter (torchaudio.io), sox effects, prototype and the backend utilities were removed in 2.9. Tested: `torchaudio.functional.forced_align` is NOT implemented on MPS (NotImplementedError). Compute the emissions on MPS, then `.cpu()` for the alignment. torchcodec 0.17 decoded mp3 using Homebrew FFmpeg 8.1.1 (it supports FFmpeg 4–9) with no DYLD tweaks.\n\nDEVICE POLICY. Use MPS for offline prep: separation (audio-separator puts Roformer/Demucs/VR on MPS and MDX ONNX on CoreML) and wav2vec2/MMS emissions. Use CPU for the real-time per-hop path. Measured on this Mac: a tiny CRNN (conv+BiGRU, 5 frames) takes 0.87 ms per hop on CPU versus 9.84 ms on MPS, because launch and sync overhead dominates. The reference repo's CRNN checkpoints (uni-*-640hop.pt, 47 MB) load fine with torch 2.14's default weights_only=True (keys: model_state_dict, config, consts). Warm up numba at startup: librosa.sequence.dtw on 750x750 took 622 ms on the first JIT call and 8 ms after that.\n\nREAL-TIME AUDIO. Use sounddevice, not PyAudio (which the reference repo uses). The 0.5.6 macOS wheel bundles a universal2 libportaudio.dylib (PortAudio V19.7.0-devel). It loaded the bundled copy even with brew portaudio installed, so no brew portaudio is needed. Recommended setup:\n- Open ONE InputStream on the interface at its native rate (48 kHz), with dtype float32, latency='low', blocksize=0 (or 256/480), and extra_settings=sd.CoreAudioSettings(channel_map=[...]). channel_map takes zero-based device channels, and `channels` must equal len(channel_map).\n- Open the union of the vocal and mix channels (for example [0, 2, 3] = vocal on ch1, mixer L/R on ch3-4). The operator can then switch between vocal-only and full-mix mode without reopening the stream.\n- Select the device by case-insensitive substring: `sd.query_devices('BlackHole', 'input')` works, including the Korean-localized device names on this Mac.\n- In the PortAudio callback, only copy and enqueue. A worker thread does the channel pick/downmix, streams through soxr.ResampleStream to 16 kHz (variable output length per block), re-frames into fixed 640-sample (40 ms) hops, computes features and OLTW, then hands the state to asyncio with loop.call_soon_threadsafe.\n- Measured cost of 48k→16k per 10 ms block: soxr ResampleStream about 2.8 µs, samplerate 0.2.4 sinc_fastest about 15.7 µs, stateless scipy.resample_poly about 46 µs (and it has block-edge artifacts).\n- If you need 22.05 kHz for another feature, run a second ResampleStream.\n- CoreAudioSettings(change_device_parameters=True) can lower latency further, but it may disturb other apps using the interface (DAW/OBS).\n- Mic permission (TCC) is granted to the app that hosts the process: Terminal, iTerm2, VS Code, or the Claude app if launched from its terminal. If it's denied you typically get silent zeros rather than an exception. Pre-grant it in System Settings > Privacy & Security > Microphone, reset with `tccutil reset Microphone <bundle-id>`, and have the console warn when the input peak is exactly 0 for more than 1 s. Virtual devices such as BlackHole are gated too.\n\nTESTING WITHOUT A SINGER.\n(a) A FileSource thread reads blocks with soundfile, streams them through soxr and paces them to the wall clock with deadline-based sleeps. Tested: 5.00 s of wall time for 4.96 s of audio, no drift.\n(b) For an end-to-end CoreAudio test, play the file into BlackHole 16ch (already installed here, along with an aggregate device) and select it as the input.\nChanging the pacing speed does not simulate a singer changing tempo. Pre-render time-stretched variants instead (`rubberband -t`, or librosa.effects.time_stretch).\n\nAPP STACK. Run a single uvicorn process with `--workers 1` (tracker state lives in-process) and no `--reload` during shows; uvicorn[standard] adds uvloop and httptools. The tracker thread publishes to a Hub. A /ws/prompter endpoint pushes event-driven, latest-wins JSON (seq, ref_time, rate, line, syl, conf, t_server) capped at 25–30 Hz, with a 1 s keepalive. A /ws/control endpoint takes operator commands (mode, start/stop, seek/nudge, device/channel config). Static files are served with StaticFiles(html=True). Tested on FastAPI 0.143 / Starlette 1.7: about 23 Hz delivered from a 25 Hz tracker.\n- Prompter UI: no build step. Plain HTML/CSS plus one ES module. Render all lines once with per-syllable spans. In requestAnimationFrame, extrapolate the position (ref_time + rate × time since receipt, capped at about 250 ms) and smooth it. Highlight via a class plus a CSS variable for the fill fraction, and auto-scroll with transform: translateY. Use the Wake Lock API and the Fullscreen API. Self-host CJK fonts (Noto Sans KR/JP), because venues are often offline.\n- Operator console: vanilla JS, or Preact 11.0.1 + htm 3.1.1 (+ @preact/signals 2.11.3) vendored into static/vendor (no CDN at runtime). Move to Vite 8.3.4 + React 19.3 + TypeScript only if the console grows a waveform/alignment editor; in that case build into the static dir and proxy /ws in dev.\n- The reference repo's frontend (CRA react-scripts 5, MUI v4) is obsolete; don't port it.\n\nLICENSING (relevant if this is ever distributed or used commercially):\n- diffq is CC-BY-NC-4.0 and its repo is archived; audio-separator requires it on non-Windows.\n- The MMS_FA weights (torchaudio, 1.26 GB) and the default ctc-forced-aligner model MahmoudAshraf/mms-300m-1130-forced-aligner (1.26 GB) are CC-BY-NC-4.0.\n- Unidecode, pykakasi and cmudict (package code) are GPL.\n- soxr is LGPL-2.1+.\n- uroman is MIT-like with an attribution request for publications.",
+ "alternatives": [
+  {
+   "name": "Python 3.13 instead of 3.12",
+   "pros": "Verified: the full stack installs and imports on 3.13 (torch 2.14.1, numpy 2.5.4, librosa 1.0, audio-separator 0.47 with audioop-lts, pyopenjtalk-plus, cutlet). Slightly newer interpreter, longer support window.",
+   "cons": "More packages build from source (mojimoji has no cp313 wheel; python-mecab-ko has wheels only up to cp312, so Korean MeCab would need a source build plus mecab-ko). pydub needs the audioop-lts shim. Most ML research repos still test on 3.10–3.12."
+  },
+  {
+   "name": "Python 3.11",
+   "pros": "Most widely tested by older ML repos; the reference repo-era tooling ran here.",
+   "cons": "Excluded from current releases: numpy 2.5, scipy 1.18 and librosa 1.0 require >=3.12. uv fell back to numpy 2.4.6 / scipy 1.17.1 / librosa 0.11 / torch 2.11 / audio-separator 0.45."
+  },
+  {
+   "name": "Python 3.14 (Homebrew / miniconda base)",
+   "pros": "Already present on the machine. torch, numba, onnxruntime 1.31 and soxr publish cp314 wheels.",
+   "cons": "Resolves only when the macOS target is >=14. audio-separator declares requires_python !=3.14.1. Not tested end-to-end. Mixing with conda base risks uv pip installing into CONDA_PREFIX."
+  },
+  {
+   "name": "conda/miniforge env instead of uv",
+   "pros": "conda-forge ships ffmpeg, libsndfile and portaudio as packages; familiar to the reference repo (environment.yml).",
+   "cons": "Slower solves. pip/conda mixing is needed anyway (audio-separator, ctc-forced-aligner from git). The base env here is Python 3.14. uv plus brew ffmpeg already works and was verified."
+  },
+  {
+   "name": "uv via pip install uv / standalone installer instead of Homebrew",
+   "pros": "The standalone installer supports `uv self update`; pip install works inside any env.",
+   "cons": "`pip install uv` into conda base ties uv to that environment. Homebrew uv 0.13.0 (2026-10-09) is already installed and current; update it with `brew upgrade uv` (not `uv self update`)."
+  },
+  {
+   "name": "PyAudio (as in the reference repo) instead of sounddevice",
+   "pros": "Same PortAudio backend; the reference code is written against it.",
+   "cons": "PyAudio 0.2.14 (2023) ships no macOS arm64 wheel, so it needs brew portaudio and a compile. No CoreAudio channel_map helper and a clunkier numpy API. sounddevice 0.5.6 bundles a universal2 PortAudio dylib and has CoreAudioSettings(channel_map)."
+  },
+  {
+   "name": "Capture audio in the browser (getUserMedia + AudioWorklet) instead of Python",
+   "pros": "The TCC prompt goes to the browser; no Python audio stack.",
+   "cons": "Selecting specific channels of a multichannel interface is unreliable (especially in Safari). Adds an audio transport hop over WebSocket and its latency. Keeping DSP/OLTW next to the capture in Python is simpler."
+  },
+  {
+   "name": "Resampler: samplerate 0.2.4 / scipy.signal.resample_poly / torchaudio.functional.resample / librosa 1.0 stream resampling",
+   "pros": "samplerate has a true streaming Resampler and fixed output count via ratio; resample_poly is dependency-free; torchaudio's runs on the GPU.",
+   "cons": "Measured per 10 ms block: samplerate about 15.7 µs, resample_poly about 46 µs and stateless (block-edge artifacts), versus soxr ResampleStream at about 2.8 µs. torchaudio resample is batch-oriented. librosa stream SR conversion is not enabled by default in 1.0."
+  },
+  {
+   "name": "Frontend: Vite 8.3.4 + React 19.3 + TypeScript 7",
+   "pros": "Type safety, rich component ecosystem, matches the reference repo's React lineage; good if the operator console gets a waveform/alignment editor.",
+   "cons": "Needs a build step and a node toolchain at deploy time; overkill for a display page that only swaps CSS classes at 25–30 Hz."
+  },
+  {
+   "name": "demucs 4.1.0 directly (new release 2026-07-11) instead of audio-separator",
+   "pros": "MIT, no torchaudio dependency (uses sphn/lameenc with cp312 wheels), no diffq unless [quantized], no samplerate/audioread packaging bugs.",
+   "cons": "Only Demucs models (no MDX/Roformer vocal models, which are usually better for vocal stems); separation quality choice belongs to the separation research track."
+  }
+ ],
+ "key_facts": [
+  {
+   "claim": "torch 2.14.1 (2026-09-30) is latest; macOS arm64 wheels exist for cp310–cp314 (macosx_14_0_arm64, ~124 MB); requires_python >=3.10. Verified torch.backends.mps.is_available() == True on this M5 Pro with macOS 26.3.1.",
+   "source": "https://pypi.org/pypi/torch/json + local install test",
+   "confidence": "high"
+  },
+  {
+   "claim": "torchaudio 2.11.0 (2026-03-23) is the final release line: maintenance mode, 'works with torch 2.11 and with every future torch release', no torch pin; macOS arm64 wheels for cp310–cp314. Verified working with torch 2.14.1.",
+   "source": "https://github.com/pytorch/audio README, release notes v2.10.0/v2.11.0, https://pypi.org/pypi/torchaudio/json",
+   "confidence": "high"
+  },
+  {
+   "claim": "torchaudio keeps transforms, functional (forced_align, lfilter, overdrive, RNNTLoss, CUCTC preserved), compliance.kaldi, models, pipelines (MMS_FA present). load/save now route through TorchCodec. Other APIs marked 'drop' (torchaudio.io StreamReader/Writer, sox effects, prototype, etc.) were removed in 2.9.",
+   "source": "https://github.com/pytorch/audio/issues/3902, v2.9.0/v2.10.0 release notes, local hasattr checks",
+   "confidence": "high"
+  },
+  {
+   "claim": "torchaudio.functional.forced_align raises NotImplementedError on the MPS device; works on CPU.",
+   "source": "Local test on torch 2.14.1 / torchaudio 2.11.0",
+   "confidence": "high"
+  },
+  {
+   "claim": "numpy 2.5.4 (2026-10-10), scipy 1.18.1 and librosa 1.0.0 (2026-08-11) all require Python >=3.12.",
+   "source": "https://pypi.org/pypi/numpy/json, https://pypi.org/pypi/scipy/json, https://pypi.org/pypi/librosa/json",
+   "confidence": "high"
+  },
+  {
+   "claim": "numba 0.68.0 (2026-09-30) requires numpy<2.6,>=1.22 and llvmlite 0.50.x; arm64 wheels cp310–cp315. librosa 1.0 needs numba>=0.61, numpy>=2.1, scipy>=1.15, soxr>=1.0, scikit-learn>=1.6, and dropped audioread.",
+   "source": "PyPI JSON requires_dist; https://librosa.org/blog/posts/1.0/",
+   "confidence": "high"
+  },
+  {
+   "claim": "audio-separator 0.47.0 requires torch>=2.13,<3 on darwin arm64, pins samplerate==0.1.0, depends on diffq (non-win32), onnx-weekly and onnx2torch-py313; requires_python '!=3.14.1,>=3.10'. Use the [cpu] extra on Mac to get onnxruntime (CoreML EP).",
+   "source": "https://pypi.org/pypi/audio-separator/json; https://github.com/nomadkaraoke/python-audio-separator README",
+   "confidence": "high"
+  },
+  {
+   "claim": "samplerate 0.1.0 bundles an x86_64-only libsamplerate.dylib, so import fails on arm64 with an 'incompatible architecture' OSError. samplerate 0.2.4 has universal2 wheels and works; override via [tool.uv] override-dependencies.",
+   "source": "Local test + `file` on the dylib",
+   "confidence": "high"
+  },
+  {
+   "claim": "audio-separator imports audioread (vr_separator.py, uvr_lib_v5/spec_utils.py) without declaring it; with librosa 1.0 the import fails until audioread is added.",
+   "source": "Local test: ModuleNotFoundError: No module named 'audioread'",
+   "confidence": "high"
+  },
+  {
+   "claim": "diffq 0.2.4 has macOS wheels only for cp38–cp310, so it builds from sdist on 3.12/3.13 (succeeded with Xcode CLT, clang 17). Its license is CC-BY-NC-4.0 and the repo is archived.",
+   "source": "https://pypi.org/pypi/diffq/json; https://github.com/facebookresearch/diffq LICENSE; local build",
+   "confidence": "high"
+  },
+  {
+   "claim": "`audio-separator --env_info` on this Mac: 'Apple Silicon MPS/CoreML is available in Torch... setting Torch device to MPS' and 'ONNXruntime has CoreMLExecutionProvider available'. The default model dir is /tmp/audio-separator-models/ (not persistent).",
+   "source": "Local run",
+   "confidence": "high"
+  },
+  {
+   "claim": "PyPI 'ctc-forced-aligner' 1.0.2 is Deskpai's ONNX fork (homepage github.com/deskpai/ctc_forced_aligner, sdist-only, Feb 2025). MahmoudAshraf97's version is installed from git (main 64293cc6, 2026-09-07, __version__ 0.3.0); it builds a pybind11 C++ extension (verified) and requires uroman, nltk, torch, torchcodec, transformers>=4.34, Unidecode.",
+   "source": "https://pypi.org/pypi/ctc-forced-aligner/json; https://github.com/MahmoudAshraf97/ctc-forced-aligner (setup.py, requirements.txt)",
+   "confidence": "high"
+  },
+  {
+   "claim": "MahmoudAshraf/mms-300m-1130-forced-aligner (model.safetensors 1.26 GB) and torchaudio MMS_FA model.pt (1,262,047,414 bytes) are both CC-BY-NC-4.0. ctc-forced-aligner code is BSD-2-Clause per its README/LICENSE (its pyproject still says CC-BY-NC 4.0).",
+   "source": "HF API models/MahmoudAshraf/mms-300m-1130-forced-aligner; HEAD dl.fbaipublicfiles.com; torchaudio impl.py docstring",
+   "confidence": "high"
+  },
+  {
+   "claim": "sounddevice 0.5.6 macOS wheel bundles a universal2 libportaudio.dylib (PortAudio V19.7.0-devel); the loaded lib path was _sounddevice_data/portaudio-binaries even with brew portaudio installed.",
+   "source": "https://pypi.org/pypi/sounddevice/json; local sd._libname",
+   "confidence": "high"
+  },
+  {
+   "claim": "sd.CoreAudioSettings(channel_map=[...]) selects specific zero-based input channels on Core Audio devices (output maps use -1 for unused). sd.query_devices('<substring>', 'input') does case-insensitive substring matching (verified incl. Korean-localized names). sd.default.latency is ('high','high') unless latency='low' is passed.",
+   "source": "python-sounddevice src/sounddevice.py docstring; local test",
+   "confidence": "high"
+  },
+  {
+   "claim": "Resampling 48k→16k in 10 ms blocks on M5 Pro: soxr.ResampleStream about 2.8 µs/block; samplerate.Resampler (sinc_fastest) about 15.7 µs/block; scipy.signal.resample_poly per block about 46 µs/block (stateless).",
+   "source": "Local microbenchmark",
+   "confidence": "high"
+  },
+  {
+   "claim": "Tiny CRNN (Conv1d x2 + BiGRU 128 + Linear 40) per-hop inference: CPU 0.87 ms vs MPS 9.84 ms including .cpu(), so the real-time path should run on CPU.",
+   "source": "Local microbenchmark, torch 2.14.1",
+   "confidence": "high"
+  },
+  {
+   "claim": "The reference repo's CRNN checkpoint uni-39cls-640hop.pt loads with torch 2.14 default torch.load(weights_only=True); keys model_state_dict, config, consts. The reference repo also depends on nnAudio (latest 0.3.4, Dec 2025, pure Python).",
+   "source": "Local test; reference repo backend/app/core/model.py; https://pypi.org/pypi/nnAudio/json",
+   "confidence": "high"
+  },
+  {
+   "claim": "torchcodec 0.17.0 supports FFmpeg 4–9 and worked with Homebrew FFmpeg 8.1.1 (mp3 decode/resample to 16 kHz mono) without DYLD settings; torchaudio.load works through it.",
+   "source": "https://github.com/pytorch/torchcodec README; local test",
+   "confidence": "high"
+  },
+  {
+   "claim": "onnxruntime 1.31.0 macOS wheels are macosx_14_0_arm64 for cp311–cp314 and include CoreMLExecutionProvider.",
+   "source": "https://pypi.org/pypi/onnxruntime/json; local get_available_providers()",
+   "confidence": "high"
+  },
+  {
+   "claim": "FastAPI 0.143.0 (2026-10-08): 0.142 added native OpenTelemetry (opentelemetry-api is now a hard dependency); 0.143 made exporter auto-configuration opt-in (FASTAPI_OTEL_AUTO_CONFIGURE=true). It pulls starlette 1.7.0; uvicorn 0.54.0 [standard] brings uvloop 0.23, httptools 0.9, websockets 17.2, watchfiles 1.3.",
+   "source": "https://github.com/fastapi/fastapi/releases; PyPI JSON",
+   "confidence": "high"
+  },
+  {
+   "claim": "The event-driven WebSocket push (latest-wins, 25 Hz cap) delivered about 23 msgs/s to a websockets client on FastAPI 0.143 / uvicorn 0.54; the /ws/control round trip worked.",
+   "source": "Local test (scratch proj/src/lyricprompter/server.py)",
+   "confidence": "high"
+  },
+  {
+   "claim": "uv 0.13.0 (2026-10-09) is installed via Homebrew on this Mac; the uv-managed CPython 3.12.15 downloads automatically. `uv lock` resolved 117 packages; cached `uv sync --reinstall` took about 13 s; the venv is 1.5 GB.",
+   "source": "Local `uv --version`, `uv python list`, timing",
+   "confidence": "high"
+  },
+  {
+   "claim": "uv pip compile with no lower bounds picked torch 2.11.0 / onnxruntime 1.23.2 / audio-separator 0.45.0 for py3.11–3.13. Adding torch>=2.14, onnxruntime>=1.31, audio-separator>=0.47 resolved cleanly to the latest versions.",
+   "source": "Local resolution experiments",
+   "confidence": "medium"
+  },
+  {
+   "claim": "python-mecab-ko 1.3.7 has arm64 wheels only up to cp312; mojimoji 0.0.13 has wheels only up to cp312 (builds from sdist on 3.13); kiwipiepy 0.24.0, sudachipy 0.7.0 and safetensors use abi3 wheels.",
+   "source": "PyPI JSON for each",
+   "confidence": "high"
+  },
+  {
+   "claim": "On macOS, mic permission (TCC) is attributed to the app hosting the Python process (Terminal/iTerm/VS Code/etc.); without it, recordings are typically silent rather than raising errors.",
+   "source": "https://soundcard.readthedocs.io/en/latest/ ; https://discourse.psychopy.org/t/macos-and-microphone-input/24579 ; https://developer.apple.com/forums/thread/715958",
+   "confidence": "medium"
+  },
+  {
+   "claim": "Frontend package versions as of 2026-10-12: vite 8.3.4, react/react-dom 19.3.0, @vitejs/plugin-react 6.1.2, preact 11.0.1, htm 3.1.1, @preact/signals 2.11.3, typescript 7.0.2. Node 26.0.0 / npm 11.12.1 installed.",
+   "source": "npm view",
+   "confidence": "high"
+  },
+  {
+   "claim": "The reference repo pins outdated stacks: torch/torchaudio 2.2.2, numpy 1.26.4, librosa 0.10.2, PyAudio 0.2.14, fastapi 0.111, CRA react-scripts 5 + MUI v4.",
+   "source": "laurenceyoon/live-lyrics-tracking backend/requirements.txt, frontend/package.json",
+   "confidence": "high"
+  }
+ ],
+ "code_snippets": "############################ 1) One-time setup (macOS arm64) ############################\n# Already on this Mac: uv 0.13.0 (brew), ffmpeg 8.1.1 (brew, shared libs), Xcode CLT, BlackHole 16ch\nbrew install uv ffmpeg          # update later with: brew upgrade uv   (NOT `uv self update` for brew installs)\nxcode-select --install          # only if missing; needed to build diffq + ctc-forced-aligner C++ ext\nbrew install rubberband         # optional: time-stretched test renders (rubberband -t 1.1 in.wav out.wav)\nconda deactivate                # keep miniconda base (py3.14) out of PATH/CONDA_PREFIX while using uv\n\nmkdir lyric-prompter && cd lyric-prompter\necho \"3.12\" > .python-version\nuv python install 3.12          # CPython 3.12.15 (python-build-standalone)\n# put the pyproject.toml below in place + src/lyricprompter/__init__.py, then:\nuv lock && uv sync\nuv run python -c \"import torch,torchaudio;print(torch.__version__,torchaudio.__version__,torch.backends.mps.is_available())\"\nuv run audio-separator --env_info          # expect: MPS + CoreMLExecutionProvider\n# run (single worker, no --reload during shows; caffeinate prevents sleep/App Nap):\ncaffeinate -dims uv run uvicorn lyricprompter.server:app --app-dir src --host 0.0.0.0 --port 8000 --workers 1\n\n############################ 2) pyproject.toml (validated: uv lock + uv sync OK, 117 pkgs) ############################\n[project]\nname = \"lyricprompter\"\nversion = \"0.1.0\"\nrequires-python = \">=3.12,<3.13\"\ndependencies = [\n  \"numpy>=2.4,<2.6\",            # numba 0.68 requires numpy<2.6\n  \"scipy>=1.17,<1.19\",\n  \"numba>=0.67,<0.69\",\n  \"librosa>=1.0,<1.1\",\n  \"soundfile>=0.13,<0.15\",\n  \"soxr>=1.0,<1.2\",\n  \"sounddevice>=0.5.2,<0.6\",\n  \"torch>=2.13,<2.15\",\n  \"torchaudio==2.11.0\",         # final release; forward-compatible with torch>=2.11\n  \"torchcodec>=0.17,<0.18\",     # FFmpeg 4-9 shared libs (brew ffmpeg OK)\n  \"transformers>=5.19,<6\",\n  \"onnxruntime>=1.31,<1.32\",    # CoreMLExecutionProvider on macOS\n  \"audio-separator[cpu]>=0.47,<0.48\",\n  \"audioread>=3.0\",             # undeclared runtime dep of audio-separator (librosa 1.0 dropped it)\n  \"ctc-forced-aligner\",         # from git, see [tool.uv.sources]\n  \"uroman>=1.3.1.1\",\n  \"pyphen>=0.18\", \"cmudict>=1.1.3\",\n  \"pykakasi>=2.3\", \"fugashi>=1.5\", \"unidic-lite>=1.0.8\", \"jamo>=0.4.1\",\n  \"fastapi>=0.143,<0.144\",\n  \"uvicorn[standard]>=0.54,<0.55\",\n  \"pydantic>=2.14,<3\",\n  \"python-multipart>=0.0.20\",\n]\n[dependency-groups]\ndev = [\"pytest>=9\", \"ruff>=0.17\"]\n\n[tool.uv]\nenvironments = [\"sys_platform == 'darwin' and platform_machine == 'arm64'\"]\noverride-dependencies = [\"samplerate>=0.2.4\"]   # audio-separator pins 0.1.0 = x86_64-only dylib\n\n[tool.uv.sources]\nctc-forced-aligner = { git = \"https://github.com/MahmoudAshraf97/ctc-forced-aligner.git\", rev = \"64293cc6d711e57666c4a8b098e9fd93b381fd88\" }\n\n[build-system]\nrequires = [\"uv_build>=0.9,<0.14\"]\nbuild-backend = \"uv_build\"\n\n############################ 3) Live input: one stream, chosen channels, 48k -> 16k hops ############################\nimport queue, threading, numpy as np, sounddevice as sd, soxr\nTARGET_SR, HOP = 16000, 640                      # 40 ms hops (same as reference repo)\n\nclass LiveSource:\n    \"\"\"mode='vocal' -> vocal mic channels; mode='mix' -> mixer stereo channels (downmixed).\"\"\"\n    def __init__(self, device, vocal_ch=(0,), mix_ch=(2, 3), mode=\"vocal\", blocksize=0):\n        info = sd.query_devices(device, \"input\")             # device: index or name substring\n        self.sr_in = int(info[\"default_samplerate\"])        # open at native rate; resample ourselves\n        self.chmap = sorted(set(vocal_ch) | set(mix_ch))     # zero-based device channels\n        self.cols = {\"vocal\": [self.chmap.index(c) for c in vocal_ch],\n                     \"mix\":   [self.chmap.index(c) for c in mix_ch]}\n        self.mode = mode                                     # switchable live, no reopen\n        self.raw_q, self.out_q = queue.Queue(maxsize=2000), queue.Queue(maxsize=2000)\n        self.xruns, self.peak = 0, 0.0\n        self.stream = sd.InputStream(\n            device=info[\"index\"], samplerate=self.sr_in, channels=len(self.chmap),\n            dtype=\"float32\", blocksize=blocksize, latency=\"low\",\n            extra_settings=sd.CoreAudioSettings(channel_map=self.chmap),\n            callback=self._cb)\n    def _cb(self, indata, frames, time_info, status):        # realtime thread: copy+enqueue only\n        if status.input_overflow: self.xruns += 1\n        try: self.raw_q.put_nowait((time_info.inputBufferAdcTime, indata.copy()))\n        except queue.Full: self.xruns += 1\n    def _worker(self):\n        rs = soxr.ResampleStream(self.sr_in, TARGET_SR, 1, dtype=\"float32\", quality=\"HQ\")\n        buf = np.zeros(0, np.float32)\n        while self._run:\n            adc_t, x = self.raw_q.get()\n            mono = x[:, self.cols[self.mode]].mean(axis=1)\n            self.peak = max(self.peak * 0.99, float(np.abs(mono).max()))  # ==0.0 for >1 s => TCC denied?\n            buf = np.concatenate([buf, rs.resample_chunk(mono)])         # output length varies; normal\n            while len(buf) >= HOP:\n                self.out_q.put(buf[:HOP].copy()); buf = buf[HOP:]\n    def start(self):\n        self._run = True; threading.Thread(target=self._worker, daemon=True).start()\n        self.stream.start(); return self\n    def stop(self):\n        self._run = False; self.stream.stop(); self.stream.close()\n\n# src = LiveSource(\"Scarlett\", vocal_ch=(0,), mix_ch=(2, 3), mode=\"mix\").start()\n# Interfaces on different clocks -> make an Aggregate Device in Audio MIDI Setup (enable drift correction).\n\n############################ 4) Simulate live from a file (tested: no wall-clock drift) ############################\nimport time, soundfile as sf\nclass FileSource:\n    def __init__(self, path, channels=None, out_q=None, block_sec=0.01):\n        self.path, self.channels, self.block_sec = path, channels, block_sec\n        self.out_q = out_q or queue.Queue(maxsize=2000); self._stop = threading.Event()\n    def start(self): threading.Thread(target=self._run, daemon=True).start(); return self\n    def _run(self):\n        with sf.SoundFile(self.path) as f:\n            sr, blk = f.samplerate, int(f.samplerate * self.block_sec)\n            rs = soxr.ResampleStream(sr, TARGET_SR, 1, dtype=\"float32\")\n            buf, n_in, t0 = np.zeros(0, np.float32), 0, time.perf_counter()\n            for x in f.blocks(blocksize=blk, dtype=\"float32\", always_2d=True):\n                if self._stop.is_set(): break\n                x = x[:, self.channels] if self.channels is not None else x\n                buf = np.concatenate([buf, rs.resample_chunk(x.mean(axis=1), last=len(x) < blk)])\n                while len(buf) >= HOP: self.out_q.put(buf[:HOP].copy()); buf = buf[HOP:]\n                n_in += len(x)\n                d = t0 + n_in / sr - time.perf_counter()      # deadline pacing (no cumulative drift)\n                if d > 0: time.sleep(d)\n        self.out_q.put(None)\n# Tempo-deviation tests: pre-render `rubberband -t 1.08 song.wav song_slow.wav` and play at 1x.\n# End-to-end CoreAudio test: play into \"BlackHole 16ch\" and use LiveSource(\"BlackHole\", ...).\n\n############################ 5) FastAPI hub + WebSocket push (tested ~23-25 Hz) ############################\nimport asyncio, json\nfrom contextlib import asynccontextmanager\nfrom pathlib import Path\nfrom fastapi import FastAPI, WebSocket, WebSocketDisconnect\nfrom fastapi.staticfiles import StaticFiles\nPUSH_HZ = 25\n\nclass Hub:\n    def __init__(self): self.state, self.version, self.changed, self.loop = {}, 0, asyncio.Event(), None\n    def publish_threadsafe(self, **state):                   # call from tracker/DSP thread\n        if self.loop: self.loop.call_soon_threadsafe(self._set, state)\n    def _set(self, state):\n        self.version += 1\n        self.state = {**state, \"seq\": self.version, \"t_server\": time.time()}\n        ev, self.changed = self.changed, asyncio.Event(); ev.set()\nhub = Hub()\n\n@asynccontextmanager\nasync def lifespan(app):\n    hub.loop = asyncio.get_running_loop()\n    # start tracker thread here: it consumes LiveSource/FileSource.out_q, runs features+OLTW on CPU,\n    # then hub.publish_threadsafe(ref_time=..., rate=..., line=..., syl=..., conf=..., mode=...)\n    yield\n\napp = FastAPI(lifespan=lifespan)\n\n@app.websocket(\"/ws/prompter\")\nasync def ws_prompter(ws: WebSocket):\n    await ws.accept(); min_dt = 1 / PUSH_HZ; last, t_last = -1, 0.0\n    try:\n        while True:\n            if hub.version == last:\n                try: await asyncio.wait_for(hub.changed.wait(), timeout=1.0)\n                except TimeoutError: await ws.send_text('{\"type\":\"ping\"}'); continue\n            if (w := min_dt - (time.perf_counter() - t_last)) > 0: await asyncio.sleep(w)\n            last, t_last = hub.version, time.perf_counter()\n            await ws.send_text(json.dumps(hub.state, separators=(\",\", \":\")))   # latest-wins\n    except (WebSocketDisconnect, RuntimeError):\n        pass\n\n@app.websocket(\"/ws/control\")\nasync def ws_control(ws: WebSocket):\n    await ws.accept()\n    try:\n        while True:\n            cmd = await ws.receive_json()        # {\"op\":\"mode\",\"value\":\"vocal\"|\"mix\"} / seek / start / stop\n            await ws.send_json({\"ack\": cmd.get(\"op\")})\n    except WebSocketDisconnect:\n        pass\n\napp.mount(\"/\", StaticFiles(directory=Path(__file__).parent / \"static\", html=True), name=\"static\")\n\n############################ 6) Prompter client (no build step: static/prompter.js) ############################\n// <script type=\"module\" src=\"/prompter.js\"></script>; syllable timings fetched once from /api/song/<id>\nconst S = { ref: 0, rate: 1, tRecv: performance.now() };\nfunction connect(delay = 250) {\n  const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/ws/prompter`);\n  ws.onopen = () => { delay = 250; };\n  ws.onmessage = (e) => { const m = JSON.parse(e.data); if (m.type === 'ping') return;\n    S.ref = m.ref_time; S.rate = m.rate ?? 1; S.tRecv = performance.now(); S.line = m.line; };\n  ws.onclose = () => setTimeout(() => connect(Math.min(delay * 2, 4000)), delay);\n}\nconnect();\nlet shown = 0;\nfunction frame(now) {\n  const target = S.ref + S.rate * Math.min((now - S.tRecv) / 1000, 0.25);  // extrapolate <=250 ms\n  shown += (target - shown) * 0.35;                                       // smooth small corrections\n  render(shown);   // binary-search syllable [start,end) -> toggle class, set --p fill, translateY scroll\n  requestAnimationFrame(frame);\n}\nrequestAnimationFrame(frame);\nnavigator.wakeLock?.request('screen').catch(() => {});   // needs secure context (localhost or https)",
+ "pitfalls": [
+  "Do not `pip install ctc-forced-aligner` from PyPI. That gets Deskpai's unrelated ONNX fork (1.0.2), which uses the same import name `ctc_forced_aligner` but a different API. Pin MahmoudAshraf97's repo by commit through [tool.uv.sources] or `pip install git+https://github.com/MahmoudAshraf97/ctc-forced-aligner.git@64293cc6`.",
+  "audio-separator 0.47 pins samplerate==0.1.0, whose bundled dylib is x86_64-only (OSError on arm64). Override it to samplerate>=0.2.4. With plain `uv pip install -r lock.txt` you must also pass `--override`, or the install re-resolves back to 0.1.0.",
+  "audio-separator does not declare `audioread`. With librosa 1.0 (audioread backend removed) the VR architecture and the separator import fail until you add audioread explicitly.",
+  "diffq (required by audio-separator on macOS) builds from sdist on Python >=3.11 and needs Xcode CLT. Its license is CC-BY-NC-4.0 and the repo is archived.",
+  "torchaudio will never release past 2.11. Don't pin torchaudio==<torch version>; torchaudio 2.11.0 is meant to work with any torch >=2.11. torchaudio.io (StreamReader/Writer) and sox effects are gone; use sounddevice, torchcodec or ffmpeg instead.",
+  "torchaudio.functional.forced_align is not implemented on MPS. Compute emissions on MPS, then `.cpu()` before alignment. Setting PYTORCH_ENABLE_MPS_FALLBACK=1 is an alternative, but it hides slow paths.",
+  "Don't run the real-time per-hop model on MPS. Measured 9.8 ms on MPS vs 0.9 ms on CPU per 40 ms hop for a tiny CRNN. Keep MPS for offline separation and wav2vec2 emissions, and call torch.set_num_threads(2-4) in the realtime process so it doesn't fight separation jobs.",
+  "Without explicit lower bounds, uv resolved py3.11–3.13 to torch 2.11 / onnxruntime 1.23.2 / audio-separator 0.45. Keep floors (torch>=2.13, onnxruntime>=1.31, audio-separator>=0.47). torch 2.14 and onnxruntime 1.31 wheels need macOS >=14, which is fine on macOS 26 but matters if you ever set MACOSX_DEPLOYMENT_TARGET lower.",
+  "Python 3.11 cannot get numpy 2.5 / scipy 1.18 / librosa 1.0 (all >=3.12). Python 3.14 is not supported by audio-separator 3.14.1 (requires_python != 3.14.1) and is untested. Avoid the miniconda base 3.14: with conda active, `uv pip` targets CONDA_PREFIX when no venv is active. Use `uv sync` / `uv run`.",
+  "numba 0.68 caps numpy <2.6. Pin numpy<2.6 until a new numba ships, or the resolver will refuse or downgrade numba.",
+  "First-call numba JIT costs about 0.6 s (librosa.sequence.dtw). Warm up all numba and librosa code paths and the CRNN at server start, not on the first live hop.",
+  "macOS TCC: mic permission belongs to the hosting app (Terminal, iTerm2, VS Code, or the Claude desktop app if launched from its terminal). Denied permission usually yields all-zero input with no exception. A launchd agent or IDE run button may never prompt at all. Pre-grant it, reset with `tccutil reset Microphone com.apple.Terminal`, and surface a peak==0 warning in the operator console. Virtual inputs (BlackHole) are also gated.",
+  "sounddevice: `channels` must equal len(channel_map) when using CoreAudioSettings(channel_map). Channel indices are zero-based (interface 'Input 1' = 0). Opening two separate devices means two clocks that drift; use one multichannel device or a macOS Aggregate Device with drift correction. change_device_parameters=True can lower latency but may glitch other apps (DAW/OBS) on the same interface.",
+  "Never do resampling, feature extraction, logging or allocation-heavy work in the PortAudio callback. Copy, enqueue, return. Count xruns via status.input_overflow.",
+  "soxr.ResampleStream returns a variable number of samples per chunk (e.g. 0, 186, 166...). Always accumulate and re-frame into fixed 640-sample hops. Use the same mono downmix and resampler for reference feature extraction as for live input, so the features match.",
+  "scipy.signal.resample_poly called per block is stateless and causes block-edge artifacts. Use soxr.ResampleStream or samplerate.Resampler for streaming.",
+  "The 'simulate live' speed factor only changes pacing, not tempo. The tracker sees identical content. To test tempo deviation, time-stretch the audio itself (rubberband / librosa.effects.time_stretch) and play it at 1x.",
+  "WebSocket push: never queue frames per client (stale backlog = visible lag). Send latest state only, cap at 25–30 Hz, and do smooth motion client-side with requestAnimationFrame and rate-based extrapolation (cap about 250 ms). Use --workers 1 because tracker state is in-process, and no --reload during performance.",
+  "If the prompter runs on another device (iPad/monitor PC) over http://<LAN-IP>, it is not a secure context. The Wake Lock API is unavailable (disable auto-lock manually, or serve HTTPS via mkcert), and the macOS firewall will prompt to allow incoming connections for python. Bind --host 0.0.0.0 explicitly.",
+  "Venues are often offline. Self-host fonts (Noto Sans KR/JP/CJK) and any JS (vendor preact/htm into static/vendor), and pre-download models: HF cache ~/.cache/huggingface, plus audio-separator's model_file_dir. That defaults to /tmp/audio-separator-models/, which is wiped on reboot, so set a persistent path.",
+  "Large model downloads at prep time: MMS_FA (torchaudio) 1.26 GB; MahmoudAshraf/mms-300m-1130-forced-aligner 1.26 GB; both CC-BY-NC-4.0. Check the license if this becomes commercial. Unidecode, pykakasi and cmudict (package code) are GPL. soxr is LGPL.",
+  "FastAPI 0.142+ pulls opentelemetry-api as a hard dependency and changed OTEL auto-config in 0.143. Pin a minor range (>=0.143,<0.144) and read release notes before bumping.",
+  "pydub (used by audio-separator) emits SyntaxWarnings for invalid escape sequences on 3.12+ and needs audioop-lts on 3.13+. This is harmless, but filter the warnings in logs.",
+  "Run long shows under `caffeinate -dims` so neither the display nor the system sleeps, and so the Terminal-hosted process isn't throttled when its window is hidden."
+ ],
+ "open_questions": [
+  "Which audio interface and channel layout will be used live (channel count, native sample rate 44.1 vs 48 kHz, whether vocal mic and mixer feed share one device clock)? This determines channel_map defaults and whether an Aggregate Device is needed.",
+  "Will the prompter display run on the same Mac or on separate LAN devices (iPad/TV browser)? That decides HTTPS (mkcert) for Wake Lock, firewall setup, and whether NTP-free client extrapolation is enough.",
+  "Is any commercial or redistributed use planned? diffq (via audio-separator), the MMS/MMS_FA alignment weights (CC-BY-NC-4.0) and GPL text libs would then need replacements (e.g., demucs-only separation, a commercially licensed CTC model, anyascii instead of Unidecode).",
+  "Will the reference repo's CRNN phoneme models (uni-*-640hop.pt, 47 MB each; they load fine with torch 2.14 weights_only=True) be reused as-is? If so, nnAudio 0.3.4 is needed for their FeatureExtractor, or it should be ported to torchaudio.transforms.",
+  "Korean/Japanese text tooling: python-mecab-ko has wheels only up to cp312. If the syllable/G2P track picks MeCab-ko, that is another reason to stay on 3.12. kiwipiepy, sudachipy and pyopenjtalk-plus have cp312/cp313 arm64 wheels.",
+  "Should the operator console stay no-build (vanilla or Preact+htm), or will it grow a waveform/alignment correction editor that would justify Vite + React + TypeScript?",
+  "Not verified: actually opening a live InputStream (doing so would trigger a TCC prompt on the user's machine), so the real input latency of the user's interface with latency='low' and the exact TCC behaviour on macOS 26.3 remain to be confirmed on-site."
+ ]
+}

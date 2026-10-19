@@ -1,0 +1,28 @@
+{
+ "version": 2,
+ "model": "bs_roformer_vocals_resurrection_unwa.ckpt",
+ "lead_model": null,
+ "mix": "mix.wav",
+ "mix_sha256": "b39c7d90d3b656b3281ad268b982d96838f28bf522811a4286dc41145f87b23e",
+ "mix_frames": 5500356,
+ "sr": 44100,
+ "stems": {
+  "vocals": "vocals.wav",
+  "instrumental": "instrumental.wav"
+ },
+ "subtypes": {
+  "vocals": "PCM_24",
+  "instrumental": "PCM_24"
+ },
+ "audio_separator": "0.47.0",
+ "timings": {
+  "load": 2.477,
+  "separate": 46.813
+ },
+ "peak_normalization": false,
+ "derived": {
+  "vocals": "vocals",
+  "instrumental": "other"
+ },
+ "precision": "autocast"
+}

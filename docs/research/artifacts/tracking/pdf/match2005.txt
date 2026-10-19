@@ -1,0 +1,450 @@
+                       MATCH: A MUSIC ALIGNMENT TOOL CHEST
+
+
+                           Simon Dixon                                         Gerhard Widmer
+        Austrian Research Institute for Artificial Intelligence      Department of Computational Perception
+                           Freyung 6/6                                   Johannes Kepler University Linz
+                       Vienna 1010, Austria                          Altenberger Str 69, A-4040 Linz, Austria
+                        simon@ofai.at                                     gerhard.widmer@jku.at
+
+
+
+
+                       ABSTRACT                                    ogist studying the relationship between tempo and phrase
+                                                                   structure painstakingly marks the times of beats in each
+We present MATCH, a toolkit for aligning audio record-
+                                                                   rendition of a work, not having any way of transferring
+ings of different renditions of the same piece of music,
+                                                                   the metadata from one version to the next, since the beats
+based on an efficient implementation of a dynamic time
+                                                                   occur at different times in each performance.
+warping algorithm. A forward path estimation algorithm
+                                                                        To address these and similar needs, we developed
+constrains the alignment path so that dynamic time warp-
+                                                                   MATCH, a system for accurate automatic alignment of
+ing can be performed with time and space costs that are
+                                                                   multiple renditions of the same piece of music. This tool
+linear in the size of the audio files. Frames of audio are
+                                                                   can be used in musicology and music practice, to compare
+represented by a positive spectral difference vector, which
+                                                                   different interpretations of a work, or for annotation of
+emphasises note onsets in the alignment process. In tests
+                                                                   music with content-based metadata (e.g. section, phrase,
+with Classical and Romantic piano music, the average
+                                                                   beat or note indexes), which could then be transferred au-
+alignment error was 41ms (median 20ms), with only 2 out
+                                                                   tomatically from one recording to the corresponding po-
+of 683 test cases failing to align. The software is use-
+                                                                   sitions in another recording. Another use would be in an
+ful for content-based indexing of audio files and for the
+                                                                   audio recording system to provide intelligent editing op-
+study of performance interpretation; it can also be used
+                                                                   erations such as aligning splice points in corresponding
+in real-time for tracking live performances. The toolkit
+                                                                   files. The toolkit also provides functions for displaying
+also provides functions for displaying the cost matrix, the
+                                                                   the alignment as it is computed.
+forward and backward paths, and any metadata associated
+                                                                        MATCH is based on an efficient dynamic time warp-
+with the recordings, which can be shown in real time as
+                                                                   ing algorithm which has time and space costs that are lin-
+the alignment is computed.
+                                                                   ear in the lengths of the performances. This effectively
+                                                                   allows arbitrarily long pieces to be processed faster than
+Keywords: audio alignment, content-based indexing,                 real time, that is, in less time than the duration of the au-
+dynamic time warping, music performance analysis                   dio files. The audio data is represented by positive spec-
+                                                                   tral difference vectors. Frames of audio input are con-
+                1    INTRODUCTION                                  verted to a frequency domain representation using a short
+                                                                   time Fourier transform, and then mapped to a non-linear
+The use of random access media for audio data, making it           frequency scale (linear at low frequencies and logarith-
+possible to jump immediately to any point in the data, is          mic at high frequencies). The time derivative of this spec-
+advantageous only to the extent that the data is indexed.          trum is then half-wave rectified and the resulting vector is
+For example, content-based indexing of CDs is typically            employed in the dynamic time warping algorithm’s match
+limited to the level of tracks (songs or movements), the           cost function, using a Euclidean metric.
+information provided by the manufacturer. The index-                    In the next section, we review the standard dynamic
+ing cannot be determined by the user, who might be in-             time warping algorithm and describe the modifications
+terested in a more fine-grained or special purpose index.          necessary for an efficient implementation for audio align-
+For example, a piano student or music lover might want             ment. We also present the cost function used to evaluate
+to compare how several different pianists play a particular        the similarity of frames of audio data, and a brief descrip-
+phrase, which would involve a manual search for the rele-          tion of the user interface and implementation details of
+vant phrase in each recording. Or alternatively, a musicol-        MATCH. Section 3 reports on the results of testing with
+                                                                   three different data sets, which indicate that the current
+Permission to make digital or hard copies of all or part of this   audio alignment algorithm works well for a range of mu-
+work for personal or classroom use is granted without fee pro-     sic. The final section provides a discussion of the work, a
+vided that copies are not made or distributed for profit or com-   comparison with other audio alignment methods, and an
+mercial advantage and that copies bear this notice and the full    outline of planned future work.
+citation on the first page.
+
+ c 2005 Queen Mary, University of London
+
+
+
+
+492
+       2   EFFICIENT TIME WARPING                                      To avoid missing the optimal path, we use a forward
+                                                                  path estimation algorithm to compute the centre of the
+Dynamic time warping (DTW) is a technique for align-              band of the cost matrix which is to be calculated. This
+ing time series which has been well known in the speech           is based on the on-line time warping algorithm presented
+recognition community since the 1970’s (Rabiner and               in (Dixon, 2005), which estimates the alignment of a live
+Juang, 1993). DTW aligns two time series U = u1 , ..., um         performance with a recording in real time. The DTW path
+and V = v1 , ..., vn by finding a minimum cost path               is constrained to lie within a fixed distance of the forward
+W = W1 , ..., Wl , where each Wk is an ordered pair               path, which ensures that the computation is bounded by
+(ik , jk ), such that (i, j) ∈ W means that the points ui         linear time and space costs. If we had used standard global
+and vj are aligned. The alignment is assessed with respect        path constraints, a wider band would have been required,
+to a local cost function dU,V (i, j), usually represented as      in order to cater for the estimated maximum possible de-
+an m × n matrix, which assigns a match cost for aligning          viation from the diagonal. With an “adaptive diagonal”, it
+each pair (ui , vj ). The cost is 0 for a perfect match, and is   is possible to use a narrower band with less risk of missing
+otherwise positive. The path cost D(W ) is the sum of the         the optimal solution. This enables the system to perform
+local match costs along the path:                                 with greater efficiency and accuracy than a system based
+                            l
+                                                                  on global path constraints.
+                            X                                          The intuition behind the forward path algorithm can be
+                D(W ) =           dU,V (ik , jk )
+                                                                  explained with reference to Figure 1, where a band width
+                            k=1
+                                                                  of w = 4 is used for illustrative purposes. (In practice, a
+    Several local path constraints are placed on W ,              band width of w = 500 is used.) At any time the active
+namely that the path is bounded by the ends of both se-           area of the matrix is the top row and the right column of
+quences, and it is monotonic and continuous. Addition-            the calculated area. The minimum cost path to each of
+ally, global path constraints are often used, such as the         these cells is evaluated and the cell with the lowest mini-
+Sakoe-Chiba bound (Sakoe and Chiba, 1978), which con-             mum cost path (normalised by length) is used as an indi-
+strains the path to lie within a fixed distance of the diag-      cation of the direction in which the optimal path appears
+onal (typically 10% of the total length of the time series).      to be heading. (The true optimal path cannot be known
+By limiting the slope of the path, either globally or lo-         until the complete matrix is calculated.) If this cell is in
+cally, these constraints prevent pathological solutions and       the top right corner, the algorithm is considered to be on
+reduce the search space.                                          target. If it is to the left of the target (for example, after
+    The minimum cost path can be calculated in quadratic          expansions 7 and 8 in Figure 1), then the calculated part
+time by dynamic programming, using the recursion:                 of the matrix is expanded upwards until the algorithm is
+                                                                  on target again (expansions 9 to 11). Likewise if the cell
+                               
+                                D(i, j − 1)
+                                                     
+                                                                 is below the target, expansion is performed to the right.
+      D(i, j) = d(i, j) + min       D(i − 1, j)                        The algorithm is initialised by computing a square ma-
+                                D(i − 1, j − 1)                 trix of size w; then the calculated area is iteratively ex-
+                                                                  panded by evaluating rows or columns of length w. The
+                                                                  direction of expansion (i.e. whether a new row or a new
+where D(i, j) is the cost of the minimum path from (1, 1)
+                                                                  column is calculated) is determined by the location of the
+to (i, j), and D(1, 1) = d(1, 1). The path itself is obtained
+                                                                  cell in the active area with lowest minimum path cost. If
+by tracing the recursion backwards from D(m, n).
+                                                                  this cell is in the top row, a new row is calculated, and
+    Some formulations of DTW introduce various biases
+                                                                  if it is in the right column, a new column is calculated.
+in addition to the slope constraints, by multiplying d(i, j)
+                                                                  To avoid pathological solutions, limits are placed on the
+by a weight which is dependent on the direction of the
+                                                                  number of successive row (respectively column) compu-
+movement. In fact, the above formulation is biased to-
+                                                                  tations. A complete description of the forward path al-
+wards diagonal steps: the greater the number of diago-
+                                                                  gorithm can be found in (Dixon, 2005). When the ends
+nal steps, the shorter the total path length (Sankoff and
+                                                                  of both files are reached, the optimal path is traced back-
+Kruskal, 1983, p.177). We follow Sakoe and Chiba (1978)
+                                                                  wards using the standard DTW algorithm, constrained by
+in using a weight of 2 for diagonal steps so that there is no
+                                                                  the fact that only the cells calculated previously during the
+bias for any particular direction.
+                                                                  forward path calculation can be used.
+
+2.1   A Linear Time Implementation of DTW
+                                                                  2.2   A Cost Function for Comparing Audio Frames
+The quadratic time and space cost is often cited as a limit-
+ing factor for the use of DTW with long sequences. How-           The alignment of audio files is based on a cost function
+ever the widely used global path constraints can be triv-         which assesses the similarity of frames of audio data. We
+ially modified to create a linear time and space algorithm.       use a low level spectral representation of the audio data,
+For instance, if the width of the Sakoe-Chiba bound is set        generated from a windowed FFT of the signal. A Ham-
+to a constant rather than a fraction of the total length, the     ming window with a default size of 46 ms (2048 points)
+number of calculations becomes linear in the length of the        is used, with a default hop size of 20 ms. The spectral
+sequences. The danger with this approach is that it is not        representation was chosen over a higher level symbolic
+known how close to the diagonal the optimal solution is,          representation of the music in order to avoid a pitch recog-
+so the desired solution is easily excluded by a band around       nition step, which is notoriously unreliable in the case of
+the diagonal which is too narrow.                                 polyphonic music. The frequency axis was mapped to a
+
+
+
+                                                                                                                            493
+                                                               the location in the second file corresponding to a selected
+                                                               location in the first file. Since the path is continuous and
+                                                               covers the full extent of both files, there is for each time
+                                  20                           index in one file at least one corresponding time point in
+                        17                                     the other. If there is more than one corresponding point,
+                                                               an average is taken. This defines a bidirectional mapping
+                        16
+                                                               between the time variables in the two files, with the reso-
+               13                                         21   lution of the frame hop size.
+          11                                18       19
+
+          10                                                   2.4   Implementation Details
+          9                       14   15                      MATCH has a familiar graphical user interface which is
+      7                      12                                similar to most media players (Figure 2). When files are
+                                                               loaded, the first file is used as the reference file, and sub-
+      5
+                                                               sequent files are each aligned to the reference file. Corre-
+      3                                                        sponding time points between arbitrary pairs of files can
+      1   2    4    6   8                                      then be computed via the reference file, using composition
+                                                               of the respective time maps. One unfamiliar function (the
+                                                               ‘*’ button) marks positions of interest in a piece, which
+Figure 1: An example of the on-line time warping algo-         are mapped to the corresponding locations in the other
+rithm with band width w = 4, showing the order of eval-        versions, so that the user can compare performances of
+uation for a particular sequence of row and column in-         a particular section or test the operation of the alignment
+crements. The axes represent time in the two files. All        algorithm. MATCH has functions for displaying the cost
+calculated cells are framed in bold, and the optimal path      matrix, the forward and backward paths, and any other
+is coloured grey.                                              metadata associated with the files. The audio from one
+                                                               file can be played as matching is performed, with the ma-
+                                                               trix scrolling in real time and displaying a causal estimate
+scale which is linear at low frequencies and logarithmic       of the alignment.
+at high frequencies. This achieved a significant data re-           MATCH is implemented in Java 1.5, and on a 3GHz
+duction without loss of useful information, at the same        Linux PC, alignment of two audio files takes approxi-
+time mimicking the linear-log frequency sensitivity of the     mately 4% of the sum of durations of the files, using a
+human auditory system. The lowest 34 FFT bins (up to           time resolution of 20 ms. A lower frame rate could be used
+370Hz, or F]4) were mapped linearly to the first 34 ele-       without significant loss of precision. MATCH is available
+ments of the new scale. The bins from 370Hz – 12.5kHz          for download at:
+were mapped onto a logarithmic scale with semitone spac-         http://www.ofai.at/˜simon.dixon/match
+ing by summing energy in each bin into the nearest semi-
+tone element. Finally, the remaining bins above 12.5kHz
+(G9) were summed into the last element of the new scale.                3    TESTING AND RESULTS
+The resulting vector contained a total of 84 points instead
+                                                               We report the results from 3 sets of test data: a pre-
+of the original 2048.
+                                                               cise quantitative evaluation using data recorded on a
+    The most important factor for alignment is the timing
+                                                               Bösendorfer computer-monitored piano; a quantitative
+of the onsets of tones. The subsequent evolution of the
+                                                               evaluation based on semi-automatic annotation of vari-
+tone gives little information about its timing and is dif-
+                                                               ous CD recordings; and a qualitative evaluation based on
+ficult to align using energy features, which change rela-
+                                                               unannotated CD recordings.
+tively slowly over time within a note. Therefore the final
+audio frame representation uses a half-wave rectified first
+order difference, so that only the increases in energy in      3.1   Bösendorfer Data
+each frequency bin are taken into account, and these pos-
+itive spectral difference vectors are compared using the       The Bösendorfer SE290 is a grand piano with sensors
+Euclidean distance:                                            which measure the precise timing and dynamics of every
+                     v                                         note with a time resolution of 1.25ms. This test set con-
+                     u 84
+                     uX                                        sists of recordings of 22 pianists playing 2 excerpts of solo
+           d(i, j) = t (E 0 (b, i) − E 0 (b, j))2
+                                  u              v             piano music by Chopin (Etude in E Major, Op.10, no.3,
+                        b=1                                    bars 1–21; and Ballade Op.38, bars 1–45) (Goebl, 2001).
+                                                               The Etude performances ranged from 70.1 to 94.4 seconds
+where Ex0 (f, t) represents the increase in energy Ex (f, t)   duration, and the Ballade ranged from 112.2 to 151.5 sec-
+of the signal x(t) in frequency bin f at time frame t:         onds, so the differences in execution speeds were by no
+      Ex0 (f, t) = max(Ex (f, t) − Ex (f, t − 1), 0)           means trivial. Alignment was performed on all pairs of
+                                                               performances of each piece (a total of 22×21 2   × 2 = 462
+                                                               test cases).
+2.3   Interpretation of the DTW Path
+                                                                   In order to estimate the correctness of the alignment,
+The path returned by the DTW alignment algorithm is            we compared it with the onset times of the corresponding
+used as a lookup table between the two audio files to find     notes in each interpretation. If we consider the alignment
+
+
+
+494
+                                                                              Error ≤           Cumulative error counts
+                                                                         Frames Seconds          Count        Percent
+                                                                            0        0.00        38655        46.1%
+                                                                            1        0.02        72934        87.1%
+                                                                            2        0.04        79126        94.5%
+                                                                            3        0.06        80540        96.2%
+                                                                            5        0.10        81343        97.1%
+                                                                           10        0.20        82325        98.3%
+                                                                           25        0.50        83292        99.4%
+                                                                           50        1.00        83658        99.9%
+
+                                                                   Table 1: Distribution of alignment errors, shown as cumu-
+                                                                   lative counts and percentages of score events with an error
+                                                                   up to the given value. The average error was 23ms.
+
+
+                                                                   the average of the point-wise errors over all score events.
+                                                                       Table 1 shows the distribution of point-wise errors less
+                                                                   than or equal to 0,1,2,3,5,10,25 and 50 frames, where a
+                                                                   hop size of 20 ms was used. The median and average er-
+                                                                   rors are below the human temporal order threshold (the
+                                                                   ability to distinguish the order of two sounds occurring
+                                                                   closely in time), which is approximately 40 ms, and can be
+                                                                   much worse in the context of annotating musical record-
+                                                                   ings (Dixon et al., 2005). The success of the system with
+                                                                   this data was aided by the fact that the audio recordings
+                                                                   were all made under identical conditions (same piano, mi-
+                                                                   crophone, room and settings). In the following subsec-
+                                                                   tions we describe tests using data with a large variety of
+                                                                   recording conditions.
+
+                                                                   3.2   BeatRoot Data
+                                                                   The second set of test data involved music with a large
+                                                                   range of recording conditions, pianos, pieces and interpre-
+Figure 2: Screenshot of MATCH showing the user inter-              tations, where the beat had been annotated using the inter-
+face.                                                              active beat tracking system BeatRoot (Dixon, 2001). This
+                                                                   data set is larger, complexer and more varied, containing
+                                                                   Classical and Romantic Period piano music recorded over
+as a mapping from time in one interpretation to time in            the second half of the twentieth century by great pianists
+the other interpretation, a correct alignment should map           such as those listed in Figure 2. However, the data is only
+the onset time of each note in the first interpretation to the     annotated at beat times (not note onsets) and is less pre-
+onset time of the same note in the second interpretation.          cise, having an estimated accuracy of 30ms.
+Two factors make this difficult: differences in the per-               The results are summarised in Table 2, showing the
+formed notes, which might be due to different score ver-           maximum, mean and median error for each piece. In 2
+sions, ornaments, or mistakes; and asynchronies in chords          of the 221 test cases, the alignment failed, and these re-
+(sets of simultaneous notes according to the musical nota-         sults were not included in the statistics. In most cases, the
+tion), which are typically around 30 ms, but sometimes up          maximum error occurred at the end of a piece, where there
+to 150 ms, and not necessarily in any fixed temporal or-           is no further data to orient the alignment. The mean er-
+der. In these cases there is no unique “correct” alignment         ror tends to be biased by the maximum errors, so we also
+of the notes involved.                                             show the median error, which is less biased, but it gives
+    Therefore, we define a score event to be a set of si-          no indication of the spread of the errors. The overall av-
+multaneous notes according to the score, and for each in-          erage error of 64ms is worse than for the previous test set,
+terpretation i we calculate the average onset time t(i, e)         where the controlled recording conditions made similarity
+of the performed notes in each score event e. The cor-             judgements much easier.
+rect alignment is then defined in terms of the accuracy of
+the mapping of score events from one interpretation to the         3.3   Further Tests
+other, ignoring time points between score events. For each
+score event e, the alignment path should pass through the          The above tests consisted only of piano music, which
+point (t(i1 , e), t(i2 , e)), and the error is calculated as the   could be easier to align than other instruments, due to the
+Manhattan distance of this point from the nearest point on         sharpness of onsets and the fixed timbre of piano tones.
+the alignment path. The total error of an alignment path is        Since we do not have any annotated non-piano music, in-
+
+
+
+                                                                                                                            495
+            Composer      Piece                     Versions    Test    Events           Error (seconds)
+                          (work, section)                       Pairs   (total)    Maximum Mean Median
+            Beethoven     Op.15, No.2, bar 1–8          4         6        366       0.70       0.085    0.040
+            Chopin        Op.15, No.1                  13*       77     16863        7.48       0.061    0.020
+            Mozart        KV279, 1st movt               5        10      5510        5.26       0.036    0.020
+            Mozart        KV279, 2nd movt               4         6      1836        2.26       0.058    0.020
+            Mozart        KV279, 3rd movt               5        10      4474        1.38       0.025    0.020
+            Mozart        KV280, 1st movt               5        10      5990        8.12       0.037    0.020
+            Mozart        KV280, 2nd movt               5        10      5012        8.90       0.102    0.020
+            Mozart        KV280, 3rd movt               5        10      2783        4.08       0.044    0.020
+            Schubert      D899, No.3                    12       66     22506        5.74       0.071    0.020
+            Schumann      Op.15, No.7                   6*       14      3570        2.28       0.087    0.020
+
+Table 2: Alignment results for commercial CDs of the given works. Two lines are marked with ‘*’, indicating that one
+pair failed to align and was not included in the statistics.
+
+
+formal tests on other music were performed by marking             cussed on rhythmic analysis, where timing is critical and
+positions in one file, and listening to the aligned files to      pitch not so important. In tests using spectral values in-
+check that the marks were transferred to the correspond-          stead of the spectral difference, we found that the results
+ing positions in each recording. This method has several          were clearly better using spectral difference.
+disadvantages: it can only detect errors of at least several           Dannenberg and Hu (2003) propose the use of a chro-
+hundred milliseconds, it relies on human judgement, it is         magram, which reduces the frequency scale to twelve
+not automated, and it only checks specific points on the          pitch classes, independent of octave. This might be suit-
+alignment path, not the complete path.                            able for retrieval by similarity, where absolute identity of
+    We tested some solo classical guitar pieces by Albeniz        matching musical pieces is not assumed, and a large num-
+(Asturias, Cordoba, Sevilla), Granados (Spanish Dances            ber of comparisons must be performed in a short time, but
+4 and 5), Tarrega (Capricho Arabe) and Villa Lobos (Pre-          it discards more information than is necessary. Other fea-
+lude 1). The alignments of Asturias and Spanish Dance             tures such as MFCCs are often used in speech and audio
+No. 4 were partially unsuccessful, due to many differ-            research, but they capture the spectral shape (reflecting the
+ences in the arrangements. The other works were suc-              timbre of the instrument) rather than the pitch (reflecting
+cessfully aligned. Tests with orchestral music, including         the notes that were played).
+Tchaikovsky’s Piano Concerto No. 1 and 10 different in-                DTW has been used for score-performance alignment
+terpretations of the first movement of Schumann’s Piano           (Orio and Schwarz, 2001; Soulez et al., 2003; Turet-
+Concerto, revealed no problems in alignment. Some er-             sky and Ellis, 2003) and query by humming applica-
+rors were apparent in the alignment of other works, partic-       tions (Mazzoni and Dannenberg, 2001; Zhu and Shasha,
+ularly at the beginnings and ends of the pieces. Two popu-        2003). The earliest score following systems used dynamic
+lar Beatles songs (I Wanna Hold Your Hand and She Loves           programming (Dannenberg, 1984), based on a high-level
+You) in English and German versions were also aligned             symbolic representation of the performance which was
+successfully. These tests suggest that the similarity mea-        only usable with monophonic audio. Alternative ap-
+sure is not restricted to piano tones, but is applicable to a     proaches to music alignment use hidden Markov mod-
+variety of instruments.                                           els (Cano et al., 1999; Orio and Déchelle, 2001) and hy-
+                                                                  brid graphical models (Raphael, 2004), which both re-
+                                                                  quire training data for each piece. The test data used in
+      4   DISCUSSION AND CONCLUSION                               this work is somewhat exceptional; in general, we will not
+                                                                  have access to multiple labelled performances.
+This paper presented an audio alignment toolkit which
+uses a modified DTW algorithm. The average alignment
+error for solo piano music was 41ms, with only 2 out of           4.1   Future Work
+683 test cases failing to align. Informal tests with guitar,
+orchestral and popular music confirmed the generality of          We conclude with some ideas for extending and im-
+the system.                                                       proving this work. Experiments with normalisation have
+     A low-level audio representation was used in prefer-         proved it to be a double-edged sword. Since we have no
+ence to a high-level representation, which would enable           control of recording levels, some form of normalisation
+a more efficient DTW computation, but is less reliable in         between files is essential. The frame to frame normali-
+its extraction of features. The cost function was based on        sation of energy is however more problematic, since it is
+derivative spectral features, in order to emphasise tone on-      more important that salient parts of the audio match, and
+sets. Derivative features have been used in speech recog-         as notes decay to silence, it is not desirable that they play
+nition (Sakoe and Chiba, 1978) and score following (Orio          an equally significant role as the tone onsets in determin-
+and Schwarz, 2001). A distance measure calculated di-             ing the alignment. The use of positive spectral difference
+rectly from the short time spectrum was used for comput-          solves part of this problem, but further experimentation is
+ing audio similarity in (Foote and Uchihashi, 2001). This         required to determine the best audio representation.
+used a much smaller window size (11 ms), since it was fo-             The output from the DTW algorithm is not at all
+
+
+
+496
+smooth at the local level, but we perceive most tempo              R. Dannenberg. An on-line algorithm for real-time ac-
+changes as being smooth. Many irregularities in the path              companiment. In Proceedings of the International
+arise because the cost function is tuned to match note on-            Computer Music Conference, pages 193–198, 1984.
+sets, and therefore the frames where no new notes appear           R. Dannenberg and N. Hu. Polyphonic audio matching for
+have very little to distinguish them. Some form of smooth-            score following and intelligent audio editors. In Pro-
+ing or interpolation could be performed in order to create            ceedings of the International Computer Music Confer-
+a path which is musically plausible. However, smoothing               ence, pages 27–34, 2003.
+tends to worsen the numerical results, as the only improve-
+ments are between the evaluated points, and some outly-            S. Dixon. Automatic extraction of tempo and beat from
+ing points adversely influence correctly aligned note on-             expressive performances. Journal of New Music Re-
+sets. Our current smoothing algorithm uses interpolation              search, 30(1):39–58, 2001.
+to remove outlying points, replacing adjacent horizontal           S. Dixon. Live tracking of musical performances using
+and vertical path segments with diagonal segments.                    on-line time warping. In Proceedings of the 8th Inter-
+    Most of the large errors occur at the beginnings and              national Conference on Digital Audio Effects, 2005.
+ends of files; no example has been found where the align-          S. Dixon, W. Goebl, and E. Cambouropoulos. Smoothed
+ment is correct at the beginning and then incorrect for the           tempo perception of expressively performed music.
+bulk of the file. Part of the reason for this is that the off-        Music Perception, 23, 2005. To appear.
+set from the first (respectively last) frame to the first (last)   J. Foote and S. Uchihashi. The beat spectrum: A new ap-
+note onset varies greatly between files, and the DTW al-              proach to rhythm analysis. In IEEE International Con-
+gorithm is required to find a path from the first to the last         ference on Multimedia and Expo, 2001.
+frame. If we specifically detected the first and last note, or
+alternatively detected silence in the audio files, many of         W. Goebl. Melody lead in piano performance: Expressive
+these errors could be avoided.                                        device or artifact? Journal of the Acoustical Society of
+    One issue that has not been addressed is the prob-                America, 110(1):563–572, 2001.
+lem of structural differences between performances. For            D. Mazzoni and R. Dannenberg. Melody matching di-
+example, if one performer repeats the first section of a              rectly from audio. In 2nd International Symposium on
+movement and another performer does not, there is no                  Music Information Retrieval, pages 73–82, 2001.
+way for the DTW algorithm to recover, since the width              N. Orio and F. Déchelle. Score following using spectral
+of the search band is only 5 or 10 seconds. In order to               analysis and hidden Markov models. In Proceedings of
+find structural differences and perform partial matches,              the International Computer Music Conference, pages
+the complete similarity matrix would need to be calcu-                151–154, 2001.
+lated, which would then limit the size of pieces which
+                                                                   N. Orio and D. Schwarz. Alignment of monophonic and
+could be matched, due to memory and time limitations.
+                                                                      polyphonic music to a score. In Proceedings of the
+    This work stemmed from a real-time audio alignment
+                                                                      International Computer Music Conference, pages 155–
+tool for live performance analysis (Dixon, 2005). Since
+                                                                      158, 2001.
+the current work does not require on-line processing, some
+improvements could be made to the off-line system in or-           L. R. Rabiner and B. H. Juang. Fundamentals of Speech
+der to reduce the number of tracking errors, for example,             Recognition. Prentice, Englewood Cliffs, NJ, 1993.
+by computing a default slope (relative tempo) from the             C. Raphael. A hybrid graphical model for aligning poly-
+durations of the audio files, and biasing the forward al-             phonic audio with musical scores. In Proceedings of
+gorithm to favour this slope. In future work, we intend               the 5th International Conference on Musical Informa-
+to extend MATCH to include score-audio alignment, so                  tion Retrieval, pages 387–394, 2004.
+that it can be used as a score-following system in real-           H. Sakoe and S. Chiba. Dynamic programming algorithm
+time, and so that symbolic metadata can be automatically              optimisation for spoken word recognition. IEEE Trans-
+aligned with performances and recordings.                             actions on Acoustics, Speech and Signal Processing,
+                                                                      26:43–49, 1978.
+            ACKNOWLEDGEMENTS                                       D. Sankoff and J. Kruskal. Time warps, string ed-
+                                                                      its, and macromolecules: The theory and prac-
+This work was supported by: the Vienna Science and                    tice of sequence comparison. Addison-Wesley, New
+Technology Fund, project CI010 Interfaces to Music; the               York/Menlo Park/Reading, 1983.
+Austrian Ministry BMBWK, START project Y99-INF;
+and the European Union, project EU-FP6-IST-507142                  F. Soulez, X. Rodet, and D. Schwarz. Improving poly-
+SIMAC. The Austrian Research Institute for Artificial                 phonic and poly-instrumental music to score alignment.
+Intelligence acknowledges the support of the ministries               In 4th International Conference on Music Information
+BMBWK and BMVIT.                                                      Retrieval, pages 143–148, 2003.
+                                                                   R. Turetsky and D. Ellis. Ground-truth transcriptions
+                                                                      of real music from force-aligned MIDI syntheses. In
+                    REFERENCES                                        4th International Conference on Music Information Re-
+                                                                      trieval, pages 135–141, 2003.
+P. Cano, A. Loscos, and J. Bonada. Score-performance
+   matching using HMMs. In Proceedings of the Inter-               Y. Zhu and D. Shasha. Warping indexes with envelope
+   national Computer Music Conference, pages 441–444.                 transforms for query by humming. In ACM SIGMOD
+   International Computer Music Association, 1999.                    Conference, 2003.
+
+
+
+                                                                                                                          497
+

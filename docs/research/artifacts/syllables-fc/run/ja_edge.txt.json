@@ -1,0 +1,771 @@
+{
+ "lines": [
+  {
+   "idx": 0,
+   "text": "Ah 〜 君の名は",
+   "raw": "Ah 〜 君の名は",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "Ah",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "ah",
+     "syllables": [
+      {
+       "text": "Ah",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "Ah",
+         "roman": "ah",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "君",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "きみ",
+     "syllables": [
+      {
+       "text": "君",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "き",
+         "roman": "ki",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "み",
+         "roman": "mi",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      6,
+      7
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "名",
+     "span": [
+      7,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "な",
+     "syllables": [
+      {
+       "text": "名",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "な",
+         "roman": "na",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "は",
+     "span": [
+      8,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "は",
+     "syllables": [
+      {
+       "text": "は",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "は",
+         "roman": "wa",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  },
+  {
+   "idx": 1,
+   "text": "本気で好きだよ",
+   "raw": "本気(マジ)で好きだよ",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "本気",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "マジ",
+     "syllables": [
+      {
+       "text": "本気",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "ま",
+         "roman": "ma",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "じ",
+         "roman": "ji",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "で",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "で",
+     "syllables": [
+      {
+       "text": "で",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "で",
+         "roman": "de",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "好き",
+     "span": [
+      3,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "すき",
+     "syllables": [
+      {
+       "text": "好",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "す",
+         "roman": "su",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "き",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "き",
+         "roman": "ki",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "だ",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "だ",
+     "syllables": [
+      {
+       "text": "だ",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "だ",
+         "roman": "da",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "よ",
+     "span": [
+      6,
+      7
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "よ",
+     "syllables": [
+      {
+       "text": "よ",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "よ",
+         "roman": "yo",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  },
+  {
+   "idx": 2,
+   "text": "地球を回せ",
+   "raw": "地球(ほし)を回せ",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "地球",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ほし",
+     "syllables": [
+      {
+       "text": "地球",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "ほ",
+         "roman": "ho",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "し",
+         "roman": "shi",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "回せ",
+     "span": [
+      3,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "まわせ",
+     "syllables": [
+      {
+       "text": "回",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "ま",
+         "roman": "ma",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "わ",
+         "roman": "wa",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "せ",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "せ",
+         "roman": "se",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  },
+  {
+   "idx": 3,
+   "text": "夢を見ていた 君と二人で",
+   "raw": "夢を見ていた 君と二人で",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "夢",
+     "span": [
+      0,
+      1
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ゆめ",
+     "syllables": [
+      {
+       "text": "夢",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "ゆ",
+         "roman": "yu",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "め",
+         "roman": "me",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      1,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "見",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "み",
+     "syllables": [
+      {
+       "text": "見",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "み",
+         "roman": "mi",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "て",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "て",
+     "syllables": [
+      {
+       "text": "て",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "て",
+         "roman": "te",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "い",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "い",
+     "syllables": [
+      {
+       "text": "い",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "た",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "た",
+     "syllables": [
+      {
+       "text": "た",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "た",
+         "roman": "ta",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "君",
+     "span": [
+      7,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "きみ",
+     "syllables": [
+      {
+       "text": "君",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "き",
+         "roman": "ki",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "み",
+         "roman": "mi",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "と",
+     "span": [
+      8,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "と",
+     "syllables": [
+      {
+       "text": "と",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "と",
+         "roman": "to",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "二人",
+     "span": [
+      9,
+      11
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ふたり",
+     "syllables": [
+      {
+       "text": "二人",
+       "span": [
+        9,
+        11
+       ],
+       "units": [
+        {
+         "reading": "ふ",
+         "roman": "fu",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "た",
+         "roman": "ta",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "り",
+         "roman": "ri",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "で",
+     "span": [
+      11,
+      12
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "で",
+     "syllables": [
+      {
+       "text": "で",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "で",
+         "roman": "de",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  }
+ ],
+ "default_lang": "ja"
+}

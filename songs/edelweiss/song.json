@@ -1,0 +1,3224 @@
+{
+ "schema": 1,
+ "meta": {
+  "id": "edelweiss",
+  "title": "Edelweiss",
+  "artist": "The Sound of Music",
+  "default_lang": "auto",
+  "duration": 124.724626,
+  "tuning": 0.11,
+  "stems": {
+   "mix": "audio/mix.wav",
+   "vocals": "audio/vocals.wav",
+   "instrumental": "audio/instrumental.wav"
+  },
+  "prep": {
+   "created": "2026-10-12T12:28:46+00:00",
+   "version": "0.1.0",
+   "options": {
+    "default_lang": "auto",
+    "sep_model": "bs_roformer_vocals_resurrection_unwa.ckpt",
+    "lead": false,
+    "refine": "auto",
+    "vocals": null
+   },
+   "models": {
+    "separation": "bs_roformer_vocals_resurrection_unwa.ckpt",
+    "lead": null,
+    "align": "mms_fa+gate"
+   },
+   "languages": {
+    "en": 74
+   },
+   "align_stem": "vocals",
+   "tuning_params": {
+    "sr": 16000,
+    "n_fft": 4096,
+    "hop_length": 1024,
+    "resolution": 0.01,
+    "bins_per_octave": 12
+   },
+   "packages": {
+    "lyricprompter": "0.1.0",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "librosa": "1.0.0",
+    "soundfile": "0.14.0",
+    "soxr": "1.1.0",
+    "torch": "2.14.1",
+    "torchaudio": "2.11.0",
+    "transformers": "5.19.0",
+    "audio-separator": "0.47.0",
+    "uroman": "1.3.1.1",
+    "pyopenjtalk-plus": "0.4.1.post9",
+    "cmudict": "1.1.3",
+    "pyphen": "0.18.1",
+    "ffmpeg": "8.1.1"
+   },
+   "timings": {
+    "convert": 0.167,
+    "parse": 0.158,
+    "separate": 49.853,
+    "align": 4.527,
+    "finalize": 0.696,
+    "total": 55.402
+   }
+  }
+ },
+ "lines": [
+  {
+   "idx": 0,
+   "text": "Edelweiss, edelweiss",
+   "raw": "Edelweiss, edelweiss",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Edelweiss",
+     "span": [
+      0,
+      9
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "edelweiss",
+     "syllables": [
+      {
+       "text": "E",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "e",
+         "roman": "e",
+         "start": 6.58,
+         "end": 6.6,
+         "score": 0.1599
+        }
+       ],
+       "start": 6.58,
+       "end": 6.6
+      },
+      {
+       "text": "del",
+       "span": [
+        1,
+        4
+       ],
+       "units": [
+        {
+         "reading": "del",
+         "roman": "del",
+         "start": 7.72,
+         "end": 8.18,
+         "score": 0.0608
+        }
+       ],
+       "start": 7.72,
+       "end": 8.18
+      },
+      {
+       "text": "weiss",
+       "span": [
+        4,
+        9
+       ],
+       "units": [
+        {
+         "reading": "weiss",
+         "roman": "weiss",
+         "start": 8.18,
+         "end": 10.3,
+         "score": 0.1257
+        }
+       ],
+       "start": 8.18,
+       "end": 10.3
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "edelweiss",
+     "span": [
+      11,
+      20
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "edelweiss",
+     "syllables": [
+      {
+       "text": "e",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "e",
+         "roman": "e",
+         "start": 10.3,
+         "end": 10.86,
+         "score": 0.0636
+        }
+       ],
+       "start": 10.3,
+       "end": 10.86
+      },
+      {
+       "text": "del",
+       "span": [
+        12,
+        15
+       ],
+       "units": [
+        {
+         "reading": "del",
+         "roman": "del",
+         "start": 10.86,
+         "end": 11.38,
+         "score": 0.1633
+        }
+       ],
+       "start": 10.86,
+       "end": 11.38
+      },
+      {
+       "text": "weiss",
+       "span": [
+        15,
+        20
+       ],
+       "units": [
+        {
+         "reading": "weiss",
+         "roman": "weiss",
+         "start": 11.38,
+         "end": 12.82,
+         "score": 0.2739
+        }
+       ],
+       "start": 11.38,
+       "end": 12.82
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 6.58,
+   "end": 12.82,
+   "confidence": 0.1412,
+   "needs_review": true,
+   "flags": [
+    "low_confidence"
+   ]
+  },
+  {
+   "idx": 1,
+   "text": "Every morning you greet me",
+   "raw": "Every morning you greet me",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Every",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "every",
+     "syllables": [
+      {
+       "text": "Ev",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "ev",
+         "roman": "ev",
+         "start": 13.24,
+         "end": 14.04,
+         "score": 0.8233
+        }
+       ],
+       "start": 13.24,
+       "end": 14.04
+      },
+      {
+       "text": "ery",
+       "span": [
+        2,
+        5
+       ],
+       "units": [
+        {
+         "reading": "ery",
+         "roman": "ery",
+         "start": 14.04,
+         "end": 14.52,
+         "score": 0.6236
+        }
+       ],
+       "start": 14.04,
+       "end": 14.52
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "morning",
+     "span": [
+      6,
+      13
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "morning",
+     "syllables": [
+      {
+       "text": "morn",
+       "span": [
+        6,
+        10
+       ],
+       "units": [
+        {
+         "reading": "morn",
+         "roman": "morn",
+         "start": 14.52,
+         "end": 15.12,
+         "score": 0.4666
+        }
+       ],
+       "start": 14.52,
+       "end": 15.12
+      },
+      {
+       "text": "ing",
+       "span": [
+        10,
+        13
+       ],
+       "units": [
+        {
+         "reading": "ing",
+         "roman": "ing",
+         "start": 15.12,
+         "end": 15.44,
+         "score": 0.1433
+        }
+       ],
+       "start": 15.12,
+       "end": 15.44
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "you",
+     "span": [
+      14,
+      17
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "you",
+     "syllables": [
+      {
+       "text": "you",
+       "span": [
+        14,
+        17
+       ],
+       "units": [
+        {
+         "reading": "you",
+         "roman": "you",
+         "start": 15.44,
+         "end": 15.84,
+         "score": 0.0908
+        }
+       ],
+       "start": 15.44,
+       "end": 15.84
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "greet",
+     "span": [
+      18,
+      23
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "greet",
+     "syllables": [
+      {
+       "text": "greet",
+       "span": [
+        18,
+        23
+       ],
+       "units": [
+        {
+         "reading": "greet",
+         "roman": "greet",
+         "start": 15.84,
+         "end": 17.44,
+         "score": 0.3685
+        }
+       ],
+       "start": 15.84,
+       "end": 17.44
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "me",
+     "span": [
+      24,
+      26
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "me",
+     "syllables": [
+      {
+       "text": "me",
+       "span": [
+        24,
+        26
+       ],
+       "units": [
+        {
+         "reading": "me",
+         "roman": "me",
+         "start": 17.44,
+         "end": 17.56,
+         "score": 0.4357
+        }
+       ],
+       "start": 17.44,
+       "end": 17.56
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 13.24,
+   "end": 17.56,
+   "confidence": 0.4217,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 2,
+   "text": "Small and white, clean and bright",
+   "raw": "Small and white, clean and bright",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Small",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "small",
+     "syllables": [
+      {
+       "text": "Small",
+       "span": [
+        0,
+        5
+       ],
+       "units": [
+        {
+         "reading": "small",
+         "roman": "small",
+         "start": 18.92,
+         "end": 20.22,
+         "score": 0.5416
+        }
+       ],
+       "start": 18.92,
+       "end": 20.22
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "and",
+     "span": [
+      6,
+      9
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "and",
+     "syllables": [
+      {
+       "text": "and",
+       "span": [
+        6,
+        9
+       ],
+       "units": [
+        {
+         "reading": "and",
+         "roman": "and",
+         "start": 20.38,
+         "end": 20.7,
+         "score": 0.1973
+        }
+       ],
+       "start": 20.38,
+       "end": 20.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "white",
+     "span": [
+      10,
+      15
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "white",
+     "syllables": [
+      {
+       "text": "white",
+       "span": [
+        10,
+        15
+       ],
+       "units": [
+        {
+         "reading": "white",
+         "roman": "white",
+         "start": 20.7,
+         "end": 22.26,
+         "score": 0.2034
+        }
+       ],
+       "start": 20.7,
+       "end": 22.26
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "clean",
+     "span": [
+      17,
+      22
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "clean",
+     "syllables": [
+      {
+       "text": "clean",
+       "span": [
+        17,
+        22
+       ],
+       "units": [
+        {
+         "reading": "clean",
+         "roman": "clean",
+         "start": 22.26,
+         "end": 23.08,
+         "score": 0.5223
+        }
+       ],
+       "start": 22.26,
+       "end": 23.08
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "and",
+     "span": [
+      23,
+      26
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "and",
+     "syllables": [
+      {
+       "text": "and",
+       "span": [
+        23,
+        26
+       ],
+       "units": [
+        {
+         "reading": "and",
+         "roman": "and",
+         "start": 23.66,
+         "end": 23.98,
+         "score": 0.6525
+        }
+       ],
+       "start": 23.66,
+       "end": 23.98
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "bright",
+     "span": [
+      27,
+      33
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "bright",
+     "syllables": [
+      {
+       "text": "bright",
+       "span": [
+        27,
+        33
+       ],
+       "units": [
+        {
+         "reading": "bright",
+         "roman": "bright",
+         "start": 23.98,
+         "end": 25.14,
+         "score": 0.4038
+        }
+       ],
+       "start": 23.98,
+       "end": 25.14
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 18.92,
+   "end": 25.14,
+   "confidence": 0.4202,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 3,
+   "text": "You look happy to meet me",
+   "raw": "You look happy to meet me",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "You",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "you",
+     "syllables": [
+      {
+       "text": "You",
+       "span": [
+        0,
+        3
+       ],
+       "units": [
+        {
+         "reading": "you",
+         "roman": "you",
+         "start": 25.72,
+         "end": 26.08,
+         "score": 0.2611
+        }
+       ],
+       "start": 25.72,
+       "end": 26.08
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "look",
+     "span": [
+      4,
+      8
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "look",
+     "syllables": [
+      {
+       "text": "look",
+       "span": [
+        4,
+        8
+       ],
+       "units": [
+        {
+         "reading": "look",
+         "roman": "look",
+         "start": 26.72,
+         "end": 27.14,
+         "score": 0.0399
+        }
+       ],
+       "start": 26.72,
+       "end": 27.14
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "happy",
+     "span": [
+      9,
+      14
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "happy",
+     "syllables": [
+      {
+       "text": "hap",
+       "span": [
+        9,
+        12
+       ],
+       "units": [
+        {
+         "reading": "hap",
+         "roman": "hap",
+         "start": 27.14,
+         "end": 27.6,
+         "score": 0.33
+        }
+       ],
+       "start": 27.14,
+       "end": 27.6
+      },
+      {
+       "text": "py",
+       "span": [
+        12,
+        14
+       ],
+       "units": [
+        {
+         "reading": "py",
+         "roman": "py",
+         "start": 27.6,
+         "end": 28.18,
+         "score": 0.4876
+        }
+       ],
+       "start": 27.6,
+       "end": 28.18
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "to",
+     "span": [
+      15,
+      17
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "to",
+     "syllables": [
+      {
+       "text": "to",
+       "span": [
+        15,
+        17
+       ],
+       "units": [
+        {
+         "reading": "to",
+         "roman": "to",
+         "start": 28.18,
+         "end": 28.52,
+         "score": 0.5602
+        }
+       ],
+       "start": 28.18,
+       "end": 28.52
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "meet",
+     "span": [
+      18,
+      22
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "meet",
+     "syllables": [
+      {
+       "text": "meet",
+       "span": [
+        18,
+        22
+       ],
+       "units": [
+        {
+         "reading": "meet",
+         "roman": "meet",
+         "start": 28.78,
+         "end": 30.1,
+         "score": 0.2551
+        }
+       ],
+       "start": 28.78,
+       "end": 30.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "me",
+     "span": [
+      23,
+      25
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "me",
+     "syllables": [
+      {
+       "text": "me",
+       "span": [
+        23,
+        25
+       ],
+       "units": [
+        {
+         "reading": "me",
+         "roman": "me",
+         "start": 30.3,
+         "end": 31.24,
+         "score": 0.1668
+        }
+       ],
+       "start": 30.3,
+       "end": 31.24
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 25.72,
+   "end": 31.24,
+   "confidence": 0.3001,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 4,
+   "text": "Blossom of snow, may you bloom and grow",
+   "raw": "Blossom of snow, may you bloom and grow",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Blossom",
+     "span": [
+      0,
+      7
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "blossom",
+     "syllables": [
+      {
+       "text": "Blos",
+       "span": [
+        0,
+        4
+       ],
+       "units": [
+        {
+         "reading": "blos",
+         "roman": "blos",
+         "start": 31.48,
+         "end": 32.42,
+         "score": 0.1665
+        }
+       ],
+       "start": 31.48,
+       "end": 32.42
+      },
+      {
+       "text": "som",
+       "span": [
+        4,
+        7
+       ],
+       "units": [
+        {
+         "reading": "som",
+         "roman": "som",
+         "start": 32.42,
+         "end": 32.8,
+         "score": 0.3494
+        }
+       ],
+       "start": 32.42,
+       "end": 32.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "of",
+     "span": [
+      8,
+      10
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "of",
+     "syllables": [
+      {
+       "text": "of",
+       "span": [
+        8,
+        10
+       ],
+       "units": [
+        {
+         "reading": "of",
+         "roman": "of",
+         "start": 32.8,
+         "end": 33.0,
+         "score": 0.2221
+        }
+       ],
+       "start": 32.8,
+       "end": 33.0
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "snow",
+     "span": [
+      11,
+      15
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "snow",
+     "syllables": [
+      {
+       "text": "snow",
+       "span": [
+        11,
+        15
+       ],
+       "units": [
+        {
+         "reading": "snow",
+         "roman": "snow",
+         "start": 33.0,
+         "end": 33.7,
+         "score": 0.3134
+        }
+       ],
+       "start": 33.0,
+       "end": 33.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "may",
+     "span": [
+      17,
+      20
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "may",
+     "syllables": [
+      {
+       "text": "may",
+       "span": [
+        17,
+        20
+       ],
+       "units": [
+        {
+         "reading": "may",
+         "roman": "may",
+         "start": 33.7,
+         "end": 34.1,
+         "score": 0.4007
+        }
+       ],
+       "start": 33.7,
+       "end": 34.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "you",
+     "span": [
+      21,
+      24
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "you",
+     "syllables": [
+      {
+       "text": "you",
+       "span": [
+        21,
+        24
+       ],
+       "units": [
+        {
+         "reading": "you",
+         "roman": "you",
+         "start": 34.1,
+         "end": 34.42,
+         "score": 0.1877
+        }
+       ],
+       "start": 34.1,
+       "end": 34.42
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "bloom",
+     "span": [
+      25,
+      30
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "bloom",
+     "syllables": [
+      {
+       "text": "bloom",
+       "span": [
+        25,
+        30
+       ],
+       "units": [
+        {
+         "reading": "bloom",
+         "roman": "bloom",
+         "start": 34.42,
+         "end": 35.58,
+         "score": 0.3333
+        }
+       ],
+       "start": 34.42,
+       "end": 35.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "and",
+     "span": [
+      31,
+      34
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "and",
+     "syllables": [
+      {
+       "text": "and",
+       "span": [
+        31,
+        34
+       ],
+       "units": [
+        {
+         "reading": "and",
+         "roman": "and",
+         "start": 35.58,
+         "end": 35.86,
+         "score": 0.1663
+        }
+       ],
+       "start": 35.58,
+       "end": 35.86
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "grow",
+     "span": [
+      35,
+      39
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "grow",
+     "syllables": [
+      {
+       "text": "grow",
+       "span": [
+        35,
+        39
+       ],
+       "units": [
+        {
+         "reading": "grow",
+         "roman": "grow",
+         "start": 35.86,
+         "end": 36.94,
+         "score": 0.2568
+        }
+       ],
+       "start": 35.86,
+       "end": 36.94
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 31.48,
+   "end": 36.94,
+   "confidence": 0.2662,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 5,
+   "text": "Bloom and grow forever",
+   "raw": "Bloom and grow forever",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Bloom",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "bloom",
+     "syllables": [
+      {
+       "text": "Bloom",
+       "span": [
+        0,
+        5
+       ],
+       "units": [
+        {
+         "reading": "bloom",
+         "roman": "bloom",
+         "start": 37.34,
+         "end": 38.4,
+         "score": 0.1208
+        }
+       ],
+       "start": 37.34,
+       "end": 38.4
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "and",
+     "span": [
+      6,
+      9
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "and",
+     "syllables": [
+      {
+       "text": "and",
+       "span": [
+        6,
+        9
+       ],
+       "units": [
+        {
+         "reading": "and",
+         "roman": "and",
+         "start": 38.4,
+         "end": 38.7,
+         "score": 0.2052
+        }
+       ],
+       "start": 38.4,
+       "end": 38.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "grow",
+     "span": [
+      10,
+      14
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "grow",
+     "syllables": [
+      {
+       "text": "grow",
+       "span": [
+        10,
+        14
+       ],
+       "units": [
+        {
+         "reading": "grow",
+         "roman": "grow",
+         "start": 38.7,
+         "end": 40.24,
+         "score": 0.1964
+        }
+       ],
+       "start": 38.7,
+       "end": 40.24
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "forever",
+     "span": [
+      15,
+      22
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "forever",
+     "syllables": [
+      {
+       "text": "for",
+       "span": [
+        15,
+        18
+       ],
+       "units": [
+        {
+         "reading": "for",
+         "roman": "for",
+         "start": 40.24,
+         "end": 40.86,
+         "score": 0.126
+        }
+       ],
+       "start": 40.24,
+       "end": 40.86
+      },
+      {
+       "text": "ev",
+       "span": [
+        18,
+        20
+       ],
+       "units": [
+        {
+         "reading": "ev",
+         "roman": "ev",
+         "start": 40.86,
+         "end": 41.88,
+         "score": 0.0498
+        }
+       ],
+       "start": 40.86,
+       "end": 41.88
+      },
+      {
+       "text": "er",
+       "span": [
+        20,
+        22
+       ],
+       "units": [
+        {
+         "reading": "er",
+         "roman": "er",
+         "start": 41.88,
+         "end": 42.04,
+         "score": 0.0064
+        }
+       ],
+       "start": 41.88,
+       "end": 42.04
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 37.34,
+   "end": 42.04,
+   "confidence": 0.1175,
+   "needs_review": true,
+   "flags": [
+    "low_confidence"
+   ]
+  },
+  {
+   "idx": 6,
+   "text": "Edelweiss, edelweiss",
+   "raw": "Edelweiss, edelweiss",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Edelweiss",
+     "span": [
+      0,
+      9
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "edelweiss",
+     "syllables": [
+      {
+       "text": "E",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "e",
+         "roman": "e",
+         "start": 44.52,
+         "end": 45.66,
+         "score": 0.2724
+        }
+       ],
+       "start": 44.52,
+       "end": 45.66
+      },
+      {
+       "text": "del",
+       "span": [
+        1,
+        4
+       ],
+       "units": [
+        {
+         "reading": "del",
+         "roman": "del",
+         "start": 45.66,
+         "end": 46.1,
+         "score": 0.0692
+        }
+       ],
+       "start": 45.66,
+       "end": 46.1
+      },
+      {
+       "text": "weiss",
+       "span": [
+        4,
+        9
+       ],
+       "units": [
+        {
+         "reading": "weiss",
+         "roman": "weiss",
+         "start": 46.1,
+         "end": 48.52,
+         "score": 0.0764
+        }
+       ],
+       "start": 46.1,
+       "end": 48.52
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "edelweiss",
+     "span": [
+      11,
+      20
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "edelweiss",
+     "syllables": [
+      {
+       "text": "e",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "e",
+         "roman": "e",
+         "start": 48.7,
+         "end": 48.98,
+         "score": 0.0519
+        }
+       ],
+       "start": 48.7,
+       "end": 48.98
+      },
+      {
+       "text": "del",
+       "span": [
+        12,
+        15
+       ],
+       "units": [
+        {
+         "reading": "del",
+         "roman": "del",
+         "start": 49.56,
+         "end": 49.84,
+         "score": 0.0912
+        }
+       ],
+       "start": 49.56,
+       "end": 49.84
+      },
+      {
+       "text": "weiss",
+       "span": [
+        15,
+        20
+       ],
+       "units": [
+        {
+         "reading": "weiss",
+         "roman": "weiss",
+         "start": 50.16,
+         "end": 51.6,
+         "score": 0.1406
+        }
+       ],
+       "start": 50.16,
+       "end": 51.6
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 44.52,
+   "end": 51.6,
+   "confidence": 0.117,
+   "needs_review": true,
+   "flags": [
+    "low_confidence"
+   ]
+  },
+  {
+   "idx": 7,
+   "text": "Bless my homeland forever",
+   "raw": "Bless my homeland forever",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Bless",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "bless",
+     "syllables": [
+      {
+       "text": "Bless",
+       "span": [
+        0,
+        5
+       ],
+       "units": [
+        {
+         "reading": "bless",
+         "roman": "bless",
+         "start": 52.08,
+         "end": 53.1,
+         "score": 0.3883
+        }
+       ],
+       "start": 52.08,
+       "end": 53.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "my",
+     "span": [
+      6,
+      8
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "my",
+     "syllables": [
+      {
+       "text": "my",
+       "span": [
+        6,
+        8
+       ],
+       "units": [
+        {
+         "reading": "my",
+         "roman": "my",
+         "start": 53.36,
+         "end": 53.92,
+         "score": 0.8346
+        }
+       ],
+       "start": 53.36,
+       "end": 53.92
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "homeland",
+     "span": [
+      9,
+      17
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "homeland",
+     "syllables": [
+      {
+       "text": "home",
+       "span": [
+        9,
+        13
+       ],
+       "units": [
+        {
+         "reading": "home",
+         "roman": "home",
+         "start": 53.92,
+         "end": 54.48,
+         "score": 0.6255
+        }
+       ],
+       "start": 53.92,
+       "end": 54.48
+      },
+      {
+       "text": "land",
+       "span": [
+        13,
+        17
+       ],
+       "units": [
+        {
+         "reading": "land",
+         "roman": "land",
+         "start": 54.48,
+         "end": 54.96,
+         "score": 0.3105
+        }
+       ],
+       "start": 54.48,
+       "end": 54.96
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "forever",
+     "span": [
+      18,
+      25
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "forever",
+     "syllables": [
+      {
+       "text": "for",
+       "span": [
+        18,
+        21
+       ],
+       "units": [
+        {
+         "reading": "for",
+         "roman": "for",
+         "start": 54.96,
+         "end": 55.12,
+         "score": 0.008
+        }
+       ],
+       "start": 54.96,
+       "end": 55.12
+      },
+      {
+       "text": "ev",
+       "span": [
+        21,
+        23
+       ],
+       "units": [
+        {
+         "reading": "ev",
+         "roman": "ev",
+         "start": 55.12,
+         "end": 55.26,
+         "score": 0.0101
+        }
+       ],
+       "start": 55.12,
+       "end": 55.26
+      },
+      {
+       "text": "er",
+       "span": [
+        23,
+        25
+       ],
+       "units": [
+        {
+         "reading": "er",
+         "roman": "er",
+         "start": 55.26,
+         "end": 55.5,
+         "score": 0.0338
+        }
+       ],
+       "start": 55.26,
+       "end": 55.5
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 52.08,
+   "end": 55.5,
+   "confidence": 0.3158,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 8,
+   "text": "Edelweiss, edelweiss",
+   "raw": "Edelweiss, edelweiss",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Edelweiss",
+     "span": [
+      0,
+      9
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "edelweiss",
+     "syllables": [
+      {
+       "text": "E",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "e",
+         "roman": "e",
+         "start": 65.1,
+         "end": 65.12,
+         "score": 0.1396
+        }
+       ],
+       "start": 65.1,
+       "end": 65.12
+      },
+      {
+       "text": "del",
+       "span": [
+        1,
+        4
+       ],
+       "units": [
+        {
+         "reading": "del",
+         "roman": "del",
+         "start": 66.24,
+         "end": 66.76,
+         "score": 0.0164
+        }
+       ],
+       "start": 66.24,
+       "end": 66.76
+      },
+      {
+       "text": "weiss",
+       "span": [
+        4,
+        9
+       ],
+       "units": [
+        {
+         "reading": "weiss",
+         "roman": "weiss",
+         "start": 66.76,
+         "end": 68.76,
+         "score": 0.2018
+        }
+       ],
+       "start": 66.76,
+       "end": 68.76
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "edelweiss",
+     "span": [
+      11,
+      20
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "edelweiss",
+     "syllables": [
+      {
+       "text": "e",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "e",
+         "roman": "e",
+         "start": 68.94,
+         "end": 68.96,
+         "score": 0.1109
+        }
+       ],
+       "start": 68.94,
+       "end": 68.96
+      },
+      {
+       "text": "del",
+       "span": [
+        12,
+        15
+       ],
+       "units": [
+        {
+         "reading": "del",
+         "roman": "del",
+         "start": 69.68,
+         "end": 70.22,
+         "score": 0.0136
+        }
+       ],
+       "start": 69.68,
+       "end": 70.22
+      },
+      {
+       "text": "weiss",
+       "span": [
+        15,
+        20
+       ],
+       "units": [
+        {
+         "reading": "weiss",
+         "roman": "weiss",
+         "start": 70.22,
+         "end": 71.48,
+         "score": 0.2188
+        }
+       ],
+       "start": 70.22,
+       "end": 71.48
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 65.1,
+   "end": 71.48,
+   "confidence": 0.1168,
+   "needs_review": true,
+   "flags": [
+    "low_confidence"
+   ]
+  },
+  {
+   "idx": 9,
+   "text": "Every morning you greet me",
+   "raw": "Every morning you greet me",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Every",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "every",
+     "syllables": [
+      {
+       "text": "Ev",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "ev",
+         "roman": "ev",
+         "start": 72.0,
+         "end": 73.06,
+         "score": 0.4175
+        }
+       ],
+       "start": 72.0,
+       "end": 73.06
+      },
+      {
+       "text": "ery",
+       "span": [
+        2,
+        5
+       ],
+       "units": [
+        {
+         "reading": "ery",
+         "roman": "ery",
+         "start": 73.06,
+         "end": 73.58,
+         "score": 0.3495
+        }
+       ],
+       "start": 73.06,
+       "end": 73.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "morning",
+     "span": [
+      6,
+      13
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "morning",
+     "syllables": [
+      {
+       "text": "morn",
+       "span": [
+        6,
+        10
+       ],
+       "units": [
+        {
+         "reading": "morn",
+         "roman": "morn",
+         "start": 73.58,
+         "end": 74.44,
+         "score": 0.4904
+        }
+       ],
+       "start": 73.58,
+       "end": 74.44
+      },
+      {
+       "text": "ing",
+       "span": [
+        10,
+        13
+       ],
+       "units": [
+        {
+         "reading": "ing",
+         "roman": "ing",
+         "start": 74.44,
+         "end": 74.8,
+         "score": 0.5443
+        }
+       ],
+       "start": 74.44,
+       "end": 74.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "you",
+     "span": [
+      14,
+      17
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "you",
+     "syllables": [
+      {
+       "text": "you",
+       "span": [
+        14,
+        17
+       ],
+       "units": [
+        {
+         "reading": "you",
+         "roman": "you",
+         "start": 74.8,
+         "end": 75.18,
+         "score": 0.2194
+        }
+       ],
+       "start": 74.8,
+       "end": 75.18
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "greet",
+     "span": [
+      18,
+      23
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "greet",
+     "syllables": [
+      {
+       "text": "greet",
+       "span": [
+        18,
+        23
+       ],
+       "units": [
+        {
+         "reading": "greet",
+         "roman": "greet",
+         "start": 75.18,
+         "end": 76.94,
+         "score": 0.2482
+        }
+       ],
+       "start": 75.18,
+       "end": 76.94
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "me",
+     "span": [
+      24,
+      26
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "me",
+     "syllables": [
+      {
+       "text": "me",
+       "span": [
+        24,
+        26
+       ],
+       "units": [
+        {
+         "reading": "me",
+         "roman": "me",
+         "start": 76.94,
+         "end": 77.06,
+         "score": 0.4279
+        }
+       ],
+       "start": 76.94,
+       "end": 77.06
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 72.0,
+   "end": 77.06,
+   "confidence": 0.3853,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 10,
+   "text": "Small and white, clean and bright",
+   "raw": "Small and white, clean and bright",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Small",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "small",
+     "syllables": [
+      {
+       "text": "Small",
+       "span": [
+        0,
+        5
+       ],
+       "units": [
+        {
+         "reading": "small",
+         "roman": "small",
+         "start": 78.5,
+         "end": 79.84,
+         "score": 0.5761
+        }
+       ],
+       "start": 78.5,
+       "end": 79.84
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "and",
+     "span": [
+      6,
+      9
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "and",
+     "syllables": [
+      {
+       "text": "and",
+       "span": [
+        6,
+        9
+       ],
+       "units": [
+        {
+         "reading": "and",
+         "roman": "and",
+         "start": 80.02,
+         "end": 80.24,
+         "score": 0.1652
+        }
+       ],
+       "start": 80.02,
+       "end": 80.24
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "white",
+     "span": [
+      10,
+      15
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "white",
+     "syllables": [
+      {
+       "text": "white",
+       "span": [
+        10,
+        15
+       ],
+       "units": [
+        {
+         "reading": "white",
+         "roman": "white",
+         "start": 80.44,
+         "end": 81.64,
+         "score": 0.3733
+        }
+       ],
+       "start": 80.44,
+       "end": 81.64
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "clean",
+     "span": [
+      17,
+      22
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "clean",
+     "syllables": [
+      {
+       "text": "clean",
+       "span": [
+        17,
+        22
+       ],
+       "units": [
+        {
+         "reading": "clean",
+         "roman": "clean",
+         "start": 81.92,
+         "end": 83.06,
+         "score": 0.3213
+        }
+       ],
+       "start": 81.92,
+       "end": 83.06
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "and",
+     "span": [
+      23,
+      26
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "and",
+     "syllables": [
+      {
+       "text": "and",
+       "span": [
+        23,
+        26
+       ],
+       "units": [
+        {
+         "reading": "and",
+         "roman": "and",
+         "start": 83.34,
+         "end": 83.7,
+         "score": 0.5041
+        }
+       ],
+       "start": 83.34,
+       "end": 83.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "bright",
+     "span": [
+      27,
+      33
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "bright",
+     "syllables": [
+      {
+       "text": "bright",
+       "span": [
+        27,
+        33
+       ],
+       "units": [
+        {
+         "reading": "bright",
+         "roman": "bright",
+         "start": 83.7,
+         "end": 84.86,
+         "score": 0.4858
+        }
+       ],
+       "start": 83.7,
+       "end": 84.86
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 78.5,
+   "end": 84.86,
+   "confidence": 0.4043,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 11,
+   "text": "You look happy to meet me",
+   "raw": "You look happy to meet me",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "You",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "you",
+     "syllables": [
+      {
+       "text": "You",
+       "span": [
+        0,
+        3
+       ],
+       "units": [
+        {
+         "reading": "you",
+         "roman": "you",
+         "start": 85.38,
+         "end": 85.62,
+         "score": 0.3161
+        }
+       ],
+       "start": 85.38,
+       "end": 85.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "look",
+     "span": [
+      4,
+      8
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "look",
+     "syllables": [
+      {
+       "text": "look",
+       "span": [
+        4,
+        8
+       ],
+       "units": [
+        {
+         "reading": "look",
+         "roman": "look",
+         "start": 86.44,
+         "end": 86.88,
+         "score": 0.2721
+        }
+       ],
+       "start": 86.44,
+       "end": 86.88
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "happy",
+     "span": [
+      9,
+      14
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "happy",
+     "syllables": [
+      {
+       "text": "hap",
+       "span": [
+        9,
+        12
+       ],
+       "units": [
+        {
+         "reading": "hap",
+         "roman": "hap",
+         "start": 86.88,
+         "end": 87.28,
+         "score": 0.3245
+        }
+       ],
+       "start": 86.88,
+       "end": 87.28
+      },
+      {
+       "text": "py",
+       "span": [
+        12,
+        14
+       ],
+       "units": [
+        {
+         "reading": "py",
+         "roman": "py",
+         "start": 87.28,
+         "end": 87.9,
+         "score": 0.4784
+        }
+       ],
+       "start": 87.28,
+       "end": 87.9
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "to",
+     "span": [
+      15,
+      17
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "to",
+     "syllables": [
+      {
+       "text": "to",
+       "span": [
+        15,
+        17
+       ],
+       "units": [
+        {
+         "reading": "to",
+         "roman": "to",
+         "start": 87.9,
+         "end": 88.58,
+         "score": 0.3901
+        }
+       ],
+       "start": 87.9,
+       "end": 88.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "meet",
+     "span": [
+      18,
+      22
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "meet",
+     "syllables": [
+      {
+       "text": "meet",
+       "span": [
+        18,
+        22
+       ],
+       "units": [
+        {
+         "reading": "meet",
+         "roman": "meet",
+         "start": 88.58,
+         "end": 89.82,
+         "score": 0.1989
+        }
+       ],
+       "start": 88.58,
+       "end": 89.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "me",
+     "span": [
+      23,
+      25
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "me",
+     "syllables": [
+      {
+       "text": "me",
+       "span": [
+        23,
+        25
+       ],
+       "units": [
+        {
+         "reading": "me",
+         "roman": "me",
+         "start": 90.04,
+         "end": 90.96,
+         "score": 0.3938
+        }
+       ],
+       "start": 90.04,
+       "end": 90.96
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 85.38,
+   "end": 90.96,
+   "confidence": 0.3391,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 12,
+   "text": "Blossom of snow, may you bloom and grow",
+   "raw": "Blossom of snow, may you bloom and grow",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Blossom",
+     "span": [
+      0,
+      7
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "blossom",
+     "syllables": [
+      {
+       "text": "Blos",
+       "span": [
+        0,
+        4
+       ],
+       "units": [
+        {
+         "reading": "blos",
+         "roman": "blos",
+         "start": 91.26,
+         "end": 92.26,
+         "score": 0.2409
+        }
+       ],
+       "start": 91.26,
+       "end": 92.26
+      },
+      {
+       "text": "som",
+       "span": [
+        4,
+        7
+       ],
+       "units": [
+        {
+         "reading": "som",
+         "roman": "som",
+         "start": 92.26,
+         "end": 92.62,
+         "score": 0.8391
+        }
+       ],
+       "start": 92.26,
+       "end": 92.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "of",
+     "span": [
+      8,
+      10
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "of",
+     "syllables": [
+      {
+       "text": "of",
+       "span": [
+        8,
+        10
+       ],
+       "units": [
+        {
+         "reading": "of",
+         "roman": "of",
+         "start": 92.62,
+         "end": 92.78,
+         "score": 0.9132
+        }
+       ],
+       "start": 92.62,
+       "end": 92.78
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "snow",
+     "span": [
+      11,
+      15
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "snow",
+     "syllables": [
+      {
+       "text": "snow",
+       "span": [
+        11,
+        15
+       ],
+       "units": [
+        {
+         "reading": "snow",
+         "roman": "snow",
+         "start": 92.78,
+         "end": 93.48,
+         "score": 0.4556
+        }
+       ],
+       "start": 92.78,
+       "end": 93.48
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "may",
+     "span": [
+      17,
+      20
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "may",
+     "syllables": [
+      {
+       "text": "may",
+       "span": [
+        17,
+        20
+       ],
+       "units": [
+        {
+         "reading": "may",
+         "roman": "may",
+         "start": 93.48,
+         "end": 93.88,
+         "score": 0.524
+        }
+       ],
+       "start": 93.48,
+       "end": 93.88
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "you",
+     "span": [
+      21,
+      24
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "you",
+     "syllables": [
+      {
+       "text": "you",
+       "span": [
+        21,
+        24
+       ],
+       "units": [
+        {
+         "reading": "you",
+         "roman": "you",
+         "start": 93.88,
+         "end": 94.14,
+         "score": 0.0199
+        }
+       ],
+       "start": 93.88,
+       "end": 94.14
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "bloom",
+     "span": [
+      25,
+      30
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "bloom",
+     "syllables": [
+      {
+       "text": "bloom",
+       "span": [
+        25,
+        30
+       ],
+       "units": [
+        {
+         "reading": "bloom",
+         "roman": "bloom",
+         "start": 94.14,
+         "end": 95.2,
+         "score": 0.2039
+        }
+       ],
+       "start": 94.14,
+       "end": 95.2
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "and",
+     "span": [
+      31,
+      34
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "and",
+     "syllables": [
+      {
+       "text": "and",
+       "span": [
+        31,
+        34
+       ],
+       "units": [
+        {
+         "reading": "and",
+         "roman": "and",
+         "start": 95.2,
+         "end": 95.38,
+         "score": 0.2348
+        }
+       ],
+       "start": 95.2,
+       "end": 95.38
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "grow",
+     "span": [
+      35,
+      39
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "grow",
+     "syllables": [
+      {
+       "text": "grow",
+       "span": [
+        35,
+        39
+       ],
+       "units": [
+        {
+         "reading": "grow",
+         "roman": "grow",
+         "start": 95.64,
+         "end": 96.68,
+         "score": 0.2002
+        }
+       ],
+       "start": 95.64,
+       "end": 96.68
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 91.26,
+   "end": 96.68,
+   "confidence": 0.4035,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 13,
+   "text": "Bloom and grow forever",
+   "raw": "Bloom and grow forever",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Bloom",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "bloom",
+     "syllables": [
+      {
+       "text": "Bloom",
+       "span": [
+        0,
+        5
+       ],
+       "units": [
+        {
+         "reading": "bloom",
+         "roman": "bloom",
+         "start": 97.0,
+         "end": 97.94,
+         "score": 0.1104
+        }
+       ],
+       "start": 97.0,
+       "end": 97.94
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "and",
+     "span": [
+      6,
+      9
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "and",
+     "syllables": [
+      {
+       "text": "and",
+       "span": [
+        6,
+        9
+       ],
+       "units": [
+        {
+         "reading": "and",
+         "roman": "and",
+         "start": 97.94,
+         "end": 98.24,
+         "score": 0.3051
+        }
+       ],
+       "start": 97.94,
+       "end": 98.24
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "grow",
+     "span": [
+      10,
+      14
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "grow",
+     "syllables": [
+      {
+       "text": "grow",
+       "span": [
+        10,
+        14
+       ],
+       "units": [
+        {
+         "reading": "grow",
+         "roman": "grow",
+         "start": 98.24,
+         "end": 99.66,
+         "score": 0.3886
+        }
+       ],
+       "start": 98.24,
+       "end": 99.66
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "forever",
+     "span": [
+      15,
+      22
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "forever",
+     "syllables": [
+      {
+       "text": "for",
+       "span": [
+        15,
+        18
+       ],
+       "units": [
+        {
+         "reading": "for",
+         "roman": "for",
+         "start": 99.66,
+         "end": 99.8,
+         "score": 0.0249
+        }
+       ],
+       "start": 99.66,
+       "end": 99.8
+      },
+      {
+       "text": "ev",
+       "span": [
+        18,
+        20
+       ],
+       "units": [
+        {
+         "reading": "ev",
+         "roman": "ev",
+         "start": 99.8,
+         "end": 100.06,
+         "score": 0.0231
+        }
+       ],
+       "start": 99.8,
+       "end": 100.06
+      },
+      {
+       "text": "er",
+       "span": [
+        20,
+        22
+       ],
+       "units": [
+        {
+         "reading": "er",
+         "roman": "er",
+         "start": 100.06,
+         "end": 101.44,
+         "score": 0.2898
+        }
+       ],
+       "start": 100.06,
+       "end": 101.44
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 97.0,
+   "end": 101.44,
+   "confidence": 0.1903,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 14,
+   "text": "Edelweiss, edelweiss",
+   "raw": "Edelweiss, edelweiss",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Edelweiss",
+     "span": [
+      0,
+      9
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "edelweiss",
+     "syllables": [
+      {
+       "text": "E",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "e",
+         "roman": "e",
+         "start": 104.62,
+         "end": 105.54,
+         "score": 0.365
+        }
+       ],
+       "start": 104.62,
+       "end": 105.54
+      },
+      {
+       "text": "del",
+       "span": [
+        1,
+        4
+       ],
+       "units": [
+        {
+         "reading": "del",
+         "roman": "del",
+         "start": 105.54,
+         "end": 106.06,
+         "score": 0.1752
+        }
+       ],
+       "start": 105.54,
+       "end": 106.06
+      },
+      {
+       "text": "weiss",
+       "span": [
+        4,
+        9
+       ],
+       "units": [
+        {
+         "reading": "weiss",
+         "roman": "weiss",
+         "start": 106.06,
+         "end": 108.3,
+         "score": 0.1764
+        }
+       ],
+       "start": 106.06,
+       "end": 108.3
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "edelweiss",
+     "span": [
+      11,
+      20
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "edelweiss",
+     "syllables": [
+      {
+       "text": "e",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "e",
+         "roman": "e",
+         "start": 108.64,
+         "end": 108.94,
+         "score": 0.2907
+        }
+       ],
+       "start": 108.64,
+       "end": 108.94
+      },
+      {
+       "text": "del",
+       "span": [
+        12,
+        15
+       ],
+       "units": [
+        {
+         "reading": "del",
+         "roman": "del",
+         "start": 109.98,
+         "end": 110.38,
+         "score": 0.0276
+        }
+       ],
+       "start": 109.98,
+       "end": 110.38
+      },
+      {
+       "text": "weiss",
+       "span": [
+        15,
+        20
+       ],
+       "units": [
+        {
+         "reading": "weiss",
+         "roman": "weiss",
+         "start": 110.58,
+         "end": 112.28,
+         "score": 0.2283
+        }
+       ],
+       "start": 110.58,
+       "end": 112.28
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 104.62,
+   "end": 112.28,
+   "confidence": 0.2105,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 15,
+   "text": "Bless my homeland forever",
+   "raw": "Bless my homeland forever",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "Bless",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "bless",
+     "syllables": [
+      {
+       "text": "Bless",
+       "span": [
+        0,
+        5
+       ],
+       "units": [
+        {
+         "reading": "bless",
+         "roman": "bless",
+         "start": 112.82,
+         "end": 114.02,
+         "score": 0.4395
+        }
+       ],
+       "start": 112.82,
+       "end": 114.02
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "my",
+     "span": [
+      6,
+      8
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "my",
+     "syllables": [
+      {
+       "text": "my",
+       "span": [
+        6,
+        8
+       ],
+       "units": [
+        {
+         "reading": "my",
+         "roman": "my",
+         "start": 114.38,
+         "end": 114.86,
+         "score": 0.9526
+        }
+       ],
+       "start": 114.38,
+       "end": 114.86
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "homeland",
+     "span": [
+      9,
+      17
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "homeland",
+     "syllables": [
+      {
+       "text": "home",
+       "span": [
+        9,
+        13
+       ],
+       "units": [
+        {
+         "reading": "home",
+         "roman": "home",
+         "start": 114.86,
+         "end": 115.62,
+         "score": 0.4272
+        }
+       ],
+       "start": 114.86,
+       "end": 115.62
+      },
+      {
+       "text": "land",
+       "span": [
+        13,
+        17
+       ],
+       "units": [
+        {
+         "reading": "land",
+         "roman": "land",
+         "start": 115.62,
+         "end": 115.96,
+         "score": 0.2986
+        }
+       ],
+       "start": 115.62,
+       "end": 115.96
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "forever",
+     "span": [
+      18,
+      25
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "forever",
+     "syllables": [
+      {
+       "text": "for",
+       "span": [
+        18,
+        21
+       ],
+       "units": [
+        {
+         "reading": "for",
+         "roman": "for",
+         "start": 115.96,
+         "end": 116.22,
+         "score": 0.0336
+        }
+       ],
+       "start": 115.96,
+       "end": 116.22
+      },
+      {
+       "text": "ev",
+       "span": [
+        21,
+        23
+       ],
+       "units": [
+        {
+         "reading": "ev",
+         "roman": "ev",
+         "start": 116.22,
+         "end": 116.28,
+         "score": 0.0141
+        }
+       ],
+       "start": 116.22,
+       "end": 116.28
+      },
+      {
+       "text": "er",
+       "span": [
+        23,
+        25
+       ],
+       "units": [
+        {
+         "reading": "er",
+         "roman": "er",
+         "start": 116.44,
+         "end": 118.28,
+         "score": 0.1619
+        }
+       ],
+       "start": 116.44,
+       "end": 118.28
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 112.82,
+   "end": 118.28,
+   "confidence": 0.3325,
+   "needs_review": false,
+   "flags": []
+  }
+ ]
+}

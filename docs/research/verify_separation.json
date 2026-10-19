@@ -1,0 +1,146 @@
+{
+ "topic": "separation",
+ "checked": [
+  {
+   "claim": "audio-separator latest is 0.47.0 (2026-08-27), MIT, requires Python >=3.10,!=3.14.1; on darwin arm64 torch>=2.13,<3; [cpu] extra adds onnxruntime>=1.17; default load_model() model is model_bs_roformer_ep_317_sdr_12.9755.ckpt",
+   "status": "confirmed",
+   "evidence": "PyPI JSON: version 0.47.0, upload 2026-08-27T02:15:30, requires_python '!=3.14.1,>=3.10', license MIT. requires_dist has 'torch<3,>=2.13; sys_platform == \"darwin\" and platform_machine == \"arm64\"' and 'onnxruntime>=1.17; extra == \"cpu\"'. separator.py@v0.47.0 line 898 is load_model(model_filename=\"model_bs_roformer_ep_317_sdr_12.9755.ckpt\"). GitHub: release v0.47.0 published 2026-08-27, repo pushed 2026-10-01, not archived, 1413 stars."
+  },
+  {
+   "claim": "Use Python 3.12, not 3.13, because onnx-weekly (a hard dependency) publishes no macOS cp313 wheel, so it would build from source",
+   "status": "refuted",
+   "evidence": "Every recent onnx-weekly build ships 'cp312-abi3-macosx_13_0_universal2'. An abi3 wheel installs on CPython 3.12 and every later version, including 3.13. Checked two ways. (1) `pip download --python-version 3.13 --abi cp313 --platform macosx_14_0_arm64 --only-binary=:all: onnx-weekly` picked onnx_weekly-1.24.0.dev20261012-cp312-abi3-macosx_13_0_universal2.whl. (2) `uv pip compile --no-build` for audio-separator[cpu]==0.47.0 resolves on 3.13 (aarch64, macOS 15 target) with onnx-weekly from a wheel; diffq has to be excluded on both 3.12 and 3.13. The cp314/cp315 wheels the report lists are free-threaded only (cp314t, cp315t).",
+   "correction": "Python 3.12 is still a sensible choice: it matches the PR #298 validation environment, and msst needs <3.14. But 3.13 is not blocked by onnx-weekly. The only package that builds from source is diffq, and it does so on 3.11, 3.12 and 3.13 alike."
+  },
+  {
+   "claim": "diffq (required on macOS) has arm64 wheels only up to cp310, so it builds from sdist with Cython",
+   "status": "confirmed",
+   "evidence": "diffq 0.2.4 files go up to cp310 macosx_11_0_arm64, plus an sdist. `uv pip compile --no-build` for py3.12 fails with 'only found wheels for diffq ... cp36m, cp37m, cp38, cp39'. The report MISSED that diffq's PyPI license is 'Creative Commons Attribution-NonCommercial 4.0 International'. It is a hard (non-optional) dependency of audio-separator on macOS, although it is imported only in the Demucs code paths (uvr_lib_v5/demucs/pretrained.py, utils.py, states.py)."
+  },
+  {
+   "claim": "`uv pip install \"audio-separator[cpu]==0.47.0\"` pulls torch 2.14.1 (MPS) and onnxruntime 1.31, i.e. the stack the MPS speedups were validated on",
+   "status": "partially-true",
+   "evidence": "A fresh resolve (uv 0.13, py3.12, aarch64-apple-darwin) gives torch 2.14.1, onnxruntime 1.31.0, onnx-weekly 1.24.0.dev20261012, numpy 2.5.4 and librosa 1.0.0. But PR #298 and the README name torch 2.13.0 as the 'validated baseline', and the v0.47.0 poetry.lock pins torch 2.13.0, librosa 0.11.0, onnxruntime 1.23.0 and onnx-weekly 1.23.0.dev20260706. librosa 1.0.0 (2026-08-11, Python>=3.12) removed the audioread backend ('Expired deprecations: audioread backend'). audio-separator loads every input with librosa.load(mix, mono=False, sr=...) (common_separator.py:284).",
+   "correction": "An unpinned install runs an unvalidated stack (torch 2.14.1, librosa 1.0). With librosa 1.0, formats libsndfile cannot decode (m4a/AAC, for example) no longer fall back to audioread and fail to load. Either pin torch==2.13.0, librosa==0.11.0 and onnxruntime==1.23.*, or always convert input to WAV/FLAC with ffmpeg first and test 2.14.1 yourself."
+  },
+  {
+   "claim": "samplerate==0.1.0 (exact pin) bundles an x86_64-only libsamplerate.dylib (issue #293, open); only VR-arch models with librosa sinc_* resampling are affected, not RoFormer or Demucs",
+   "status": "confirmed",
+   "evidence": "I unpacked samplerate-0.1.0-py2.py3-none-any.whl: `file` reports _samplerate_data/libsamplerate.dylib as 'Mach-O 64-bit ... x86_64'. Issue #293 is open (created 2026-07-17). A grep of the v0.47.0 source finds no direct samplerate import; sinc_* res_type appears only in vr_network/modelparams/*.json, used by vr_separator.py. Extra detail: lowlevel.py first tries ctypes find_library('samplerate'), so `brew install libsamplerate` plus DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib is an alternative to the --override."
+  },
+  {
+   "claim": "Default model_file_dir is /tmp/audio-separator-models/; set a persistent cache",
+   "status": "confirmed",
+   "evidence": "separator.py:126 sets model_file_dir=\"/tmp/audio-separator-models/\". The AUDIO_SEPARATOR_MODEL_DIR env var overrides it, and raises FileNotFoundError if the directory does not exist (lines 185-191)."
+  },
+  {
+   "claim": "Recommended filenames are in the catalog: bs_roformer_vocals_resurrection_unwa.ckpt, bs_roformer_karaoke_frazer_becruily.ckpt, dereverb_mel_band_roformer_mono_anvuew.ckpt, vocals_mel_band_roformer.ckpt, mel_band_roformer_karaoke_aufr33_viperx_sdr_10.1956.ckpt, htdemucs.yaml; 80+ RoFormers",
+   "status": "confirmed",
+   "evidence": "models.json@v0.47.0 roformer_download_list has 84 entries, including all five .ckpt names. htdemucs.yaml/htdemucs_ft.yaml come from the TRvlvr download_checks.json demucs list, filtered in list_supported_model_files. Unknown names raise ValueError('Model file ... not found in supported model files') (separator.py:820)."
+  },
+  {
+   "claim": "Stem names: Resurrection 'vocals'/'other'; karaoke frazer 'Vocals'/'Instrumental'; anvuew de-reverb 'noreverb'/'reverb'; custom_output_names matched case-insensitively; separate() returns names relative to output_dir",
+   "status": "confirmed",
+   "evidence": "Model-config YAMLs from the nomadkaraoke model-configs release: instruments ['vocals','other'], ['Vocals','Instrumental'], ['noreverb','reverb']. common_separator.get_stem_output_path lowercases keys and returns a bare '<name>.<fmt>'. mdxc_separator appends that relative path to output_files, and write_audio joins output_dir."
+  },
+  {
+   "claim": "normalization_threshold default 0.9 scales a stem down only when its peak exceeds 0.9",
+   "status": "confirmed",
+   "evidence": "Default normalization_threshold=0.9. spec_utils.normalize does `if maxv > max_peak: wave *= max_peak/maxv`. The report missed that the INPUT mix is also normalized to this threshold before demixing (mdxc_separator.py:335). Another unmentioned detail: the default pydub writer casts stems to int16 before ffmpeg export; use_soundfile=True instead preserves the input subtype, e.g. FLOAT."
+  },
+  {
+   "claim": "PR #298 MPS timings (M4 Pro 24 GB, 99 s input, warm medians): Kim Mel 27.2/24.1/18.0 s; Mel karaoke 27.1 s; BS-RoFormer viperx-1297 63.0 fp32 / 54.1 autocast / 46.3 compile; HTDemucs 12.4; VR DeEcho 12.8",
+   "status": "partially-true",
+   "evidence": "The numbers match the PR #298 body exactly: M4 Pro/24 GB, macOS 15.3.1, torch 2.13.0, Python 3.12, 99.000 s stereo input. The model labels do not. The PR's 'Kim MelBand' is mel_band_roformer_kim_ft2_bleedless_unwa.ckpt; 'Karaoke MelBand' is mel_band_roformer_karaoke_gabox_v2.ckpt; 'BS-RoFormer' is bs_roformer_vocals_revive_unwa.ckpt, not viperx-1297. HTDemucs ran with shifts 2 and VR DeEcho with TTA on.",
+   "correction": "Revive is a fine-tune of viperx 1297 with the same dim-512/depth-12 layout, and FT2-bleedless shares Kim's 913 MB architecture, so the timings still transfer. The estimate for dim-256 Resurrection and karaoke frazer remains unmeasured. Compile helps most in fp32 (-26 to -34%); with autocast it gives only -0.4 to -11.6% on MPS."
+  },
+  {
+   "claim": "MVSep Multisong vocal SDR: Leap Xe 11.79, Leap 11.72, anvuew BS FT1 11.47, Resurrection 11.34; MVSep BS-RoFormer 124-band 12.33",
+   "status": "confirmed",
+   "evidence": "Parsed leaderboard pages 1-4 (sort=vocals). Leap Xe: 11.7920 (overlap 2) and 11.7615 (bs_leap_xe_voc_unwa.ckpt). Leap: 11.7398 and 11.7243. bs_vocalsft1_anvuew 11.4701. bs_resurrection_unwa 11.3362. 'BS Roformer 124 bands (2026.07.10, MVSep.com)' 12.3339. Also listed: bs_resurrection2_quality_test_unwa 11.66, not in the audio-separator catalog."
+  },
+  {
+   "claim": "Older public models (MSST docs): viperx BS 10.87, Kim Mel 10.98, BS PolarFormer 11.00 (MIT repo release, fp16), HTDemucs4 FT vocals 8.38, htdemucs 8.24; public SCNet XL IHF about 9.7",
+   "status": "confirmed",
+   "evidence": "ZFTurbo docs/pretrained_models.md: 10.87, 10.98, 11.00 (release v1.0.20 model_bs_polarformer_float16.ckpt), 8.38, 'vocals: 8.24', SCNet XL IHF Multisong vocals 9.68. The repo is MIT, pushed 2026-09-26."
+  },
+  {
+   "claim": "Bleedless/fullness/SDR: Resurrection 39.99/15.14/11.34; Revive 2 40.07/15.13/10.97; FT2 bleedless 39.30/15.77/11.05",
+   "status": "confirmed",
+   "evidence": "Lines 1768, 2087 and 2746 of docs/deton24-audio-separation-info-2026-03-15.md in python-audio-separator. They are repeated in deton24-model-mapping-and-ensemble-guide.md."
+  },
+  {
+   "claim": "BS-RoFormer karaoke by frazer & becruily has lead SDR 10.11 (best downloadable single model); MVSep Team BS karaoke 10.41; models treat simultaneous singers, doubles and ad-libs as lead",
+   "status": "partially-true",
+   "evidence": "mvsep.com/news/64 (2025-09-15) gives frazer/becruily BS Roformer lead SDR 10.11, 'currently the highest quality'. I found no source for the 10.41 MVSep Team figure. Becruily (quoted in deton24) says multiple simultaneous singers, including singers harmonizing with each other, and ad-libs all go to lead. Doubles are not mentioned, and a community note says MVSep Team's model is 'the only model that combines the lead vocal doubles with the lead vocals stem'. The 3-model ensemble at about 10.6 is confirmed (ZFTurbo quote; ensemble_presets.json 'karaoke').",
+   "correction": "Lead doubles may end up in the backing stem with frazer/becruily. 10.41 is unverified."
+  },
+  {
+   "claim": "Download sizes: Resurrection 204.5 MB, karaoke frazer 204.4 MB, Kim Mel 913.1 MB, anvuew Mel de-reverb 913.1 MB",
+   "status": "confirmed",
+   "evidence": "HTTP HEAD on the nomadkaraoke model-configs release gives Content-Length 204,510,749; 204,436,907; 913,106,900; 913,097,978. The TRvlvr URLs return 9-byte 'Not Found' bodies for these files, so the mirror is the effective source."
+  },
+  {
+   "claim": "Weight licenses: Kim MIT; anvuew (dereverb, karaoke, BS vocals) GPL-3.0; Sucial dereverb CC BY-NC-SA 4.0; becruily deux CC BY-NC 4.0; unwa Resurrection/Leap and becruily karaoke models carry no license",
+   "status": "confirmed",
+   "evidence": "Hugging Face API tags: KimberleyJSN/melbandroformer license:mit; anvuew/dereverb_mel_band_roformer, anvuew/karaoke_bs_roformer and anvuew/BS-RoFormer gpl-3.0; Sucial/Dereverb-Echo_Mel_Band_Roformer cc-by-nc-sa-4.0; becruily/mel-band-roformer-deux cc-by-nc-4.0; pcunwa/BS-Roformer-Resurrection, pcunwa/BS-Roformer-Leap, becruily/bs-roformer-karaoke and becruily/mel-band-roformer-karaoke have no license tag."
+  },
+  {
+   "claim": "anvuew de-reverb models expect vocals, output tends toward mono, and they remove off-center harmonies; the mono_sdr_20.4029 variant fixed an alignment bug and de-reverbs more strongly",
+   "status": "partially-true",
+   "evidence": "The anvuew HF README (GPL-3.0) says the model is vocal-only, trained on mono single-singer dry vocals, and that output tends to mono. It says the harmony and residual-removal ability comes from an alignment BUG in the 19.17 and less-aggressive checkpoints. For the mono 20.4029 variant it says 'de-reverb is stronger but the ability to remove separation residue and harmonies decreased'.",
+   "correction": "The variant the report recommends (mono) removes harmonies less than the other two. The report's 'removes off-center harmonies' warning applies mainly to the 19.17 and less-aggressive checkpoints."
+  },
+  {
+   "claim": "facebookresearch/demucs archived (last push 2024-04-24); adefossez/demucs is the maintained continuation, v4.1.0 on PyPI 2026-07-11, sphn instead of torchaudio, weights_only=False, HF weights; maintainer not actively developing",
+   "status": "confirmed",
+   "evidence": "GitHub API: facebookresearch/demucs archived=true, pushed_at 2024-04-24T20:25:19Z. PyPI demucs 4.1.0 uploaded 2026-07-11, requires sphn>=0.1.12, torchaudio only in [train]. README says 'officially maintained Demucs' and 'I'm not actively working on Demucs anymore'. repo.py uses torch.hub.load_state_dict_from_url(..., weights_only=False). pretrained.py looks up the HF hub first."
+  },
+  {
+   "claim": "demucs CLI auto-selects MPS, demucs.api.Separator defaults to cuda-else-cpu, STFT goes to the CPU on MPS",
+   "status": "confirmed",
+   "evidence": "api.py:58 is `device: str = \"cuda\" if th.cuda.is_available() else \"cpu\"`. separate.py:45-48 is cuda → mps → cpu. htdemucs.py:628-646 moves x to the CPU for STFT because 'mps doesnt support complex numbers'."
+  },
+  {
+   "claim": "demucs-mlx 1.6.1 (2026-10-05): htdemucs 120 s clip in 1.05 s on M4 Max (114x) vs 2.82 s PyTorch 2.14.1 MPS vs 19.4 s CPU; requires mlx 0.32.x; stem='vocals' only for htdemucs_ft; MIT",
+   "status": "confirmed",
+   "evidence": "PyPI: 1.6.1 uploaded 2026-10-05, mlx<0.33,>=0.32.3, MIT. The README performance table has these exact numbers (M4 Max 40-core, 128 GB). api.py raises 'Single-stem acceleration only supports htdemucs_ft'. separate() returns (mix, stems) when there is no output_dir, else {stem: Path}; it supports as_float. 44 stars."
+  },
+  {
+   "claim": "mlx-audio-separator 0.1.20: 2.16x faster than PAS for BS-RoFormer ep_317, 2.5x Mel, 1.4x htdemucs_ft (M4 mini); 163/163 gate; comparison predates PR #298; catalog lacks the BS karaoke models",
+   "status": "confirmed",
+   "evidence": "README table and docs/release-validation.md: ABBA snapshot 2026-02-26 and gate 2026-02-24, both before PR #298 (merged 2026-08-27). Its models.json has no bs_roformer_karaoke_frazer_becruily or bs_roformer_karaoke_anvuew, but does include Resurrection, dereverb mono anvuew, Kim and BS-Roformer-SW. 17 stars, MIT. The CHANGELOG has the SW 21.0 s / 195 s figure."
+  },
+  {
+   "claim": "PyPI msst 0.1.0 (2026-09-09) pins torch<2.12 and Python <3.14; the repo's inference.py picks MPS; requirements.txt is heavy",
+   "status": "confirmed",
+   "evidence": "PyPI msst: requires_python '<3.14,>=3.10', 'torch<2.12,>=2.0.1', author ZFTurbo. In inference.py lines 197-204, `elif torch.backends.mps.is_available(): device = \"mps\"`. requirements.txt includes bitsandbytes, wandb, transformers~=4.35.0, protobuf==3.20.3, demucs==4.0.0 and wxpython."
+  },
+  {
+   "claim": "openmirlab bs-roformer-infer refuses device='mps'; a 2026-07 audit found TRvlvr URLs returning 404",
+   "status": "confirmed",
+   "evidence": "The bs-roformer-infer README says 'Torch/CUDA/CPU only ... device=\"mps\" raises a clear ValueError'. Its CHANGELOG says MLX/MPS support was removed before release (2026-09-14). The README mentions a 2026-07-12 audit of 404ing TRvlvr URLs. My own HEAD requests also got 9-byte Not Found bodies from TRvlvr for the RoFormer checkpoints."
+  },
+  {
+   "claim": "On Apple Silicon RoFormer/Demucs/VR run on MPS, ONNX MDX on the CoreML EP; autocast/native fp16/regional compile verified for RoFormers on MPS",
+   "status": "confirmed",
+   "evidence": "The README Apple Silicon table lists MDX→CoreML, VR/Demucs/MDXC/RoFormer→MPS. In separator.py, configure_mps sets torch.device('mps') and adds CoreMLExecutionProvider when it is available. The README's verified-combinations table lists MPS with MelBand/BS-RoFormer in fp32, autocast and native_fp16. The CLI has -e/--env_info."
+  },
+  {
+   "claim": "This machine's M5 Pro has a 16-core GPU",
+   "status": "confirmed",
+   "evidence": "system_profiler on the host: 'Chipset Model: Apple M5 Pro, Total Number of Cores: 16, Metal 4'. macOS 26.3.1, 24 GiB RAM. Whether PyTorch MPS uses the per-core neural accelerators is unverified."
+  }
+ ],
+ "recommendation_assessment": "The overall direction is sound. Run separation offline, in its own venv, called as a subprocess, using python-audio-separator. Default to the Resurrection BS-RoFormer vocal model, with Kim Mel-Band (MIT) as the license-clean option. The 44.1 kHz separate-then-resample rule, the cache keyed by hash, and making karaoke and de-reverb A/B options all fit this project. The catalog, API names, stem names and file sizes I checked all hold up.\n\nCorrections I would make:\n(1) Fix the Python rationale. 3.13 is not blocked: onnx-weekly ships a cp312-abi3 wheel. Keep 3.12 because it is the PR #298 validation environment, not because of onnx-weekly.\n(2) Pin the validated stack. A fresh resolve now pulls torch 2.14.1, onnxruntime 1.31 and librosa 1.0.0. The v0.47.0 lock and PR #298 validated torch 2.13.0, librosa 0.11.0 and onnxruntime 1.23. librosa 1.0 dropped the audioread fallback, and audio-separator loads all input through librosa.load, so m4a/AAC sources will fail. Use a constraints file (torch==2.13.0, librosa==0.11.0) or always ffmpeg-convert to 44.1 kHz WAV/FLAC first, then benchmark 2.14.1 before adopting it.\n(3) Add diffq's CC BY-NC 4.0 license to the licensing section. It is a mandatory macOS dependency, though only imported by Demucs paths.\n(4) The PR #298 timings belong to FT2-bleedless, Karaoke Gabox v2 and Revive. They are the same architectures, so the estimates hold, but the labels are wrong.\n(5) Pass use_soundfile=True, or accept int16 output; the default pydub writer quantizes to int16. Remember the input mix is also peak-normalized before demixing.\n(6) For vocal-only mode, prefer the karaoke lead stem without de-reverb as the default reference. The recommended mono anvuew variant de-reverbs aggressively. It is GPL-licensed and its harmony-removal behavior is not what the report describes. Make de-reverb strictly opt-in after an A/B on the aligner and the DTW cost.\n\nThe fallback ordering is reasonable: demucs-mlx for speed, MSST only if separation bleed is shown to cause alignment errors. I would not adopt mlx-audio-separator as the main path: it has 17 stars, its benchmarks are from February, and it lacks the BS karaoke models.",
+ "missed_options": [
+  "Pin a validated constraints file for the separation venv: torch==2.13.0, librosa==0.11.0, onnxruntime==1.23.*, numpy<2.6. An unpinned install currently resolves librosa 1.0.0, which has no audioread backend, so m4a/AAC inputs to audio-separator fail. Alternatively, normalize every input to 44.1 kHz stereo WAV/FLAC with ffmpeg before calling the separator.",
+  "diffq is CC BY-NC 4.0. It is a hard macOS dependency of audio-separator and is used only by the Demucs paths. If the product is ever distributed commercially, use demucs 4.1 / demucs-mlx for Demucs or vendor around it.",
+  "Separator(use_soundfile=True) writes float/input-subtype WAVs instead of the default pydub int16 path. Separator(output_single_stem=...) skips writing unneeded stems, e.g. only 'Vocals' from the karaoke pass.",
+  "Workaround for samplerate 0.1.0 without --override: its loader tries ctypes find_library('samplerate') first, so `brew install libsamplerate` plus DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib also fixes the VR-arch import.",
+  "bs_roformer_karaoke_anvuew.ckpt (GPL-3.0, in the audio-separator catalog). Community reports say it extracts lead better on some tracks and handles radio-effect vocals that frazer/becruily misses. It is worth a per-song A/B for K-pop vocal effects.",
+  "Near-real-time separation of the LIVE input, as a possible third tracking mode for a live band rather than the original MR. One option is overlapping 1-2 s windows through demucs-mlx (about 100x realtime), which adds window latency. Dedicated low-latency models (HS-TasNet, about 23 ms latency) score only about 4.6-5.5 dB on MUSDB and have no verified public code. This is probably not worth it initially, but it is the only way to compare vocal against vocal when the live input is a full mix with different instrumentation.",
+  "Faster, higher-SDR checkpoints exist that are not in the catalog yet. unwa's bs_resurrection2_quality_test (11.66 on Multisong) and Leap Xe (11.76-11.79) are both dim-256-class BS models, usable via MSST in a separate venv. Only pursue them if alignment errors trace back to bleed.",
+  "torch.compile results on MPS: fp32+compile beats autocast and autocast+compile for warm runs (Kim 18.0 s vs 21.3 s). For a long-running prep worker that keeps one Separator alive, fp32+compile is the faster mode. For one-shot CLI runs, autocast eager avoids compile warm-up."
+ ]
+}

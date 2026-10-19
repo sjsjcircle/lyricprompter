@@ -1,0 +1,9 @@
+[project]
+name = "noweekly"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = ["torch>=2.13", "audio-separator[cpu]>=0.47", "onnx>=1.23", "audioread"]
+[tool.uv]
+environments = ["sys_platform == 'darwin' and platform_machine == 'arm64'"]
+exclude-dependencies = ["onnx-weekly"]
+override-dependencies = ["samplerate>=0.2.4"]

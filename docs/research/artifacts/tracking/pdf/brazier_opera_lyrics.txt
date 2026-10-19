@@ -1,0 +1,342 @@
+                                                               Improving Real-time Score Following in Opera
+                                                                 by Combining Music with Lyrics Tracking
+
+                                                                       Charles Brazier1       Gerhard Widmer1,2
+                                                  1
+                                                    Institute of Computational Perception, Johannes Kepler University Linz, Austria
+                                                                   2
+                                                                     LIT AI Lab, Linz Institute of Technology, Austria
+                                                                          firstname.lastname@jku.at
+
+
+
+                                                                Abstract                           ever, and compared to previous existing works, op-
+                                                                                                   eras are more challenging to track, due to the setup
+                                              Fully automatic opera tracking is challeng-
+                                                                                                   with a complete orchestra and singers that act and
+                                              ing because of the acoustic complexity of the
+
+
+
+
+arXiv:2110.02592v1 [eess.AS] 6 Oct 2021
+                                              genre, combining musical and linguistic infor-
+                                                                                                   sing on stage, one or several at a time, for several
+                                              mation (singing, speech) in complex ways. In         hours, with various noises, acting breaks, intermit-
+                                              this paper, we propose a new pipeline for com-       tent applause, musical (sometimes improvised) in-
+                                              plete opera tracking. The pipeline is based on       terludes, etc.
+                                              two trackers. A music tracker that has proven           First attempts at opera tracking (Brazier and
+                                              to be effective at tracking orchestral parts, will   Widmer, 2020b,a) use an On-Line Dynamic Time
+                                              lead the tracking process. In addition, a lyrics     Warping (OLTW) algorithm (Dixon, 2005) to align
+                                              tracker, that has recently been shown to reli-
+                                                                                                   complete performances with a reference perfor-
+                                              ably track the lyrics of opera songs, will cor-
+                                              rect the music tracker when tracking parts that      mance (some other recording of the work in ques-
+                                              have a text dominance over the music. We             tion) that has been aligned to the score beforehand
+                                              will demonstrate the efficiency of this method       and serves as a proxy to the score. This audio-
+                                              on the opera Don Giovanni, showing that this         to-audio alignment strategy is an elegant way to
+                                              technique helps improving accuracy and ro-           circumvent the unavailability of complete opera
+                                              bustness of a complete opera tracker.                score files in symbolic format. Also, using a real
+                                                                                                   recording is advantageous because the sounds in
+                                          1   Introduction and Contribution
+                                                                                                   the reference are much more realistic and simi-
+                                          Score following aims at aligning classical mu-           lar to what is to be expected in the real perfor-
+                                          sic performances with their corresponding scores         mance than anything one could synthesize from
+                                          (sheet music), in order to assign a score position at    a score. Brazier and Widmer (2020b) combine
+                                          each time step in the performance. There has been        alignment with three audio event detectors for mu-
+                                          constant progress in this domain, starting with          sic, speech/singing voice, and applause, which
+                                          the tracking of monophonic melodies in (Dannen-          halt the tracking process during long silences, ap-
+                                          berg, 1984), all the way to recent systems that can      plause, or interlude passages that can occur in be-
+                                          follow, under real conditions, complex orchestral        tween the parts. Brazier and Widmer (2020a) fur-
+                                          works (Arzt and Widmer, 2015) in a completely            ther improve tracking accuracy by using two track-
+                                          autonomous process. This has led to the devel-           ers working in parallel, one using audio features
+                                          opment of new applications such as automatic             tuned on orchestral music (Gadermaier and Wid-
+                                          page-turning for pianists (Arzt et al., 2008), live      mer, 2019), the other using features tuned on the
+                                          performance visualization (Lartillot et al., 2020),      recitative subset of one opera performance.
+                                          or score viewing and automatic contextualization            In this work, we propose to exploit an additional
+                                          in orchestra concerts (Prockup et al., 2013; Arzt        source of information: the lyrics sung or spoken in
+                                          et al., 2015) to enrich the viewers’ experience.         the audio recordings. We do not assume the writ-
+                                              Tracking live opera performances would be-           ten lyrics to be available in textual form. Rather,
+                                          come an essential tool for all future opera halls,       the idea is to train an acoustic phoneme recogni-
+                                          supporting functionalities like fully automatic sub-     tion model that extracts phoneme sequence esti-
+                                          titles display, or automatic camera control and          mates both from the reference (off-line) and the
+                                          video editing for live streaming services. How-          live performance (on-line), and to align these in
+    Conductor      Place    Year   Duration   Role           For each performance in the dataset, we man-
+    H.v. Karajan   Berlin   1985   2:57:53    Reference   ually affixed 5,304 bar annotations, 2,866 for the
+    Á. Fischer    Vienna   2018   3:12:54    Target      first act and 2,438 for the second, corresponding
+    A. Manacorda   Vienna   2019   3:07:09    Target      to the total number of bars present in the 500-
+                                                          pages score book. The annotations in the refer-
+           Table 1: Dataset used in this study.           ence performance permit to link the complete per-
+                                                          formance to the score book. The annotations in the
+                                                          target performances serve for evaluating the align-
+real time, giving us a real-time lyrics tracking al-
+                                                          ment accuracy of our tracker. Thus, our dataset
+gorithm. More specifically, the acoustic model
+                                                          comprises more than 9 hours of opera recordings
+will predict, for each audio frame, a probability
+                                                          played and sung in real conditions by different or-
+vector over a set of phonemes. For each part
+                                                          chestras and singers and recorded with different
+(aria, recitative, etc.) in the score, we assign a
+                                                          recording setups. It contains around 16,000 man-
+voice on music ratio value, calculated on the ref-
+                                                          ual bar-level annotations assigned to the 530 pages
+erence recording with the help of dedicated mu-
+                                                          score book, which is available online thanks to the
+sic/speech audio classifiers. The music tracker
+                                                          Mozarteum Foundation Salzburg1 . Precisely, an-
+leads the alignment process. As soon as the score
+                                                          notating these 9 hours of music took about 300
+position corresponds to a voice-dominant part in
+                                                          hours of work.
+the score, the lyrics tracker starts and we rely on its
+score position. When the score position reaches a         3       Real-Time Opera Trackers
+music-dominant part, the lyrics tracker is stopped
+and the music tracker alone is used.                      Operas are complex works that combine music,
+   Acoustic model and lyrics tracker have already         singing, and speech in complex ways. Most of the
+been presented in a recent publication (Brazier and       time, the piece is led by the music, with singers
+Widmer, 2021b), but only evaluated on selected            singing on top of the orchestra. However, operas
+text-heavy recitativo passages. Here we demon-            also include passages, such as recitativo sections,
+strate, for the first time, the benefit of combining      where the dominant signal is the lyrics spoken or
+lyrics with music tracking in an automated way.           sung by the singers, with a sparse musical accom-
+                                                          paniment that is played differently across perfor-
+2    Data Description                                     mances (e.g., arpeggiated chords, not aligned to
+                                                          the lyrics, partly improvised, and played by differ-
+Score followers are evaluated by computing their
+                                                          ent instruments). To tackle this, we propose to al-
+alignment accuracy on audio performances that
+                                                          ternate between two trackers, one focusing on the
+have been manually annotated to the correspond-
+                                                          music information and the other on the lyrics in-
+ing score. As no such dataset exists for opera, we
+                                                          formation. We first describe our music tracker that
+had to create our own. The dataset focuses on
+                                                          serves as a baseline in this study and that leads
+the opera Don Giovanni by W.A.Mozart. As the
+                                                          the tracking process. We then describe our lyrics
+reference, serving as a proxy to the score, we se-
+                                                          tracker, and then propose one simple way of com-
+lected a commercial CD recording conducted by
+                                                          bining them for achieving a better global tracking
+Herbert von Karajan in 1985. As target perfor-
+                                                          accuracy. This combination strategy will be exper-
+mances that we want to align to the score in real
+                                                          imentally verified in the next chapter.
+time, we use two full live performances, with dif-
+ferent casts and stagings, that have been recently        3.1       Music Tracker
+recorded at and by the Vienna State Opera, one
+                                                          The music tracker is based on an adaptive ver-
+conducted by Ádam Fischer in 2018, the other
+                                                          sion of the On-Line Time Warping (OLTW) al-
+by Antonello Manacorda in 2019. There are two
+                                                          gorithm (Dixon, 2005) that has been successfully
+parts in the reference that are not played in the two
+                                                          used in orchestra (Arzt et al., 2008) and also in
+live recordings. For this study, we decided to re-
+                                                          opera tracking (Brazier and Widmer, 2020b,a).
+move these to align performances that follow the
+                                                          The OLTW algorithm updates an accumulated
+same score structure. Compared to the reference,
+                                                          cost vector that has the length of the reference
+the live performances contain applause, breaks,
+                                                          feature sequence, where the index of its minimal
+and interludes that can appear between parts. The
+                                                              1
+dataset details are given in Table 1.                             https://dme.mozarteum.at/DME/nma/
+value corresponds to the score position given by       in Section 3.1, but in this case, aligning the pos-
+the algorithm. Per audio frame, it receives as in-     teriogram of the reference performance generated
+put a feature vector of 100 MFCCs (120 MFCCs           beforehand, and the posteriogram of the target per-
+are calculated from the audio sampled at 44.1 kHz,     formance generated online. This obviates the need
+but the first 20 are discarded (Gadermaier and         for a text-to-phoneme tool to translate the written-
+Widmer, 2019)), computed with a window size of         out lyrics, as well as a manual alignment of the
+20 ms, and a hop size of 10 ms. The features of the    lyrics to the reference performance. It works with-
+reference audio are computed beforehand, while         out having the lyrics themselves and can track a
+those of the target performance are computed in        language other than the language(s) the acoustic
+real-time. For each new incoming target feature,       model was trained on, as shown in (Brazier and
+we compute the cosine distance between the fea-        Widmer, 2021b).
+ture and an interval of reference features of length      The acoustic model is the core element of our
+c, centered around the expected score position (in     lyrics tracker; its role is to estimate in real-time
+practice c is fixed to 4000, corresponding to a con-   a posteriogram matrix from the audio recording.
+text of 40 seconds of audio). Then, considering        Its architecture is the CP-ResNet (Koutini et al.,
+the previous score position sp, the previously ac-     2019), composed of convolutional layers with
+cumulated cost vector Dprev , and the current dis-     residual connections between layers, and has a re-
+tance vector d, we compute the value of the new        ceptive field of 57 frames in the input feature se-
+accumulated cost vector D by first initializing its    quence centered around its time position, fixing
+values by +∞, and then applying the following          the delay of the model to 28 frames. The model
+recursive formula:                                     takes as input 80 MFCCs that are extracted from
+   ∀i ∈ [sp − c/2 : spj−1 + c/2] ,                     an audio window of 20 ms, sampled at 16 kHz,
+                                                      with a hop size of 10 ms; it outputs a vector every
+                                  Dprev [i − 1]
+                                                      40 ms. The output vector is of length 60, repre-
+D[i] = d[i − (sp − c/2)] + min Dprev [i]               senting the classes of the 57 different phonemes
+                                                      that are included in the multilingual DALI dataset
+                                    D[i − 1]
+                                  
+                                                       (Meseguer-Brocal et al., 2018) used to train the
+                                                 (1)
+                                                       model. The dataset collects 275 hours of Western
+   To compare costs in D among themselves and
+                                                       musical genres with lyrics annotations at the sen-
+not favor shorter paths over longer ones, we nor-
+                                                       tence, word, or note level, and includes English,
+malize them by dividing all values by their dis-
+                                                       German, French, Spanish and Italian languages.
+tance from the initial score position (i.e. by the
+                                                       The phoneme representation permits to train a sin-
+sum of their index in the accumulated vector and
+                                                       gle model on different languages (Vaglio et al.,
+an incremental counter representing the number of
+                                                       2020). The output vector also adds the space to-
+iterations since the beginning of the tracking).
+                                                       ken, the instrumental token, and the blank token,
+   Our target performances are performed under
+                                                       essential to a Connectionist Temporal Classifica-
+real conditions and thus include applause, breaks,
+                                                       tion (CTC) training (Graves et al., 2006) (the blank
+or interludes that can be played in between the
+                                                       class will be ignored when applying Equation 1).
+parts. We make use of the applause, music, and
+speech detectors detailed in (Brazier and Widmer,      3.3   M&L Tracker: Combining Music and
+2020a) to halt the tracking process when detected.           Lyrics Trackers
+3.2   Lyrics Tracker                                   To exploit the complementarity between the two
+                                                       previously described trackers, we first classify
+The lyrics tracker makes use of an on-line audio-
+                                                       each part of the opera in two classes (in the given
+to-lyrics alignment method that has been shown to
+                                                       reference performance): parts dominated by the
+robustly track the lyrics of different languages, in
+                                                       music and parts dominated by the voice. To do
+the genre of opera (Brazier and Widmer, 2021b).
+                                                       so, we use the structure detailed in the Table of
+The tracker is composed of an acoustic model that
+                                                       Contents of the Opera2 , and consider each title as
+generates, in real-time, posteriograms represent-
+                                                       an individual part. For each part, we use the mu-
+ing the frame-wise probability distribution over a
+set of predefined phonemes through time. Then,           2
+                                                           dme.mozarteum.at/DME/nma/nma_toc.php?
+it employs the same OLTW algorithm described           vsep=68
+sic and voice detectors (already used to halt the        Conductor    Tracker   Mean      ≤ 1s    ≤ 2s    ≤ 5s
+tracking process in between parts, as mentioned in       Fischer      music     811ms   91.8%    95.0%   97.3%
+Section 3.1 above) to calculate a voice over mu-                      musicP    373ms   93.4%    96.8%   99.0%
+sic ratio that is given by the percentage of voice                    M&L       335ms   94.1%    97.3%   99.2%
+along the part divided by the percentage of music.       Manacorda    music     561ms   90.1%    94.5%   97.9%
+Thus, an instrumental part will have a ratio close                    musicP    547ms   90.3%    94.7%   98.0%
+                                                                      M&L       410ms   91.6%    95.9%   99.0%
+to 0, whereas a part that contains more voice than
+music will have a ratio higher than 1.
+                                                         Table 2: Tracking error of three trackers: music (Bra-
+   The combination of the two proposed tracking
+                                                         zier and Widmer, 2020b), musicP (Brazier and Wid-
+models is delicate because they both work at a dif-      mer, 2020a), and Music and Lyrics (M&L).
+ferent pace (10ms for the music tracker, and 40ms
+for the lyrics tracker), the lyrics tracker has a de-
+lay of 280ms in its output due to its receptive field,   tions of bar boundaries (which reflect the precision
+and neither of them is able to track accurately full     of our ground truth annotations) that are detected
+opera performances. More precisely, the music            with an error less than 1, 2, and 5 seconds. The
+tracker is inaccurate when an improvised accom-          results are given in Table 2.
+paniment is played during a part led by the lyrics,         For both live target performances, the proposed
+and the lyrics tracker is entirely lost during instru-   music & lyrics tracker achieves the best accuracy,
+mental parts. Our approach is to use the music           beating the music tracker, and also the musicP
+tracker continuously, along with the complete tar-       tracker whose features were tuned on the Fischer
+get performance. When the score position given           performance. The accuracy improvement on Fis-
+by the music tracker corresponds to a part in the        cher is relatively small, but no fine-tuning on fea-
+score that, according to our estimated voice/music       tures is done in our proposal. The improvements
+ratio, is dominated by voice(s), we initialize the       on Manacorda are more substantial, dropping the
+accumulated cost vector of the lyrics tracker by         mean error to 410 ms and increasing all the 3 per-
+values of +∞ everywhere, and a value of 0 at the         centages by at least one point.
+score position given by the music tracker. We then
+                                                            We tried to take into account the delay of the
+use separately music and lyrics trackers but we
+                                                         lyrics tracker, in adding an offset to the score posi-
+rely only on the score position given by the lyrics
+                                                         tion given by the tracker, but the best results were
+tracker. As soon as the score position given by
+                                                         achieved in ignoring this delay.
+the lyrics tracker corresponds to a part in the score
+dominated by music, we stop the lyrics tracker and
+rely on the position given by the music tracker.         5   Conclusion
+
+                                                         We have presented a new state-of-the-art method
+4   Experiments and Discussion
+                                                         for tracking full-length opera performances. The
+For our experiments, we compare three different          method makes use of an acoustic model that es-
+tracking models. The first, music, reproduces the        timates the sung lyrics (phoneme probability vec-
+work in (Brazier and Widmer, 2020b) and uses             tors) over time. The final model combines lyrics
+the music tracker only (including acoustic event         and music information (without requiring the writ-
+detectors to deal with interludes and other unex-        ten lyrics as input) via two specific trackers. The
+pected events such as applause and acting pauses).       combination helps to improve the tracking accu-
+The second one, musicP, is the state-of-the-art          racy of the performance.
+opera tracker (Brazier and Widmer, 2020a); it uses          The proposed method requires a part segmen-
+two music trackers in parallel, one using the fea-       tation of the reference performance. The begin-
+tures detailed in Section 3.1, the other using opti-     nings and ends of each part are directly given by
+mized audio features that have been tuned on the         the manual bar annotations, useful to also handle
+recitative subset of the Fischer performance. Fi-        structural mismatches in opera (Brazier and Wid-
+nally, the third tracker M&L is the contribution         mer, 2021a). However, we plan to emancipate our-
+of this paper. The systems are evaluated by their        selves from the manual annotations with the devel-
+alignment accuracies (Cont et al., 2007). We re-         opment of a method that fully autonomously seg-
+port the mean error in ms, as well as the propor-        ments a piece.
+Acknowledgments                                          Simon Dixon. 2005. An On-Line Time Warping Algo-
+                                                           rithm for Tracking Musical Performances. In Proc.
+The research is supported by the European Union            of International Joint Conference on Artificial Intel-
+under the EU’s Horizon 2020 research and inno-             ligence (IJCAI), pages 1727–1728, Edinburgh, Scot-
+vation programme, Marie Skłodowska-Curie grant             land, UK.
+agreement No. 765068 (“MIP-Frontiers”). The              Thassilo Gadermaier and Gerhard Widmer. 2019. A
+LIT AI Lab is supported by the Federal State of            Study of Annotation and Alignment Accuracy for
+Upper Austria.                                             Performance Comparison in Complex Orchestral
+                                                           Music. In Proc. of the International Society for
+                                                           Music Information Retrieval Conference (ISMIR),
+                                                           pages 769–775, Delft, The Netherlands.
+References
+Andreas Arzt, Harald Frostel, Thassilo Gadermaier,       Alex Graves, Santiago Fernández, Faustino Gomez,
+  Martin Gasser, Maarten Grachten, and Gerhard Wid-        and Jürgen Schmidhuber. 2006. Connectionist Tem-
+  mer. 2015. Artificial Intelligence in the Concertge-     poral Classification: Labelling Unsegmented Se-
+  bouw. In Proc. of the International Joint Conference     quence Data with Recurrent Neural Networks. In
+  on Artificial Intelligence (IJCAI), pages 2424–2430,     Proc. of the International Conference on Machine
+  Buenos Aires, Argentina.                                 Learning (ICML), pages 369–376, Pittsburgh, Penn-
+                                                           sylvania, USA.
+Andreas Arzt and Gerhard Widmer. 2015. Real-Time
+  Music Tracking Using Multiple Performances as a        Khaled Koutini, Hamid Eghbal-zadeh, Matthias Dor-
+  Reference. In Proc. of the International Society for     fer, and Gerhard Widmer. 2019. The Receptive
+  Music Information Retrieval Conference (ISMIR),          Field as a Regularizer in Deep Convolutional Neu-
+  pages 357–363, Málaga, Spain.                           ral Networks for Acoustic Scene Classification. In
+                                                           Proc. of the European Signal Processing Conference
+Andreas Arzt, Gerhard Widmer, and Simon Dixon.             (EUSIPCO), A Coruña, Spain.
+  2008. Automatic Page Turning for Musicians via
+  Real-Time Machine Listening. In Proc. of the Euro-     Olivier Lartillot, Carlos Cancino-Chacón, and Charles
+  pean Conference on Artificial Intelligence (ECAI),       Brazier. 2020. Real-Time Visualisation of Fugue
+  pages 241–245, Patras, Greece.                           Played by a String Quartet. In Proc. of the Sound
+                                                           and Music Computing Conference (SMC), pages
+Charles Brazier and Gerhard Widmer. 2020a. Ad-             115–122, Turin, Italy.
+  dressing the Recitative Problem in Real-time Opera
+  Tracking. In Proc. of the Frontiers of Research in     Gabriel Meseguer-Brocal, Alice Cohen-Hadria, and
+  Speech and Music conference (FRSM), Silchar, In-         Geoffroy Peeters. 2018. DALI: A Large Dataset
+  dia.                                                     of Synchronized Audio, Lyrics and Notes, Auto-
+                                                           matically Created using Teacher-Student Machine
+Charles Brazier and Gerhard Widmer. 2020b. To-             Learning Paradigm. In Proc. of the International
+  wards Reliable Real-Time Opera Tracking: Com-            Society for Music Information Retrieval Conference
+  bining Alignment with Audio Event Detectors to In-       (ISMIR), pages 431–437, Paris, France.
+  crease Robustness. In Proc. of the Sound and Mu-
+  sic Computing Conference (SMC), pages 371–377,         Matthew Prockup, David Grunberg, Alex Hrybyk,
+  Turin, Italy.                                           and Youngmoo E. Kim. 2013. Orchestral Per-
+                                                          formance Companion: Using Real-Time Audio to
+Charles Brazier and Gerhard Widmer. 2021a. Handling       Score Alignment. IEEE MultiMedia, 20(2):52–60.
+  Structural Mismatches in Real-time Opera Tracking.
+  In Proc. of the European Signal Processing Confer-     Andrea Vaglio, Romain Hennequin, Manuel Mous-
+  ence (EUSIPCO), Dublin, Ireland.                         sallam, Gaël Richard, and Florence D’alché-Buc.
+                                                           2020. Multilingual lyrics-to-audio alignment. In
+Charles Brazier and Gerhard Widmer. 2021b. On-Line         Proc. of the International Society for Music Informa-
+  Audio-to-Lyrics Alignment Based on a Reference           tion Retrieval Conference (ISMIR), pages 512–519,
+  Performance. In Proc. of the International Soci-         Montréal, Canada.
+  ety for Music Information Retrieval Conference (IS-
+  MIR), Online.
+Arshia Cont, Diemo Schwarz, Norbert Schnell, and
+  Christopher Raphael. 2007. Evaluation of Real-
+  Time Audio-to-Score Alignment. In International
+  Symp. on Music Information Retrieval (ISMIR),
+  pages 315–316, Vienna, Austria.
+Roger B Dannenberg. 1984. An On-Line Algorithm
+  For Real-Time Accompaniment. In Proc. of the
+  International Computer Music Conference (ICMC),
+  pages 193–198, Paris, France.
+

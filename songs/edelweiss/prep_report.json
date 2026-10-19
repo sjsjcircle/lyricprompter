@@ -1,0 +1,281 @@
+{
+ "schema": 1,
+ "song_id": "edelweiss",
+ "status": "ok",
+ "created": "2026-10-12T12:28:46+00:00",
+ "source": {
+  "audio": "live-lyrics-tracking/resources/audio/Edelweiss.wav",
+  "lyrics_chars": 438,
+  "full_scale_samples": 0
+ },
+ "options": {
+  "default_lang": "auto",
+  "sep_model": "bs_roformer_vocals_resurrection_unwa.ckpt",
+  "lead": false,
+  "refine": "auto",
+  "vocals": null
+ },
+ "timings": {
+  "convert": 0.167,
+  "parse": 0.158,
+  "separate": 49.853,
+  "align": 4.527,
+  "finalize": 0.696,
+  "total": 55.402
+ },
+ "warnings": [],
+ "duration": 124.725,
+ "separation": {
+  "model": "bs_roformer_vocals_resurrection_unwa.ckpt",
+  "lead_model": null,
+  "reused": false,
+  "derived": {
+   "vocals": "vocals",
+   "instrumental": "other"
+  },
+  "subtypes": {
+   "vocals": "PCM_24",
+   "instrumental": "PCM_24"
+  },
+  "timings": {
+   "load": 2.477,
+   "separate": 46.813
+  },
+  "vocals_check": null
+ },
+ "tuning": 0.11,
+ "stems": {
+  "mix": "audio/mix.wav",
+  "vocals": "audio/vocals.wav",
+  "instrumental": "audio/instrumental.wav"
+ },
+ "align": {
+  "method": "mms_fa+gate",
+  "flagged": [
+   0,
+   5,
+   6,
+   8
+  ],
+  "timings": {
+   "emission": 3.978,
+   "viterbi": 0.02,
+   "post": 0.001
+  },
+  "details": {
+   "model": "torchaudio.pipelines.MMS_FA(with_star=True)",
+   "n_frames": 6236,
+   "frame_s": 0.02,
+   "n_tokens": 371,
+   "n_units": 108,
+   "n_units_aligned": 108,
+   "gate_active_frac": 0.901,
+   "options": {
+    "gate": true,
+    "gate_penalty": 15.0,
+    "gate_rel_db": -35.0,
+    "gate_noise_margin_db": 20.0,
+    "gate_min_rel_db": -55.0,
+    "gate_dilate_s": 0.3,
+    "star_between_lines": true,
+    "star_between_words": false,
+    "star_penalty": 0.0,
+    "include_backing": false,
+    "star_for_backing": true,
+    "time_offset_s": 0.0,
+    "snap_onsets": "line",
+    "max_snap_s": 0.5,
+    "snap_rel_db": -25.0,
+    "end_mode": "activity",
+    "close_gap_s": 0.15,
+    "max_extend_s": 1.5,
+    "end_rel_db": -20.0,
+    "review_threshold": 0.15,
+    "refine_threshold": 0.1,
+    "win_s": 30.0,
+    "ctx_s": 2.0
+   },
+   "device": "mps"
+  }
+ },
+ "summary": {
+  "lines": 16,
+  "acoustic_units": 108,
+  "languages": {
+   "en": 74
+  },
+  "flagged": 4,
+  "mean_confidence": 0.2801,
+  "min_confidence": 0.1168
+ },
+ "lines": [
+  {
+   "idx": 0,
+   "text": "Edelweiss, edelweiss",
+   "start": 6.58,
+   "end": 12.82,
+   "confidence": 0.1412,
+   "needs_review": true,
+   "flags": [
+    "low_confidence"
+   ],
+   "syllables": 6
+  },
+  {
+   "idx": 1,
+   "text": "Every morning you greet me",
+   "start": 13.24,
+   "end": 17.56,
+   "confidence": 0.4217,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 7
+  },
+  {
+   "idx": 2,
+   "text": "Small and white, clean and bright",
+   "start": 18.92,
+   "end": 25.14,
+   "confidence": 0.4202,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 6
+  },
+  {
+   "idx": 3,
+   "text": "You look happy to meet me",
+   "start": 25.72,
+   "end": 31.24,
+   "confidence": 0.3001,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 7
+  },
+  {
+   "idx": 4,
+   "text": "Blossom of snow, may you bloom and grow",
+   "start": 31.48,
+   "end": 36.94,
+   "confidence": 0.2662,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 9
+  },
+  {
+   "idx": 5,
+   "text": "Bloom and grow forever",
+   "start": 37.34,
+   "end": 42.04,
+   "confidence": 0.1175,
+   "needs_review": true,
+   "flags": [
+    "low_confidence"
+   ],
+   "syllables": 6
+  },
+  {
+   "idx": 6,
+   "text": "Edelweiss, edelweiss",
+   "start": 44.52,
+   "end": 51.6,
+   "confidence": 0.117,
+   "needs_review": true,
+   "flags": [
+    "low_confidence"
+   ],
+   "syllables": 6
+  },
+  {
+   "idx": 7,
+   "text": "Bless my homeland forever",
+   "start": 52.08,
+   "end": 55.5,
+   "confidence": 0.3158,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 7
+  },
+  {
+   "idx": 8,
+   "text": "Edelweiss, edelweiss",
+   "start": 65.1,
+   "end": 71.48,
+   "confidence": 0.1168,
+   "needs_review": true,
+   "flags": [
+    "low_confidence"
+   ],
+   "syllables": 6
+  },
+  {
+   "idx": 9,
+   "text": "Every morning you greet me",
+   "start": 72.0,
+   "end": 77.06,
+   "confidence": 0.3853,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 7
+  },
+  {
+   "idx": 10,
+   "text": "Small and white, clean and bright",
+   "start": 78.5,
+   "end": 84.86,
+   "confidence": 0.4043,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 6
+  },
+  {
+   "idx": 11,
+   "text": "You look happy to meet me",
+   "start": 85.38,
+   "end": 90.96,
+   "confidence": 0.3391,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 7
+  },
+  {
+   "idx": 12,
+   "text": "Blossom of snow, may you bloom and grow",
+   "start": 91.26,
+   "end": 96.68,
+   "confidence": 0.4035,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 9
+  },
+  {
+   "idx": 13,
+   "text": "Bloom and grow forever",
+   "start": 97.0,
+   "end": 101.44,
+   "confidence": 0.1903,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 6
+  },
+  {
+   "idx": 14,
+   "text": "Edelweiss, edelweiss",
+   "start": 104.62,
+   "end": 112.28,
+   "confidence": 0.2105,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 6
+  },
+  {
+   "idx": 15,
+   "text": "Bless my homeland forever",
+   "start": 112.82,
+   "end": 118.28,
+   "confidence": 0.3325,
+   "needs_review": false,
+   "flags": [],
+   "syllables": 7
+  }
+ ]
+}

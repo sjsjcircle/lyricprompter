@@ -1,0 +1,429 @@
+               Towards Effective ‘Any-Time’ Music Tracking
+                                               Andreas Arzt(1) and Gerhard Widmer(1,2) 1
+
+
+Abstract. The paper describes a new method that permits a com-                      The specific goal we wish to achieve with our algorithm is robust-
+puter to listen to, and follow, live music in real-time, by analysing            ness in the face of almost arbitrary disruptions or re-starts within a
+the incoming audio stream and aligning it to a symbolic represen-                performance, where current music tracking algorithms would simply
+tation (e.g, score) of the piece(s) being played. In particular, we              ‘get lost’. For instance, in a practicing scenario this will be the norm:
+present a multi-level music matching and tracking algorithm that,                the musician will want to repeat difficult passages an arbitrary num-
+by continually updating and evaluating multiple high-level hypothe-              ber of times, stop after a mistake and re-start somewhere, skip some
+ses, effectively deals with almost arbitrary deviations of the live per-         parts, or take a break and then re-start somewhere in the middle of
+former from the score – omissions, forward and backward jumps,                   the piece – all of these without having to tell the system the precise
+unexpected repetitions, or (re-)starts in the middle of the piece. Also,         starting position each time.
+we show that additional knowledge about the structure of the piece                  The two key aspects of the solution we propose are: (1) a two-
+(which can be automatically computed by the system) can be used                  level hypothesis tracking process, with a high-level tracker con-
+to further improve the robustness of the tracking process. The result-           stantly evaluating all possible (!) positions in the score as potential
+ing system is discussed in the context of an automatic page-turning              ‘current points’, and more detailed hypothesis evaluators checking,
+device for musicians, but it will be of use in a much wider class of             selecting from, and refining these hypotheses – all in real time; and
+scenarios that require reactive and adaptive musical companions.                 (2) the additional introduction of knowledge about the structure of
+                                                                                 the piece being played (which, as we will show, can be computed by
+                                                                                 the system itself), which facilitates heuristic guesses as to the most
+1    Introduction                                                                likely points of continuation.
+                                                                                    As the experiments will show, the resulting system is indeed ca-
+Computers that can listen to music and follow it in real time promise            pable of quickly reacting to jumps, omissions, or performers starting
+to be useful in a wide range of applications, from synchronisation               at arbitrary points in the middle of a piece. For lack of a better term,
+tasks to automatic monitoring of radio stations or web streams, from             we chose to call this ‘Any-time Music Tracking’: continuously being
+live music visualisation in artistic contexts to real-time accompani-            ready to receive input and to revise one’s hypothesis as to what the
+ment of soloists. A specific application example was given in [2],               performers are doing.
+where an automatic sheet music page turner (a real mechanical de-
+vice) for musicians is controlled by a computer that listens to the
+                                                                                 2     Related Work
+musicians (e.g., a pianist), aligns the incoming audio stream to an
+internal (audio) representation of the printed score of the music, fol-          While there has been quite some work on real-time music tracking,
+lows the musician through the performance and autonomously de-                   starting as early as 1984 [4, 10] and including some recent publica-
+cides when to trigger the page turner. Such a system would be es-                tions on very advanced systems (e.g. [3, 9]), the problem of how to
+pecially useful during practicing, where instrumentalists generally              deal with changes to the structure of a piece on-line has so far been
+don’t have human page turners at their disposal2 and also need to                largely neglected (in contrast to the off-line case, see [6]), with two
+focus on the sheet music, as they have not yet memorised the piece.              notable exceptions.
+   For the purposes of this paper, then, we define ‘music tracking’ as              In [8] HMMs are used to model the structure of the piece. This
+follows: for a machine to listen to live music through a microphone,             is a very static approach as only deviations which are modeled be-
+to identify and track the corresponding positions in the printed score,          forehand can be detected. The same applies for the method devised
+and, in this way, to always ‘know’ where the musicians are in the                in [2], where multiple instances of matching algorithms are started
+piece, even if the live performance varies in tempo and sound and                at predefined positions (e.g. notated repeats) to detect deviations via
+perhaps even deviates from the score in certain places. In this paper,           the alignment costs. The finding that it is possible to recognise which
+we present a new, extremely robust algorithm for score-based music               instance of the matching algorithm is working at the correct position
+tracking, where the live music takes the form of an audio stream, and            by comparing their alignment costs sets the ground for our new and
+the system has an audio representation of the printed score of the               more dynamic approach.
+piece being played (produced using synthesiser software). Thus, the
+tracking problem is one of real-time audio-to-audio alignment.
+                                                                                 3     Preliminaries: Data Representation and Basic
+1 (1) Department of Computational Perception, Johannes Kepler University,
+                                                                                       Matching Algorithm
+  Linz, Austria; (2) Austrian Research Institute for Artificial Intelligence,    3.1    Data Representation
+  Vienna, Austria
+2 Note, by the way, that music page turners are highly trained and specialised   Rather than trying to transcribe the incoming audio stream into dis-
+  professionals!                                                                 crete notes and align the transcription to the score, we first convert
+Score Representation
+(MIDI & Audio)
+                                                              Rough Position
+                                                              Estimator
+
+
+
+                                                                                                                                      Score Position
+                                              Matcher 1        Matcher 2                Matcher 3         Matcher N
+
+
+
+
+      Live Audio Input
+
+                                   Structure Model
+
+
+
+
+                                                                           Decision Maker
+
+
+
+
+              Figure 1. Overview of our ’Structure-aware Any-Time Music Tracking System’ showing the different modules and the data flow.
+
+
+
+a MIDI version of the given score into a sound file by using a soft-               follows: Given 2 time series U = u1 , ..., um and V = v1 , ..., vn ,
+ware synthesizer. Due to the information stored in the MIDI file, we               an alignment between U and V is a path W = W1 , ..., Wi (through
+know the time of every event (e.g. note onsets) in this ‘machine-like’,            a cost matrix) where each Wk is an ordered pair (ik , jk ) such that
+low-quality rendition of the piece.                                                (i, j) ∈ W means that the points ui and vi are aligned. W is
+   The audio streams to be aligned are represented as sequences of                 constrained to be monotonic and continuous. A local cost function
+analysis frames, using a low-level spectral representation, at two                 d(i, j) assigns costs to the alignment of each pair (ui , vi ). The cost
+different resolution levels. This approach and the way the lower-                  of a path W is the sum of the local alignment costs along the path.
+resolution features are computed are very much inspired by [7].                    The m × n path cost matrix D is computed using the recursion:
+   The high-resolution features are computed via a windowed FFT of
+the signal with a hamming window of size 46ms and a hop size of
+                                                                                                                           wa ∗ D(i, j − 1)
+                                                                                                                      (                           )
+20ms. The data is mapped into 84 frequency bins, spread linearly up
+to 370Hz and logarithmically above, with semitone spacing. In order                         D(i, j) = d(i, j) + min        wa ∗ D(i − 1, j)            (1)
+to emphasize note onsets, which are the most important indicators of                                                      wb ∗ D(i − 1, j − 1)
+musical timing, only the increase in energy in each bin relative to the
+previous frame is stored.                                                          D(i, j) is the cost of the minimum cost path from (1, 1) to (i, j),
+   The low-resolution features are computed by convolving the se-                  D(1, 1) = d(1, 1), wa = 1 and wb = 2. The weights wa and wb are
+quence of high-resolution features component-wise with a Hann win-                 used to normalize paths of different lengths to make them compara-
+dow with length 30 (or 600ms). This new sequence is down-sampled                   ble. After the computation of the matrix the path itself is obtained by
+by a factor of 15, resulting in a hop-size of 300ms, and each vector               tracing the recursion backwards from D(m, n).
+is normalized to sum up to 1.                                                         Originally proposed by Dixon in [5], the ODTW algorithm is
+   For both feature resolutions the cost of aligning two feature vec-              based on this algorithm, but has two important properties making it
+tors is computed as the Euclidean distance of two vectors. While the               useable in real-time systems: it has linear time and space complexity
+feature extraction from the live audio signal can of course only be                and the alignment (a ‘forward path’) is computed incrementally.
+done on-line, the feature extraction from the score representation is                 For every iteration the number of cells calculated is given by a
+done beforehand, so that information about the whole piece of music                search width parameter c = 500, e.g. for a new column i the local
+is available during the matching process.                                          distances d(i, j−c), d(i, j−(c−1)), ..., d(i, j) are calculated, where
+                                                                                   j is the index of the current row. The calculation of the minimum cost
+                                                                                   paths using formula 1 is restricted to using only calculated cells, thus
+3.2    On-line Dynamic Time Warping (ODTW)                                         reducing time and space complexity from quadratic to linear.
+                                                                                      During every iteration the minimum path cost matrix is expanded
+This algorithm is the core of our real-time audio tracking system;                 by either calculating a new row or a new column. Calculating a row
+slight variants of it are used at both levels of our system. ODTW                  (column) means incrementing the pointer to the next element of the
+takes two time series describing the audio signals – one known com-                respective time series, calculating the new local distances within the
+pletely beforehand (the score) and one coming in in real time (the                 defined search width c, and updating the cost matrix D by using for-
+live performance) –, computes an on-line alignment, and at any time                mula 1.
+returns the current position in the score.                                            To decide if a row or a column should be computed (i.e., which of
+   ODTW is based on the original DTW algorithm, which works as                     the two time series to advance), the minimum path cost for each cell
+
+                                                                               2
+in the current row j and column i is found. If this occurs in the cur-        live input series to every frame of the score representation, is up-
+rent position (i, j) both a new row and column are calculated. If this        dated. As the live input stream sits on the x-axis this means adding a
+occurs elsewhere in row j a new row is calculated and if this occurs          new column to the matrix.
+elsewhere in column i a new column is calculated. If one time series             Next, starting in every new cell rough backward alignments on the
+has been incremented more than M axRunCount = 3 times, the                    last n = 9 seconds of the live performance are computed using a
+other series is incremented. In our musical setting, this embodies the        greedy local search algorithm constrained to step at most 3 times in a
+assumption that a given performance will not be more than 3 times             row into a single direction. The alignment costs of the resulting paths
+faster or slower than the reference score, and prevents the alignment         are normalized by the number of steps and then scaled to lie between
+algorithm from ‘running away’ too far.                                        0 and 1. The result is a vector giving the similarity values of rough
+   At any time during the alignment it is possible to compute a ‘back-        alignments of the last n seconds of the live audio to score passages
+ward path’, i.e. a path starting at the current position and computed         ending at any possible score position (with a resolution of 600ms).
+backwards in time, leading to an off-line alignment of the two time              To reduce the computational complexity and to add some robust-
+series which generally is much more accurate.                                 ness to the algorithm, only the cells (‘score positions’) with a simi-
+   Improvements to this algorithm, focusing both on adaptivity and            larity value of at least 0.95 are selected as possible hypotheses to be
+robustness, were presented in [2] and are incorporated in our sys-            passed on to the lower-level matchers for evaluation (see 4.2 below).
+tem. That includes the ‘backward-forward strategy’, which reconsid-              As only the last n seconds on the live input axis are needed and due
+ers past decisions and tries to improve the precision of the current          to the low resolution of the two streams, the necessary computations
+score position hypothesis, and the utilization of onset information           are easily done in real time, even for pieces as long as 30 minutes.
+derived from the MIDI score.
+   Both of these strategies aim at an improvement in alignment pre-
+cision. In the present paper, we provide a more dynamic and more              4.2    Detailed Matching Algorithm (DMA)
+general solution to the third problem discussed in [2], namely the
+problem of how to deal with structural changes effectively on-line.           Our system maintains a fixed number of instances of the ODTW
+                                                                              matching algorithm, working on the high-resolution features (frame
+                                                                              size 46ms, hop time 20ms – thus a piece of 10 minutes consists
+4     ‘Any-time’ Music Following via Two-level                                of 30, 000 frames), which are managed by the ‘Decision Maker’ (see
+      Tracking                                                                below). The number of matcher instances is limited by the computing
+                                                                              power of the computer in use, but usually 3 or 4 instances are suffi-
+While previous systems – if they did deal at all with serious devia-
+                                                                              cient. The matching algorithm is identical to the one described in 3.2
+tions from the score – had to rely on explicitly provided information
+                                                                              above, including all extensions proposed in [2] with one notable dif-
+about the structure of a piece of music and points of possible devi-
+                                                                              ference: In [1] we introduced a simple reactive tempo model based on
+ation (e.g., notated repeats, which a performer might or might not
+                                                                              the performed tempo relative to the score representation, computed
+obey), our system does without any such information and continu-
+                                                                              over the last couple of seconds of the live performance. This model
+ously checks all (!) time points in the score as alternatives to the
+                                                                              is used to stretch or compress the score representation accordingly
+currently assumed score position, thus theoretically being able to re-
+                                                                              and therefore reduce differences in absolute tempo between the score
+act to arbitrary deviations (jumps etc.) by the performer. The overall
+                                                                              representation and the live performance. This increases robustness in
+structure is shown in Figure 1. A ‘Rough Position Finder’ continually
+                                                                              the face of global and local tempo deviations.
+evaluates every possible score position by computing a very rough
+alignment of the last few seconds of the live audio input to the score
+at that point; that is done at the level of low-resolution features and       4.3    Decision Maker (DM)
+600ms frames. A ‘Decision Maker’ takes these candidate score po-
+sitions and tries to verify or falsify them via several parallel ODTW         The Decision Making Component (DM) decides on which hypothe-
+matchers at the detailed, high-resolution level. At any time one in-          ses to investigate in detail, and which to accept or reject. To achieve
+stance of the matching algorithm is marked as ‘trusted’, representing         this it manages instances of the DMA of which at any time at least
+the system’s current belief about the correct position. A model of the        one is active. One of the active instances is marked as ‘trusted’, rep-
+structure of the piece, which is computed automatically, proves to be         resenting the system’s current belief about the score position.
+very useful during this process, as will become clear later.                     If there is an idle DMA instance available, the first step in every
+                                                                              iteration is to analyse the output of the RPE and to find the best hy-
+4.1    Rough Position Estimator (RPE)                                         pothesis for which further investigation is not in progress. The idle
+                                                                              DMA instance is initialised accordingly, but not with the current time
+The task of the Rough Position Estimator (RPE) is to continually              points in score and live audio, but with points a few seconds in the
+provide our system with rough but reliable hypotheses about possible          past – the end positions of the rough backward alignment leading
+current positions in the score. It takes two low-resolution time series       to this hypothesis, as computed by the RPE. The DMA then starts
+(with frame size 600ms and hop time 300ms; thus a piece of, say,              aligning there. That gives the DMA more context for evaluating the
+10 minutes will consists of 2,000 such frames) as input. At any time          current hypothesis and accelerates the DM’s decision making pro-
+the RPE has a set of hypotheses about possible score positions. The           cess (because it will not have to wait for several seconds of new live
+number of hypotheses is not limited, but they are ordered by a value          audio until the hypothesis can be evaluated).
+representing the ‘probability’ that the score position in question is            Next, the DM iterates through the instances of the DMA, trying
+corresponding to the current position in the live input.                      to decide, for each matcher, whether to reject it, to accept it as the
+   For every new incoming low-resolution audio frame the RPE is               new ‘trusted’ one, or to postpone the decision. Only matching algo-
+updated in the following way. First the local ‘low resolution’ cost           rithms that have tracked at least 5 seconds of audio input are consid-
+matrix, which contains the Euclidean distances of the frames of the           ered here, as of course no decision should be made without sufficient
+
+                                                                          3
+grounding. A matcher may need some time to converge on the correct             5 by Sergei Rachmaninoff. For each piece we selected as least 5 dif-
+alignment path as the RPE’s hypotheses are only rough estimates.               ferent performances by well-known classical pianists, including e.g.
+   The decision itself is made as follows: for each matcher i, the dif-        Vladimir Horowitz, Evgeny Kissin, and Vladimir Ashkenazy. The
+ference di between the current alignment cost of matcher i and the             pieces are of considerable complexity, with a rich structure of repe-
+alignment cost ct of the currently ‘trusted’ matcher is computed;              titions at various levels and, belonging to the romantic piano genre,
+these differences are summed up over the whole lifetime of the                 they are generally played with a lot of expressive freedom (in terms
+matcher. After every iteration the sums are compared to two heuristic          of tempo changes etc.), which is a challenge to the ODTW matching
+thresholds. If the sum is lower than tr = −rct the hypothesis is re-           algorithms. The experiments were performed off-line but, except for
+jected and the matcher is set to idle. If the sum exceeds ta = sct , the       a very small latency, the results are the same for on-line alignments.
+hypothesis is accepted and the matcher is marked as the new ‘trusted’              For a quantitative evaluation a correct reference alignment is
+one. In our system we use r = 2 and s = 10, which gives a good                 needed. As the goal of our experiments was not to evaluate the over-
+trade-off between fast response times and overall robustness.                  all accuracy of the alignments – this was already done in [2] – but
+                                                                               the performance of the multi-level approach in reacting to structural
+                                                                               changes to the piece, data acquired by off-line alignments was suf-
+5   Adding Musical Knowledge                                                   ficiently accurate as ground truth for this task. Manual examination
+                                                                               guaranteed that no large errors were included in the reference align-
+Music is a highly structured artifact, and most music exhibits a cer-          ments. As shown in [5] these alignments are generally very accurate.
+tain degree of repetition – a significant motif may reappear many
+times, a refrain is a repeated part by definition, whole sections are
+sometimes repeated. Thus, we generally have repeating passages at
+                                                                               6.1    Evaluation of the ‘Rough Position Estimator’
+many levels – from short segments of just a few beats, to segments
+lasting several minutes.
+                                                                               The overall performance of our system depends heavily on the ac-
+   Repetition in music presents a problem to a music following sys-
+                                                                               curacy of the RPE. If its hypotheses about possible score positions
+tem that always considers all possible positions in the score: which
+                                                                               are poor, the whole system will rarely detect jumps during a per-
+of the instance of a repeating pattern corresponds to the passage cur-
+                                                                               formance or, even worse, may get confused even in the course of a
+rently played by the performer? In order to cope with this problem,
+                                                                               ‘normal’ performance. The RPE, which at any time gives an ordered
+we introduce knowledge about the structure of the current piece, by
+                                                                               list of possible current score positions, was first evaluated in isola-
+way of a Structure Model (SM) that identifies repeated parts at all
+                                                                               tion, by analysing the output at every note onset in our test set. For
+levels and builds an equivalence relation that specifies which parts
+                                                                               every output the minimum distance to the actual score position or an
+are instances of the same class. As shown in 6.2 below, without such
+                                                                               equivalent position (e.g. due to a repetition) was computed.
+knowledge it is not possible to distinguish these parts and make mu-
+                                                                                  As Table 1 shows, the performance of the RPE is sufficient for the
+sically sensible decisions about the current position in the score. Fur-
+                                                                               task we have in mind. In general, due to the robustness of the ODTW
+thermore the SM also adds to the robustness of our system.
+                                                                               matching algorithm, even hypotheses with an error of up to 5 bars
+   The SM is extracted automatically from the score by computing
+                                                                               are useable as a starting point for our detailed matchers.
+a self-similarity matrix based on the rough feature representation of
+the score. In this matrix the diagonal represents a performance of the
+                                                                                         Error ≤         Selecting ‘best’ of top n hypotheses
+piece as annotated in the score. Simple image processing techniques
+                                                                                                       1        2        3        4       5
+are used to identify connected lines with maximum similarity which
+                                                                                         0 bars        41%      56%      58%      60%     60%
+are parallel to the diagonal. These represent repetitions of the same                    1 bar         70%      78%      83%      85%     86%
+part at another time in the score (see Figure 1, which shows the struc-                  2 bars        78%      83%      87%      89%     90%
+ture model computed for the Impromptu in A-flat major D.935-2 by                         3 bars        80%      85%      89%      91%     92%
+Franz Schubert).                                                                         4 bars        82%      87%      90%      92%     93%
+   This additional knowledge proves useful for several tasks in our                      5 bars        83%      87%      91%      93%     94%
+system: It is used to (1) prune the list of hypotheses by identify-
+ing equivalent hypotheses and discarding all hypotheses equivalent                  Table 1. Cumulative percentages of the best of the top n proposed
+to positions that are already checked in detail. This greatly reduces            hypotheses of the RPE with an error up to the given value – e.g. cell (3,2)
+computation time and gives the system the ability to track more dif-            should be read as ‘at 83% of all note events in the performances, the best of
+                                                                                 the top 3 hypotheses proposed by the RPE is at most 1 bar away from the
+ferent hypotheses at once. Furthermore, the DM is used to (2) control          correct position (or an equivalent position according to the structure model)’.
+the pruning process by introducing a configurable matching strategy.
+Therewith it is possible to affect the behaviour of the system, e.g.
+by using the strategy ‘always prefer the shortest jump in the score’.
+And (3) we use information from the model to double the acceptance
+threshold ta if an active hypothesis supports (i.e., belongs to the same
+class as the segment processed by) the ‘trusted’ matcher, which add
+to the robustness of the system.
+                                                                               6.2    Evaluation of the Any-Time Music Tracker
+
+                                                                               In the following the basic system without the SM will be referred to
+6   Evaluation                                                                 as ‘Any-Time Music Tracker’ (AMT), and the system including the
+                                                                               SM will be referred to as ‘Structure-aware Any-Time Music Tracker’
+Our system was evaluated on 3 classical piano pieces: the Valse bril-          (SAMT). The evaluation of the systems is based on versions of the
+lante Op. 34 No. 1 by Frédéric Chopin, the Impromptu in A[ major             performances in our data set which were edited by removing parts of
+D 935-2 by Franz Schubert and the Prelude in G minor Op. 23 No.                various length, ranging from 10 to 250 bars.
+
+                                                                           4
+                                                                                                                         AMT                       SAMT
+                   Alignment Errors on the Prelude by Rachmaninov (without bars 0-20)
+                                                                                                                C        R        S        C        R        S
+                  25
+                                                                                               Best             3.52     5.18     0.12     3.51     4.98     4.60
+                  20                                                                           Quartile 1       6.78     8.10     7.52     6.62     8.88     7.36
+                                                                                               Median           7.42     10.32    10.44    7.16     10.52    8.74
+                  15
+
+
+  Error in Bars
+                                                                                               Quartile 3       10.18    14.56    30.70    8.04     15.76    11.92
+                                      b)                                                       Worst            60.26    51.96    128.86   56.18    56.04    68.7
+                  10
+
+                  5                                                                         Table 2. Statistics about the erroneous matching time (in seconds) until the
+                           a)
+                                                                                            system actively jumps to the next correct score position (error measure M1).
+                  0
+                                                                                                The data is computed on performances of the pieces by Chopin (C),
+                  -5                                                                        Rachmaninov (R) and Schubert (S) starting somewhere in the middle of the
+                       0        50          100        150           200         250                         score instead of at the beginning (see text).
+                                            Time (Seconds)
+
+Figure 2. ’Starting in the middle’: A visual comparison of the capabilities
+ of the old and the new AMT real-time tracking system. 5 performances of                    to find the correct position, but also after such a position is found (see
+   the Prelude by Rachmaninov, with bars 0-20 missing, are aligned to the                   Table 4).
+ score by the old and the new system. For all performances, the new one (a)
+almost instantly identifies the correct position, while the old one (b)finds the
+                                                                                               This behaviour, which for musicians is very tiresome, finally led us
+                       correct position by mere chance.                                     to introduce the Structure Model (see Section 5). For our experiments
+                                                                                            we used the structure model to make SAMT prefer the linearly next
+                                                                                            segment if several alternative positions pertaining to a class of re-
+6.2.1              ‘Starting in the Middle’                                                 peated segments are available. As discussed in Section 7, other strate-
+For the first experiment we deleted the first x = 10, 15, 20, ... bars                      gies are entirely possible and in fact depend on the usage scenario of
+from the performances, resulting in performances where the pianist                          the system.
+skips some bars at the beginning, thus simulating ‘random’ starts                              As can be seen in Tables 2 and 3 the introduction of a SM leads
+somewhere in the score. In total we computed alignments on 600                              to a similar performance on the pieces by Chopin and Rachmaninov
+performances, with x ranging from 10 up to 250 (the larger value of                         while reducing the time needed to adapt to deviations in the Schubert
+course depending on the total number of bars of the piece), amount-                         piece, which is rich in repetitions. But even more important is the in-
+ing to about 38 hours of live performance. We provide 2 different                           crease in robustness, as shown in Table 4. There still occurred some
+measures for the performance of the algorithm:                                              erroneous jumps in the Chopin piece, but over all aligned perfor-
+                                                                                            mances a wrong jump or an unnecessary jump roughly occurs only
+• Measure 1 (M1): The time spent matching wrong positions until                             once every 2 hours of a live performance. Moreover, due to the abil-
+  the algorithm actively jumps to a bar in the score corresponding to                       ity of the algorithm to identify equivalent hypothesis, SAMT needs
+  the actual performance. It is important to note that this might not                       only half of the computation time of AMT.
+  be the exact same position as in the performance, as parts often
+  occur more than once in a piece completely identical and without
+  some context it is impossible, even for humans, to decide which                           6.2.2    ‘Leaving out Parts’
+  instance of a part is currently being played.                                             In the course of a second experiment we simulated performances
+• Measure 2 (M2): The time spent matching wrong positions until                             where an arbitrary part in the middle of the piece is skipped. In total
+  the algorithm reaches (possibly by jumping more than once) the                            we used 394 performances in which parts with lengths from 20 to
+  exact bar corresponding to the live performance.                                          200 bars were removed at different positions. The results (see Table
+   In both cases time spent matching positions which according to                           5) show that it generally takes a little bit longer to find the correct po-
+the structure model are equivalent is not added to this measure.                            sition than in the first experiment. Closer investigation showed that
+   The results of this experiment can be found in Tables 2 and 3.                           this is caused by the extra (and misleading) context given by the last
+Just for comparison, Table 3 also shows the results of the system de-                       couple of seconds of the live performance which increases the time
+scribed in [2], on the same data. The latter can only detect predefined                     the RPE needs to supply the correct position as hypothesis. This also
+structural changes and thus has no means to cope with the arbitrary                         accounts for the noticeably bigger difference in the results between
+changes we made to the performances. Loosely speaking, it is mere                           the two experiments for the piece by Rachmaninov. It seems that the
+chance if the correct position is ever detected, which becomes more                         similarity of many short segments of this pieces makes the task of the
+improbable as the changes grow bigger (see also Figure 2).                                  algorithm more difficult. A possible improvement may be to make
+   The performance of the AMT (the system without Structure                                 the thresholds ta and tr adaptive, thus speeding up the detection. Of
+Model) depends on the characteristics of the piece in question. While                       course there is a trade-off between detection speed and robustness.
+the results on the Chopin and Rachmaninov pieces are quite similar
+– especially considering M2 as shown in Table 3 – the results for the                       6.3     Conclusions from the Experiments
+Schubert piece are considerably worse. Considering the structure of
+this piece, which consists of a lot of repetitions, this does not come                      Although during the evaluation we focused on cases where parts
+as a surprise as the AMT has no means to distinguish these parts                            from the score are left out during the performance, insertions or back-
+and does not use any context that would allow for musically sensi-                          ward jumps should make no difference. This estimation is also sup-
+ble decisions. This leads to a very annoying behaviour, which is not                        ported by preliminary experiments.
+reflected in these tables: The algorithm sometimes jumps between                               In general the performance of our approach depends very much
+different instances of the repetion in the score – not only while trying                    on how a piece of music is performed and where jumps occur. The
+
+                                                                                        5
+                          Old System (ECAI 08)                                        AMT                                          SAMT
+                   C            R          S                       C                R             S                C              R              S
+    Best           15.98        24.74      25.08                   4.74             5.18          0.86             4.64           4.98           4.60
+    Quartile 1     130.8        106.88     243.14                  7.14             8.10          7.84             7.2            8.88           8.16
+    Median         not found    not found  not found               8.36             10.32         14.32            8.34           10.52          13.04
+    Quartile 3     not found    not found  not found               15.42            14.56         43.66            13.09          15.76          19.04
+    Worst          not found    not found  not found               60.26            51.96         128.86           56.18          56.04          82.36
+
+Table 3. ’Starting in the Middle’: Statistics about the erroneous matching time (in seconds) until the system reaches the exact same position in the score as in
+  the live performance (error measure M2). The data is computed on performances of the pieces by Chopin (C), Rachmaninov (R) and Schubert (S) starting
+                         somewhere in the middle of the score (with omissions up to 250 bars) instead of at the beginning (see text).
+
+
+
+                             AMT                         SAMT                       erate on a whole database of musical pieces, automatically recognis-
+                    C        R        S         C         R        S                ing both the piece being played, and the current position. An off-line
+    Jwrong          2%       0%       28%       2%        0%       0%               matching/retrieval scenario related to this has been described in [7].
+    Jequiv          4%       2%       30%       3%        0%       0%               Practically this will require a clever indexing scheme based on mu-
+                                                                                    sically relevant high-level features to quickly find those pieces and
+ Table 4. ’Starting in the Middle’: Percentage of performances in which             time points most likely to match the ongoing sound stream.
+    AMT/SAMT jumps to a completely wrong position (Jwrong ), or                        More directions for future work are to find ways to cope with
+‘unnecessarily’ jumps to equivalent parts after reaching the correct position       phrase boundaries and more elaborate methods to determine the ac-
+                  (Jequiv ), which is also musically wrong.
+                                                                                    tually played part from a number of equivalent hypotheses (e.g. by
+                                                                                    analysis of the musical context). To achieve the latter the additional
+                                                                                    use of high-level musical features for the RPE should be considered.
+                              M1                          M2
+                    C        R        S         C        R         S                ACKNOWLEDGEMENTS
+    Best            3.98     3.08     3.26      3.98     3.08      3.26
+    Quartile 1      6.38     8.86     6.12      7.30     10.42     6.12             This research is supported by the City of Linz, the Federal State of
+    Median          9.62     14.68    9.28      12.82    15.20     9.28             Upper Austria, the Austrian Federal Ministry for Transport, Innova-
+    Quartile 3      15.38    20.60    13.46     19.6     23.72     15.84            tion and Technology, and the Austrian Science Fund (FWF) under
+    Worst           55.02    41.48    86.76     55.02    55.62     86.76
+                                                                                    project number TRP 109-N23.
+
+Table 5. ’Leaving out Parts’: Statistics about the erroneous matching times
+ (in seconds) until SAMT actively jumps to the (next) correct score position        REFERENCES
+    (M1 and M2). The data is computed on performances of the pieces by               [1] Andreas Arzt and Gerhard Widmer, ‘Simple tempo models for real-time
+Chopin (C), Rachmaninov (R) and Schubert (S) which skip parts of different               music tracking’, in Proc. of the Sound and Music Computing Confer-
+            length somewhere during the performance (see text).                          ence (SMC), Barcelona, Spain, (2010).
+                                                                                     [2] Andreas Arzt, Gerhard Widmer, and Simon Dixon, ‘Automatic page
+                                                                                         turning for musicians via real-time machine listening’, in Proc. of the
+                                                                                         18th European Conference on Artificial Intelligence (ECAI), Patras,
+performance decreases with extreme tempo changes within a perfor-                        Greece, (2008).
+mance, and with large differences in absolute tempo between the (au-                 [3] Arshia Cont, ‘A coupled duration-focused architecture for realtime mu-
+                                                                                         sic to score alignment’, IEEE Transactions on Pattern Analysis and Ma-
+dio representation of) the score and the live performance. Problems                      chine Intelligence, 99, (2009).
+are especially apparent at phrase boundaries, where huge differences                 [4] Roger Dannenberg, ‘An on-line algorithm for real-time accompa-
+in timing occur. Jumps to these areas account for many of the bigger                     niment’, in Proc. of the International Computer Music Conference
+errors found in Tables 2, 3 and 5.                                                       (ICMC), San Francisco, (1984).
+   Depending on the scenario one could think of a different align-                   [5] Simon Dixon, ‘An on-line time warping algorithm for tracking musical
+                                                                                         performances’, in Proc. of the 19th International Joint Conference on
+ment strategy than we used for our experiments, e.g. if it is known                      Artificial Intelligence (IJCAI), Edinburgh, (2005).
+beforehand that the musician is practicing and therefore may repeat                  [6] Meinard Mueller and Daniel Appelt, ‘Path-constrained partial music
+parts multiple times the strategy ‘always jump to the nearest hypoth-                    synchronization’, in Proc. of the International Conference on Acous-
+esis’ instead of ‘always jump to the linearly next hypothesis’ would                     tics, Speech, and Signal Processing (ICASSP), Las Vegas, (2008).
+                                                                                     [7] Meinard Mueller, Frank Kurth, and Michael Clausen, ‘Audio matching
+be more appropriate.                                                                     via chroma-based statistical features’, in Proc. of the 5th International
+                                                                                         Conference on Music Information Retrieval (ISMIR), London, (2005).
+                                                                                     [8] Bryan Pardo and William Birmingham, ‘Modeling form for on-line fol-
+7    Conclusion and Future Work                                                          lowing of musical performances’, in Proc. of the 20th National Confer-
+                                                                                         ence on Artificial Intelligence (AAAI), Pittsburgh, (2005).
+The paper has presented an robust on-line audio alignment algorithm                  [9] Christopher Raphael, ‘Current directions with music plus one’, in Proc.
+which is capable of coping with arbitrary structural changes during a                    of the Sound and Music Computing Conference (SMC), Porto, (2009).
+musical performance. The algorithm may also prove useful for other                  [10] Barry Vercoe, ‘The synthetic performer in the context of live per-
+                                                                                         formance’, in Proc. of the International Computer Music Conference
+domains that need robust on-line alignment of time series which pos-                     (ICMC), San Francisco, (1984).
+sibly include structural deviations.
+   A possible future scenario would be to extend this algorithm to op-
+
+                                                                                6
+

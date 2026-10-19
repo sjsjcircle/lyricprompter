@@ -1,0 +1,147 @@
+{
+ "topic": "reference-repo",
+ "checked": [
+  {
+   "claim": "The repo is private, was created 2023-02-16, last pushed 2026-06-02 (f8396bb), has no LICENSE (license=null, /license 404), 2 forks, 0 stars. Commit authors are jiyun.park, MACLab and seingreen.",
+   "status": "partially-true",
+   "evidence": "gh api repos/laurenceyoon/live-lyrics-tracking returns private=true, created_at 2023-02-16T02:52:05Z, pushed_at 2026-06-02T03:06:10Z, license null, forks 2, stars 0. /license returns 404. HEAD is f8396bb 'fix bug stopping unnecessary process'. Paginated commit authors: jiyun.park 121, seingreen 4, MACLab 3, yonghyunk1m 1.",
+   "correction": "The author list misses yonghyunk1m (1 commit). Everything else is exact."
+  },
+  {
+   "claim": "The user can read the private repo, so they probably have collaborator access.",
+   "status": "confirmed",
+   "evidence": "The authenticated gh user (sjsjcircle) is listed in GET /repos/laurenceyoon/live-lyrics-tracking/collaborators, along with laurenceyoon, yonghyunk1m, jaeranchoi and seingreen. The user's email is @kaist.ac.kr.",
+   "correction": "This is not 'probably': the user is an explicit collaborator, most likely in the same KAIST group. Collaborator access still grants no license to redistribute."
+  },
+  {
+   "claim": "The algorithm is published as Park, Yong, Kwon, Nam, ICASSP 2024, arXiv:2401.09200 (CC BY 4.0), and the paper links github.com/laurenceyoon/winterreise_rt.",
+   "status": "confirmed",
+   "evidence": "The arXiv abs page lists authors Park Jiyun, Yong Sangeon, Kwon Taegyun, Nam Juhan and links creativecommons.org/licenses/by/4.0. The HTML v1 cites https://github.com/laurenceyoon/winterreise_rt and the companion site laurenceyoon.github.io/real-time-lyrics-alignment."
+  },
+  {
+   "claim": "Paper Table 1: online Chroma+Phoneme5 AAE 376, MedAE 136, Std 630, PCO 64.75/75.49/85.82/92.26. Chroma-only AAE 1366. Mel AAE 1222. Offline Chroma & DLNCO 302/137/733, PCO 67.71/83.35/93.31/98.1.",
+   "status": "confirmed",
+   "evidence": "All values match the arXiv HTML v1 table text. The paper labels the median column 'MAE' and defines it as Median Absolute Error. The paper's online setting is a 3 s OLTW window at 16 kHz / 25 fps with a 160 ms buffer.",
+   "correction": "The report leaves out a decision-relevant row: online Chroma+MFCC(5) reaches AAE 453 ms, median 144 ms, PCO 62.85/73.13/83.46/90.56. That baseline needs no trained (TIMIT) model. The paper also uses L-inf+log1p with Euclidean distance for chroma, while HEAD code applies cosine to the raw stacked chroma+PPG."
+  },
+  {
+   "claim": "HEAD config: SAMPLE_RATE 16000, HOP 640, N_FFT 1280, CHUNK 2560, DTW_WINDOW_SIZE 5 s, MAX_RUN_COUNT 30, cosine distance, features chroma+phoneme, N_MELS 66, ADJUST_DELAY 5, DEVICE mps, TOLERANCES [200,300,500,750,1000]. 3 s window in the thesis code.",
+   "status": "confirmed",
+   "evidence": "backend/app/config.py at HEAD matches exactly. At commit 8725d8d ('final checkpoint after master thesis', 2023-11-24), config has DTW_WINDOW_SIZE = int(3*FRAME_RATE) = 75 frames and OLTW uses self.w = window_size with a default max_run_count=3. The match_eval all-songs cell uses max_run_count 3.",
+   "correction": "Missing nuance: the reference OLTW advances in 4-frame (160 ms) blocks and tests run_count > max_run_count. So MAX_RUN_COUNT=30 allows 31 consecutive one-sided blocks, about 5 s, which is effectively no slope constraint. The published position is also quantised to 160 ms."
+  },
+  {
+   "claim": "CRNN checkpoint uni-5cls-640hop.pt: dataset train/valid/test = TIMIT, num_lbl 5, melspec, sr 16000, win_length 1024, hop 640, n_mels 66, fmin 0, fmax 8000, model_complexity 64, lr 1.83e-5 with 0.98 decay every 853 iterations, f1_micro early stopping. Conv 64/64/128, fc 1024x2048, unidirectional LSTM W_ih 4096x1024, out 5x1024, about 10.6M parameters, 46.8 MB.",
+   "status": "confirmed",
+   "evidence": "I downloaded the file (46,803,627 bytes) and disassembled model-best/data.pkl with pickletools, without executing it. It shows dataset train/valid/test 'TIMIT', num_lbl 5, sample_rate 16000, win_length 1024, hop_length 640, n_mels 66, fmin 0, fmax 8000, model_complexity 64, batch 16, num_frames 168, lr 1.8268946e-05, lr_decay_step 853, lr_decay_rate 0.98, es_criteria f1_micro. Tensor shapes give about 10.61M parameters. model.py has LSTM bidirectional=False, despite the class being named BiLSTM.",
+   "correction": "I did not inspect the other four checkpoints (14/39/61-class, 5cls-320hop), so 'all TIMIT' is verified only for uni-5cls-640hop."
+  },
+  {
+   "claim": "PPG post-processing: drop the first and last frame, softmax over classes, then log1p(5p)/4. Stacked under 12-d chroma (norm=inf) to give 17-d frames.",
+   "status": "confirmed",
+   "evidence": "utils.process_phonemes does phonemes[:, 1:-1], then softmax on axis 0 (classes), then np.log1p(p*5)/4 (max 0.448). FeatureExtractor prepends 2 cached mel frames. process_chroma uses chroma_stft(n_fft=1280, center=False, norm=np.inf)."
+  },
+  {
+   "claim": "5-class phone set: index 0 = vowels/glides/liquids, then stops/affricates, fricatives+hh, nasals, silence/closures.",
+   "status": "confirmed",
+   "evidence": "timit5.phoneset lines: aa (vowels+glides+liquids incl. l,r,w,y), p (p,t,k,b,d,g,jh,ch), s (fricatives+hh,hv), m (nasals), sil (closures, pau, h#, epi, q, dx). preprocess_winterreise.py:765 counts argmax==0 as the vowel rate. The checkpoint's consts dict is empty, so the label order is not stored in the model.",
+   "correction": "Medium confidence is appropriate, because the label map is not stored in the model."
+  },
+  {
+   "claim": "OLTW bugs: init uses min(y-d,0); length matrix (0,0)=0; the j==0 branch adds local_dist to the length; select_candidate uses <= len(norm_x_edge); candidates mix an exclusive end with 0-based indices; there is no BOTH step; the diagonal uses acc*0.98; DP code is identical at 8725d8d.",
+   "status": "confirmed",
+   "evidence": "online_dtw.py@f8396bb: line 115 min(y - d, 0). Lines 123-132: new_len_acc[0,0] is never set and the j==0 branch adds local_dist to the length. Lines 137/186/227 use *0.98. Line 254 uses '<='. Line 255 sets candidate=[ref_pointer-offset_x (=wx, exclusive), min_idx]. Only the REF and QUERY directions exist. A diff of init_matrix..save_history between 8725d8d and HEAD shows the code is identical.",
+   "correction": "There is one more bug the report missed. In init_matrix and the QUERY update, the i==0 branch reads new_acc[i, update_y0 - 1] instead of new_acc[i, update_y0 + j - 1]. In init (update_y0=0) this wraps to column -1, which is not yet computed (0), so row 0 is not accumulated. In QUERY updates, all d new row-0 cells chain from the same old column."
+  },
+  {
+   "claim": "The 0.98 multiplicative diagonal raises diagonal choices from 48.4% to 57.9% as the cost offset grows from 0 to 1000.",
+   "status": "partially-true",
+   "evidence": "My own 200x200 random-cost simulation, with the offset added at (0,0), gave diagonal choices of 51.6% (offset 0), 53.8% (10), 57.2% (100) and 60.0% (1000).",
+   "correction": "The trend reproduces: the diagonal bias depends on the absolute cost level. The exact percentages depend on the simulation setup."
+  },
+  {
+   "claim": "The app publishes ref_pointer (frontier), while match_eval scores candi_history. Warm-up presets ref_pointer = w and forces QUERY, so the display is pinned at about 5.2 s.",
+   "status": "confirmed",
+   "evidence": "online_dtw.run: self.ref_pointer += self.w, then redis_client.set_value('location', self.ref_pointer). select_next_direction returns QUERY while target_pointer <= w. helpers.build_lyric_response adds ADJUST_DELAY (5) giving (125+5)/25 = 5.2 s. match_eval.py lines 115/153/591 use oltw.candi_history."
+  },
+  {
+   "claim": "Streaming issues: features and CRNN are computed inside the PyAudio callback; feature_buffer is unbounded; LSTM state resets per chunk; 640-sample + 2-mel-frame context; AmplitudeToDB top_db=80 per call; the evaluation uses additional_buffer = CHUNK_SIZE*64; the mock stream is not real-time paced.",
+   "status": "confirmed",
+   "evidence": "stream_processor._process_frame calls _process_feature inside the PortAudio callback. queue.Queue() has no maxsize. additional_buffer defaults to HOP_LENGTH (640). model.BiLSTM.forward in eval mode zero-initialises h and c on every call. feature_extractor uses T.AmplitudeToDB(top_db=80) per call. match_eval 'Run On-Line Evaluation for all songs' sets additional_buffer=CHUNK_SIZE*64. mock_stream loops without sleep.",
+   "correction": "Another single-song cell uses CHUNK_SIZE*4. The *64 value applies to the all-songs evaluation."
+  },
+  {
+   "claim": "librosa 1.0.0 (2026-08-11, Python >=3.12) removed get_duration(filename=). 0.11.0 still has it as deprecated. The reference calls it on every OLTW iteration.",
+   "status": "confirmed",
+   "evidence": "PyPI: librosa 1.0.0, uploaded 2026-08-11, requires_python >=3.12, numpy>=2.1.0. At tag 1.0.0, get_duration(*, y, sr, S, n_fft, hop_length, center, path) has no filename parameter (the docstring is stale). At tag 0.11.0 it has filename=Deprecated(). online_dtw.py:330 calls it inside the while loop, and stream_processor.mock_stream calls it too."
+  },
+  {
+   "claim": "synctoolbox 1.4.2 (2026-05-20, MIT) requires librosa>=0.11,<1.0, numba>=0.63,<0.66, numpy>=2.0,<2.5, Python >=3.10,<3.15. Its filterbank is hard-coded for 22050/4410/882 Hz, and the reference passes 16 kHz.",
+   "status": "confirmed",
+   "evidence": "PyPI JSON confirms the version, date and requires_dist, and has the classifier 'License :: OSI Approved :: MIT License'. The GitHub API says NOASSERTION because the file is named LICENCE. In synctoolbox/feature/filterbank.py, FS_PITCH=[22050,4410,882] and the filter design uses the hard-coded fs. utils.run_offline_alignment loads at SAMPLE_RATE=16000 and passes Fs=16000."
+  },
+  {
+   "claim": "requirements.txt pins whisper==1.1.10, which is Graphite's round-robin DB package. attributedict 0.3.0 pulls tox, coverage and codecov.",
+   "status": "confirmed",
+   "evidence": "PyPI: whisper 1.1.10 (2022-05-22) is summarised as 'Fixed size round-robin style database'. attributedict 0.3.0 (2019) requires_dist includes tox, coverage, codecov and deepdiff. backend/app/core/whisper_reference.py imports the OpenAI whisper API but is not imported anywhere (dead code). environment.yml pins Python 3.12.3, numpy 1.26.4 and torch 2.2.2, although the README says Python 3.10."
+  },
+  {
+   "claim": "pymatchmaker 0.3.0 is Apache-2.0, released 2026-05-25, requires Python >=3.10,<3.13, pushed 2026-10-10, 91 stars. It is unverified whether it accepts arbitrary precomputed features.",
+   "status": "partially-true",
+   "evidence": "PyPI and GitHub confirm the license, date, Python range, push date and star count. The arm64 macOS wheels are cp310-cp312. requires_dist also has numpy>=1.26.3,<2.0 plus partitura, parangonar and pyfluidsynth, and the develop branch's pyproject keeps numpy<2.0. Contributors: CarlosCancino-Chacon 179, laurenceyoon 146, and others. On develop, matchmaker/dp/oltw_dixon.py OnlineTimeWarpingDixonFrame takes a reference_features ndarray, uses scipy cdist with a distance_func string (cosine works), and per-frame __call__(observation, perf_time). It has additive step weights (BOTH 2.0, REF 1.0, INPUT 1.0), normalisation by 1+i+j, a BOTH step, best_ref output and run-count limits. Recent commits are by jiyun.park in Jun-Aug 2026, e.g. 'update audio dixon with Java implementation's result'.",
+   "correction": "It does accept arbitrary feature matrices. It also needs a ref_frame_to_beat array; passing ref seconds works. Two points are missing. First, numpy<2.0 makes it impossible to install alongside librosa 1.0 (numpy>=2.1) or synctoolbox 1.4.2 (numpy>=2.0). Second, the cleaned-up Dixon OLTW is only on the develop branch: v0.3.0 ships an older 'backward-forward search' variant."
+  },
+  {
+   "claim": "SWD v2.1 is Zenodo record 10839767 (2024-03-19), CC BY 3.0, a 517 MB zip. winterreise_rt is public with no license file; reconstruct.py pitch-shifts SC06 to the HU33 key, RMS-normalises, keeps voice notes only, at 16 kHz.",
+   "status": "confirmed",
+   "evidence": "Zenodo API: 'Schubert Winterreise Dataset' v2.1, 2024-03-19, license cc-by-3.0, Schubert_Winterreise_Dataset_v2-1.zip 517,380,038 bytes. gh: winterreise_rt private=false, license=null. reconstruct.py maps HU33 to ref and SC06 to target, sets SAMPLE_RATE=16000, calls librosa.effects.pitch_shift(n_steps=semitone_diff), normalises RMS and filters instrument != 'voice'."
+  },
+  {
+   "claim": "ik2024.db timings equal the LRC timestamps. ik2023.db note timestamps are in score time (120 bpm), and HEAD does not map them through the warping path.",
+   "status": "confirmed",
+   "evidence": "ik2024 Edelweiss words 06.82/10.00/12.99/14.75 equal the Edelweiss.lrc tags. ik2023 꽃밭에서 notes 꽃 00:00:00.5, 밭 1.0, 에 1.75. database.py uses db/ik2024.db. helpers.get_score_frames is defined but never called. build_lyric_response compares ref frame + ADJUST_DELAY directly against the DB timestamps."
+  },
+  {
+   "claim": "꽃밭에서_score.csv has 244 notes and 144 lyric syllables, which equal the 144 Hangul of lyrics.txt (NFC). start = offset × 0.5. Last warping-path row is (3269, 6009).",
+   "status": "confirmed",
+   "evidence": "Parsed the fetched files: 244 notes, 144 syllables, string equality True. The start/offset ratio set is {0.5}. The tail of 꽃밭에서_offline.csv is 3269.0,6009.0."
+  },
+  {
+   "claim": "The notebook unpacks get_stats with abs and signed errors swapped.",
+   "status": "confirmed",
+   "evidence": "evaluation.get_stats returns (mean, std, misalignments, errors, abs_errors). match_eval.py:257 unpacks (..., online_abs_err, online_err). evaluation.run_evaluation:123 unpacks it correctly."
+  },
+  {
+   "claim": "WebSocket: every client runs a 100 Hz loop that broadcasts to all clients (N² traffic). Stale connections are deleted by ascending index, which removes the wrong sockets. Payload is {isRunning, title, titleKr, texts, translation, activeIndex, highlight}.",
+   "status": "confirmed",
+   "evidence": "main.websocket_start loops with asyncio.sleep(0.01) calling websocket_manager.broadcast(response), and also print(response) each iteration. websocket.broadcast deletes with 'for i in inactive_connections: del self.active_connections[i]'. App.js reads the listed fields."
+  },
+  {
+   "claim": "The clean OLTW sketch, on a synthetic tempo-varying (0.8-1.25×) sequence, gives mean 68 ms, median 38 ms, 92% within 200 ms.",
+   "status": "partially-true",
+   "evidence": "Re-running scratchpad/research/reference-repo/scripts/oltw_clean.py reproduces 68/38/92.4%. However, the test's warp is t_ref = cumsum(1+0.25 sin)*0.8, which is 0.60-1.00 ref frames per live frame, so live is never faster than ref. My re-runs at other ranges: 0.75-1.25 gives mean 64 ms (93.4% within 200 ms); 0.9-1.5 gives 94 ms (85.6%); 1.13-1.87 gives 196 ms (72%).",
+   "correction": "The tempo range is mislabelled. The features are piecewise-constant random vectors with small noise, so the result says little about real singing."
+  },
+  {
+   "claim": "The checkpoints are trained on LDC-licensed TIMIT, so they are legally encumbered.",
+   "status": "partially-true",
+   "evidence": "The checkpoint config says TIMIT for train, valid and test. TIMIT (LDC93S1) is distributed under LDC license agreements.",
+   "correction": "Whether trained weights inherit LDC restrictions is a legal grey area, not an established fact. The practical reasons to replace the model are stronger: it is English read speech only, and it was never evaluated on Korean, Japanese or full mixes."
+  },
+  {
+   "claim": "The reference-style Python strip update costs about 0.58 ms (w=125, d=4) on the M5 Pro. OLTW is not the bottleneck.",
+   "status": "unverifiable",
+   "evidence": "I did not re-run bench_oltw_step.py. The order of magnitude is plausible: a Python double loop over 4x125 cells. pymatchmaker's per-frame Dixon also loops in Python, about w cells per frame."
+  }
+ ],
+ "recommendation_assessment": "The main conclusion holds: do not fork the reference code or copy its checkpoints. Use it as a design reference and a source of evaluation data. I confirmed every bug the report lists by reading the source, and found one more (the i==0 branch indexing). Three things should change.\n\n1) Start from the cleaned Dixon OLTW in pymatchmaker's develop branch (matchmaker/dp/oltw_dixon.py, OnlineTimeWarpingDixonFrame) instead of a new clean-room DP. It is Apache-2.0 and was written in Jun-Aug 2026 by the same author (jiyun.park), validated against Dixon's Java implementation. It already has every fix the report proposes: additive (1,1,2) weights, normalisation by 1+i+j, a BOTH step, best-match output and run-count limits. It also takes any reference_features matrix through a per-frame __call__. Do not depend on the PyPI package: it pins numpy<2.0 and Python<3.13, which conflicts with librosa 1.0 and synctoolbox 1.4.2, and v0.3.0 ships an older variant. Copy that one module into the project with the Apache-2.0 notice; it needs only numpy and scipy. Use the report's sketch and synthetic tests as unit tests, and widen the warp range, since the current test never makes live faster than ref.\n\n2) Do not treat the TIMIT PPG as required. The same paper's online Chroma+MFCC(5) gets AAE 453 ms and median 144 ms, against 376/136 for Chroma+Phoneme5, with no trained model. That is the right day-one, license-free baseline for both modes. A multilingual phonetic feature for vocal-only mode (b) can be added later as an improvement.\n\n3) The user is an explicit collaborator on the private repo and has a KAIST email, so asking Jiyun Park or MACLab for permission, or for a LICENSE, is a short conversation rather than a blocker. Even with permission, the English-read-speech TIMIT model is the wrong acoustic model for Korean/Japanese singing and full mixes.\n\nAlso carry forward:\n- The reference steps in 160 ms blocks and its run limit is effectively absent (30+ blocks). Use per-frame steps with run limit 3, as Dixon and pymatchmaker do.\n- Keep synctoolbox, which needs librosa<1.0 and numpy<2.5, in a separate offline/ground-truth environment if the live app moves to librosa 1.0.",
+ "missed_options": [
+  "Vendor pymatchmaker's develop-branch OnlineTimeWarpingDixonFrame (Apache-2.0, same author, Java-MATCH-validated, already fixes the reference's DP bugs) instead of writing a new OLTW. pymatchmaker also has an Arzt-style OLTW (oltw_arzt.py) and HMM/particle-filter followers to compare against.",
+  "Use Chroma + MFCC(5) as the license-free feature baseline (paper Table 1: online AAE 453 ms, median 144 ms) before investing in a new PPG model.",
+  "Ask the author directly. The user is a listed collaborator (sjsjcircle) with a KAIST email; ask for a LICENSE file or written permission, and possibly the unpublished label-map and training code for the CRNN.",
+  "Use Dixon's original MATCH (Java) or the match-vamp port as a reference oracle for validating any OLTW reimplementation. pymatchmaker already did this, but note GPL if code is copied.",
+  "Replace the TIMIT 5-class PPG with a multilingual phonetic or self-supervised speech feature for vocal-only mode (b). The repo's unused whisper_reference.py shows the authors already tried Whisper-encoder features.",
+  "Build Korean/Japanese pseudo ground truth by forced-aligning the separated vocal stem to the lyric syllables. This uses the project's own offline pipeline instead of MusicXML→synctoolbox, plus a small hand-checked subset.",
+  "Treat the reference's warm-up differently: start detection or global re-localisation (e.g., a coarse subsequence-DTW search over the whole ref on the first few seconds and after loss) instead of a fixed lock-step band."
+ ]
+}

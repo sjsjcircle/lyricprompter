@@ -1,0 +1,5892 @@
+{
+ "schema": 1,
+ "meta": {
+  "id": "tts-ja",
+  "title": "夜明けの空 (TTS)",
+  "artist": "",
+  "default_lang": "ja",
+  "duration": 106.564512,
+  "tuning": 0.19,
+  "stems": {
+   "mix": "audio/mix.wav",
+   "vocals": "audio/vocals.wav",
+   "instrumental": "audio/instrumental.wav"
+  },
+  "prep": {
+   "created": "2026-10-12T12:40:28+00:00",
+   "version": "0.1.0",
+   "options": {
+    "default_lang": "ja",
+    "sep_model": "bs_roformer_vocals_resurrection_unwa.ckpt",
+    "lead": false,
+    "refine": "auto",
+    "vocals": null
+   },
+   "models": {
+    "separation": "bs_roformer_vocals_resurrection_unwa.ckpt",
+    "lead": null,
+    "align": "mms_fa+gate"
+   },
+   "languages": {
+    "ja": 123
+   },
+   "align_stem": "vocals",
+   "tuning_params": {
+    "sr": 16000,
+    "n_fft": 4096,
+    "hop_length": 1024,
+    "resolution": 0.01,
+    "bins_per_octave": 12
+   },
+   "packages": {
+    "lyricprompter": "0.1.0",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "librosa": "1.0.0",
+    "soundfile": "0.14.0",
+    "soxr": "1.1.0",
+    "torch": "2.14.1",
+    "torchaudio": "2.11.0",
+    "transformers": "5.19.0",
+    "audio-separator": "0.47.0",
+    "uroman": "1.3.1.1",
+    "pyopenjtalk-plus": "0.4.1.post9",
+    "cmudict": "1.1.3",
+    "pyphen": "0.18.1",
+    "ffmpeg": "8.1.1"
+   },
+   "timings": {
+    "convert": 0.237,
+    "parse": 0.265,
+    "separate": 50.108,
+    "align": 3.549,
+    "finalize": 1.142,
+    "total": 55.303
+   }
+  }
+ },
+ "lines": [
+  {
+   "idx": 0,
+   "text": "夜明けの 空に 願いを 込めて",
+   "raw": "夜明けの 空に 願いを 込めて",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "夜明け",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "よあけ",
+     "syllables": [
+      {
+       "text": "夜明",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "よ",
+         "roman": "yo",
+         "start": 1.0,
+         "end": 1.16,
+         "score": 0.3621
+        },
+        {
+         "reading": "あ",
+         "roman": "a",
+         "start": 1.16,
+         "end": 1.26,
+         "score": 0.7416
+        }
+       ],
+       "start": 1.0,
+       "end": 1.26
+      },
+      {
+       "text": "け",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "け",
+         "roman": "ke",
+         "start": 1.26,
+         "end": 1.42,
+         "score": 0.8899
+        }
+       ],
+       "start": 1.26,
+       "end": 1.42
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "start": 1.42,
+         "end": 1.54,
+         "score": 0.9961
+        }
+       ],
+       "start": 1.42,
+       "end": 1.54
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "空",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "そら",
+     "syllables": [
+      {
+       "text": "空",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "そ",
+         "roman": "so",
+         "start": 1.72,
+         "end": 1.86,
+         "score": 0.8589
+        },
+        {
+         "reading": "ら",
+         "roman": "ra",
+         "start": 1.86,
+         "end": 2.02,
+         "score": 0.8981
+        }
+       ],
+       "start": 1.72,
+       "end": 2.02
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "に",
+     "span": [
+      6,
+      7
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "に",
+     "syllables": [
+      {
+       "text": "に",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "に",
+         "roman": "ni",
+         "start": 2.02,
+         "end": 2.16,
+         "score": 0.9922
+        }
+       ],
+       "start": 2.02,
+       "end": 2.16
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "願い",
+     "span": [
+      8,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ねがい",
+     "syllables": [
+      {
+       "text": "願",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "ね",
+         "roman": "ne",
+         "start": 2.36,
+         "end": 2.5,
+         "score": 0.2802
+        },
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 2.5,
+         "end": 2.7,
+         "score": 0.4947
+        }
+       ],
+       "start": 2.36,
+       "end": 2.7
+      },
+      {
+       "text": "い",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 2.7,
+         "end": 2.82,
+         "score": 0.9132
+        }
+       ],
+       "start": 2.7,
+       "end": 2.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      10,
+      11
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "start": 2.82,
+         "end": 2.88,
+         "score": 0.9517
+        }
+       ],
+       "start": 2.82,
+       "end": 2.88
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "込め",
+     "span": [
+      12,
+      14
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "こめ",
+     "syllables": [
+      {
+       "text": "込",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "こ",
+         "roman": "ko",
+         "start": 3.06,
+         "end": 3.2,
+         "score": 0.4031
+        }
+       ],
+       "start": 3.06,
+       "end": 3.2
+      },
+      {
+       "text": "め",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "め",
+         "roman": "me",
+         "start": 3.2,
+         "end": 3.4,
+         "score": 0.7419
+        }
+       ],
+       "start": 3.2,
+       "end": 3.4
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "て",
+     "span": [
+      14,
+      15
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "て",
+     "syllables": [
+      {
+       "text": "て",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "て",
+         "roman": "te",
+         "start": 3.4,
+         "end": 3.54,
+         "score": 0.9647
+        }
+       ],
+       "start": 3.4,
+       "end": 3.54
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 1.0,
+   "end": 3.54,
+   "confidence": 0.7492,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 1,
+   "text": "遠い 街の 灯りが 揺れている",
+   "raw": "遠い 街の 灯りが 揺れている",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "遠い",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "とおい",
+     "syllables": [
+      {
+       "text": "遠",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "と",
+         "roman": "to",
+         "start": 4.56,
+         "end": 4.72,
+         "score": 0.524
+        },
+        {
+         "reading": "お",
+         "roman": "o",
+         "start": 4.72,
+         "end": 4.86,
+         "score": 0.1389
+        }
+       ],
+       "start": 4.56,
+       "end": 4.86
+      },
+      {
+       "text": "い",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 4.86,
+         "end": 4.92,
+         "score": 0.9406
+        }
+       ],
+       "start": 4.86,
+       "end": 4.92
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "街",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "まち",
+     "syllables": [
+      {
+       "text": "街",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "ま",
+         "roman": "ma",
+         "start": 5.1,
+         "end": 5.26,
+         "score": 0.3734
+        },
+        {
+         "reading": "ち",
+         "roman": "chi",
+         "start": 5.26,
+         "end": 5.44,
+         "score": 0.2321
+        }
+       ],
+       "start": 5.1,
+       "end": 5.44
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "start": 5.44,
+         "end": 5.66,
+         "score": 0.9895
+        }
+       ],
+       "start": 5.44,
+       "end": 5.66
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "灯り",
+     "span": [
+      6,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "あかり",
+     "syllables": [
+      {
+       "text": "灯",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "あ",
+         "roman": "a",
+         "start": 5.66,
+         "end": 5.74,
+         "score": 0.6357
+        },
+        {
+         "reading": "か",
+         "roman": "ka",
+         "start": 5.74,
+         "end": 5.9,
+         "score": 0.6369
+        }
+       ],
+       "start": 5.66,
+       "end": 5.9
+      },
+      {
+       "text": "り",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "り",
+         "roman": "ri",
+         "start": 5.9,
+         "end": 6.02,
+         "score": 0.8452
+        }
+       ],
+       "start": 5.9,
+       "end": 6.02
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "が",
+     "span": [
+      8,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "が",
+     "syllables": [
+      {
+       "text": "が",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 6.02,
+         "end": 6.14,
+         "score": 0.993
+        }
+       ],
+       "start": 6.02,
+       "end": 6.14
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "揺れ",
+     "span": [
+      10,
+      12
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ゆれ",
+     "syllables": [
+      {
+       "text": "揺",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "ゆ",
+         "roman": "yu",
+         "start": 6.32,
+         "end": 6.46,
+         "score": 0.4579
+        }
+       ],
+       "start": 6.32,
+       "end": 6.46
+      },
+      {
+       "text": "れ",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "れ",
+         "roman": "re",
+         "start": 6.46,
+         "end": 6.62,
+         "score": 0.6869
+        }
+       ],
+       "start": 6.46,
+       "end": 6.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "て",
+     "span": [
+      12,
+      13
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "て",
+     "syllables": [
+      {
+       "text": "て",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "て",
+         "roman": "te",
+         "start": 6.62,
+         "end": 6.8,
+         "score": 0.9882
+        }
+       ],
+       "start": 6.62,
+       "end": 6.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "いる",
+     "span": [
+      13,
+      15
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "いる",
+     "syllables": [
+      {
+       "text": "い",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 6.8,
+         "end": 6.86,
+         "score": 0.9848
+        }
+       ],
+       "start": 6.8,
+       "end": 6.86
+      },
+      {
+       "text": "る",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 6.86,
+         "end": 6.98,
+         "score": 0.9943
+        }
+       ],
+       "start": 6.86,
+       "end": 6.98
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 4.56,
+   "end": 6.98,
+   "confidence": 0.6948,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 2,
+   "text": "君と 歩いた 坂道を 思い出す",
+   "raw": "君と 歩いた 坂道を 思い出す",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "君",
+     "span": [
+      0,
+      1
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "きみ",
+     "syllables": [
+      {
+       "text": "君",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "き",
+         "roman": "ki",
+         "start": 8.34,
+         "end": 8.5,
+         "score": 0.5585
+        },
+        {
+         "reading": "み",
+         "roman": "mi",
+         "start": 8.5,
+         "end": 8.68,
+         "score": 0.4466
+        }
+       ],
+       "start": 8.34,
+       "end": 8.68
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "と",
+     "span": [
+      1,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "と",
+     "syllables": [
+      {
+       "text": "と",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "と",
+         "roman": "to",
+         "start": 8.68,
+         "end": 8.96,
+         "score": 0.9691
+        }
+       ],
+       "start": 8.68,
+       "end": 8.96
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "歩い",
+     "span": [
+      3,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "あるい",
+     "syllables": [
+      {
+       "text": "歩",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "あ",
+         "roman": "a",
+         "start": 8.96,
+         "end": 9.04,
+         "score": 0.8587
+        },
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 9.04,
+         "end": 9.2,
+         "score": 0.8839
+        }
+       ],
+       "start": 8.96,
+       "end": 9.2
+      },
+      {
+       "text": "い",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 9.2,
+         "end": 9.32,
+         "score": 0.8991
+        }
+       ],
+       "start": 9.2,
+       "end": 9.32
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "た",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "た",
+     "syllables": [
+      {
+       "text": "た",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "た",
+         "roman": "ta",
+         "start": 9.32,
+         "end": 9.56,
+         "score": 0.9883
+        }
+       ],
+       "start": 9.32,
+       "end": 9.56
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "坂道",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "さかみち",
+     "syllables": [
+      {
+       "text": "坂道",
+       "span": [
+        7,
+        9
+       ],
+       "units": [
+        {
+         "reading": "さ",
+         "roman": "sa",
+         "start": 9.56,
+         "end": 9.72,
+         "score": 0.735
+        },
+        {
+         "reading": "か",
+         "roman": "ka",
+         "start": 9.72,
+         "end": 9.88,
+         "score": 0.7171
+        },
+        {
+         "reading": "み",
+         "roman": "mi",
+         "start": 9.88,
+         "end": 10.04,
+         "score": 0.6427
+        },
+        {
+         "reading": "ち",
+         "roman": "chi",
+         "start": 10.04,
+         "end": 10.24,
+         "score": 0.4642
+        }
+       ],
+       "start": 9.56,
+       "end": 10.24
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      9,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "start": 10.24,
+         "end": 10.44,
+         "score": 0.9756
+        }
+       ],
+       "start": 10.24,
+       "end": 10.44
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "思い出す",
+     "span": [
+      11,
+      15
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "おもいだす",
+     "syllables": [
+      {
+       "text": "思",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "お",
+         "roman": "o",
+         "start": 10.44,
+         "end": 10.52,
+         "score": 0.3125
+        },
+        {
+         "reading": "も",
+         "roman": "mo",
+         "start": 10.52,
+         "end": 10.7,
+         "score": 0.2174
+        }
+       ],
+       "start": 10.44,
+       "end": 10.7
+      },
+      {
+       "text": "い",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 10.7,
+         "end": 10.76,
+         "score": 0.7113
+        }
+       ],
+       "start": 10.7,
+       "end": 10.76
+      },
+      {
+       "text": "出",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "だ",
+         "roman": "da",
+         "start": 10.76,
+         "end": 10.94,
+         "score": 0.412
+        }
+       ],
+       "start": 10.76,
+       "end": 10.94
+      },
+      {
+       "text": "す",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "す",
+         "roman": "su",
+         "start": 10.94,
+         "end": 11.1,
+         "score": 0.9855
+        }
+       ],
+       "start": 10.94,
+       "end": 11.1
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 8.34,
+   "end": 11.1,
+   "confidence": 0.6928,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 3,
+   "text": "冷たい 風が 頬を 撫でていく",
+   "raw": "冷たい 風が 頬を 撫でていく",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "冷たい",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "つめたい",
+     "syllables": [
+      {
+       "text": "冷",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "つ",
+         "roman": "tsu",
+         "start": 12.46,
+         "end": 12.64,
+         "score": 0.2232
+        },
+        {
+         "reading": "め",
+         "roman": "me",
+         "start": 12.64,
+         "end": 12.8,
+         "score": 0.7671
+        }
+       ],
+       "start": 12.46,
+       "end": 12.8
+      },
+      {
+       "text": "た",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "た",
+         "roman": "ta",
+         "start": 12.8,
+         "end": 12.98,
+         "score": 0.6937
+        }
+       ],
+       "start": 12.8,
+       "end": 12.98
+      },
+      {
+       "text": "い",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 12.98,
+         "end": 13.16,
+         "score": 0.9305
+        }
+       ],
+       "start": 12.98,
+       "end": 13.16
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "風",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "かぜ",
+     "syllables": [
+      {
+       "text": "風",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "か",
+         "roman": "ka",
+         "start": 13.16,
+         "end": 13.3,
+         "score": 0.2722
+        },
+        {
+         "reading": "ぜ",
+         "roman": "ze",
+         "start": 13.3,
+         "end": 13.46,
+         "score": 0.1174
+        }
+       ],
+       "start": 13.16,
+       "end": 13.46
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "が",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "が",
+     "syllables": [
+      {
+       "text": "が",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 13.46,
+         "end": 13.58,
+         "score": 0.9892
+        }
+       ],
+       "start": 13.46,
+       "end": 13.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "頬",
+     "span": [
+      7,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ほお",
+     "syllables": [
+      {
+       "text": "頬",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "ほ",
+         "roman": "ho",
+         "start": 13.78,
+         "end": 13.92,
+         "score": 0.0643
+        },
+        {
+         "reading": "お",
+         "roman": "o",
+         "start": 13.92,
+         "end": 14.06,
+         "score": 0.277
+        }
+       ],
+       "start": 13.78,
+       "end": 14.06
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      8,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "start": 14.06,
+         "end": 14.14,
+         "score": 0.5944
+        }
+       ],
+       "start": 14.06,
+       "end": 14.14
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "撫で",
+     "span": [
+      10,
+      12
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "なで",
+     "syllables": [
+      {
+       "text": "撫",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "な",
+         "roman": "na",
+         "start": 14.32,
+         "end": 14.46,
+         "score": 0.6097
+        }
+       ],
+       "start": 14.32,
+       "end": 14.46
+      },
+      {
+       "text": "で",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "で",
+         "roman": "de",
+         "start": 14.46,
+         "end": 14.62,
+         "score": 0.9007
+        }
+       ],
+       "start": 14.46,
+       "end": 14.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "て",
+     "span": [
+      12,
+      13
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "て",
+     "syllables": [
+      {
+       "text": "て",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "て",
+         "roman": "te",
+         "start": 14.62,
+         "end": 14.82,
+         "score": 0.9858
+        }
+       ],
+       "start": 14.62,
+       "end": 14.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "いく",
+     "span": [
+      13,
+      15
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "いく",
+     "syllables": [
+      {
+       "text": "い",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 14.82,
+         "end": 14.92,
+         "score": 0.8966
+        }
+       ],
+       "start": 14.82,
+       "end": 14.92
+      },
+      {
+       "text": "く",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "く",
+         "roman": "ku",
+         "start": 14.92,
+         "end": 15.06,
+         "score": 0.9886
+        }
+       ],
+       "start": 14.92,
+       "end": 15.06
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 12.46,
+   "end": 15.06,
+   "confidence": 0.6207,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 4,
+   "text": "小さな 約束を 胸に 抱いて",
+   "raw": "小さな 約束を 胸に 抱いて",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "小さな",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ちいさな",
+     "syllables": [
+      {
+       "text": "小",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "ち",
+         "roman": "chi",
+         "start": 17.2,
+         "end": 17.42,
+         "score": 0.289
+        },
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 17.42,
+         "end": 17.54,
+         "score": 0.7848
+        }
+       ],
+       "start": 17.2,
+       "end": 17.54
+      },
+      {
+       "text": "さ",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "さ",
+         "roman": "sa",
+         "start": 17.54,
+         "end": 17.7,
+         "score": 0.7208
+        }
+       ],
+       "start": 17.54,
+       "end": 17.7
+      },
+      {
+       "text": "な",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "な",
+         "roman": "na",
+         "start": 17.7,
+         "end": 17.9,
+         "score": 0.9869
+        }
+       ],
+       "start": 17.7,
+       "end": 17.9
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "約束",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "やくそく",
+     "syllables": [
+      {
+       "text": "約束",
+       "span": [
+        4,
+        6
+       ],
+       "units": [
+        {
+         "reading": "や",
+         "roman": "ya",
+         "start": 17.9,
+         "end": 18.04,
+         "score": 0.3918
+        },
+        {
+         "reading": "く",
+         "roman": "ku",
+         "start": 18.04,
+         "end": 18.14,
+         "score": 0.0248
+        },
+        {
+         "reading": "そ",
+         "roman": "so",
+         "start": 18.14,
+         "end": 18.32,
+         "score": 0.2757
+        },
+        {
+         "reading": "く",
+         "roman": "ku",
+         "start": 18.32,
+         "end": 18.46,
+         "score": 0.0038
+        }
+       ],
+       "start": 17.9,
+       "end": 18.46
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      6,
+      7
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "start": 18.46,
+         "end": 18.62,
+         "score": 0.9447
+        }
+       ],
+       "start": 18.46,
+       "end": 18.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "胸",
+     "span": [
+      8,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "むね",
+     "syllables": [
+      {
+       "text": "胸",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "む",
+         "roman": "mu",
+         "start": 18.62,
+         "end": 18.76,
+         "score": 0.3256
+        },
+        {
+         "reading": "ね",
+         "roman": "ne",
+         "start": 18.76,
+         "end": 18.92,
+         "score": 0.1692
+        }
+       ],
+       "start": 18.62,
+       "end": 18.92
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "に",
+     "span": [
+      9,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "に",
+     "syllables": [
+      {
+       "text": "に",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "に",
+         "roman": "ni",
+         "start": 18.92,
+         "end": 19.04,
+         "score": 0.9702
+        }
+       ],
+       "start": 18.92,
+       "end": 19.04
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "抱い",
+     "span": [
+      11,
+      13
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "だい",
+     "syllables": [
+      {
+       "text": "抱",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "だ",
+         "roman": "da",
+         "start": 19.2,
+         "end": 19.38,
+         "score": 0.6263
+        }
+       ],
+       "start": 19.2,
+       "end": 19.38
+      },
+      {
+       "text": "い",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 19.38,
+         "end": 19.48,
+         "score": 0.7761
+        }
+       ],
+       "start": 19.38,
+       "end": 19.48
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "て",
+     "span": [
+      13,
+      14
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "て",
+     "syllables": [
+      {
+       "text": "て",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "て",
+         "roman": "te",
+         "start": 19.48,
+         "end": 19.62,
+         "score": 0.941
+        }
+       ],
+       "start": 19.48,
+       "end": 19.62
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 17.2,
+   "end": 19.62,
+   "confidence": 0.5487,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 5,
+   "text": "青い 海の 向こうへ 旅立とう",
+   "raw": "青い 海の 向こうへ 旅立とう",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "青い",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "あおい",
+     "syllables": [
+      {
+       "text": "青",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "あ",
+         "roman": "a",
+         "start": 28.3,
+         "end": 28.44,
+         "score": 0.6022
+        },
+        {
+         "reading": "お",
+         "roman": "o",
+         "start": 28.44,
+         "end": 28.58,
+         "score": 0.4943
+        }
+       ],
+       "start": 28.3,
+       "end": 28.58
+      },
+      {
+       "text": "い",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 28.58,
+         "end": 28.64,
+         "score": 0.8854
+        }
+       ],
+       "start": 28.58,
+       "end": 28.64
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "海",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "うみ",
+     "syllables": [
+      {
+       "text": "海",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "う",
+         "roman": "u",
+         "start": 28.8,
+         "end": 28.88,
+         "score": 0.5479
+        },
+        {
+         "reading": "み",
+         "roman": "mi",
+         "start": 28.88,
+         "end": 29.02,
+         "score": 0.4958
+        }
+       ],
+       "start": 28.8,
+       "end": 29.02
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "start": 29.02,
+         "end": 29.18,
+         "score": 0.9842
+        }
+       ],
+       "start": 29.02,
+       "end": 29.18
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "向こう",
+     "span": [
+      6,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "むこう",
+     "syllables": [
+      {
+       "text": "向",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "む",
+         "roman": "mu",
+         "start": 29.36,
+         "end": 29.52,
+         "score": 0.2686
+        }
+       ],
+       "start": 29.36,
+       "end": 29.52
+      },
+      {
+       "text": "こ",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "こ",
+         "roman": "ko",
+         "start": 29.52,
+         "end": 29.66,
+         "score": 0.1715
+        }
+       ],
+       "start": 29.52,
+       "end": 29.66
+      },
+      {
+       "text": "う",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "う",
+         "roman": "o",
+         "start": 29.66,
+         "end": 29.8,
+         "score": 0.1885
+        }
+       ],
+       "start": 29.66,
+       "end": 29.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "へ",
+     "span": [
+      9,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "へ",
+     "syllables": [
+      {
+       "text": "へ",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "へ",
+         "roman": "e",
+         "start": 29.8,
+         "end": 29.86,
+         "score": 0.8991
+        }
+       ],
+       "start": 29.8,
+       "end": 29.86
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "旅立とう",
+     "span": [
+      11,
+      15
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "たびだとう",
+     "syllables": [
+      {
+       "text": "旅立",
+       "span": [
+        11,
+        13
+       ],
+       "units": [
+        {
+         "reading": "た",
+         "roman": "ta",
+         "start": 30.02,
+         "end": 30.12,
+         "score": 0.4267
+        },
+        {
+         "reading": "び",
+         "roman": "bi",
+         "start": 30.12,
+         "end": 30.24,
+         "score": 0.9073
+        },
+        {
+         "reading": "だ",
+         "roman": "da",
+         "start": 30.24,
+         "end": 30.42,
+         "score": 0.7611
+        }
+       ],
+       "start": 30.02,
+       "end": 30.42
+      },
+      {
+       "text": "と",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "と",
+         "roman": "to",
+         "start": 30.42,
+         "end": 30.62,
+         "score": 0.7978
+        }
+       ],
+       "start": 30.42,
+       "end": 30.62
+      },
+      {
+       "text": "う",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "う",
+         "roman": "o",
+         "start": 30.62,
+         "end": 30.68,
+         "score": 0.8159
+        }
+       ],
+       "start": 30.62,
+       "end": 30.68
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 28.3,
+   "end": 30.68,
+   "confidence": 0.6164,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 6,
+   "text": "静かな 夜に 星が 降る",
+   "raw": "静かな 夜に 星が 降る",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "静か",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "しずか",
+     "syllables": [
+      {
+       "text": "静",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "し",
+         "roman": "shi",
+         "start": 32.08,
+         "end": 32.28,
+         "score": 0.6319
+        },
+        {
+         "reading": "ず",
+         "roman": "zu",
+         "start": 32.28,
+         "end": 32.44,
+         "score": 0.6399
+        }
+       ],
+       "start": 32.08,
+       "end": 32.44
+      },
+      {
+       "text": "か",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "か",
+         "roman": "ka",
+         "start": 32.44,
+         "end": 32.58,
+         "score": 0.6127
+        }
+       ],
+       "start": 32.44,
+       "end": 32.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "な",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "な",
+     "syllables": [
+      {
+       "text": "な",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "な",
+         "roman": "na",
+         "start": 32.58,
+         "end": 32.8,
+         "score": 0.9641
+        }
+       ],
+       "start": 32.58,
+       "end": 32.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "夜",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "よる",
+     "syllables": [
+      {
+       "text": "夜",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "よ",
+         "roman": "yo",
+         "start": 32.8,
+         "end": 32.94,
+         "score": 0.3973
+        },
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 32.94,
+         "end": 33.08,
+         "score": 0.7054
+        }
+       ],
+       "start": 32.8,
+       "end": 33.08
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "に",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "に",
+     "syllables": [
+      {
+       "text": "に",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "に",
+         "roman": "ni",
+         "start": 33.08,
+         "end": 33.26,
+         "score": 0.9518
+        }
+       ],
+       "start": 33.08,
+       "end": 33.26
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "星",
+     "span": [
+      7,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ほし",
+     "syllables": [
+      {
+       "text": "星",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "ほ",
+         "roman": "ho",
+         "start": 33.26,
+         "end": 33.42,
+         "score": 0.1989
+        },
+        {
+         "reading": "し",
+         "roman": "shi",
+         "start": 33.42,
+         "end": 33.58,
+         "score": 0.7724
+        }
+       ],
+       "start": 33.26,
+       "end": 33.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "が",
+     "span": [
+      8,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "が",
+     "syllables": [
+      {
+       "text": "が",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 33.58,
+         "end": 33.76,
+         "score": 0.9762
+        }
+       ],
+       "start": 33.58,
+       "end": 33.76
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "降る",
+     "span": [
+      10,
+      12
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ふる",
+     "syllables": [
+      {
+       "text": "降",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "ふ",
+         "roman": "fu",
+         "start": 33.76,
+         "end": 33.92,
+         "score": 0.4402
+        }
+       ],
+       "start": 33.76,
+       "end": 33.92
+      },
+      {
+       "text": "る",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 33.92,
+         "end": 34.04,
+         "score": 0.8915
+        }
+       ],
+       "start": 33.92,
+       "end": 34.04
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 32.08,
+   "end": 34.04,
+   "confidence": 0.6819,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 7,
+   "text": "心の 奥で 響く 声",
+   "raw": "心の 奥で 響く 声",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "心",
+     "span": [
+      0,
+      1
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "こころ",
+     "syllables": [
+      {
+       "text": "心",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "こ",
+         "roman": "ko",
+         "start": 34.98,
+         "end": 35.14,
+         "score": 0.1842
+        },
+        {
+         "reading": "こ",
+         "roman": "ko",
+         "start": 35.14,
+         "end": 35.26,
+         "score": 0.2826
+        },
+        {
+         "reading": "ろ",
+         "roman": "ro",
+         "start": 35.26,
+         "end": 35.44,
+         "score": 0.2553
+        }
+       ],
+       "start": 34.98,
+       "end": 35.44
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      1,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "start": 35.44,
+         "end": 35.56,
+         "score": 0.984
+        }
+       ],
+       "start": 35.44,
+       "end": 35.56
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "奥",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "おく",
+     "syllables": [
+      {
+       "text": "奥",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "お",
+         "roman": "o",
+         "start": 35.72,
+         "end": 35.8,
+         "score": 0.4505
+        },
+        {
+         "reading": "く",
+         "roman": "ku",
+         "start": 35.8,
+         "end": 35.92,
+         "score": 0.594
+        }
+       ],
+       "start": 35.72,
+       "end": 35.92
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "で",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "で",
+     "syllables": [
+      {
+       "text": "で",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "で",
+         "roman": "de",
+         "start": 35.92,
+         "end": 36.1,
+         "score": 0.9844
+        }
+       ],
+       "start": 35.92,
+       "end": 36.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "響く",
+     "span": [
+      6,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ひびく",
+     "syllables": [
+      {
+       "text": "響",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "ひ",
+         "roman": "hi",
+         "start": 36.1,
+         "end": 36.26,
+         "score": 0.342
+        },
+        {
+         "reading": "び",
+         "roman": "bi",
+         "start": 36.26,
+         "end": 36.42,
+         "score": 0.6861
+        }
+       ],
+       "start": 36.1,
+       "end": 36.42
+      },
+      {
+       "text": "く",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "く",
+         "roman": "ku",
+         "start": 36.42,
+         "end": 36.58,
+         "score": 0.9088
+        }
+       ],
+       "start": 36.42,
+       "end": 36.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "声",
+     "span": [
+      9,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "こえ",
+     "syllables": [
+      {
+       "text": "声",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "こ",
+         "roman": "ko",
+         "start": 36.74,
+         "end": 36.92,
+         "score": 0.3063
+        },
+        {
+         "reading": "え",
+         "roman": "e",
+         "start": 36.92,
+         "end": 36.98,
+         "score": 0.8381
+        }
+       ],
+       "start": 36.74,
+       "end": 36.98
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 34.98,
+   "end": 36.98,
+   "confidence": 0.568,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 8,
+   "text": "春の 雨が 花びらを 濡らす",
+   "raw": "春の 雨が 花びらを 濡らす",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "春",
+     "span": [
+      0,
+      1
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "はる",
+     "syllables": [
+      {
+       "text": "春",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "は",
+         "roman": "ha",
+         "start": 37.96,
+         "end": 38.1,
+         "score": 0.5346
+        },
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 38.1,
+         "end": 38.22,
+         "score": 0.9297
+        }
+       ],
+       "start": 37.96,
+       "end": 38.22
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      1,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "start": 38.22,
+         "end": 38.36,
+         "score": 0.9916
+        }
+       ],
+       "start": 38.22,
+       "end": 38.36
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "雨",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "あめ",
+     "syllables": [
+      {
+       "text": "雨",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "あ",
+         "roman": "a",
+         "start": 38.58,
+         "end": 38.66,
+         "score": 0.8976
+        },
+        {
+         "reading": "め",
+         "roman": "me",
+         "start": 38.66,
+         "end": 38.82,
+         "score": 0.7548
+        }
+       ],
+       "start": 38.58,
+       "end": 38.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "が",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "が",
+     "syllables": [
+      {
+       "text": "が",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 38.82,
+         "end": 39.08,
+         "score": 0.9912
+        }
+       ],
+       "start": 38.82,
+       "end": 39.08
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "花びら",
+     "span": [
+      6,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "はなびら",
+     "syllables": [
+      {
+       "text": "花",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "は",
+         "roman": "ha",
+         "start": 39.08,
+         "end": 39.22,
+         "score": 0.4784
+        },
+        {
+         "reading": "な",
+         "roman": "na",
+         "start": 39.22,
+         "end": 39.34,
+         "score": 0.8354
+        }
+       ],
+       "start": 39.08,
+       "end": 39.34
+      },
+      {
+       "text": "び",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "び",
+         "roman": "bi",
+         "start": 39.34,
+         "end": 39.48,
+         "score": 0.9088
+        }
+       ],
+       "start": 39.34,
+       "end": 39.48
+      },
+      {
+       "text": "ら",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "ら",
+         "roman": "ra",
+         "start": 39.48,
+         "end": 39.66,
+         "score": 0.8927
+        }
+       ],
+       "start": 39.48,
+       "end": 39.66
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      9,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "start": 39.66,
+         "end": 39.74,
+         "score": 0.9647
+        }
+       ],
+       "start": 39.66,
+       "end": 39.74
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "濡らす",
+     "span": [
+      11,
+      14
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ぬらす",
+     "syllables": [
+      {
+       "text": "濡",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "ぬ",
+         "roman": "nu",
+         "start": 39.92,
+         "end": 40.06,
+         "score": 0.4665
+        }
+       ],
+       "start": 39.92,
+       "end": 40.06
+      },
+      {
+       "text": "ら",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "ら",
+         "roman": "ra",
+         "start": 40.06,
+         "end": 40.24,
+         "score": 0.7551
+        }
+       ],
+       "start": 40.06,
+       "end": 40.24
+      },
+      {
+       "text": "す",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "す",
+         "roman": "su",
+         "start": 40.24,
+         "end": 40.4,
+         "score": 0.9507
+        }
+       ],
+       "start": 40.24,
+       "end": 40.4
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 37.96,
+   "end": 40.4,
+   "confidence": 0.8108,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 9,
+   "text": "今日も 明日も 君を 想う",
+   "raw": "今日も 明日も 君を 想う",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "今日",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "きょう",
+     "syllables": [
+      {
+       "text": "今日",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "きょ",
+         "roman": "kyo",
+         "start": 42.14,
+         "end": 42.32,
+         "score": 0.0922
+        },
+        {
+         "reading": "う",
+         "roman": "o",
+         "start": 42.32,
+         "end": 42.44,
+         "score": 0.1425
+        }
+       ],
+       "start": 42.14,
+       "end": 42.44
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "も",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "も",
+     "syllables": [
+      {
+       "text": "も",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "も",
+         "roman": "mo",
+         "start": 42.44,
+         "end": 42.7,
+         "score": 0.8453
+        }
+       ],
+       "start": 42.44,
+       "end": 42.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "明日",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "あした",
+     "syllables": [
+      {
+       "text": "明日",
+       "span": [
+        4,
+        6
+       ],
+       "units": [
+        {
+         "reading": "あ",
+         "roman": "a",
+         "start": 42.7,
+         "end": 42.78,
+         "score": 0.8527
+        },
+        {
+         "reading": "し",
+         "roman": "shi",
+         "start": 42.78,
+         "end": 42.9,
+         "score": 0.7411
+        },
+        {
+         "reading": "た",
+         "roman": "ta",
+         "start": 42.9,
+         "end": 43.04,
+         "score": 0.9573
+        }
+       ],
+       "start": 42.7,
+       "end": 43.04
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "も",
+     "span": [
+      6,
+      7
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "も",
+     "syllables": [
+      {
+       "text": "も",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "も",
+         "roman": "mo",
+         "start": 43.04,
+         "end": 43.32,
+         "score": 0.9724
+        }
+       ],
+       "start": 43.04,
+       "end": 43.32
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "君",
+     "span": [
+      8,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "きみ",
+     "syllables": [
+      {
+       "text": "君",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "き",
+         "roman": "ki",
+         "start": 43.32,
+         "end": 43.46,
+         "score": 0.3941
+        },
+        {
+         "reading": "み",
+         "roman": "mi",
+         "start": 43.46,
+         "end": 43.62,
+         "score": 0.5119
+        }
+       ],
+       "start": 43.32,
+       "end": 43.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      9,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "start": 43.62,
+         "end": 43.7,
+         "score": 0.8154
+        }
+       ],
+       "start": 43.62,
+       "end": 43.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "想う",
+     "span": [
+      11,
+      13
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "おもう",
+     "syllables": [
+      {
+       "text": "想",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "お",
+         "roman": "o",
+         "start": 43.88,
+         "end": 43.96,
+         "score": 0.3919
+        },
+        {
+         "reading": "も",
+         "roman": "mo",
+         "start": 43.96,
+         "end": 44.16,
+         "score": 0.2609
+        }
+       ],
+       "start": 43.88,
+       "end": 44.16
+      },
+      {
+       "text": "う",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "う",
+         "roman": "u",
+         "start": 44.16,
+         "end": 44.2,
+         "score": 0.7347
+        }
+       ],
+       "start": 44.16,
+       "end": 44.2
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 42.14,
+   "end": 44.2,
+   "confidence": 0.5933,
+   "needs_review": false,
+   "flags": [
+    "text_review"
+   ]
+  },
+  {
+   "idx": 10,
+   "text": "白い 雲が 流れる 午後",
+   "raw": "白い 雲が 流れる 午後",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "白い",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "しろい",
+     "syllables": [
+      {
+       "text": "白",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "し",
+         "roman": "shi",
+         "start": 53.86,
+         "end": 54.0,
+         "score": 0.4958
+        },
+        {
+         "reading": "ろ",
+         "roman": "ro",
+         "start": 54.0,
+         "end": 54.18,
+         "score": 0.3027
+        }
+       ],
+       "start": 53.86,
+       "end": 54.18
+      },
+      {
+       "text": "い",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 54.18,
+         "end": 54.3,
+         "score": 0.8359
+        }
+       ],
+       "start": 54.18,
+       "end": 54.3
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "雲",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "くも",
+     "syllables": [
+      {
+       "text": "雲",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "く",
+         "roman": "ku",
+         "start": 54.3,
+         "end": 54.44,
+         "score": 0.6187
+        },
+        {
+         "reading": "も",
+         "roman": "mo",
+         "start": 54.44,
+         "end": 54.58,
+         "score": 0.5488
+        }
+       ],
+       "start": 54.3,
+       "end": 54.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "が",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "が",
+     "syllables": [
+      {
+       "text": "が",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 54.58,
+         "end": 54.82,
+         "score": 0.9746
+        }
+       ],
+       "start": 54.58,
+       "end": 54.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "流れる",
+     "span": [
+      6,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ながれる",
+     "syllables": [
+      {
+       "text": "流",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "な",
+         "roman": "na",
+         "start": 54.82,
+         "end": 54.96,
+         "score": 0.4596
+        },
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 54.96,
+         "end": 55.08,
+         "score": 0.8682
+        }
+       ],
+       "start": 54.82,
+       "end": 55.08
+      },
+      {
+       "text": "れ",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "れ",
+         "roman": "re",
+         "start": 55.08,
+         "end": 55.22,
+         "score": 0.97
+        }
+       ],
+       "start": 55.08,
+       "end": 55.22
+      },
+      {
+       "text": "る",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 55.22,
+         "end": 55.46,
+         "score": 0.9882
+        }
+       ],
+       "start": 55.22,
+       "end": 55.46
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "午後",
+     "span": [
+      10,
+      12
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ごご",
+     "syllables": [
+      {
+       "text": "午後",
+       "span": [
+        10,
+        12
+       ],
+       "units": [
+        {
+         "reading": "ご",
+         "roman": "go",
+         "start": 55.46,
+         "end": 55.62,
+         "score": 0.4776
+        },
+        {
+         "reading": "ご",
+         "roman": "go",
+         "start": 55.62,
+         "end": 55.76,
+         "score": 0.5676
+        }
+       ],
+       "start": 55.46,
+       "end": 55.76
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 53.86,
+   "end": 55.76,
+   "confidence": 0.6756,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 11,
+   "text": "名前を 呼べば 振り向いて",
+   "raw": "名前を 呼べば 振り向いて",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "名前",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "なまえ",
+     "syllables": [
+      {
+       "text": "名前",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "な",
+         "roman": "na",
+         "start": 57.56,
+         "end": 57.72,
+         "score": 0.4273
+        },
+        {
+         "reading": "ま",
+         "roman": "ma",
+         "start": 57.72,
+         "end": 57.9,
+         "score": 0.3628
+        },
+        {
+         "reading": "え",
+         "roman": "e",
+         "start": 57.9,
+         "end": 58.0,
+         "score": 0.5351
+        }
+       ],
+       "start": 57.56,
+       "end": 58.0
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "start": 58.0,
+         "end": 58.18,
+         "score": 0.7978
+        }
+       ],
+       "start": 58.0,
+       "end": 58.18
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "呼べ",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "よべ",
+     "syllables": [
+      {
+       "text": "呼",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "よ",
+         "roman": "yo",
+         "start": 58.18,
+         "end": 58.32,
+         "score": 0.2277
+        }
+       ],
+       "start": 58.18,
+       "end": 58.32
+      },
+      {
+       "text": "べ",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "べ",
+         "roman": "be",
+         "start": 58.32,
+         "end": 58.48,
+         "score": 0.7043
+        }
+       ],
+       "start": 58.32,
+       "end": 58.48
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "ば",
+     "span": [
+      6,
+      7
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ば",
+     "syllables": [
+      {
+       "text": "ば",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "ば",
+         "roman": "ba",
+         "start": 58.48,
+         "end": 58.6,
+         "score": 0.714
+        }
+       ],
+       "start": 58.48,
+       "end": 58.6
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "振り向い",
+     "span": [
+      8,
+      12
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ふりむい",
+     "syllables": [
+      {
+       "text": "振",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "ふ",
+         "roman": "fu",
+         "start": 58.78,
+         "end": 58.94,
+         "score": 0.2806
+        }
+       ],
+       "start": 58.78,
+       "end": 58.94
+      },
+      {
+       "text": "り",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "り",
+         "roman": "ri",
+         "start": 58.94,
+         "end": 59.06,
+         "score": 0.6439
+        }
+       ],
+       "start": 58.94,
+       "end": 59.06
+      },
+      {
+       "text": "向",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "む",
+         "roman": "mu",
+         "start": 59.06,
+         "end": 59.22,
+         "score": 0.3197
+        }
+       ],
+       "start": 59.06,
+       "end": 59.22
+      },
+      {
+       "text": "い",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 59.22,
+         "end": 59.32,
+         "score": 0.6606
+        }
+       ],
+       "start": 59.22,
+       "end": 59.32
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "て",
+     "span": [
+      12,
+      13
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "て",
+     "syllables": [
+      {
+       "text": "て",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "て",
+         "roman": "te",
+         "start": 59.32,
+         "end": 59.46,
+         "score": 0.9278
+        }
+       ],
+       "start": 59.32,
+       "end": 59.46
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 57.56,
+   "end": 59.46,
+   "confidence": 0.5501,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 12,
+   "text": "季節は 巡り 時計が 進む",
+   "raw": "季節は 巡り 時計が 進む",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "季節",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "きせつ",
+     "syllables": [
+      {
+       "text": "季節",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "き",
+         "roman": "ki",
+         "start": 61.0,
+         "end": 61.16,
+         "score": 0.4587
+        },
+        {
+         "reading": "せ",
+         "roman": "se",
+         "start": 61.16,
+         "end": 61.32,
+         "score": 0.5208
+        },
+        {
+         "reading": "つ",
+         "roman": "tsu",
+         "start": 61.32,
+         "end": 61.48,
+         "score": 0.0307
+        }
+       ],
+       "start": 61.0,
+       "end": 61.48
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "は",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "は",
+     "syllables": [
+      {
+       "text": "は",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "は",
+         "roman": "wa",
+         "start": 61.48,
+         "end": 61.62,
+         "score": 0.4966
+        }
+       ],
+       "start": 61.48,
+       "end": 61.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "巡り",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "めぐり",
+     "syllables": [
+      {
+       "text": "巡",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "め",
+         "roman": "me",
+         "start": 61.78,
+         "end": 61.9,
+         "score": 0.4833
+        },
+        {
+         "reading": "ぐ",
+         "roman": "gu",
+         "start": 61.9,
+         "end": 62.02,
+         "score": 0.8558
+        }
+       ],
+       "start": 61.78,
+       "end": 62.02
+      },
+      {
+       "text": "り",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "り",
+         "roman": "ri",
+         "start": 62.02,
+         "end": 62.26,
+         "score": 0.9369
+        }
+       ],
+       "start": 62.02,
+       "end": 62.26
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "時計",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "とけい",
+     "syllables": [
+      {
+       "text": "時計",
+       "span": [
+        7,
+        9
+       ],
+       "units": [
+        {
+         "reading": "と",
+         "roman": "to",
+         "start": 62.26,
+         "end": 62.42,
+         "score": 0.4387
+        },
+        {
+         "reading": "け",
+         "roman": "ke",
+         "start": 62.42,
+         "end": 62.6,
+         "score": 0.1946
+        },
+        {
+         "reading": "い",
+         "roman": "e",
+         "start": 62.6,
+         "end": 62.68,
+         "score": 0.3096
+        }
+       ],
+       "start": 62.26,
+       "end": 62.68
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "が",
+     "span": [
+      9,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "が",
+     "syllables": [
+      {
+       "text": "が",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 62.68,
+         "end": 62.92,
+         "score": 0.9859
+        }
+       ],
+       "start": 62.68,
+       "end": 62.92
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "進む",
+     "span": [
+      11,
+      13
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "すすむ",
+     "syllables": [
+      {
+       "text": "進",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "す",
+         "roman": "su",
+         "start": 62.92,
+         "end": 62.98,
+         "score": 0.0025
+        },
+        {
+         "reading": "す",
+         "roman": "su",
+         "start": 62.98,
+         "end": 63.16,
+         "score": 0.8314
+        }
+       ],
+       "start": 62.92,
+       "end": 63.16
+      },
+      {
+       "text": "む",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "む",
+         "roman": "mu",
+         "start": 63.16,
+         "end": 63.28,
+         "score": 0.8594
+        }
+       ],
+       "start": 63.16,
+       "end": 63.28
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 61.0,
+   "end": 63.28,
+   "confidence": 0.5289,
+   "needs_review": false,
+   "flags": [
+    "text_review"
+   ]
+  },
+  {
+   "idx": 13,
+   "text": "光の 中で 踊り 続ける",
+   "raw": "光の 中で 踊り 続ける",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "光",
+     "span": [
+      0,
+      1
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ひかり",
+     "syllables": [
+      {
+       "text": "光",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "ひ",
+         "roman": "hi",
+         "start": 64.24,
+         "end": 64.4,
+         "score": 0.337
+        },
+        {
+         "reading": "か",
+         "roman": "ka",
+         "start": 64.4,
+         "end": 64.56,
+         "score": 0.4016
+        },
+        {
+         "reading": "り",
+         "roman": "ri",
+         "start": 64.56,
+         "end": 64.68,
+         "score": 0.6975
+        }
+       ],
+       "start": 64.24,
+       "end": 64.68
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      1,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "start": 64.68,
+         "end": 64.94,
+         "score": 0.9921
+        }
+       ],
+       "start": 64.68,
+       "end": 64.94
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "中",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "なか",
+     "syllables": [
+      {
+       "text": "中",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "な",
+         "roman": "na",
+         "start": 64.94,
+         "end": 65.1,
+         "score": 0.4525
+        },
+        {
+         "reading": "か",
+         "roman": "ka",
+         "start": 65.1,
+         "end": 65.24,
+         "score": 0.6833
+        }
+       ],
+       "start": 64.94,
+       "end": 65.24
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "で",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "で",
+     "syllables": [
+      {
+       "text": "で",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "で",
+         "roman": "de",
+         "start": 65.24,
+         "end": 65.48,
+         "score": 0.9812
+        }
+       ],
+       "start": 65.24,
+       "end": 65.48
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "踊り",
+     "span": [
+      6,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "おどり",
+     "syllables": [
+      {
+       "text": "踊",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "お",
+         "roman": "o",
+         "start": 65.48,
+         "end": 65.56,
+         "score": 0.3725
+        },
+        {
+         "reading": "ど",
+         "roman": "do",
+         "start": 65.56,
+         "end": 65.7,
+         "score": 0.4456
+        }
+       ],
+       "start": 65.48,
+       "end": 65.7
+      },
+      {
+       "text": "り",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "り",
+         "roman": "ri",
+         "start": 65.7,
+         "end": 65.82,
+         "score": 0.9308
+        }
+       ],
+       "start": 65.7,
+       "end": 65.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "続ける",
+     "span": [
+      9,
+      12
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "つづける",
+     "syllables": [
+      {
+       "text": "続",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "つ",
+         "roman": "tsu",
+         "start": 66.0,
+         "end": 66.18,
+         "score": 0.2979
+        },
+        {
+         "reading": "づ",
+         "roman": "zu",
+         "start": 66.18,
+         "end": 66.34,
+         "score": 0.7003
+        }
+       ],
+       "start": 66.0,
+       "end": 66.34
+      },
+      {
+       "text": "け",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "け",
+         "roman": "ke",
+         "start": 66.34,
+         "end": 66.5,
+         "score": 0.9646
+        }
+       ],
+       "start": 66.34,
+       "end": 66.5
+      },
+      {
+       "text": "る",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 66.5,
+         "end": 66.6,
+         "score": 0.9891
+        }
+       ],
+       "start": 66.5,
+       "end": 66.6
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 64.24,
+   "end": 66.6,
+   "confidence": 0.6604,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 14,
+   "text": "古い 手紙を 読み 返す",
+   "raw": "古い 手紙を 読み 返す",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "古い",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ふるい",
+     "syllables": [
+      {
+       "text": "古",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "ふ",
+         "roman": "fu",
+         "start": 68.18,
+         "end": 68.32,
+         "score": 0.2921
+        },
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 68.32,
+         "end": 68.5,
+         "score": 0.3827
+        }
+       ],
+       "start": 68.18,
+       "end": 68.5
+      },
+      {
+       "text": "い",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 68.5,
+         "end": 68.66,
+         "score": 0.8847
+        }
+       ],
+       "start": 68.5,
+       "end": 68.66
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "手紙",
+     "span": [
+      3,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "てがみ",
+     "syllables": [
+      {
+       "text": "手紙",
+       "span": [
+        3,
+        5
+       ],
+       "units": [
+        {
+         "reading": "て",
+         "roman": "te",
+         "start": 68.66,
+         "end": 68.8,
+         "score": 0.1543
+        },
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 68.8,
+         "end": 68.94,
+         "score": 0.2785
+        },
+        {
+         "reading": "み",
+         "roman": "mi",
+         "start": 68.94,
+         "end": 69.12,
+         "score": 0.3906
+        }
+       ],
+       "start": 68.66,
+       "end": 69.12
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "を",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "を",
+     "syllables": [
+      {
+       "text": "を",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "を",
+         "roman": "o",
+         "start": 69.12,
+         "end": 69.2,
+         "score": 0.9609
+        }
+       ],
+       "start": 69.12,
+       "end": 69.2
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "読み",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "よみ",
+     "syllables": [
+      {
+       "text": "読",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "よ",
+         "roman": "yo",
+         "start": 69.38,
+         "end": 69.52,
+         "score": 0.182
+        }
+       ],
+       "start": 69.38,
+       "end": 69.52
+      },
+      {
+       "text": "み",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "み",
+         "roman": "mi",
+         "start": 69.52,
+         "end": 69.66,
+         "score": 0.5925
+        }
+       ],
+       "start": 69.52,
+       "end": 69.66
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "返す",
+     "span": [
+      10,
+      12
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "かえす",
+     "syllables": [
+      {
+       "text": "返",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "か",
+         "roman": "ka",
+         "start": 69.82,
+         "end": 69.98,
+         "score": 0.3287
+        },
+        {
+         "reading": "え",
+         "roman": "e",
+         "start": 69.98,
+         "end": 70.08,
+         "score": 0.6082
+        }
+       ],
+       "start": 69.82,
+       "end": 70.08
+      },
+      {
+       "text": "す",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "す",
+         "roman": "su",
+         "start": 70.08,
+         "end": 70.24,
+         "score": 0.9592
+        }
+       ],
+       "start": 70.08,
+       "end": 70.24
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 68.18,
+   "end": 70.24,
+   "confidence": 0.5012,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 15,
+   "text": "世界の 果てまで 走り出せ",
+   "raw": "世界の 果てまで 走り出せ",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "世界",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "せかい",
+     "syllables": [
+      {
+       "text": "世界",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "せ",
+         "roman": "se",
+         "start": 81.9,
+         "end": 82.06,
+         "score": 0.6264
+        },
+        {
+         "reading": "か",
+         "roman": "ka",
+         "start": 82.06,
+         "end": 82.24,
+         "score": 0.1577
+        },
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 82.24,
+         "end": 82.32,
+         "score": 0.8884
+        }
+       ],
+       "start": 81.9,
+       "end": 82.32
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "start": 82.32,
+         "end": 82.46,
+         "score": 0.9937
+        }
+       ],
+       "start": 82.32,
+       "end": 82.46
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "果て",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "はて",
+     "syllables": [
+      {
+       "text": "果",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "は",
+         "roman": "ha",
+         "start": 82.64,
+         "end": 82.8,
+         "score": 0.3574
+        }
+       ],
+       "start": 82.64,
+       "end": 82.8
+      },
+      {
+       "text": "て",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "て",
+         "roman": "te",
+         "start": 82.8,
+         "end": 82.96,
+         "score": 0.6281
+        }
+       ],
+       "start": 82.8,
+       "end": 82.96
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "まで",
+     "span": [
+      6,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "まで",
+     "syllables": [
+      {
+       "text": "ま",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "ま",
+         "roman": "ma",
+         "start": 82.96,
+         "end": 83.1,
+         "score": 0.7897
+        }
+       ],
+       "start": 82.96,
+       "end": 83.1
+      },
+      {
+       "text": "で",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "で",
+         "roman": "de",
+         "start": 83.1,
+         "end": 83.38,
+         "score": 0.9835
+        }
+       ],
+       "start": 83.1,
+       "end": 83.38
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "走り出せ",
+     "span": [
+      9,
+      13
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "はしりだせ",
+     "syllables": [
+      {
+       "text": "走",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "は",
+         "roman": "ha",
+         "start": 83.38,
+         "end": 83.52,
+         "score": 0.3699
+        },
+        {
+         "reading": "し",
+         "roman": "shi",
+         "start": 83.52,
+         "end": 83.68,
+         "score": 0.7007
+        }
+       ],
+       "start": 83.38,
+       "end": 83.68
+      },
+      {
+       "text": "り",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "り",
+         "roman": "ri",
+         "start": 83.68,
+         "end": 83.8,
+         "score": 0.8552
+        }
+       ],
+       "start": 83.68,
+       "end": 83.8
+      },
+      {
+       "text": "出",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "だ",
+         "roman": "da",
+         "start": 83.8,
+         "end": 83.96,
+         "score": 0.5443
+        }
+       ],
+       "start": 83.8,
+       "end": 83.96
+      },
+      {
+       "text": "せ",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "せ",
+         "roman": "se",
+         "start": 83.96,
+         "end": 84.12,
+         "score": 0.9664
+        }
+       ],
+       "start": 83.96,
+       "end": 84.12
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 81.9,
+   "end": 84.12,
+   "confidence": 0.6817,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 16,
+   "text": "優しい 歌が 聞こえる",
+   "raw": "優しい 歌が 聞こえる",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "優しい",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "やさしい",
+     "syllables": [
+      {
+       "text": "優",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "や",
+         "roman": "ya",
+         "start": 84.98,
+         "end": 85.12,
+         "score": 0.7952
+        },
+        {
+         "reading": "さ",
+         "roman": "sa",
+         "start": 85.12,
+         "end": 85.3,
+         "score": 0.8274
+        }
+       ],
+       "start": 84.98,
+       "end": 85.3
+      },
+      {
+       "text": "し",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "し",
+         "roman": "shi",
+         "start": 85.3,
+         "end": 85.5,
+         "score": 0.8817
+        }
+       ],
+       "start": 85.3,
+       "end": 85.5
+      },
+      {
+       "text": "い",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 85.5,
+         "end": 85.56,
+         "score": 0.9467
+        }
+       ],
+       "start": 85.5,
+       "end": 85.56
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "歌",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "うた",
+     "syllables": [
+      {
+       "text": "歌",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "う",
+         "roman": "u",
+         "start": 85.8,
+         "end": 85.88,
+         "score": 0.6151
+        },
+        {
+         "reading": "た",
+         "roman": "ta",
+         "start": 85.88,
+         "end": 86.04,
+         "score": 0.373
+        }
+       ],
+       "start": 85.8,
+       "end": 86.04
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "が",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "が",
+     "syllables": [
+      {
+       "text": "が",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 86.04,
+         "end": 86.28,
+         "score": 0.968
+        }
+       ],
+       "start": 86.04,
+       "end": 86.28
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "聞こえる",
+     "span": [
+      7,
+      11
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "きこえる",
+     "syllables": [
+      {
+       "text": "聞",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "き",
+         "roman": "ki",
+         "start": 86.28,
+         "end": 86.44,
+         "score": 0.3628
+        }
+       ],
+       "start": 86.28,
+       "end": 86.44
+      },
+      {
+       "text": "こ",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "こ",
+         "roman": "ko",
+         "start": 86.44,
+         "end": 86.6,
+         "score": 0.1469
+        }
+       ],
+       "start": 86.44,
+       "end": 86.6
+      },
+      {
+       "text": "え",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "え",
+         "roman": "e",
+         "start": 86.6,
+         "end": 86.68,
+         "score": 0.9522
+        }
+       ],
+       "start": 86.6,
+       "end": 86.68
+      },
+      {
+       "text": "る",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 86.68,
+         "end": 86.78,
+         "score": 0.9882
+        }
+       ],
+       "start": 86.68,
+       "end": 86.78
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 84.98,
+   "end": 86.78,
+   "confidence": 0.7143,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 17,
+   "text": "窓辺に 置いた 一輪の 花",
+   "raw": "窓辺に 置いた 一輪の 花",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "窓辺",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "まどべ",
+     "syllables": [
+      {
+       "text": "窓辺",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "ま",
+         "roman": "ma",
+         "start": 88.7,
+         "end": 88.82,
+         "score": 0.7953
+        },
+        {
+         "reading": "ど",
+         "roman": "do",
+         "start": 88.82,
+         "end": 88.96,
+         "score": 0.7312
+        },
+        {
+         "reading": "べ",
+         "roman": "be",
+         "start": 88.96,
+         "end": 89.12,
+         "score": 0.9052
+        }
+       ],
+       "start": 88.7,
+       "end": 89.12
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "に",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "に",
+     "syllables": [
+      {
+       "text": "に",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "に",
+         "roman": "ni",
+         "start": 89.12,
+         "end": 89.26,
+         "score": 0.9773
+        }
+       ],
+       "start": 89.12,
+       "end": 89.26
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "置い",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "おい",
+     "syllables": [
+      {
+       "text": "置",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "お",
+         "roman": "o",
+         "start": 89.46,
+         "end": 89.58,
+         "score": 0.4577
+        }
+       ],
+       "start": 89.46,
+       "end": 89.58
+      },
+      {
+       "text": "い",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 89.58,
+         "end": 89.68,
+         "score": 0.8634
+        }
+       ],
+       "start": 89.58,
+       "end": 89.68
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "た",
+     "span": [
+      6,
+      7
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "た",
+     "syllables": [
+      {
+       "text": "た",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "た",
+         "roman": "ta",
+         "start": 89.68,
+         "end": 89.8,
+         "score": 0.9773
+        }
+       ],
+       "start": 89.68,
+       "end": 89.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "一輪",
+     "span": [
+      8,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "いちりん",
+     "syllables": [
+      {
+       "text": "一輪",
+       "span": [
+        8,
+        10
+       ],
+       "units": [
+        {
+         "reading": "い",
+         "roman": "i",
+         "start": 89.96,
+         "end": 90.04,
+         "score": 0.4691
+        },
+        {
+         "reading": "ち",
+         "roman": "chi",
+         "start": 90.04,
+         "end": 90.2,
+         "score": 0.2043
+        },
+        {
+         "reading": "り",
+         "roman": "ri",
+         "start": 90.2,
+         "end": 90.38,
+         "score": 0.5565
+        },
+        {
+         "reading": "ん",
+         "roman": "n",
+         "start": 90.38,
+         "end": 90.46,
+         "score": 0.9756
+        }
+       ],
+       "start": 89.96,
+       "end": 90.46
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      10,
+      11
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "start": 90.46,
+         "end": 90.72,
+         "score": 0.9953
+        }
+       ],
+       "start": 90.46,
+       "end": 90.72
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "花",
+     "span": [
+      12,
+      13
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "はな",
+     "syllables": [
+      {
+       "text": "花",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "は",
+         "roman": "ha",
+         "start": 90.72,
+         "end": 90.86,
+         "score": 0.3358
+        },
+        {
+         "reading": "な",
+         "roman": "na",
+         "start": 90.86,
+         "end": 90.98,
+         "score": 0.5474
+        }
+       ],
+       "start": 90.72,
+       "end": 90.98
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 88.7,
+   "end": 90.98,
+   "confidence": 0.6994,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 18,
+   "text": "永遠に 続く 物語",
+   "raw": "永遠に 続く 物語",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "永遠",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "えいえん",
+     "syllables": [
+      {
+       "text": "永遠",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "え",
+         "roman": "e",
+         "start": 91.96,
+         "end": 92.08,
+         "score": 0.502
+        },
+        {
+         "reading": "い",
+         "roman": "e",
+         "start": 92.08,
+         "end": 92.24,
+         "score": 0.0338
+        },
+        {
+         "reading": "え",
+         "roman": "e",
+         "start": 92.24,
+         "end": 92.32,
+         "score": 0.0716
+        },
+        {
+         "reading": "ん",
+         "roman": "n",
+         "start": 92.32,
+         "end": 92.4,
+         "score": 0.9782
+        }
+       ],
+       "start": 91.96,
+       "end": 92.4
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "に",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "に",
+     "syllables": [
+      {
+       "text": "に",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "に",
+         "roman": "ni",
+         "start": 92.4,
+         "end": 92.6,
+         "score": 0.9873
+        }
+       ],
+       "start": 92.4,
+       "end": 92.6
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "続く",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "つづく",
+     "syllables": [
+      {
+       "text": "続",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "つ",
+         "roman": "tsu",
+         "start": 92.6,
+         "end": 92.78,
+         "score": 0.2643
+        },
+        {
+         "reading": "づ",
+         "roman": "zu",
+         "start": 92.78,
+         "end": 92.96,
+         "score": 0.7848
+        }
+       ],
+       "start": 92.6,
+       "end": 92.96
+      },
+      {
+       "text": "く",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "く",
+         "roman": "ku",
+         "start": 92.96,
+         "end": 93.1,
+         "score": 0.9513
+        }
+       ],
+       "start": 92.96,
+       "end": 93.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "物語",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ものがたり",
+     "syllables": [
+      {
+       "text": "物語",
+       "span": [
+        7,
+        9
+       ],
+       "units": [
+        {
+         "reading": "も",
+         "roman": "mo",
+         "start": 93.28,
+         "end": 93.4,
+         "score": 0.3078
+        },
+        {
+         "reading": "の",
+         "roman": "no",
+         "start": 93.4,
+         "end": 93.54,
+         "score": 0.5664
+        },
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 93.54,
+         "end": 93.7,
+         "score": 0.5739
+        },
+        {
+         "reading": "た",
+         "roman": "ta",
+         "start": 93.7,
+         "end": 93.84,
+         "score": 0.6552
+        },
+        {
+         "reading": "り",
+         "roman": "ri",
+         "start": 93.84,
+         "end": 93.94,
+         "score": 0.9552
+        }
+       ],
+       "start": 93.28,
+       "end": 93.94
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 91.96,
+   "end": 93.94,
+   "confidence": 0.5871,
+   "needs_review": false,
+   "flags": [
+    "text_review"
+   ]
+  },
+  {
+   "idx": 19,
+   "text": "何度でも 立ち上がる",
+   "raw": "何度でも 立ち上がる",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "何",
+     "span": [
+      0,
+      1
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "なん",
+     "syllables": [
+      {
+       "text": "何",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "な",
+         "roman": "na",
+         "start": 95.38,
+         "end": 95.56,
+         "score": 0.6794
+        },
+        {
+         "reading": "ん",
+         "roman": "n",
+         "start": 95.56,
+         "end": 95.66,
+         "score": 0.9374
+        }
+       ],
+       "start": 95.38,
+       "end": 95.66
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "度",
+     "span": [
+      1,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ど",
+     "syllables": [
+      {
+       "text": "度",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "ど",
+         "roman": "do",
+         "start": 95.66,
+         "end": 95.8,
+         "score": 0.727
+        }
+       ],
+       "start": 95.66,
+       "end": 95.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "でも",
+     "span": [
+      2,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "でも",
+     "syllables": [
+      {
+       "text": "で",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "で",
+         "roman": "de",
+         "start": 95.8,
+         "end": 95.96,
+         "score": 0.9952
+        }
+       ],
+       "start": 95.8,
+       "end": 95.96
+      },
+      {
+       "text": "も",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "も",
+         "roman": "mo",
+         "start": 95.96,
+         "end": 96.18,
+         "score": 0.998
+        }
+       ],
+       "start": 95.96,
+       "end": 96.18
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "立ち上がる",
+     "span": [
+      5,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "たちあがる",
+     "syllables": [
+      {
+       "text": "立",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "た",
+         "roman": "ta",
+         "start": 96.18,
+         "end": 96.34,
+         "score": 0.3037
+        }
+       ],
+       "start": 96.18,
+       "end": 96.34
+      },
+      {
+       "text": "ち",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "ち",
+         "roman": "chi",
+         "start": 96.34,
+         "end": 96.52,
+         "score": 0.2846
+        }
+       ],
+       "start": 96.34,
+       "end": 96.52
+      },
+      {
+       "text": "上",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "あ",
+         "roman": "a",
+         "start": 96.52,
+         "end": 96.62,
+         "score": 0.6525
+        }
+       ],
+       "start": 96.52,
+       "end": 96.62
+      },
+      {
+       "text": "が",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "が",
+         "roman": "ga",
+         "start": 96.62,
+         "end": 96.76,
+         "score": 0.9244
+        }
+       ],
+       "start": 96.62,
+       "end": 96.76
+      },
+      {
+       "text": "る",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "る",
+         "roman": "ru",
+         "start": 96.76,
+         "end": 96.86,
+         "score": 0.9939
+        }
+       ],
+       "start": 96.76,
+       "end": 96.86
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 95.38,
+   "end": 96.86,
+   "confidence": 0.7496,
+   "needs_review": false,
+   "flags": [
+    "text_review"
+   ]
+  }
+ ]
+}

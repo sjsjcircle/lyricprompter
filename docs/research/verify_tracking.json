@@ -1,0 +1,133 @@
+{
+ "topic": "tracking",
+ "checked": [
+  {
+   "claim": "pymatchmaker latest is 0.3.0 (uploaded 2026-05-25), Apache-2.0, requires Python >=3.10,<3.13 and numpy>=1.26.3,<2.0, with cp310-cp312 macOS arm64 wheels",
+   "status": "confirmed",
+   "evidence": "PyPI JSON: version 0.3.0, first upload 2026-05-25T06:52:08, requires_python '<3.13,>=3.10', deps include 'numpy<2.0,>=1.26.3', partitura, parangonar, pyfluidsynth, matplotlib. Classifier is Apache. Wheels are cp310/311/312 for macosx_11_0_arm64. Running uv pip compile with pymatchmaker==0.3.0 plus synctoolbox==1.4.2 fails with 'unsatisfiable' (numpy<2 vs >=2)."
+  },
+  {
+   "claim": "GitHub *main* branch (last push 2026-10-10) has unreleased API changes (methods.yaml registry, register_method); pyproject still says <3.13 and numpy<2.0",
+   "status": "partially-true",
+   "evidence": "The default branch is `develop`, not `main`. main sits at the 0.3.0 release commit (2026-05-25). methods.yaml, registry.py and register_method exist on develop (PR #67, merged 2026-10-05). The 2026-10-10 push is open PR #71 'update requirement to allow numpy>2' (branch to_numpy2), which sets numpy>=1.26.3 at runtime and keeps <3.13. develop also removed evaluation code from core (PR #64) and added a particle-filter follower (PR #66). README says Python 3.10–3.13 while pyproject says <3.13: confirmed.",
+   "correction": "The API changes are on `develop`. An open PR (#71, 2026-10-10) is about to lift numpy<2, so the numpy conflict is likely temporary. Python<3.13 remains."
+  },
+  {
+   "claim": "Matchmaker audio methods are 'arzt' (default), 'dixon', 'outerhmm', 'skf'; audio processors chroma (default), mfcc, cqt, mel, lse, cqt_spectral_flux, raw_spectrum; default 44.1 kHz / 30 fps; OLTWArztFrame defaults window 10 s, step_size 3, distance 'Manhattan'; Dixon MAX_RUN_COUNT 3, weights 2/1, normalisation 1+i+j, pure Python",
+   "status": "partially-true",
+   "evidence": "Installed 0.3.0 matchmaker.py has `\"audio\": sorted(OLTW_METHODS) + [\"outerhmm\", \"skf\", \"pf\"]`. The processor list matches. features/audio.py sets SAMPLE_RATE=44100 and FRAME_RATE=30. oltw_arzt.py has STEP_SIZE=3, WINDOW_SIZE=10, START_WINDOW_SIZE=0.1, DEFAULT_DISTANCE_FUNC='Manhattan', and the Cython metrics Manhattan/Euclidean/Cosine/L1/Linf/Lp. In oltw_dixon.py, MAX_RUN_COUNT=3, the diagonal is 2*local_dist, normalisation is /(1+...), and it runs a per-cell scipy cdist in Python. Note that Arzt's Cython loop uses equal weights (1,1,1) with absolute normalisation (input_index+score_index+1), not (2,1,1).",
+   "correction": "0.3.0 also has an audio 'pf' (particle filter) method."
+  },
+  {
+   "claim": "Matchmaker class needs score_file; audio-to-audio means composing Stream+Processor+OnlineAlignment yourself; OnlineTimeWarpingArztFrame(reference_features, score_positions, ref_frame_to_beat=..., window_size, step_size, distance_func='Cosine', frame_rate) works",
+   "status": "confirmed",
+   "evidence": "matchmaker.py docstring (lines ~199-200): 'audio-to-audio alignment without a score — compose Stream + Processor + ...'. score_file is a required positional argument and is loaded with partitura. The OnlineTimeWarpingArztFrame signature matches, raises ValueError if ref_frame_to_beat is None, and __call__(observation, perf_time) returns the beat. 'Cosine' is in CYTHONIZED_METRICS_WO_ARGUMENTS. I did not re-run the synthetic 97.9% figure."
+  },
+  {
+   "claim": "Dependency conflict: synctoolbox 1.4.2 requires numpy>=2.0,<2.5, librosa>=0.11,<1.0, numba>=0.63,<0.66; librosa 1.0.0 (2026-08-11) requires Python>=3.12 and numpy>=2.1 and removed audioread and librosa.stream 'filename'",
+   "status": "confirmed",
+   "evidence": "PyPI JSON: synctoolbox 1.4.2 (2026-05-20) has numpy<2.5.0,>=2.0.0, librosa<1.0.0,>=0.11.0, numba<0.66.0,>=0.63.0. librosa 1.0.0 (2026-08-11T15:37) requires_python >=3.12 and numpy>=2.1.0. The librosa changelog's 1.0.0 'expired deprecations' list includes the audioread backend and the `filename` argument of librosa.stream. Implication the report missed: synctoolbox also conflicts with the report's own librosa 1.0 and numba 0.68."
+  },
+  {
+   "claim": "Reference repo config: 16 kHz, HOP 640, N_FFT 1280, CHUNK 4 hops, DTW_WINDOW_SIZE 5 s, MAX_RUN_COUNT 30, cosine, chroma+phoneme, uni-5cls CRNN, ADJUST_DELAY 5 (20 for sports complex), DEVICE mps; checkpoints uni-5/14/39/61cls-640hop ~45 MB",
+   "status": "confirmed",
+   "evidence": "backend/app/config.py, fetched via the gh API, matches every value. The tree has uni-14cls/39cls/5cls/61cls-640hop.pt at 46.8–47.0 MB, plus uni-5cls-320hop.pt (44.2 MB), which the report omits. Last commit is 2026-06-02. The repo also has an unused whisper_reference.py that uses Whisper-encoder features."
+  },
+  {
+   "claim": "Reference OLTW multiplies the diagonal predecessor's ACCUMULATED cost by 0.98, uses Python double loops, publishes ref_pointer, has '<=' bug in select_candidate and length counter adds local_dist; features/CRNN run in the PyAudio callback; calls librosa.get_duration(filename=...) every loop iteration",
+   "status": "confirmed",
+   "evidence": "core/online_dtw.py: `new_acc[i-1, ...]*0.98` (lines 137/186/227). Nested for-loops. `redis_client.set_value(\"location\", self.ref_pointer)` (line 329). `if min_idx <= len(norm_x_edge)` (line 254). `new_len_acc[...] = local_dist + new_len_acc[...]` (lines 130-131). `librosa.get_duration(filename=self.ref_audio_file)` inside the while loop (line 330). stream_processor._process_frame (the PyAudio callback) calls _process_feature, which runs process_phonemes. Stronger than reported: librosa 1.0's get_duration signature has only `path=` (keyword-only), so this line is a hard TypeError on librosa 1.0, not just deprecated."
+  },
+  {
+   "claim": "Vectorised frame-synchronous OLTW column update D = cumsum(d) + cummin(min(Dprev[i-1]+2d, Dprev[i]+d) - cumsum(d)) is exactly equal to the cell-by-cell recursion",
+   "status": "confirmed",
+   "evidence": "Independent test (scratchpad/research/tracking-factcheck/fc_vec.py): 1000 random trials with random +inf injection, a finite or infinite out-of-window predecessor, and weight sets (2,1,1), (1,1,1) and (2,1,3). Infinity patterns were identical and the maximum relative error was 1.2e-13. Algebra: D[i]=min(B_i, D[i-1]+w_v d_i) unrolls to S_i + min_{k<=i}(B_k - S_k)."
+  },
+  {
+   "claim": "Speed: 7.8 µs (numpy) / 1.6 µs (numba) per 1000-cell column; ~80 µs full tracker step at ±10 s/25 fps",
+   "status": "partially-true",
+   "evidence": "On this machine under heavy load (load average ~48 from parallel agents), my numpy column update measured 34 µs (501 cells) and 45 µs (1000 cells). A full step (cosine distances + column + normalised argmin, 501 cells) measured 69 µs. The full-step figure is consistent. I could not reproduce the 7.8 µs column figure under this load. Either way it is far below the 40 ms frame budget, so the conclusion stands."
+  },
+  {
+   "claim": "Matchmaker ISMIR 2025 benchmark: Arzt 92.8% total AR on (n)ASAP; per-frame latency Arzt 0.07 / Dixon 1.22 / HMM 3.59 ms; feature latency LSE 0.91, MFCC 2.58, chroma 3.05, mel 3.40, CQT 42.58 ms; LSE MAE 241.85 vs chroma 265.50; HMM 76.9% vs OLTW 85.2% beat AR; errors >2 s excluded; 44.1 kHz / 30 fps",
+   "status": "confirmed",
+   "evidence": "arXiv 2510.10087 HTML: Table 2 (Arzt 92.8% on (n)ASAP), Table 3 (beat-level: Arzt 85.2%, HMM 76.9%), Table 4 (latencies and MAE as quoted). The paper says 'Errors exceeding 2 seconds ... are excluded' and gives 44.1 kHz with a frame rate of 30."
+  },
+  {
+   "claim": "Park, Yong, Kwon, Nam ICASSP 2024 winterreise_rt online results: Chroma+Phoneme5 AAE 376 / MAE 136 / PCO 64.75/75.49/85.82/92.26; Chroma AAE 1366, 85.92% @1 s; Mel AAE 1222, PCO200 66.69; Chroma+MFCC5 AAE 453, 90.56%; Phoneme39 52.09%; offline 98.1%; 16 kHz, 25 fps, 3 s window, HU33→SC06, 24 songs",
+   "status": "confirmed",
+   "evidence": "arXiv 2401.09200v1 HTML results table matches every number. Setup: 16 kHz, hop 640, 3 s OLTW window, HU33 reference / SC06 target, 24 songs. The CRNN uses a 66-bin log-mel front end (FFT 1280) and a unidirectional LSTM (1024 units), trained on TIMIT."
+  },
+  {
+   "claim": "Brazier & Widmer ISMIR 2021: CP-ResNet on 80 MFCCs (16 kHz, 10 ms hop), 60-class output (57 phonemes + space, instrumental, blank) every 40 ms, CTC on DALI (~259 h), 280 ms latency, cosine OLTW skipping blanks; Jingju 87.5–89.0% vs 61.5% MFCC",
+   "status": "confirmed",
+   "evidence": "arXiv 2107.14496 (ar5iv) gives 60-length vectors (57 phonemes from EN/DE/FR/ES/IT plus space, instrumental and CTC blank) every 40 ms. Training is DALI with CTC; the 5lang model used 259.4 h. Blanks are skipped and the distance is cosine. Jingju within 1 s: 87.5% (5lang) / 89.0% (english) vs 61.5% for the MFCC baseline. Receptive field of 57 frames gives a 280 ms delay."
+  },
+  {
+   "claim": "Brazier & Widmer 2021 opera: 100 MFCCs (120 minus first 20), c=4000, lyrics tracker re-initialised from music tracker, mean error 335/410 ms (M&L) vs 811/561 ms (music only)",
+   "status": "confirmed",
+   "evidence": "arXiv 2110.02592 (NLP4MusA 2021). The paper text has 'c is fixed to 4000', '100 MFCCs (120 MFCCs ...)', and a table with Fischer music 811 ms vs M&L 335 ms and Manacorda music 561 ms vs M&L 410 ms."
+  },
+  {
+   "claim": "Arzt & Widmer 2010 RPE (600 ms frames, 300 ms hop, last 9 s, similarity ≥0.95, matchers ≥5 s, c=500, MaxRunCount=3, wrong jumps ~once per 2 h) and EUSIPCO 2012 chroma+LNSO 93.7–98.2% vs 79.97–91.20%",
+   "status": "confirmed",
+   "evidence": "STAIRS 2010 text: 'window with length 30 (or 600ms) ... down-sampled by a factor of 15 ... hop-size of 300ms', 'last n = 9 seconds', 'similarity value of at least 0.95', 'at least 5 seconds', 'c = 500', 'MaxRunCount = 3', 'once every 2 hours'. EUSIPCO 2012 table: normalised chroma CB 79.97% / MS 91.20%, combined 96.38% / 98.20% (RP 93.73%). Arzt & Widmer ISMIR 2015 multi-reference tracking (Best Paper) is also confirmed."
+  },
+  {
+   "claim": "pesto-pitch 2.0.1 (LGPL-3.0) supports streaming=True with an internal circular buffer, and ONNX export (~0.7 ms); forward returns fractional semitones by default (convert_to_freq=False) plus confidence and amplitude; the report's snippet load_model('mir-1k_g7', step_size=20., sampling_rate=16000, streaming=True, max_batch_size=1) works",
+   "status": "partially-true",
+   "evidence": "The PyPI 2.0.1 wheel (uploaded 2025-02-18) contains StreamingCQT/CachedConv1d and the streaming kwarg. I tested it in a fresh Python 3.12 venv with torch 2.14.1 + torchaudio 2.11.0 + pesto-pitch 2.0.1: the snippet runs, one 320-sample block gives one frame, the output is fractional MIDI (57.01 for 220 Hz), and it returns (pitch, conf, vol) when return_activations=False. CPU p50 is ~4 ms per call under load. ONNX export, however, is the repo script realtime/export_onnx.py (merged 2025-10-15) and is NOT in the PyPI 2.0.1 package. The license is LGPLv3 (classifier and GitHub).",
+   "correction": "ONNX export needs the GitHub repo (realtime/ scripts), not the pip package. The streaming CQT kernel is 4096 samples (256 ms) at 16 kHz. I measured a ~130–140 ms algorithmic lag before the output follows a pitch change, and this belongs in the latency budget."
+  },
+  {
+   "claim": "Avoid torchaudio as a runtime dependency (torchaudio 2.11 trails torch 2.14)",
+   "status": "partially-true",
+   "evidence": "PyPI: torch 2.14.1 (2026-09-30) and torchaudio 2.11.0 (2026-03-23); the torchaudio 2.11 wheel metadata has no torch pin. PESTO lists torchaudio>=2.0.2 as a hard dependency and imports it at top level (pesto/core.py), so the recommended PESTO path cannot avoid torchaudio. Tested: torchaudio 2.11.0 imports and works with torch 2.14.1 on macOS arm64. silero-vad's [audio]/[all] extras pin torchaudio<2.10, but the core package needs only torch.",
+   "correction": "torchaudio cannot be avoided if PESTO is used. It does work with torch 2.14.1 today. Install silero-vad without extras."
+  },
+  {
+   "claim": "silero-vad 6.2.3 (2026-09-23, MIT); sounddevice 0.5.6 (2026-08-17, MIT) universal2 macOS wheel; PyAudio 0.2.14 (2023-11-07) needs Homebrew PortAudio; numba 0.68.0 (2026-09-30) supports numpy<2.6; pyrubberband 0.4.0 timemap_stretch; Homebrew rubberband 4.0.0",
+   "status": "confirmed",
+   "evidence": "PyPI JSON for all of these. sounddevice has a macosx_10_6_universal2 wheel. PyAudio 0.2.14 ships only Windows wheels plus an sdist, so macOS needs portaudio. numba requires numpy<2.6,>=1.22. pyrb.py has timemap_stretch(y, sr, time_map, rbargs) and shells out to the `rubberband` CLI. `brew info rubberband` shows stable 4.0.0, but it is not currently installed. Not mentioned in the report: Silero VAD accepts only exactly 512-sample chunks at 16 kHz. I tested 640 and it raised an error, so VAD frames (32 ms) do not line up with the 40 ms tracker hop."
+  },
+  {
+   "claim": "facebook/wav2vec2-xlsr-53-espeak-cv-ft is Apache-2.0, ~2.5 GB repo, non-causal; ZIPA 64M/300M Zipformer CTC/transducer on IPAPACK++ ~17k h, streaming not confirmed",
+   "status": "partially-true",
+   "evidence": "The HF API shows wav2vec2-xlsr-53-espeak-cv-ft as license apache-2.0, with a single weights file pytorch_model.bin of 1263.5 MB (~1.26 GB total, not 2.5 GB). ZIPA (arXiv 2505.23170, ACL 2025): Zipa-Cr-small 64M / large 300M and Zipa-T 65M / 302M, trained on IPAPack++ (17,132 h). Code is MIT. Most weights are CC BY 4.0; the noisy-student 'ns' weights are NC. ONNX fp32/fp16/int8 exports exist. The HF checkpoints are explicitly named '*-noncausal-*', so there is no streaming variant.",
+   "correction": "The wav2vec2 espeak model is ~1.26 GB. ZIPA is non-causal (per its checkpoint names), CC BY 4.0 except the ns models."
+  },
+  {
+   "claim": "HS-TasNet-class low-latency separation: open weights/packages unverified",
+   "status": "confirmed",
+   "evidence": "lucidrains/HS-TasNet (MIT, last push 2026-08-25) and PyPI HS-TasNet 0.3.3 exist. The README only shows training on MUSDB and loading your own checkpoints, with no pretrained weights published. The report's low-confidence caveat is correct."
+  },
+  {
+   "claim": "Reference repo switched reference to a rehearsal recording before Innovate Korea 2024",
+   "status": "confirmed",
+   "evidence": "Commit 2024-06-04 '[240603] final rehearsal 3 - changed reference to rehearsal recording'."
+  },
+  {
+   "claim": "Code snippet chroma_frame(): librosa.feature.chroma_stft(y=buf, sr=16000, n_fft=2048, hop_length=len(buf), center=False, norm=None) per frame, identical code for ref and live",
+   "status": "refuted",
+   "evidence": "chroma_stft defaults to tuning=None, which calls estimate_tuning on every call. On 2048-sample noise frames, per-frame tuning estimates were -0.33, 0.08, 0.31, -0.20, -0.32 semitones, so the chroma filterbank jitters frame to frame and differs between ref and live. The call also costs ~2.5 ms per frame, versus 0.07 ms with a precomputed librosa.filters.chroma bank. The reference repo's process_chroma has the same defect: tuning is estimated once over the whole reference file but per 160 ms chunk live.",
+   "correction": "Precompute fb = librosa.filters.chroma(sr=16000, n_fft=2048, tuning=T) once, with T fixed per song (estimated offline from the reference) or 0.0, and apply it to a causal windowed rfft. Use the identical bank for ref and live."
+  },
+  {
+   "claim": "pymatchmaker cannot share an environment with the rest of the modern stack; synctoolbox must go in a separate environment",
+   "status": "partially-true",
+   "evidence": "pymatchmaker 0.3.0 vs synctoolbox 1.4.2 is unsatisfiable (uv resolver). But `uv pip compile --python-version 3.12` for synctoolbox==1.4.2 + pesto-pitch==2.0.1 + silero-vad==6.2.3 + torch==2.14.1 + sounddevice + soxr + scipy + fastapi resolves cleanly to librosa 0.11.0, numba 0.65.1, numpy 2.4.6, torch 2.14.1, torchaudio 2.11.0. Only the report's choice of librosa 1.0 / numba 0.68 forces synctoolbox out. Also, pymatchmaker's Cython extensions are built against numpy<2, so `--no-deps` into a numpy-2 env is not a workaround.",
+   "correction": "One Python 3.12 env works for offline prep (synctoolbox MrMsDTW) and live tracking if you pin librosa 0.11 / numba 0.65.x / numpy 2.4.x. Keep only pymatchmaker 0.3.0 separate, until PR #71 lands."
+  }
+ ],
+ "recommendation_assessment": "Building our own tracker is the right call. The core of the report checks out.\n\n**What holds up**\n- **The core algorithm is correct.** I reproduced the vectorised frame-synchronous OLTW myself: it matches the cell-by-cell loop exactly, including infinite cells and several weight sets. A full step costs under 0.1 ms.\n- **pymatchmaker 0.3.0 cannot be a runtime dependency.** It pins numpy<2 and Python<3.13, and its Cython extension is compiled against numpy 1. Its top-level API is built around a score.\n- **The papers it builds on are cited accurately.** The Arzt, Brazier, Matchmaker 2025 and Park 2024 numbers all check out.\n- **Its critique of the reference repo is correct**, line by line:\n  - the 0.98 multiplier on the accumulated diagonal cost\n  - publishing `ref_pointer`\n  - the `<=` bug\n  - adding `local_dist` to the length counter\n  - feature and CRNN work inside the PyAudio callback\n\n**What I would change**\n1. **Phase the build.** The full design (shadow trackers, cumulative-difference switching, a logistic confidence model, multi-reference fusion) is a lot to tune with no pop or K-pop ground truth yet.\n   - MVP: FrameSyncOLTW (an Arzt-style loop, Apache-2.0 attribution if ported), VAD-gated coasting in mode (b), a line-level UI with lead time, and operator overrides (next/previous, re-sync to line N, hold).\n   - Add the coarse global re-locator and confidence once there are real recordings to calibrate them on.\n2. **Fix the chroma code.** `chroma_stft` with `tuning=None` re-estimates tuning on every frame. I measured ±0.3 semitone jitter per frame on noise. Precompute the filterbank once with a fixed per-song tuning and use the same bank for reference and live. The reference repo has the same defect.\n3. **Fix the latency budget and frame plumbing.**\n   - PESTO streaming at 16 kHz uses a 256 ms CQT kernel. I measured about 130–140 ms of lag before its output follows a pitch change.\n   - Silero VAD accepts only exactly 512-sample (32 ms) chunks at 16 kHz, so VAD frames need their own buffer, separate from the 40 ms tracker hop.\n   - PESTO's own voicing confidence plus a stem-relative energy gate may beat Silero on singing, since Silero is trained on speech.\n4. **Use one environment.** Python 3.12 with librosa 0.11.0, numba 0.65.1, numpy 2.4.x, synctoolbox 1.4.2, torch 2.14.1, torchaudio 2.11 and pesto-pitch 2.0.1 resolves cleanly. Offline prep and live tracking can share it; only pymatchmaker needs its own venv. PESTO hard-requires torchaudio, so the advice to avoid torchaudio does not apply. torchaudio 2.11 works with torch 2.14.1 (tested).\n5. **Correct a few package facts.**\n   - pymatchmaker's new API is on `develop`, not `main`.\n   - Open PR #71 (2026-10-10) is about to lift numpy<2. Re-check before ruling pymatchmaker out as a parity baseline.\n   - 0.3.0 also has a particle-filter (`pf`) audio method.\n   - PESTO's ONNX export is a repo script, not part of the pip package.\n   - The wav2vec2 espeak model is about 1.26 GB, not 2.5 GB.\n   - The ZIPA checkpoints are non-causal.\n   - Under librosa 1.0, the reference repo's `get_duration(filename=...)` is a hard error, not just a deprecation.\n6. **Make timecode and playback lock first-class.** K-pop and J-pop shows often run MR with SMPTE/MIDI timecode from a DAW or QLab. Audio tracking should be the fallback there, not the primary source.",
+ "missed_options": [
+  "Timecode sync as a first-class mode for shows that run MR or click from a DAW, QLab or Ableton. Read SMPTE LTC (via libltc or an audio-input decoder), MIDI Time Code (python-rtmidi) or Ableton Link/OSC. Reference time then equals the playback position exactly, and audio OLTW becomes the fallback for live-band sections.",
+  "One-environment stack: Python 3.12 with numpy 2.4.x, librosa 0.11.0, numba 0.65.1, synctoolbox 1.4.2, torch 2.14.1, torchaudio 2.11.0, pesto-pitch 2.0.1 and silero-vad 6.2.3. It resolves with uv, so synctoolbox MrMsDTW (offline prep and multi-reference alignment) can live in the same env as the tracker.",
+  "pymatchmaker numpy-2 support: PR #71 (branch to_numpy2, opened 2026-10-10) relaxes numpy<2. Once it is released, pymatchmaker could run beside the main stack as a parity/regression baseline (Arzt, Dixon, outerhmm, skf, pf), though still Python<3.13. Its develop branch also adds a method registry for custom followers.",
+  "sherpa-onnx 1.13.8 (Apache-2.0) streaming Zipformer models: Korean (sherpa-onnx-streaming-zipformer-korean-2024-06-16) and a multilingual model with Japanese and English (ar_en_id_ja_ru_th_vi_zh-2025-02-10). These are truly causal, low-latency CPU/ONNX token posteriors for the text-driven lyric follower or a live PPG. They are speech-trained, so robustness on singing must be tested.",
+  "Use PESTO's own voicing confidence (plus a stem-relative energy gate) as the singing VAD, instead of or fused with Silero VAD. Silero is speech-trained and accepts only 512-sample chunks.",
+  "The reference repo's uni-5cls-320hop.pt CRNN checkpoint (50 fps) exists for the higher-frame-rate mode, alongside the 640-hop models.",
+  "Precompute DSP filterbanks (chroma, semitone/LNSO bins) once with a fixed per-song tuning, and compute features from a causal rfft ring buffer. This is about 40x cheaper than calling librosa per frame (0.07 vs 2.5 ms) and removes per-frame tuning jitter.",
+  "Use ONNX Runtime (CoreML EP) or TorchScript exports for the small causal PPG/pitch models, to get stable per-hop latency on Apple Silicon instead of batch-1 MPS."
+ ]
+}

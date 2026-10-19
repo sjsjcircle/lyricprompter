@@ -1,0 +1,3578 @@
+{
+ "schema": 1,
+ "meta": {
+  "id": "kkotbat",
+  "title": "꽃밭에서",
+  "artist": "조수미",
+  "default_lang": "auto",
+  "duration": 240.384331,
+  "tuning": 0.08,
+  "stems": {
+   "mix": "audio/mix.wav",
+   "vocals": "audio/vocals.wav",
+   "instrumental": "audio/instrumental.wav"
+  },
+  "prep": {
+   "created": "2026-10-12T12:25:06+00:00",
+   "version": "0.1.0",
+   "options": {
+    "default_lang": "auto",
+    "sep_model": "bs_roformer_vocals_resurrection_unwa.ckpt",
+    "lead": false,
+    "refine": "auto",
+    "vocals": null
+   },
+   "models": {
+    "separation": "bs_roformer_vocals_resurrection_unwa.ckpt",
+    "lead": null,
+    "align": "mms_fa+gate"
+   },
+   "languages": {
+    "ko": 53
+   },
+   "align_stem": "vocals",
+   "tuning_params": {
+    "sr": 16000,
+    "n_fft": 4096,
+    "hop_length": 1024,
+    "resolution": 0.01,
+    "bins_per_octave": 12
+   },
+   "packages": {
+    "lyricprompter": "0.1.0",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "librosa": "1.0.0",
+    "soundfile": "0.14.0",
+    "soxr": "1.1.0",
+    "torch": "2.14.1",
+    "torchaudio": "2.11.0",
+    "transformers": "5.19.0",
+    "audio-separator": "0.47.0",
+    "uroman": "1.3.1.1",
+    "pyopenjtalk-plus": "0.4.1.post9",
+    "cmudict": "1.1.3",
+    "pyphen": "0.18.1",
+    "ffmpeg": "8.1.1"
+   },
+   "timings": {
+    "convert": 0.274,
+    "parse": 1.599,
+    "separate": 104.997,
+    "align": 7.631,
+    "finalize": 1.133,
+    "total": 115.636
+   }
+  }
+ },
+ "lines": [
+  {
+   "idx": 0,
+   "text": "꽃밭에 앉아서 꽃잎을 보네",
+   "raw": "꽃밭에 앉아서 꽃잎을 보네",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "꽃밭에",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃밭에",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 1.5,
+         "end": 2.32,
+         "score": 0.1179
+        }
+       ],
+       "start": 1.5,
+       "end": 2.32
+      },
+      {
+       "text": "밭",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "밭",
+         "roman": "bat",
+         "start": 2.62,
+         "end": 3.8,
+         "score": 0.225
+        }
+       ],
+       "start": 2.62,
+       "end": 3.8
+      },
+      {
+       "text": "에",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 3.8,
+         "end": 3.82,
+         "score": 0.2732
+        }
+       ],
+       "start": 3.8,
+       "end": 3.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "앉아서",
+     "span": [
+      4,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "앉아서",
+     "syllables": [
+      {
+       "text": "앉",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "앉",
+         "roman": "anj",
+         "start": 4.3,
+         "end": 4.8,
+         "score": 0.1867
+        }
+       ],
+       "start": 4.3,
+       "end": 4.8
+      },
+      {
+       "text": "아",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 4.8,
+         "end": 4.82,
+         "score": 0.589
+        }
+       ],
+       "start": 4.8,
+       "end": 4.82
+      },
+      {
+       "text": "서",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "서",
+         "roman": "seo",
+         "start": 5.04,
+         "end": 5.24,
+         "score": 0.2004
+        }
+       ],
+       "start": 5.04,
+       "end": 5.24
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "꽃잎을",
+     "span": [
+      8,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃잎을",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 7.56,
+         "end": 8.22,
+         "score": 0.1515
+        }
+       ],
+       "start": 7.56,
+       "end": 8.22
+      },
+      {
+       "text": "잎",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "잎",
+         "roman": "ip",
+         "start": 8.22,
+         "end": 9.76,
+         "score": 0.4669
+        }
+       ],
+       "start": 8.22,
+       "end": 9.76
+      },
+      {
+       "text": "을",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "을",
+         "roman": "eul",
+         "start": 9.76,
+         "end": 10.04,
+         "score": 0.1158
+        }
+       ],
+       "start": 9.76,
+       "end": 10.04
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "보네",
+     "span": [
+      12,
+      14
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "보네",
+     "syllables": [
+      {
+       "text": "보",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "보",
+         "roman": "bo",
+         "start": 10.92,
+         "end": 11.14,
+         "score": 0.22
+        }
+       ],
+       "start": 10.92,
+       "end": 11.14
+      },
+      {
+       "text": "네",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "네",
+         "roman": "ne",
+         "start": 11.72,
+         "end": 11.92,
+         "score": 0.1733
+        }
+       ],
+       "start": 11.72,
+       "end": 11.92
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 1.5,
+   "end": 11.92,
+   "confidence": 0.2472,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 1,
+   "text": "고운 빛은 어디에서 났을까",
+   "raw": "고운 빛은 어디에서 났을까",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "고운",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "고운",
+     "syllables": [
+      {
+       "text": "고",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "고",
+         "roman": "go",
+         "start": 14.74,
+         "end": 14.92,
+         "score": 0.3088
+        }
+       ],
+       "start": 14.74,
+       "end": 14.92
+      },
+      {
+       "text": "운",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "운",
+         "roman": "un",
+         "start": 15.32,
+         "end": 15.68,
+         "score": 0.1544
+        }
+       ],
+       "start": 15.32,
+       "end": 15.68
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "빛은",
+     "span": [
+      3,
+      5
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "빛은",
+     "syllables": [
+      {
+       "text": "빛",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "빛",
+         "roman": "bic",
+         "start": 15.68,
+         "end": 17.08,
+         "score": 0.2977
+        }
+       ],
+       "start": 15.68,
+       "end": 17.08
+      },
+      {
+       "text": "은",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 17.24,
+         "end": 17.64,
+         "score": 0.1974
+        }
+       ],
+       "start": 17.24,
+       "end": 17.64
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "어디에서",
+     "span": [
+      6,
+      10
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "어디에서",
+     "syllables": [
+      {
+       "text": "어",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "어",
+         "roman": "eo",
+         "start": 17.64,
+         "end": 17.98,
+         "score": 0.3238
+        }
+       ],
+       "start": 17.64,
+       "end": 17.98
+      },
+      {
+       "text": "디",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "디",
+         "roman": "di",
+         "start": 18.16,
+         "end": 18.3,
+         "score": 0.346
+        }
+       ],
+       "start": 18.16,
+       "end": 18.3
+      },
+      {
+       "text": "에",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 18.7,
+         "end": 18.72,
+         "score": 0.5323
+        }
+       ],
+       "start": 18.7,
+       "end": 18.72
+      },
+      {
+       "text": "서",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "서",
+         "roman": "seo",
+         "start": 19.02,
+         "end": 19.2,
+         "score": 0.437
+        }
+       ],
+       "start": 19.02,
+       "end": 19.2
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "났을까",
+     "span": [
+      11,
+      14
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "났을까",
+     "syllables": [
+      {
+       "text": "났",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "났",
+         "roman": "nass",
+         "start": 19.2,
+         "end": 20.5,
+         "score": 0.3178
+        }
+       ],
+       "start": 19.2,
+       "end": 20.5
+      },
+      {
+       "text": "을",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "을",
+         "roman": "eul",
+         "start": 20.5,
+         "end": 20.74,
+         "score": 0.066
+        }
+       ],
+       "start": 20.5,
+       "end": 20.74
+      },
+      {
+       "text": "까",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "까",
+         "roman": "gga",
+         "start": 20.74,
+         "end": 21.48,
+         "score": 0.1347
+        }
+       ],
+       "start": 20.74,
+       "end": 21.48
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 14.74,
+   "end": 21.48,
+   "confidence": 0.2833,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 2,
+   "text": "아름다운 꽃이여, 꽃이여",
+   "raw": "아름다운 꽃이여, 꽃이여",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "아름다운",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "아름다운",
+     "syllables": [
+      {
+       "text": "아",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 23.34,
+         "end": 23.42,
+         "score": 0.6607
+        }
+       ],
+       "start": 23.34,
+       "end": 23.42
+      },
+      {
+       "text": "름",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "름",
+         "roman": "reum",
+         "start": 23.84,
+         "end": 24.2,
+         "score": 0.0853
+        }
+       ],
+       "start": 23.84,
+       "end": 24.2
+      },
+      {
+       "text": "다",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 24.2,
+         "end": 24.36,
+         "score": 0.3857
+        }
+       ],
+       "start": 24.2,
+       "end": 24.36
+      },
+      {
+       "text": "운",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "운",
+         "roman": "un",
+         "start": 24.78,
+         "end": 24.98,
+         "score": 0.1102
+        }
+       ],
+       "start": 24.78,
+       "end": 24.98
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "꽃이여",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃이여",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 24.98,
+         "end": 26.0,
+         "score": 0.1795
+        }
+       ],
+       "start": 24.98,
+       "end": 26.0
+      },
+      {
+       "text": "이",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 26.24,
+         "end": 26.34,
+         "score": 0.3184
+        }
+       ],
+       "start": 26.24,
+       "end": 26.34
+      },
+      {
+       "text": "여",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "여",
+         "roman": "yeo",
+         "start": 27.14,
+         "end": 27.72,
+         "score": 0.2045
+        }
+       ],
+       "start": 27.14,
+       "end": 27.72
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "꽃이여",
+     "span": [
+      10,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃이여",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 28.5,
+         "end": 29.96,
+         "score": 0.1676
+        }
+       ],
+       "start": 28.5,
+       "end": 29.96
+      },
+      {
+       "text": "이",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 30.18,
+         "end": 30.54,
+         "score": 0.6465
+        }
+       ],
+       "start": 30.18,
+       "end": 30.54
+      },
+      {
+       "text": "여",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "여",
+         "roman": "yeo",
+         "start": 30.54,
+         "end": 31.8,
+         "score": 0.0728
+        }
+       ],
+       "start": 30.54,
+       "end": 31.8
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 23.34,
+   "end": 31.8,
+   "confidence": 0.2831,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 3,
+   "text": "이렇게 좋은 날에",
+   "raw": "이렇게 좋은 날에",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "이렇게",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이렇게",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 36.78,
+         "end": 36.8,
+         "score": 0.2553
+        }
+       ],
+       "start": 36.78,
+       "end": 36.8
+      },
+      {
+       "text": "렇",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "렇",
+         "roman": "reoh",
+         "start": 37.3,
+         "end": 38.42,
+         "score": 0.2477
+        }
+       ],
+       "start": 37.3,
+       "end": 38.42
+      },
+      {
+       "text": "게",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "게",
+         "roman": "ge",
+         "start": 38.42,
+         "end": 38.64,
+         "score": 0.2806
+        }
+       ],
+       "start": 38.42,
+       "end": 38.64
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "좋은",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "좋은",
+     "syllables": [
+      {
+       "text": "좋",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "좋",
+         "roman": "joh",
+         "start": 38.88,
+         "end": 39.26,
+         "score": 0.1716
+        }
+       ],
+       "start": 38.88,
+       "end": 39.26
+      },
+      {
+       "text": "은",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 39.26,
+         "end": 39.96,
+         "score": 0.0559
+        }
+       ],
+       "start": 39.26,
+       "end": 39.96
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "날에",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "날에",
+     "syllables": [
+      {
+       "text": "날",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "날",
+         "roman": "nal",
+         "start": 40.3,
+         "end": 41.56,
+         "score": 0.1179
+        }
+       ],
+       "start": 40.3,
+       "end": 41.56
+      },
+      {
+       "text": "에",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 41.74,
+         "end": 41.76,
+         "score": 0.3098
+        }
+       ],
+       "start": 41.74,
+       "end": 41.76
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 36.78,
+   "end": 41.76,
+   "confidence": 0.2055,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 4,
+   "text": "이렇게 좋은 날에",
+   "raw": "이렇게 좋은 날에",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "이렇게",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이렇게",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 44.18,
+         "end": 44.34,
+         "score": 0.4997
+        }
+       ],
+       "start": 44.18,
+       "end": 44.34
+      },
+      {
+       "text": "렇",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "렇",
+         "roman": "reoh",
+         "start": 44.34,
+         "end": 45.66,
+         "score": 0.2286
+        }
+       ],
+       "start": 44.34,
+       "end": 45.66
+      },
+      {
+       "text": "게",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "게",
+         "roman": "ge",
+         "start": 45.66,
+         "end": 45.88,
+         "score": 0.2883
+        }
+       ],
+       "start": 45.66,
+       "end": 45.88
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "좋은",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "좋은",
+     "syllables": [
+      {
+       "text": "좋",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "좋",
+         "roman": "joh",
+         "start": 46.08,
+         "end": 46.72,
+         "score": 0.1841
+        }
+       ],
+       "start": 46.08,
+       "end": 46.72
+      },
+      {
+       "text": "은",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 46.72,
+         "end": 47.14,
+         "score": 0.1039
+        }
+       ],
+       "start": 46.72,
+       "end": 47.14
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "날에",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "날에",
+     "syllables": [
+      {
+       "text": "날",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "날",
+         "roman": "nal",
+         "start": 47.14,
+         "end": 47.72,
+         "score": 0.2539
+        }
+       ],
+       "start": 47.14,
+       "end": 47.72
+      },
+      {
+       "text": "에",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 47.9,
+         "end": 47.92,
+         "score": 0.4773
+        }
+       ],
+       "start": 47.9,
+       "end": 47.92
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 44.18,
+   "end": 47.92,
+   "confidence": 0.2908,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 5,
+   "text": "그 님이 오신다면 얼마나 좋을까",
+   "raw": "그 님이 오신다면 얼마나 좋을까",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "그",
+     "span": [
+      0,
+      1
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "그",
+     "syllables": [
+      {
+       "text": "그",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "그",
+         "roman": "geu",
+         "start": 51.04,
+         "end": 51.56,
+         "score": 0.053
+        }
+       ],
+       "start": 51.04,
+       "end": 51.56
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "님이",
+     "span": [
+      2,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "님이",
+     "syllables": [
+      {
+       "text": "님",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "님",
+         "roman": "nim",
+         "start": 52.14,
+         "end": 52.7,
+         "score": 0.4754
+        }
+       ],
+       "start": 52.14,
+       "end": 52.7
+      },
+      {
+       "text": "이",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 52.7,
+         "end": 52.8,
+         "score": 0.0005
+        }
+       ],
+       "start": 52.7,
+       "end": 52.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오신다면",
+     "span": [
+      5,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오신다면",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 52.8,
+         "end": 52.82,
+         "score": 0.4749
+        }
+       ],
+       "start": 52.8,
+       "end": 52.82
+      },
+      {
+       "text": "신",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "신",
+         "roman": "sin",
+         "start": 53.02,
+         "end": 53.86,
+         "score": 0.2629
+        }
+       ],
+       "start": 53.02,
+       "end": 53.86
+      },
+      {
+       "text": "다",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 53.86,
+         "end": 54.04,
+         "score": 0.2196
+        }
+       ],
+       "start": 53.86,
+       "end": 54.04
+      },
+      {
+       "text": "면",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "면",
+         "roman": "myeon",
+         "start": 54.38,
+         "end": 56.66,
+         "score": 0.1131
+        }
+       ],
+       "start": 54.38,
+       "end": 56.66
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "얼마나",
+     "span": [
+      10,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "얼마나",
+     "syllables": [
+      {
+       "text": "얼",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "얼",
+         "roman": "eol",
+         "start": 56.66,
+         "end": 56.9,
+         "score": 0.0353
+        }
+       ],
+       "start": 56.66,
+       "end": 56.9
+      },
+      {
+       "text": "마",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "마",
+         "roman": "ma",
+         "start": 57.26,
+         "end": 57.48,
+         "score": 0.3518
+        }
+       ],
+       "start": 57.26,
+       "end": 57.48
+      },
+      {
+       "text": "나",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 58.5,
+         "end": 58.62,
+         "score": 0.3976
+        }
+       ],
+       "start": 58.5,
+       "end": 58.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "좋을까",
+     "span": [
+      14,
+      17
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "좋을까",
+     "syllables": [
+      {
+       "text": "좋",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "좋",
+         "roman": "joh",
+         "start": 58.94,
+         "end": 59.0,
+         "score": 0.1297
+        }
+       ],
+       "start": 58.94,
+       "end": 59.0
+      },
+      {
+       "text": "을",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "을",
+         "roman": "eul",
+         "start": 59.0,
+         "end": 59.18,
+         "score": 0.0932
+        }
+       ],
+       "start": 59.0,
+       "end": 59.18
+      },
+      {
+       "text": "까",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "까",
+         "roman": "gga",
+         "start": 59.18,
+         "end": 59.3,
+         "score": 0.0695
+        }
+       ],
+       "start": 59.18,
+       "end": 59.3
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 51.04,
+   "end": 59.3,
+   "confidence": 0.2059,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 6,
+   "text": "꽃밭에 앉아서 꽃잎을 보네",
+   "raw": "꽃밭에 앉아서 꽃잎을 보네",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "꽃밭에",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃밭에",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 68.96,
+         "end": 69.06,
+         "score": 0.0039
+        }
+       ],
+       "start": 68.96,
+       "end": 69.06
+      },
+      {
+       "text": "밭",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "밭",
+         "roman": "bat",
+         "start": 69.06,
+         "end": 69.8,
+         "score": 0.1382
+        }
+       ],
+       "start": 69.06,
+       "end": 69.8
+      },
+      {
+       "text": "에",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 69.8,
+         "end": 69.82,
+         "score": 0.2479
+        }
+       ],
+       "start": 69.8,
+       "end": 69.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "앉아서",
+     "span": [
+      4,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "앉아서",
+     "syllables": [
+      {
+       "text": "앉",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "앉",
+         "roman": "anj",
+         "start": 70.26,
+         "end": 70.7,
+         "score": 0.1527
+        }
+       ],
+       "start": 70.26,
+       "end": 70.7
+      },
+      {
+       "text": "아",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 70.7,
+         "end": 70.72,
+         "score": 0.2643
+        }
+       ],
+       "start": 70.7,
+       "end": 70.72
+      },
+      {
+       "text": "서",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "서",
+         "roman": "seo",
+         "start": 71.04,
+         "end": 71.26,
+         "score": 0.211
+        }
+       ],
+       "start": 71.04,
+       "end": 71.26
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "꽃잎을",
+     "span": [
+      8,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃잎을",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 72.48,
+         "end": 74.36,
+         "score": 0.0659
+        }
+       ],
+       "start": 72.48,
+       "end": 74.36
+      },
+      {
+       "text": "잎",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "잎",
+         "roman": "ip",
+         "start": 74.36,
+         "end": 75.84,
+         "score": 0.2952
+        }
+       ],
+       "start": 74.36,
+       "end": 75.84
+      },
+      {
+       "text": "을",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "을",
+         "roman": "eul",
+         "start": 75.84,
+         "end": 76.56,
+         "score": 0.1578
+        }
+       ],
+       "start": 75.84,
+       "end": 76.56
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "보네",
+     "span": [
+      12,
+      14
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "보네",
+     "syllables": [
+      {
+       "text": "보",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "보",
+         "roman": "bo",
+         "start": 77.48,
+         "end": 77.54,
+         "score": 0.0451
+        }
+       ],
+       "start": 77.48,
+       "end": 77.54
+      },
+      {
+       "text": "네",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "네",
+         "roman": "ne",
+         "start": 77.8,
+         "end": 78.02,
+         "score": 0.2093
+        }
+       ],
+       "start": 77.8,
+       "end": 78.02
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 68.96,
+   "end": 78.02,
+   "confidence": 0.1628,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 7,
+   "text": "고운 빛은 어디에서 났을까",
+   "raw": "고운 빛은 어디에서 났을까",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "고운",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "고운",
+     "syllables": [
+      {
+       "text": "고",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "고",
+         "roman": "go",
+         "start": 80.5,
+         "end": 80.66,
+         "score": 0.1297
+        }
+       ],
+       "start": 80.5,
+       "end": 80.66
+      },
+      {
+       "text": "운",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "운",
+         "roman": "un",
+         "start": 80.96,
+         "end": 81.32,
+         "score": 0.2083
+        }
+       ],
+       "start": 80.96,
+       "end": 81.32
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "빛은",
+     "span": [
+      3,
+      5
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "빛은",
+     "syllables": [
+      {
+       "text": "빛",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "빛",
+         "roman": "bic",
+         "start": 81.8,
+         "end": 82.72,
+         "score": 0.1666
+        }
+       ],
+       "start": 81.8,
+       "end": 82.72
+      },
+      {
+       "text": "은",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 82.72,
+         "end": 83.36,
+         "score": 0.0682
+        }
+       ],
+       "start": 82.72,
+       "end": 83.36
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "어디에서",
+     "span": [
+      6,
+      10
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "어디에서",
+     "syllables": [
+      {
+       "text": "어",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "어",
+         "roman": "eo",
+         "start": 83.36,
+         "end": 83.46,
+         "score": 0.1332
+        }
+       ],
+       "start": 83.36,
+       "end": 83.46
+      },
+      {
+       "text": "디",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "디",
+         "roman": "di",
+         "start": 83.74,
+         "end": 83.96,
+         "score": 0.2798
+        }
+       ],
+       "start": 83.74,
+       "end": 83.96
+      },
+      {
+       "text": "에",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 84.2,
+         "end": 84.22,
+         "score": 0.5315
+        }
+       ],
+       "start": 84.2,
+       "end": 84.22
+      },
+      {
+       "text": "서",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "서",
+         "roman": "seo",
+         "start": 84.48,
+         "end": 84.68,
+         "score": 0.31
+        }
+       ],
+       "start": 84.48,
+       "end": 84.68
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "났을까",
+     "span": [
+      11,
+      14
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "났을까",
+     "syllables": [
+      {
+       "text": "났",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "났",
+         "roman": "nass",
+         "start": 84.84,
+         "end": 85.76,
+         "score": 0.3227
+        }
+       ],
+       "start": 84.84,
+       "end": 85.76
+      },
+      {
+       "text": "을",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "을",
+         "roman": "eul",
+         "start": 85.92,
+         "end": 86.4,
+         "score": 0.0344
+        }
+       ],
+       "start": 85.92,
+       "end": 86.4
+      },
+      {
+       "text": "까",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "까",
+         "roman": "gga",
+         "start": 86.4,
+         "end": 86.72,
+         "score": 0.1919
+        }
+       ],
+       "start": 86.4,
+       "end": 86.72
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 80.5,
+   "end": 86.72,
+   "confidence": 0.216,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 8,
+   "text": "아름다운 꽃송이",
+   "raw": "아름다운 꽃송이",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "아름다운",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "아름다운",
+     "syllables": [
+      {
+       "text": "아",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 88.5,
+         "end": 88.52,
+         "score": 0.4306
+        }
+       ],
+       "start": 88.5,
+       "end": 88.52
+      },
+      {
+       "text": "름",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "름",
+         "roman": "reum",
+         "start": 88.74,
+         "end": 89.08,
+         "score": 0.237
+        }
+       ],
+       "start": 88.74,
+       "end": 89.08
+      },
+      {
+       "text": "다",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 89.08,
+         "end": 89.2,
+         "score": 0.1485
+        }
+       ],
+       "start": 89.08,
+       "end": 89.2
+      },
+      {
+       "text": "운",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "운",
+         "roman": "un",
+         "start": 89.56,
+         "end": 89.8,
+         "score": 0.1087
+        }
+       ],
+       "start": 89.56,
+       "end": 89.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "꽃송이",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃송이",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 89.8,
+         "end": 90.8,
+         "score": 0.0874
+        }
+       ],
+       "start": 89.8,
+       "end": 90.8
+      },
+      {
+       "text": "송",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "송",
+         "roman": "song",
+         "start": 90.8,
+         "end": 91.8,
+         "score": 0.3707
+        }
+       ],
+       "start": 90.8,
+       "end": 91.8
+      },
+      {
+       "text": "이",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 91.8,
+         "end": 91.84,
+         "score": 0.763
+        }
+       ],
+       "start": 91.8,
+       "end": 91.84
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 88.5,
+   "end": 91.84,
+   "confidence": 0.3066,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 9,
+   "text": "이렇게 좋은 날에",
+   "raw": "이렇게 좋은 날에",
+   "stanza": 2,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "이렇게",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이렇게",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 132.86,
+         "end": 133.66,
+         "score": 0.0448
+        }
+       ],
+       "start": 132.86,
+       "end": 133.66
+      },
+      {
+       "text": "렇",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "렇",
+         "roman": "reoh",
+         "start": 133.66,
+         "end": 134.16,
+         "score": 0.1653
+        }
+       ],
+       "start": 133.66,
+       "end": 134.16
+      },
+      {
+       "text": "게",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "게",
+         "roman": "ge",
+         "start": 134.16,
+         "end": 134.3,
+         "score": 0.2344
+        }
+       ],
+       "start": 134.16,
+       "end": 134.3
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "좋은",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "좋은",
+     "syllables": [
+      {
+       "text": "좋",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "좋",
+         "roman": "joh",
+         "start": 134.62,
+         "end": 134.92,
+         "score": 0.172
+        }
+       ],
+       "start": 134.62,
+       "end": 134.92
+      },
+      {
+       "text": "은",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 134.92,
+         "end": 135.86,
+         "score": 0.027
+        }
+       ],
+       "start": 134.92,
+       "end": 135.86
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "날에",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "날에",
+     "syllables": [
+      {
+       "text": "날",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "날",
+         "roman": "nal",
+         "start": 135.86,
+         "end": 136.32,
+         "score": 0.2098
+        }
+       ],
+       "start": 135.86,
+       "end": 136.32
+      },
+      {
+       "text": "에",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 136.32,
+         "end": 136.34,
+         "score": 0.0732
+        }
+       ],
+       "start": 136.32,
+       "end": 136.34
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 132.86,
+   "end": 136.34,
+   "confidence": 0.1323,
+   "needs_review": true,
+   "flags": [
+    "low_confidence"
+   ]
+  },
+  {
+   "idx": 10,
+   "text": "이렇게 좋은 날에",
+   "raw": "이렇게 좋은 날에",
+   "stanza": 2,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "이렇게",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이렇게",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 139.36,
+         "end": 139.38,
+         "score": 0.3907
+        }
+       ],
+       "start": 139.36,
+       "end": 139.38
+      },
+      {
+       "text": "렇",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "렇",
+         "roman": "reoh",
+         "start": 139.72,
+         "end": 140.88,
+         "score": 0.2331
+        }
+       ],
+       "start": 139.72,
+       "end": 140.88
+      },
+      {
+       "text": "게",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "게",
+         "roman": "ge",
+         "start": 141.24,
+         "end": 141.36,
+         "score": 0.1763
+        }
+       ],
+       "start": 141.24,
+       "end": 141.36
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "좋은",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "좋은",
+     "syllables": [
+      {
+       "text": "좋",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "좋",
+         "roman": "joh",
+         "start": 141.7,
+         "end": 142.16,
+         "score": 0.0701
+        }
+       ],
+       "start": 141.7,
+       "end": 142.16
+      },
+      {
+       "text": "은",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 142.32,
+         "end": 143.12,
+         "score": 0.2075
+        }
+       ],
+       "start": 142.32,
+       "end": 143.12
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "날에",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "날에",
+     "syllables": [
+      {
+       "text": "날",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "날",
+         "roman": "nal",
+         "start": 143.12,
+         "end": 143.72,
+         "score": 0.2653
+        }
+       ],
+       "start": 143.12,
+       "end": 143.72
+      },
+      {
+       "text": "에",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 143.72,
+         "end": 145.24,
+         "score": 0.0404
+        }
+       ],
+       "start": 143.72,
+       "end": 145.24
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 139.36,
+   "end": 145.24,
+   "confidence": 0.1976,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 11,
+   "text": "그 님이 오신다면 얼마나 좋을까",
+   "raw": "그 님이 오신다면 얼마나 좋을까",
+   "stanza": 2,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "그",
+     "span": [
+      0,
+      1
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "그",
+     "syllables": [
+      {
+       "text": "그",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "그",
+         "roman": "geu",
+         "start": 147.78,
+         "end": 148.86,
+         "score": 0.107
+        }
+       ],
+       "start": 147.78,
+       "end": 148.86
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "님이",
+     "span": [
+      2,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "님이",
+     "syllables": [
+      {
+       "text": "님",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "님",
+         "roman": "nim",
+         "start": 148.86,
+         "end": 149.16,
+         "score": 0.0922
+        }
+       ],
+       "start": 148.86,
+       "end": 149.16
+      },
+      {
+       "text": "이",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 149.36,
+         "end": 149.38,
+         "score": 0.267
+        }
+       ],
+       "start": 149.36,
+       "end": 149.38
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오신다면",
+     "span": [
+      5,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오신다면",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 149.94,
+         "end": 149.96,
+         "score": 0.1474
+        }
+       ],
+       "start": 149.94,
+       "end": 149.96
+      },
+      {
+       "text": "신",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "신",
+         "roman": "sin",
+         "start": 150.12,
+         "end": 151.04,
+         "score": 0.1469
+        }
+       ],
+       "start": 150.12,
+       "end": 151.04
+      },
+      {
+       "text": "다",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 151.04,
+         "end": 151.2,
+         "score": 0.4293
+        }
+       ],
+       "start": 151.04,
+       "end": 151.2
+      },
+      {
+       "text": "면",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "면",
+         "roman": "myeon",
+         "start": 151.56,
+         "end": 152.94,
+         "score": 0.1078
+        }
+       ],
+       "start": 151.56,
+       "end": 152.94
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "얼마나",
+     "span": [
+      10,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "얼마나",
+     "syllables": [
+      {
+       "text": "얼",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "얼",
+         "roman": "eol",
+         "start": 152.94,
+         "end": 153.24,
+         "score": 0.1745
+        }
+       ],
+       "start": 152.94,
+       "end": 153.24
+      },
+      {
+       "text": "마",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "마",
+         "roman": "ma",
+         "start": 153.24,
+         "end": 153.32,
+         "score": 0.0198
+        }
+       ],
+       "start": 153.24,
+       "end": 153.32
+      },
+      {
+       "text": "나",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 153.58,
+         "end": 153.82,
+         "score": 0.6134
+        }
+       ],
+       "start": 153.58,
+       "end": 153.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "좋을까",
+     "span": [
+      14,
+      17
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "좋을까",
+     "syllables": [
+      {
+       "text": "좋",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "좋",
+         "roman": "joh",
+         "start": 154.64,
+         "end": 155.18,
+         "score": 0.203
+        }
+       ],
+       "start": 154.64,
+       "end": 155.18
+      },
+      {
+       "text": "을",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "을",
+         "roman": "eul",
+         "start": 155.18,
+         "end": 155.38,
+         "score": 0.0196
+        }
+       ],
+       "start": 155.18,
+       "end": 155.38
+      },
+      {
+       "text": "까",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "까",
+         "roman": "gga",
+         "start": 155.38,
+         "end": 156.74,
+         "score": 0.0975
+        }
+       ],
+       "start": 155.38,
+       "end": 156.74
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 147.78,
+   "end": 156.74,
+   "confidence": 0.1866,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 12,
+   "text": "꽃밭에 앉아서 꽃잎을 보네",
+   "raw": "꽃밭에 앉아서 꽃잎을 보네",
+   "stanza": 3,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "꽃밭에",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃밭에",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 165.92,
+         "end": 167.16,
+         "score": 0.1238
+        }
+       ],
+       "start": 165.92,
+       "end": 167.16
+      },
+      {
+       "text": "밭",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "밭",
+         "roman": "bat",
+         "start": 167.16,
+         "end": 168.58,
+         "score": 0.4442
+        }
+       ],
+       "start": 167.16,
+       "end": 168.58
+      },
+      {
+       "text": "에",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 168.58,
+         "end": 168.6,
+         "score": 0.3884
+        }
+       ],
+       "start": 168.58,
+       "end": 168.6
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "앉아서",
+     "span": [
+      4,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "앉아서",
+     "syllables": [
+      {
+       "text": "앉",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "앉",
+         "roman": "anj",
+         "start": 169.18,
+         "end": 169.48,
+         "score": 0.3425
+        }
+       ],
+       "start": 169.18,
+       "end": 169.48
+      },
+      {
+       "text": "아",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 169.48,
+         "end": 169.5,
+         "score": 0.6199
+        }
+       ],
+       "start": 169.48,
+       "end": 169.5
+      },
+      {
+       "text": "서",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "서",
+         "roman": "seo",
+         "start": 169.8,
+         "end": 169.94,
+         "score": 0.1823
+        }
+       ],
+       "start": 169.8,
+       "end": 169.94
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "꽃잎을",
+     "span": [
+      8,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃잎을",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 172.12,
+         "end": 172.82,
+         "score": 0.0666
+        }
+       ],
+       "start": 172.12,
+       "end": 172.82
+      },
+      {
+       "text": "잎",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "잎",
+         "roman": "ip",
+         "start": 172.82,
+         "end": 174.26,
+         "score": 0.3263
+        }
+       ],
+       "start": 172.82,
+       "end": 174.26
+      },
+      {
+       "text": "을",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "을",
+         "roman": "eul",
+         "start": 174.26,
+         "end": 174.84,
+         "score": 0.1224
+        }
+       ],
+       "start": 174.26,
+       "end": 174.84
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "보네",
+     "span": [
+      12,
+      14
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "보네",
+     "syllables": [
+      {
+       "text": "보",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "보",
+         "roman": "bo",
+         "start": 175.02,
+         "end": 175.18,
+         "score": 0.2145
+        }
+       ],
+       "start": 175.02,
+       "end": 175.18
+      },
+      {
+       "text": "네",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "네",
+         "roman": "ne",
+         "start": 175.76,
+         "end": 175.84,
+         "score": 0.0937
+        }
+       ],
+       "start": 175.76,
+       "end": 175.84
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 165.92,
+   "end": 175.84,
+   "confidence": 0.2659,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 13,
+   "text": "고운 빛은 어디에서 났을까",
+   "raw": "고운 빛은 어디에서 났을까",
+   "stanza": 3,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "고운",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "고운",
+     "syllables": [
+      {
+       "text": "고",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "고",
+         "roman": "go",
+         "start": 180.32,
+         "end": 180.78,
+         "score": 0.2989
+        }
+       ],
+       "start": 180.32,
+       "end": 180.78
+      },
+      {
+       "text": "운",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "운",
+         "roman": "un",
+         "start": 181.28,
+         "end": 181.58,
+         "score": 0.3691
+        }
+       ],
+       "start": 181.28,
+       "end": 181.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "빛은",
+     "span": [
+      3,
+      5
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "빛은",
+     "syllables": [
+      {
+       "text": "빛",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "빛",
+         "roman": "bic",
+         "start": 181.58,
+         "end": 181.92,
+         "score": 0.4304
+        }
+       ],
+       "start": 181.58,
+       "end": 181.92
+      },
+      {
+       "text": "은",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 182.7,
+         "end": 183.48,
+         "score": 0.137
+        }
+       ],
+       "start": 182.7,
+       "end": 183.48
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "어디에서",
+     "span": [
+      6,
+      10
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "어디에서",
+     "syllables": [
+      {
+       "text": "어",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "어",
+         "roman": "eo",
+         "start": 183.74,
+         "end": 184.22,
+         "score": 0.5511
+        }
+       ],
+       "start": 183.74,
+       "end": 184.22
+      },
+      {
+       "text": "디",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "디",
+         "roman": "di",
+         "start": 184.72,
+         "end": 184.84,
+         "score": 0.3326
+        }
+       ],
+       "start": 184.72,
+       "end": 184.84
+      },
+      {
+       "text": "에",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 185.56,
+         "end": 185.8,
+         "score": 0.8369
+        }
+       ],
+       "start": 185.56,
+       "end": 185.8
+      },
+      {
+       "text": "서",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "서",
+         "roman": "seo",
+         "start": 185.8,
+         "end": 186.0,
+         "score": 0.4337
+        }
+       ],
+       "start": 185.8,
+       "end": 186.0
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "났을까",
+     "span": [
+      11,
+      14
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "났을까",
+     "syllables": [
+      {
+       "text": "났",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "났",
+         "roman": "nass",
+         "start": 187.36,
+         "end": 187.94,
+         "score": 0.6508
+        }
+       ],
+       "start": 187.36,
+       "end": 187.94
+      },
+      {
+       "text": "을",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "을",
+         "roman": "eul",
+         "start": 187.94,
+         "end": 188.14,
+         "score": 0.0872
+        }
+       ],
+       "start": 187.94,
+       "end": 188.14
+      },
+      {
+       "text": "까",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "까",
+         "roman": "gga",
+         "start": 188.14,
+         "end": 188.54,
+         "score": 0.2836
+        }
+       ],
+       "start": 188.14,
+       "end": 188.54
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 180.32,
+   "end": 188.54,
+   "confidence": 0.401,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 14,
+   "text": "아름다운 꽃송이",
+   "raw": "아름다운 꽃송이",
+   "stanza": 3,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "아름다운",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "아름다운",
+     "syllables": [
+      {
+       "text": "아",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 190.7,
+         "end": 190.72,
+         "score": 0.939
+        }
+       ],
+       "start": 190.7,
+       "end": 190.72
+      },
+      {
+       "text": "름",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "름",
+         "roman": "reum",
+         "start": 191.26,
+         "end": 191.72,
+         "score": 0.3574
+        }
+       ],
+       "start": 191.26,
+       "end": 191.72
+      },
+      {
+       "text": "다",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 191.72,
+         "end": 191.92,
+         "score": 0.37
+        }
+       ],
+       "start": 191.72,
+       "end": 191.92
+      },
+      {
+       "text": "운",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "운",
+         "roman": "un",
+         "start": 192.38,
+         "end": 192.58,
+         "score": 0.5665
+        }
+       ],
+       "start": 192.38,
+       "end": 192.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "꽃송이",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "꽃송이",
+     "syllables": [
+      {
+       "text": "꽃",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "꽃",
+         "roman": "ggoc",
+         "start": 192.58,
+         "end": 193.84,
+         "score": 0.1032
+        }
+       ],
+       "start": 192.58,
+       "end": 193.84
+      },
+      {
+       "text": "송",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "송",
+         "roman": "song",
+         "start": 193.84,
+         "end": 195.14,
+         "score": 0.345
+        }
+       ],
+       "start": 193.84,
+       "end": 195.14
+      },
+      {
+       "text": "이",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 195.3,
+         "end": 195.32,
+         "score": 0.5606
+        }
+       ],
+       "start": 195.3,
+       "end": 195.32
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 190.7,
+   "end": 195.32,
+   "confidence": 0.4631,
+   "needs_review": false,
+   "flags": []
+  }
+ ]
+}

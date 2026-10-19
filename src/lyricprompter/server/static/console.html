@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1b1e23">
+<title>Prompter console</title>
+<link rel="stylesheet" href="/static/console.css">
+</head>
+<body>
+<header class="bar">
+  <h1>lyricprompter</h1>
+  <p id="notice" role="status" aria-live="polite"></p>
+  <span id="conn" class="pill" data-status="offline"><i></i><b>Disconnected</b></span>
+  <a class="btn ghost" href="/prompter" target="_blank" rel="noopener">Open prompter</a>
+</header>
+
+<main class="desk">
+  <!-- ============================================================ library -->
+  <aside id="library" aria-label="Song library">
+    <div class="head">
+      <h2>Songs</h2>
+      <button id="b-add" class="btn" type="button" aria-expanded="false" aria-controls="f-add">Add song</button>
+    </div>
+
+    <form id="f-add" hidden>
+      <label>Recording <input name="audio" type="file" accept="audio/*,video/*,.wav,.flac,.mp3,.m4a,.aac,.ogg" required></label>
+      <label>Title <input name="title" required autocomplete="off"></label>
+      <label>Artist <input name="artist" autocomplete="off"></label>
+      <label>Language
+        <select name="language">
+          <option value="auto">Detect per line</option>
+          <option value="ko">Korean</option>
+          <option value="ja">Japanese</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <label title="How the live tracker follows this song (can be changed later in Session). Classical: follows the singer syllable by syllable through tempo changes and waits for the next line. Pop &amp; band: keeps the band's steady tempo and moves on through lines it cannot hear (crowd sing-alongs, ad-libs).">Tracking style
+        <select name="style">
+          <option value="classic">Classical — flexible tempo</option>
+          <option value="pop">Pop &amp; band — steady tempo</option>
+        </select>
+      </label>
+      <label>Lyrics
+        <textarea name="lyrics" rows="10" required
+          placeholder="Paste the full lyrics. A blank line separates verses, [Chorus] names a section, and x2 at the end of a line repeats it (in English, put a space before x2). Write furigana as 漢字(かんじ)."></textarea>
+      </label>
+      <label class="check"><input name="lead" type="checkbox"> Also separate the lead vocal (slower, better for vocal mode with backing singers)</label>
+      <label>Timing refinement
+        <select name="refine">
+          <option value="auto">Refine uncertain lines (if the Qwen model is already downloaded)</option>
+          <option value="none">Fast, no refinement</option>
+          <option value="qwen">Refine uncertain lines (download the model if needed, about 1.8 GB)</option>
+        </select>
+      </label>
+      <div class="row">
+        <button class="btn primary" type="submit">Prepare song</button>
+        <button class="btn ghost" type="button" id="b-add-cancel">Cancel</button>
+      </div>
+    </form>
+
+    <ul id="jobs" class="jobs"></ul>
+    <ul id="songs" class="songs"></ul>
+    <p id="songs-empty" class="empty" hidden>No songs yet. Add a recording and its lyrics to prepare the first one.</p>
+  </aside>
+
+  <!-- ============================================================ live -->
+  <section id="live" aria-label="Live session">
+    <div class="strip">
+      <div class="readout">
+        <span id="st" class="pill big" data-status="idle"><i></i><b>No session</b></span>
+        <dl>
+          <div><dt>Song time</dt><dd id="r-ref">–</dd></div>
+          <div><dt>Live time</dt><dd id="r-live">–</dd></div>
+          <div><dt>Tempo</dt><dd id="r-tempo">–</dd></div>
+          <div class="wide"><dt>Confidence</dt><dd><span class="meter"><span id="m-conf"></span></span></dd></div>
+          <div class="wide"><dt>Input <span id="r-level"></span></dt><dd><span class="meter level"><span id="m-level"></span><i id="m-peak"></i></span></dd></div>
+        </dl>
+      </div>
+      <p id="live-line" class="live-line" lang="und"></p>
+      <p id="live-next" class="live-next"></p>
+      <p id="live-warn" class="warn" hidden></p>
+    </div>
+
+    <form id="f-session" class="controls" autocomplete="off">
+      <fieldset>
+        <legend>Listen to</legend>
+        <label class="radio"><input type="radio" name="mode" value="mix" checked> Full band mix</label>
+        <label class="radio"><input type="radio" name="mode" value="vocal"> Vocal mic only</label>
+        <label class="check" id="lead-opt"><input type="checkbox" name="lead"> Use lead vocal stem</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Input</legend>
+        <label class="radio"><input type="radio" name="kind" value="device" checked> Audio interface</label>
+        <label class="radio"><input type="radio" name="kind" value="file"> Recording (rehearsal)</label>
+        <div data-kind="device">
+          <label>Device <select name="device"></select></label>
+          <div class="chans" id="chans" aria-label="Channels"></div>
+          <button class="btn ghost small" type="button" id="b-rescan">Rescan devices</button>
+        </div>
+        <div data-kind="file" hidden>
+          <label>Play
+            <select name="file_src">
+              <option value="stem:mix">This song's mix</option>
+              <option value="stem:vocals">This song's vocals</option>
+              <option value="path">Another file…</option>
+            </select>
+          </label>
+          <label data-path hidden>File path <input name="path" placeholder="data/stems/edelweiss_short/mix.wav"></label>
+          <label class="check"><input type="checkbox" name="monitor"> Play through speakers</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Session</legend>
+        <label title="Saved with the selected song and applied to its live session at once. Classical: follows the singer syllable by syllable through tempo changes and waits for the next line. Pop &amp; band: keeps the band's steady tempo and moves on through lines it cannot hear (crowd sing-alongs, ad-libs).">Style
+          <select name="style" disabled>
+            <option value="classic">Classical — flexible tempo</option>
+            <option value="pop">Pop &amp; band — steady tempo</option>
+          </select>
+        </label>
+        <label>Start at <select name="start_line"><option value="">Beginning</option></select></label>
+        <div class="row">
+          <button class="btn primary" type="submit" id="b-start">Start</button>
+          <button class="btn" type="button" id="b-stop">Stop</button>
+          <button class="btn" type="button" id="b-hold" title="H">Hold</button>
+        </div>
+        <div class="row">
+          <button class="btn" type="button" data-nudge="-0.5" title="[">−0.5 s</button>
+          <button class="btn" type="button" data-nudge="0.5" title="]">+0.5 s</button>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Adjust</legend>
+        <div class="stepper">
+          <span>Key</span>
+          <button class="btn small" type="button" data-transpose="-1" aria-label="Down a semitone">−</button>
+          <output id="o-transpose">0</output>
+          <button class="btn small" type="button" data-transpose="1" aria-label="Up a semitone">+</button>
+          <button class="btn small on" type="button" id="b-autokey" aria-pressed="true"
+                  title="Detect the performance key automatically during the first seconds">Auto</button>
+          <button class="btn small" type="button" id="b-keysuggest" hidden
+                  title="Detection leans to this key but is not sure — click to use it"></button>
+        </div>
+        <p class="hint">Semitones the singer is above the prepared recording (+2: a whole tone higher).
+          <b>Auto</b> detects it in the first ~6–10 s (reliable with accompaniment; with a lone voice it may only
+          suggest a key). Setting the key by hand turns Auto off.</p>
+        <label>Latency (ms) <input name="latency" type="number" step="10" min="-500" max="1000" value="0"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Prompter</legend>
+        <label>Layout
+          <select name="layout">
+            <option value="line">Line by line</option>
+            <option value="page">Multiple lines</option>
+          </select>
+        </label>
+        <label title="Multiple lines: the most lines on one screen. A blank line in the lyrics starts a new screen; a longer verse is split evenly.">Max lines
+          <input name="page_lines" type="number" min="1" max="8" step="1" value="4" disabled></label>
+        <label>Lead time (s) <input name="lead_time" type="number" step="0.1" min="0" max="10" value="1"></label>
+        <label>Text size <input name="font_scale" type="range" min="0.5" max="2" step="0.05" value="1"></label>
+        <label>Upcoming lines <input name="preview_lines" type="number" min="0" max="2" step="1" value="2"></label>
+        <label class="check" title="The amber wipe that follows each syllable on the line being sung"><input type="checkbox" name="wipe" checked> Syllable highlight</label>
+        <label class="check"><input type="checkbox" name="mirror"> Mirror</label>
+      </fieldset>
+    </form>
+  </section>
+
+  <!-- ============================================================ lines -->
+  <section id="lines" aria-label="Lines">
+    <div class="head">
+      <h2 id="lines-title">Lines</h2>
+      <div class="tools">
+        <button class="btn ghost small" type="button" id="b-cue" disabled>Show on prompter</button>
+        <button class="btn ghost small" type="button" id="b-undo" title="Undo the last timing edit of this song (⌘Z / Ctrl+Z)">Undo</button>
+        <button class="btn ghost small" type="button" id="b-tap" aria-pressed="false"
+                title="Tap mode: while the recording plays, press T as each line starts. Click a line number to choose the line to tap.">Tap</button>
+        <label class="check small"><input type="checkbox" id="follow" checked> Follow live line</label>
+        <label class="check small"><input type="checkbox" id="only-review"> Only lines to review</label>
+      </div>
+    </div>
+    <audio id="player" controls preload="none"></audio>
+    <div class="table-wrap">
+      <table id="t-lines">
+        <thead>
+          <tr><th class="c-jump">Go</th><th class="c-idx">#</th><th class="c-start">Start</th><th class="c-conf">Fit</th><th>Lyrics</th><th class="c-edit">Timing</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p id="lines-empty" class="empty">Pick a song to review its timing and jump between lines.</p>
+    </div>
+  </section>
+</main>
+<script type="module" src="/static/console.js"></script>
+</body>
+</html>

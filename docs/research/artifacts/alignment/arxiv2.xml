@@ -1,0 +1,994 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/xJIRDE4eOp9w0dGDHrk3K82erK4</id>
+  <title>arXiv Query: search_query=all:"lyrics transcription" OR all:"lyric transcription" OR all:"singing voice alignment" OR all:"lyrics synchronization"&amp;id_list=&amp;start=0&amp;max_results=40</title>
+  <updated>2026-10-12T05:57:11Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22lyrics+transcription%22+OR+(all:%22lyric+transcription%22+OR+(all:%22singing+voice+alignment%22+OR+all:%22lyrics+synchronization%22))&amp;start=0&amp;max_results=40&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>40</opensearch:itemsPerPage>
+  <opensearch:totalResults>37</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2609.11302v1</id>
+    <title>Automatic Lyric Transcription for Greek Songs: Scaling and Task Composition Effects in Whisper Adaptation</title>
+    <updated>2026-09-10T09:30:59Z</updated>
+    <link href="https://arxiv.org/abs/2609.11302v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2609.11302v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic Lyric Transcription (ALT) remains substantially more challenging than speech recognition due to melodic variability, rhythmic irregularity, and accompaniment interference. This is heightened in low-resource languages like Greek, where no prior benchmark for ALT exists. We present the first controlled study of Whisper adaptation for Greek ALT, investigating model scaling effects, task composition via multitask training in transcribe-translate ratios, and two-stage speech-to-singing adaptation. We also curate a segment-level aligned singing dataset based on the Greek Audio Dataset (GAD) using source separation and CTC forced alignment. Results show that scaling consistently improves performance, while multitask learning acts as a beneficial regularizer primarily for smaller-capacity models. The 2-stage adaptation in Whisper Large-v3 achieves a Word Error Rate (WER) of 27.2%, a significant improvement over zero-shot baselines, establishing the first Greek ALT benchmark.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-09-10T09:30:59Z</published>
+    <arxiv:comment>Accepted at Interspeech 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Maria Frangiadaki</name>
+    </author>
+    <author>
+      <name>Dimitrios Damianos</name>
+    </author>
+    <author>
+      <name>Kosmas Kritsis</name>
+    </author>
+    <author>
+      <name>Vassilis Katsouros</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.13457v1</id>
+    <title>Live Gurbani Tracking: A Benchmark and Reference System for Captioning Sikh Kirtan</title>
+    <updated>2026-07-15T05:33:44Z</updated>
+    <link href="https://arxiv.org/abs/2607.13457v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.13457v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present a benchmark and reference system for live captioning of Sikh Kirtan - the continuous, sung recitation of verses from the Sri Guru Granth Sahib Ji (SGGS). Unlike open-vocabulary lyrics transcription, Kirtan captioning is a closed-vocabulary problem: every displayed line must be an exact, word-for-word line from the canonical scripture, because displaying misspelled Gurmukhi is considered religiously inappropriate. We formalize the task as predicting, at every time t, a pair (shabad_id, line_idx) or null, and organize the problem space into a 2x2 matrix along two orthogonal axes: live vs. offline (causal vs. full-audio access) and blind vs. oracle (shabad identity discovered vs. given). We release v1 of the benchmark - 4 hand-annotated Kirtan recordings x 3 cold-start offsets = 12 evaluation cases, ~57 minutes of scored audio - together with a scorer that computes frame accuracy at 1s resolution over a scored region, with a 1s collar and gap-tolerant scoring at segment boundaries. We describe a reference system (fine-tuned 120M IndicConformer -&gt; fuzzy matcher -&gt; state machine; INT8 ONNX; RTF ~0.05 on one Apple Silicon core) that achieves 57.9% overall frame accuracy across all 12 cases (10/12 correct shabad locks) on the hardest variant (live x blind). We compare against three trivial baselines (empty, shifted-5s, perfect) and discuss why standard ASR metrics (WER/CER) measure transcription accuracy rather than the display accuracy this task requires. The benchmark, reference system, and a live deployment are released under permissive licenses to facilitate further improvements.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-15T05:33:44Z</published>
+    <arxiv:comment>11 pages, 3 figures, 6 tables. Benchmark, scorer, and reference system released. Live deployment and on-device iOS app available; see paper for links</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Karanbir Singh</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.26451v1</id>
+    <title>Listening Like a Judge: A Music-Aware Framework for Automatic Singing Performance Evaluation</title>
+    <updated>2026-06-24T23:24:31Z</updated>
+    <link href="https://arxiv.org/abs/2606.26451v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.26451v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic singing quality assessment (SQA) requires evaluating lyrical correctness and musical fidelity while handling expressive variations. However, existing systems largely rely on either acoustic cues or lyric transcriptions exclusively, limiting holistic performance evaluation. Furthermore, their integration is non-trivial due to challenges in robust singing transcription amid melisma, vibrato, and tempo elasticity. To this end, we propose MusicJudge, a modality-guided framework for automated SQA that performs block-aligned multimodal analysis by coupling lyric correctness with pitch-rhythm fidelity. It detects semantically meaningful lyric blocks using multi-signal matching that integrates semantic embeddings, lexical similarity, and phonetic alignment. To improve singing audio transcription, we introduce Modality-Guided LoRA for ASR fine-tuning. Experiments across datasets demonstrate strong agreement with human expert judgments and validate the generalizability of MusicJudge.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-24T23:24:31Z</published>
+    <arxiv:comment>Accepted at Interspeech 2026. Supplementary material: https://neelam472.github.io/MusicJudge/Supp.pdf (backup mirror: https://sourav-ghosh.github.io/MusicJudge/Supp.pdf )</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <arxiv:journal_ref>Proc. Interspeech 2026, 133-137</arxiv:journal_ref>
+    <author>
+      <name>Neelam Saini</name>
+    </author>
+    <author>
+      <name>Sourav Ghosh</name>
+    </author>
+    <arxiv:doi>10.21437/Interspeech.2026-912</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.21437/Interspeech.2026-912" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2602.04085v1</id>
+    <title>BASS: Benchmarking Audio LMs for Musical Structure and Semantic Reasoning</title>
+    <updated>2026-02-03T23:40:31Z</updated>
+    <link href="https://arxiv.org/abs/2602.04085v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.04085v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Music understanding is a complex task that often requires reasoning over both structural and semantic elements of audio. We introduce BASS, designed to evaluate music understanding and reasoning in audio language models across four broad categories: structural segmentation, lyric transcription, musicological analysis, and artist collaboration. BASS comprises 2658 questions spanning 12 tasks, 1993 unique songs and covering over 138 hours of music from a wide range of genres and tracks, crafted to assess musicological knowledge and reasoning in real-world scenarios. We evaluate 14 open-source and frontier multimodal LMs, finding that even state-of-the-art models struggle on higher-level reasoning tasks such as structural segmentation and artist collaboration, while performing best on lyric transcription. Our analysis reveals that current models leverage linguistic priors effectively but remain limited in reasoning over musical structure, vocal, and musicological attributes. BASS provides an evaluation framework with widespread applications in music recommendation and search and has the potential to guide the development of audio LMs.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-03T23:40:31Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Min Jang</name>
+    </author>
+    <author>
+      <name>Orevaoghene Ahia</name>
+    </author>
+    <author>
+      <name>Nazif Tamer</name>
+    </author>
+    <author>
+      <name>Sachin Kumar</name>
+    </author>
+    <author>
+      <name>Yulia Tsvetkov</name>
+    </author>
+    <author>
+      <name>Noah A. Smith</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.22295v2</id>
+    <title>VietLyrics: A Large-Scale Dataset and Models for Vietnamese Automatic Lyrics Transcription</title>
+    <updated>2025-12-20T13:08:30Z</updated>
+    <link href="https://arxiv.org/abs/2510.22295v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.22295v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic Lyrics Transcription (ALT) for Vietnamese music presents unique challenges due to its tonal complexity and dialectal variations, but remains largely unexplored due to the lack of a dedicated dataset. Therefore, we curated the first large-scale Vietnamese ALT dataset (VietLyrics), comprising 647 hours of songs with line-level aligned lyrics and metadata to address these issues. Our evaluation of current ASRbased approaches reveal significant limitations, including frequent transcription errors and hallucinations in non-vocal segments. To improve performance, we fine-tuned Whisper models on the VietLyrics dataset, achieving superior results compared to existing multilingual ALT systems, including LyricWhiz. We publicly release VietLyrics and our models, aiming to advance Vietnamese music computing research while demonstrating the potential of this approach for ALT in low-resource language and music.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-25T13:38:20Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Quoc Anh Nguyen</name>
+    </author>
+    <author>
+      <name>Bernard Cheng</name>
+    </author>
+    <author>
+      <name>Kelvin Soh</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.17404v1</id>
+    <title>SongPrep: A Preprocessing Framework and End-to-end Model for Full-song Structure Parsing and Lyrics Transcription</title>
+    <updated>2025-09-22T07:01:41Z</updated>
+    <link href="https://arxiv.org/abs/2509.17404v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.17404v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Artificial Intelligence Generated Content (AIGC) is currently a popular research area. Among its various branches, song generation has attracted growing interest. Despite the abundance of available songs, effective data preparation remains a significant challenge. Converting these songs into training-ready datasets typically requires extensive manual labeling, which is both time consuming and costly. To address this issue, we propose SongPrep, an automated preprocessing pipeline designed specifically for song data. This framework streamlines key processes such as source separation, structure analysis, and lyric recognition, producing structured data that can be directly used to train song generation models. Furthermore, we introduce SongPrepE2E, an end-to-end structured lyrics recognition model based on pretrained language models. Without the need for additional source separation, SongPrepE2E is able to analyze the structure and lyrics of entire songs and provide precise timestamps. By leveraging context from the whole song alongside pretrained semantic knowledge, SongPrepE2E achieves low Diarization Error Rate (DER) and Word Error Rate (WER) on the proposed SSLD-200 dataset. Downstream tasks demonstrate that training song generation models with the data output by SongPrepE2E enables the generated songs to closely resemble those produced by humans.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-22T07:01:41Z</published>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Wei Tan</name>
+    </author>
+    <author>
+      <name>Shun Lei</name>
+    </author>
+    <author>
+      <name>Huaicheng Zhang</name>
+    </author>
+    <author>
+      <name>Guangzheng Li</name>
+    </author>
+    <author>
+      <name>Yixuan Zhang</name>
+    </author>
+    <author>
+      <name>Hangting Chen</name>
+    </author>
+    <author>
+      <name>Jianwei Yu</name>
+    </author>
+    <author>
+      <name>Rongzhi Gu</name>
+    </author>
+    <author>
+      <name>Dong Yu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.00006v1</id>
+    <title>Unpacking Musical Symbolism in Online Communities: Content-Based and Network-Centric Approaches</title>
+    <updated>2025-09-13T02:15:02Z</updated>
+    <link href="https://arxiv.org/abs/2510.00006v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.00006v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper examines how musical symbolism is produced and circulated in online communities by combining content-based music analysis with a lightweight network perspective on lyrics. Using a curated corpus of 275 chart-topping songs enriched with audio descriptors (energy, danceability, loudness, liveness, valence, acousticness, speechiness, popularity) and full lyric transcripts, we build a reproducible pipeline that (i) quantifies temporal trends in sonic attributes, (ii) models lexical salience and co-occurrence, and (iii) profiles mood by genre. We find a decade-long decline in energy (79 -&gt; 58) alongside a rise in danceability (59 -&gt; 73); valence peaks in 2013 (63) and dips in 2014-2016 (42) before partially recovering. Correlation analysis shows strong coupling of energy with loudness (r = 0.74) and negative associations for acousticness with both energy (r = -0.54) and loudness (r = -0.51); danceability is largely orthogonal to other features (|r| &lt; 0.20). Lyric tokenization (&gt;114k tokens) reveals a pronoun-centric lexicon "I/you/me/my" and a dense co-occurrence structure in which interpersonal address anchors mainstream narratives. Mood differs systematically by style: R&amp;B exhibits the highest mean valence (96), followed by K-Pop/Pop (77) and Indie/Pop (70), whereas Latin/Reggaeton is lower (37) despite high danceability. Read through a subcultural identity lens, these patterns suggest the mainstreaming of previously peripheral codes and a commercial preference for relaxed yet rhythmically engaging productions that sustain collective participation without maximal intensity. Methodologically, we contribute an integrated MIR-plus-network workflow spanning summary statistics, correlation structure, lexical co-occurrence matrices, and genre-wise mood profiling that is robust to modality sparsity and suitable for socially aware recommendation or community-level diffusion studies.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CY" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-13T02:15:02Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Kajwan Ziaoddini</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.00733v4</id>
+    <title>AudioGen-Omni: A Unified Multimodal Diffusion Transformer for Video-Synchronized Audio, Speech, and Song Generation</title>
+    <updated>2025-08-07T04:31:04Z</updated>
+    <link href="https://arxiv.org/abs/2508.00733v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.00733v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present AudioGen-Omni - a unified approach based on multimodal diffusion transformers (MMDit), capable of generating high-fidelity audio, speech, and song coherently synchronized with the input video. AudioGen-Omni introduces a novel joint training paradigm that seamlessly integrates large-scale video-text-audio corpora, enabling a model capable of generating semantically rich, acoustically diverse audio conditioned on multimodal inputs and adaptable to a wide range of audio generation tasks. AudioGen-Omni employs a unified lyrics-transcription encoder that encodes graphemes and phonemes from both song and spoken inputs into dense frame-level representations. Dense frame-level representations are fused using an AdaLN-based joint attention mechanism enhanced with phase-aligned anisotropic positional infusion (PAAPI), wherein RoPE is selectively applied to temporally structured modalities to ensure precise and robust cross-modal alignment. By unfreezing all modalities and masking missing inputs, AudioGen-Omni mitigates the semantic constraints of text-frozen paradigms, enabling effective cross-modal conditioning. This joint training approach enhances audio quality, semantic alignment, and lip-sync accuracy, while also achieving state-of-the-art results on Text-to-Audio/Speech/Song tasks. With an inference time of 1.91 seconds for 8 seconds of audio, it offers substantial improvements in both efficiency and generality.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-01T16:03:57Z</published>
+    <arxiv:comment>12 pages, 2 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Le Wang</name>
+    </author>
+    <author>
+      <name>Jun Wang</name>
+    </author>
+    <author>
+      <name>Chunyu Qiang</name>
+    </author>
+    <author>
+      <name>Feng Deng</name>
+    </author>
+    <author>
+      <name>Chen Zhang</name>
+    </author>
+    <author>
+      <name>Di Zhang</name>
+    </author>
+    <author>
+      <name>Kun Gai</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.18488v2</id>
+    <title>AI-Generated Song Detection via Lyrics Transcripts</title>
+    <updated>2025-06-28T05:44:41Z</updated>
+    <link href="https://arxiv.org/abs/2506.18488v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.18488v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The recent rise in capabilities of AI-based music generation tools has created an upheaval in the music industry, necessitating the creation of accurate methods to detect such AI-generated content. This can be done using audio-based detectors; however, it has been shown that they struggle to generalize to unseen generators or when the audio is perturbed. Furthermore, recent work used accurate and cleanly formatted lyrics sourced from a lyrics provider database to detect AI-generated music. However, in practice, such perfect lyrics are not available (only the audio is); this leaves a substantial gap in applicability in real-life use cases. In this work, we instead propose solving this gap by transcribing songs using general automatic speech recognition (ASR) models. We do this using several detectors. The results on diverse, multi-genre, and multi-lingual lyrics show generally strong detection performance across languages and genres, particularly for our best-performing model using Whisper large-v2 and LLM2Vec embeddings. In addition, we show that our method is more robust than state-of-the-art audio-based ones when the audio is perturbed in different ways and when evaluated on different music generators. Our code is available at https://github.com/deezer/robust-AI-lyrics-detection.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-23T10:42:50Z</published>
+    <arxiv:comment>Accepted to ISMIR 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Markus Frohmann</name>
+    </author>
+    <author>
+      <name>Elena V. Epure</name>
+    </author>
+    <author>
+      <name>Gabriel Meseguer-Brocal</name>
+    </author>
+    <author>
+      <name>Markus Schedl</name>
+    </author>
+    <author>
+      <name>Romain Hennequin</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.15514v1</id>
+    <title>Exploiting Music Source Separation for Automatic Lyrics Transcription with Whisper</title>
+    <updated>2025-06-18T14:48:50Z</updated>
+    <link href="https://arxiv.org/abs/2506.15514v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.15514v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic lyrics transcription (ALT) remains a challenging task in the field of music information retrieval, despite great advances in automatic speech recognition (ASR) brought about by transformer-based architectures in recent years. One of the major challenges in ALT is the high amplitude of interfering audio signals relative to conventional ASR due to musical accompaniment. Recent advances in music source separation have enabled automatic extraction of high-quality separated vocals, which could potentially improve ALT performance. However, the effect of source separation has not been systematically investigated in order to establish best practices for its use. This work examines the impact of source separation on ALT using Whisper, a state-of-the-art open source ASR model. We evaluate Whisper's performance on original audio, separated vocals, and vocal stems across short-form and long-form transcription tasks. For short-form, we suggest a concatenation method that results in a consistent reduction in Word Error Rate (WER). For long-form, we propose an algorithm using source separation as a vocal activity detector to derive segment boundaries, which results in a consistent reduction in WER relative to Whisper's native long-form algorithm. Our approach achieves state-of-the-art results for an open source system on the Jam-ALT long-form ALT benchmark, without any training or fine-tuning. We also publish MUSDB-ALT, the first dataset of long-form lyric transcripts following the Jam-ALT guidelines for which vocal stems are publicly available.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-18T14:48:50Z</published>
+    <arxiv:comment>Accepted at 2025 ICME Workshop AI for Music</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Jaza Syed</name>
+    </author>
+    <author>
+      <name>Ivan Meresman Higgs</name>
+    </author>
+    <author>
+      <name>Ondřej Cífka</name>
+    </author>
+    <author>
+      <name>Mark Sandler</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.12285v2</id>
+    <title>CMI-Bench: A Comprehensive Benchmark for Evaluating Music Instruction Following</title>
+    <updated>2025-06-27T22:42:09Z</updated>
+    <link href="https://arxiv.org/abs/2506.12285v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.12285v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent advances in audio-text large language models (LLMs) have opened new possibilities for music understanding and generation. However, existing benchmarks are limited in scope, often relying on simplified tasks or multi-choice evaluations that fail to reflect the complexity of real-world music analysis. We reinterpret a broad range of traditional MIR annotations as instruction-following formats and introduce CMI-Bench, a comprehensive music instruction following benchmark designed to evaluate audio-text LLMs on a diverse set of music information retrieval (MIR) tasks. These include genre classification, emotion regression, emotion tagging, instrument classification, pitch estimation, key detection, lyrics transcription, melody extraction, vocal technique recognition, instrument performance technique detection, music tagging, music captioning, and (down)beat tracking: reflecting core challenges in MIR research. Unlike previous benchmarks, CMI-Bench adopts standardized evaluation metrics consistent with previous state-of-the-art MIR models, ensuring direct comparability with supervised approaches. We provide an evaluation toolkit supporting all open-source audio-textual LLMs, including LTU, Qwen-audio, SALMONN, MusiLingo, etc. Experiment results reveal significant performance gaps between LLMs and supervised models, along with their culture, chronological and gender bias, highlighting the potential and limitations of current models in addressing MIR tasks. CMI-Bench establishes a unified foundation for evaluating music instruction following, driving progress in music-aware LLMs.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-14T00:18:44Z</published>
+    <arxiv:comment>Accepted by ISMIR 2025</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Yinghao Ma</name>
+    </author>
+    <author>
+      <name>Siyou Li</name>
+    </author>
+    <author>
+      <name>Juntao Yu</name>
+    </author>
+    <author>
+      <name>Emmanouil Benetos</name>
+    </author>
+    <author>
+      <name>Akira Maezawa</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.02339v1</id>
+    <title>Enhancing Lyrics Transcription on Music Mixtures with Consistency Loss</title>
+    <updated>2025-06-03T00:29:49Z</updated>
+    <link href="https://arxiv.org/abs/2506.02339v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.02339v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic Lyrics Transcription (ALT) aims to recognize lyrics from singing voices, similar to Automatic Speech Recognition (ASR) for spoken language, but faces added complexity due to domain-specific properties of the singing voice. While foundation ASR models show robustness in various speech tasks, their performance degrades on singing voice, especially in the presence of musical accompaniment. This work focuses on this performance gap and explores Low-Rank Adaptation (LoRA) for ALT, investigating both single-domain and dual-domain fine-tuning strategies. We propose using a consistency loss to better align vocal and mixture encoder representations, improving transcription on mixture without relying on singing voice separation. Our results show that while naïve dual-domain fine-tuning underperforms, structured training with consistency loss yields modest but consistent gains, demonstrating the potential of adapting ASR foundation models for music.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-03T00:29:49Z</published>
+    <arxiv:comment>submitted to Interspeech</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Jiawen Huang</name>
+    </author>
+    <author>
+      <name>Felipe Sousa</name>
+    </author>
+    <author>
+      <name>Emir Demirel</name>
+    </author>
+    <author>
+      <name>Emmanouil Benetos</name>
+    </author>
+    <author>
+      <name>Igor Gadelha</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.09325v1</id>
+    <title>SingNet: Towards a Large-Scale, Diverse, and In-the-Wild Singing Voice Dataset</title>
+    <updated>2025-05-14T12:24:05Z</updated>
+    <link href="https://arxiv.org/abs/2505.09325v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.09325v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The lack of a publicly-available large-scale and diverse dataset has long been a significant bottleneck for singing voice applications like Singing Voice Synthesis (SVS) and Singing Voice Conversion (SVC). To tackle this problem, we present SingNet, an extensive, diverse, and in-the-wild singing voice dataset. Specifically, we propose a data processing pipeline to extract ready-to-use training data from sample packs and songs on the internet, forming 3000 hours of singing voices in various languages and styles. Furthermore, to facilitate the use and demonstrate the effectiveness of SingNet, we pre-train and open-source various state-of-the-art (SOTA) models on Wav2vec2, BigVGAN, and NSF-HiFiGAN based on our collected singing voice data. We also conduct benchmark experiments on Automatic Lyric Transcription (ALT), Neural Vocoder, and Singing Voice Conversion (SVC). Audio demos are available at: https://singnet-dataset.github.io/.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-14T12:24:05Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Yicheng Gu</name>
+    </author>
+    <author>
+      <name>Chaoren Wang</name>
+    </author>
+    <author>
+      <name>Junan Zhang</name>
+    </author>
+    <author>
+      <name>Xueyao Zhang</name>
+    </author>
+    <author>
+      <name>Zihao Fang</name>
+    </author>
+    <author>
+      <name>Haorui He</name>
+    </author>
+    <author>
+      <name>Zhizheng Wu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2412.18784v1</id>
+    <title>Zema Dataset: A Comprehensive Study of Yaredawi Zema with a Focus on Horologium Chants</title>
+    <updated>2024-12-25T05:20:08Z</updated>
+    <link href="https://arxiv.org/abs/2412.18784v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2412.18784v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Computational music research plays a critical role in advancing music production, distribution, and understanding across various musical styles worldwide. Despite the immense cultural and religious significance, the Ethiopian Orthodox Tewahedo Church (EOTC) chants are relatively underrepresented in computational music research. This paper contributes to this field by introducing a new dataset specifically tailored for analyzing EOTC chants, also known as Yaredawi Zema. This work provides a comprehensive overview of a 10-hour dataset, 369 instances, creation, and curation process, including rigorous quality assurance measures. Our dataset has a detailed word-level temporal boundary and reading tone annotation along with the corresponding chanting mode label of audios. Moreover, we have also identified the chanting options associated with multiple chanting notations in the manuscript by annotating them accordingly. Our goal in making this dataset available to the public 1 is to encourage more research and study of EOTC chants, including lyrics transcription, lyric-to-audio alignment, and music generation tasks. Such research work will advance knowledge and efforts to preserve this distinctive liturgical music, a priceless cultural artifact for the Ethiopian people.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.IR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SP" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-12-25T05:20:08Z</published>
+    <arxiv:comment>6 pages</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <arxiv:journal_ref>2024 International Conference on Information and Communication Technology for Development for Africa (ICT4DA)</arxiv:journal_ref>
+    <author>
+      <name>Mequanent Argaw Muluneh</name>
+    </author>
+    <author>
+      <name>Yan-Tsung Peng</name>
+    </author>
+    <author>
+      <name>Worku Abebe Degife</name>
+    </author>
+    <author>
+      <name>Nigussie Abate Tadesse</name>
+    </author>
+    <author>
+      <name>Aknachew Mebreku Demeku</name>
+    </author>
+    <author>
+      <name>Li Su</name>
+    </author>
+    <arxiv:doi>10.1109/ICT4DA62874.2024.10777238</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/ICT4DA62874.2024.10777238" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2412.06703v1</id>
+    <title>Source Separation &amp; Automatic Transcription for Music</title>
+    <updated>2024-12-09T17:49:14Z</updated>
+    <link href="https://arxiv.org/abs/2412.06703v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2412.06703v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Source separation is the process of isolating individual sounds in an auditory mixture of multiple sounds [1], and has a variety of applications ranging from speech enhancement and lyric transcription [2] to digital audio production for music. Furthermore, Automatic Music Transcription (AMT) is the process of converting raw music audio into sheet music that musicians can read [3]. Historically, these tasks have faced challenges such as significant audio noise, long training times, and lack of free-use data due to copyright restrictions. However, recent developments in deep learning have brought new promising approaches to building low-distortion stems and generating sheet music from audio signals [4]. Using spectrogram masking, deep neural networks, and the MuseScore API, we attempt to create an end-to-end pipeline that allows for an initial music audio mixture (e.g...wav file) to be separated into instrument stems, converted into MIDI files, and transcribed into sheet music for each component instrument.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-12-09T17:49:14Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Bradford Derby</name>
+    </author>
+    <author>
+      <name>Lucas Dunker</name>
+    </author>
+    <author>
+      <name>Samarth Galchar</name>
+    </author>
+    <author>
+      <name>Shashank Jarmale</name>
+    </author>
+    <author>
+      <name>Akash Setti</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2412.04217v1</id>
+    <title>Aligned Music Notation and Lyrics Transcription</title>
+    <updated>2024-12-05T14:50:11Z</updated>
+    <link href="https://arxiv.org/abs/2412.04217v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2412.04217v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The digitization of vocal music scores presents unique challenges that go beyond traditional Optical Music Recognition (OMR) and Optical Character Recognition (OCR), as it necessitates preserving the critical alignment between music notation and lyrics. This alignment is essential for proper interpretation and processing in practical applications. This paper introduces and formalizes, for the first time, the Aligned Music Notation and Lyrics Transcription (AMNLT) challenge, which addresses the complete transcription of vocal scores by jointly considering music symbols, lyrics, and their synchronization. We analyze different approaches to address this challenge, ranging from traditional divide-and-conquer methods that handle music and lyrics separately, to novel end-to-end solutions including direct transcription, unfolding mechanisms, and language modeling. To evaluate these methods, we introduce four datasets of Gregorian chants, comprising both real and synthetic sources, along with custom metrics specifically designed to assess both transcription and alignment accuracy. Our experimental results demonstrate that end-to-end approaches generally outperform heuristic methods in the alignment challenge, with language models showing particular promise in scenarios where sufficient training data is available. This work establishes the first comprehensive framework for AMNLT, providing both theoretical foundations and practical solutions for preserving and digitizing vocal music heritage.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-12-05T14:50:11Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Eliseo Fuentes-Martínez</name>
+    </author>
+    <author>
+      <name>Antonio Ríos-Vila</name>
+    </author>
+    <author>
+      <name>Juan C. Martinez-Sevilla</name>
+    </author>
+    <author>
+      <name>David Rizo</name>
+    </author>
+    <author>
+      <name>Jorge Calvo-Zaragoza</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2409.12549v1</id>
+    <title>FruitsMusic: A Real-World Corpus of Japanese Idol-Group Songs</title>
+    <updated>2024-09-19T08:14:20Z</updated>
+    <link href="https://arxiv.org/abs/2409.12549v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.12549v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This study presents FruitsMusic, a metadata corpus of Japanese idol-group songs in the real world, precisely annotated with who sings what and when. Japanese idol-group songs, vital to Japanese pop culture, feature a unique vocal arrangement style, where songs are divided into several segments, and a specific individual or multiple singers are assigned to each segment. To enhance singer diarization methods for recognizing such structures, we constructed FruitsMusic as a resource using 40 music videos of Japanese idol groups from YouTube. The corpus includes detailed annotations, covering songs across various genres, division and assignment styles, and groups ranging from 4 to 9 members. FruitsMusic also facilitates the development of various music information retrieval techniques, such as lyrics transcription and singer identification, benefiting not only Japanese idol-group songs but also a wide range of songs featuring single or multiple singers from various cultures. This paper offers a comprehensive overview of FruitsMusic, including its creation methodology and unique characteristics compared to conversational speech. Additionally, this paper evaluates the efficacy of current methods for singer embedding extraction and diarization in challenging real-world conditions using FruitsMusic. Furthermore, this paper examines potential improvements in automatic diarization performance through evaluating human performance.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-09-19T08:14:20Z</published>
+    <arxiv:comment>Accepted at the 25th International Society for Music Information Retrieval (ISMIR) Conference 2024, San Francisco, United States</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Hitoshi Suda</name>
+    </author>
+    <author>
+      <name>Shunsuke Yoshida</name>
+    </author>
+    <author>
+      <name>Tomohiko Nakamura</name>
+    </author>
+    <author>
+      <name>Satoru Fukayama</name>
+    </author>
+    <author>
+      <name>Jun Ogata</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2408.06370v1</id>
+    <title>Lyrics Transcription for Humans: A Readability-Aware Benchmark</title>
+    <updated>2024-07-30T14:20:09Z</updated>
+    <link href="https://arxiv.org/abs/2408.06370v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2408.06370v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Writing down lyrics for human consumption involves not only accurately capturing word sequences, but also incorporating punctuation and formatting for clarity and to convey contextual information. This includes song structure, emotional emphasis, and contrast between lead and background vocals. While automatic lyrics transcription (ALT) systems have advanced beyond producing unstructured strings of words and are able to draw on wider context, ALT benchmarks have not kept pace and continue to focus exclusively on words. To address this gap, we introduce Jam-ALT, a comprehensive lyrics transcription benchmark. The benchmark features a complete revision of the JamendoLyrics dataset, in adherence to industry standards for lyrics transcription and formatting, along with evaluation metrics designed to capture and assess the lyric-specific nuances, laying the foundation for improving the readability of lyrics. We apply the benchmark to recent transcription systems and present additional error analysis, as well as an experimental comparison with a classical music dataset.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-07-30T14:20:09Z</published>
+    <arxiv:comment>ISMIR 2024 camera-ready. 6 pages + references + supplementary material. Website https://audioshake.github.io/jam-alt/ Data https://huggingface.co/datasets/audioshake/jam-alt Code https://github.com/audioshake/alt-eval/. arXiv admin note: text overlap with arXiv:2311.13987</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Ondřej Cífka</name>
+    </author>
+    <author>
+      <name>Hendrik Schreiber</name>
+    </author>
+    <author>
+      <name>Luke Miner</name>
+    </author>
+    <author>
+      <name>Fabian-Robert Stöter</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.17618v1</id>
+    <title>Towards Building an End-to-End Multilingual Automatic Lyrics Transcription Model</title>
+    <updated>2024-06-25T15:02:32Z</updated>
+    <link href="https://arxiv.org/abs/2406.17618v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2406.17618v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Multilingual automatic lyrics transcription (ALT) is a challenging task due to the limited availability of labelled data and the challenges introduced by singing, compared to multilingual automatic speech recognition. Although some multilingual singing datasets have been released recently, English continues to dominate these collections. Multilingual ALT remains underexplored due to the scale of data and annotation quality. In this paper, we aim to create a multilingual ALT system with available datasets. Inspired by architectures that have been proven effective for English ALT, we adapt these techniques to the multilingual scenario by expanding the target vocabulary set. We then evaluate the performance of the multilingual model in comparison to its monolingual counterparts. Additionally, we explore various conditioning methods to incorporate language information into the model. We apply analysis by language and combine it with the language classification performance. Our findings reveal that the multilingual model performs consistently better than the monolingual models trained on the language subsets. Furthermore, we demonstrate that incorporating language information significantly enhances performance.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-06-25T15:02:32Z</published>
+    <arxiv:comment>Accepted at EUSIPCO 2024</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Jiawen Huang</name>
+    </author>
+    <author>
+      <name>Emmanouil Benetos</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2403.09298v1</id>
+    <title>More than words: Advancements and challenges in speech recognition for singing</title>
+    <updated>2024-03-14T11:37:02Z</updated>
+    <link href="https://arxiv.org/abs/2403.09298v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2403.09298v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper addresses the challenges and advancements in speech recognition for singing, a domain distinctly different from standard speech recognition. Singing encompasses unique challenges, including extensive pitch variations, diverse vocal styles, and background music interference. We explore key areas such as phoneme recognition, language identification in songs, keyword spotting, and full lyrics transcription. I will describe some of my own experiences when performing research on these tasks just as they were starting to gain traction, but will also show how recent developments in deep learning and large-scale datasets have propelled progress in this field. My goal is to illuminate the complexities of applying speech recognition to singing, evaluate current capabilities, and outline future research directions.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.IR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-03-14T11:37:02Z</published>
+    <arxiv:comment>Conference on Electronic Speech Signal Processing (ESSV) 2024, Keynote</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Anna Kruspe</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2311.13987v1</id>
+    <title>Jam-ALT: A Formatting-Aware Lyrics Transcription Benchmark</title>
+    <updated>2023-11-23T13:13:48Z</updated>
+    <link href="https://arxiv.org/abs/2311.13987v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2311.13987v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Current automatic lyrics transcription (ALT) benchmarks focus exclusively on word content and ignore the finer nuances of written lyrics including formatting and punctuation, which leads to a potential misalignment with the creative products of musicians and songwriters as well as listeners' experiences. For example, line breaks are important in conveying information about rhythm, emotional emphasis, rhyme, and high-level structure. To address this issue, we introduce Jam-ALT, a new lyrics transcription benchmark based on the JamendoLyrics dataset. Our contribution is twofold. Firstly, a complete revision of the transcripts, geared specifically towards ALT evaluation by following a newly created annotation guide that unifies the music industry's guidelines, covering aspects such as punctuation, line breaks, spelling, background vocals, and non-word sounds. Secondly, a suite of evaluation metrics designed, unlike the traditional word error rate, to capture such phenomena. We hope that the proposed benchmark contributes to the ALT task, enabling more precise and reliable assessments of transcription systems and enhancing the user experience in lyrics applications such as subtitle renderings for live captioning or karaoke.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-11-23T13:13:48Z</published>
+    <arxiv:comment>6 pages (3 pages main content); website: https://audioshake.github.io/jam-alt/; data: https://huggingface.co/datasets/audioshake/jam-alt; code: https://github.com/audioshake/alt-eval/</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Ondřej Cífka</name>
+    </author>
+    <author>
+      <name>Constantinos Dimitriou</name>
+    </author>
+    <author>
+      <name>Cheng-i Wang</name>
+    </author>
+    <author>
+      <name>Hendrik Schreiber</name>
+    </author>
+    <author>
+      <name>Luke Miner</name>
+    </author>
+    <author>
+      <name>Fabian-Robert Stöter</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2311.12488v1</id>
+    <title>Adapting pretrained speech model for Mandarin lyrics transcription and alignment</title>
+    <updated>2023-11-21T09:59:18Z</updated>
+    <link href="https://arxiv.org/abs/2311.12488v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2311.12488v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The tasks of automatic lyrics transcription and lyrics alignment have witnessed significant performance improvements in the past few years. However, most of the previous works only focus on English in which large-scale datasets are available. In this paper, we address lyrics transcription and alignment of polyphonic Mandarin pop music in a low-resource setting. To deal with the data scarcity issue, we adapt pretrained Whisper model and fine-tune it on a monophonic Mandarin singing dataset. With the use of data augmentation and source separation model, results show that the proposed method achieves a character error rate of less than 18% on a Mandarin polyphonic dataset for lyrics transcription, and a mean absolute error of 0.071 seconds for lyrics alignment. Our results demonstrate the potential of adapting a pretrained speech model for lyrics transcription and alignment in low-resource scenarios.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-11-21T09:59:18Z</published>
+    <arxiv:comment>Accepted by ASRU 2023</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Jun-You Wang</name>
+    </author>
+    <author>
+      <name>Chon-In Leong</name>
+    </author>
+    <author>
+      <name>Yu-Chen Lin</name>
+    </author>
+    <author>
+      <name>Li Su</name>
+    </author>
+    <author>
+      <name>Jyh-Shing Roger Jang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2306.17103v4</id>
+    <title>LyricWhiz: Robust Multilingual Zero-shot Lyrics Transcription by Whispering to ChatGPT</title>
+    <updated>2024-07-25T06:15:20Z</updated>
+    <link href="https://arxiv.org/abs/2306.17103v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2306.17103v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We introduce LyricWhiz, a robust, multilingual, and zero-shot automatic lyrics transcription method achieving state-of-the-art performance on various lyrics transcription datasets, even in challenging genres such as rock and metal. Our novel, training-free approach utilizes Whisper, a weakly supervised robust speech recognition model, and GPT-4, today's most performant chat-based large language model. In the proposed method, Whisper functions as the "ear" by transcribing the audio, while GPT-4 serves as the "brain," acting as an annotator with a strong performance for contextualized output selection and correction. Our experiments show that LyricWhiz significantly reduces Word Error Rate compared to existing methods in English and can effectively transcribe lyrics across multiple languages. Furthermore, we use LyricWhiz to create the first publicly available, large-scale, multilingual lyrics transcription dataset with a CC-BY-NC-SA copyright license, based on MTG-Jamendo, and offer a human-annotated subset for noise level estimation and evaluation. We anticipate that our proposed method and dataset will advance the development of multilingual lyrics transcription, a challenging and emerging task.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-06-29T17:01:51Z</published>
+    <arxiv:comment>9 pages, 2 figures, 5 tables, accepted by ISMIR 2023</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Le Zhuo</name>
+    </author>
+    <author>
+      <name>Ruibin Yuan</name>
+    </author>
+    <author>
+      <name>Jiahao Pan</name>
+    </author>
+    <author>
+      <name>Yinghao Ma</name>
+    </author>
+    <author>
+      <name>Yizhi LI</name>
+    </author>
+    <author>
+      <name>Ge Zhang</name>
+    </author>
+    <author>
+      <name>Si Liu</name>
+    </author>
+    <author>
+      <name>Roger Dannenberg</name>
+    </author>
+    <author>
+      <name>Jie Fu</name>
+    </author>
+    <author>
+      <name>Chenghua Lin</name>
+    </author>
+    <author>
+      <name>Emmanouil Benetos</name>
+    </author>
+    <author>
+      <name>Wei Xue</name>
+    </author>
+    <author>
+      <name>Yike Guo</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2211.10152v2</id>
+    <title>Self-Transriber: Few-shot Lyrics Transcription with Self-training</title>
+    <updated>2023-03-02T09:12:56Z</updated>
+    <link href="https://arxiv.org/abs/2211.10152v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2211.10152v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The current lyrics transcription approaches heavily rely on supervised learning with labeled data, but such data are scarce and manual labeling of singing is expensive. How to benefit from unlabeled data and alleviate limited data problem have not been explored for lyrics transcription. We propose the first semi-supervised lyrics transcription paradigm, Self-Transcriber, by leveraging on unlabeled data using self-training with noisy student augmentation. We attempt to demonstrate the possibility of lyrics transcription with a few amount of labeled data. Self-Transcriber generates pseudo labels of the unlabeled singing using teacher model, and augments pseudo-labels to the labeled data for student model update with both self-training and supervised training losses. This work closes the gap between supervised and semi-supervised learning as well as opens doors for few-shot learning of lyrics transcription. Our experiments show that our approach using only 12.7 hours of labeled data achieves competitive performance compared with the supervised approaches trained on 149.1 hours of labeled data for lyrics transcription.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-11-18T10:58:27Z</published>
+    <arxiv:comment>Accepted by ICASSP 2023</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Xiaoxue Gao</name>
+    </author>
+    <author>
+      <name>Xianghu Yue</name>
+    </author>
+    <author>
+      <name>Haizhou Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2207.09747v2</id>
+    <title>Transfer Learning of wav2vec 2.0 for Automatic Lyric Transcription</title>
+    <updated>2022-10-16T06:01:09Z</updated>
+    <link href="https://arxiv.org/abs/2207.09747v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2207.09747v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic speech recognition (ASR) has progressed significantly in recent years due to the emergence of large-scale datasets and the self-supervised learning (SSL) paradigm. However, as its counterpart problem in the singing domain, the development of automatic lyric transcription (ALT) suffers from limited data and degraded intelligibility of sung lyrics. To fill in the performance gap between ALT and ASR, we attempt to exploit the similarities between speech and singing. In this work, we propose a transfer-learning-based ALT solution that takes advantage of these similarities by adapting wav2vec 2.0, an SSL ASR model, to the singing domain. We maximize the effectiveness of transfer learning by exploring the influence of different transfer starting points. We further enhance the performance by extending the original CTC model to a hybrid CTC/attention model. Our method surpasses previous approaches by a large margin on various ALT benchmark datasets. Further experiments show that, with even a tiny proportion of training data, our method still achieves competitive performance.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SP" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-07-20T08:45:18Z</published>
+    <arxiv:comment>Camera ready version of ISMIR 2022 submission</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Longshen Ou</name>
+    </author>
+    <author>
+      <name>Xiangming Gu</name>
+    </author>
+    <author>
+      <name>Ye Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2207.07336v4</id>
+    <title>PoLyScriber: Integrated Fine-tuning of Extractor and Lyrics Transcriber for Polyphonic Music</title>
+    <updated>2023-05-05T06:28:01Z</updated>
+    <link href="https://arxiv.org/abs/2207.07336v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2207.07336v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Lyrics transcription of polyphonic music is challenging as the background music affects lyrics intelligibility. Typically, lyrics transcription can be performed by a two-step pipeline, i.e. a singing vocal extraction front end, followed by a lyrics transcriber back end, where the front end and back end are trained separately. Such a two-step pipeline suffers from both imperfect vocal extraction and mismatch between front end and back end. In this work, we propose a novel end-to-end integrated fine-tuning framework, that we call PoLyScriber, to globally optimize the vocal extractor front end and lyrics transcriber back end for lyrics transcription in polyphonic music. The experimental results show that our proposed PoLyScriber achieves substantial improvements over the existing approaches on publicly available test datasets.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SP" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-07-15T08:24:23Z</published>
+    <arxiv:comment>TALSP</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Xiaoxue Gao</name>
+    </author>
+    <author>
+      <name>Chitralekha Gupta</name>
+    </author>
+    <author>
+      <name>Haizhou Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2207.06127v3</id>
+    <title>MM-ALT: A Multimodal Automatic Lyric Transcription System</title>
+    <updated>2023-02-17T12:21:02Z</updated>
+    <link href="https://arxiv.org/abs/2207.06127v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2207.06127v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic lyric transcription (ALT) is a nascent field of study attracting increasing interest from both the speech and music information retrieval communities, given its significant application potential. However, ALT with audio data alone is a notoriously difficult task due to instrumental accompaniment and musical constraints resulting in degradation of both the phonetic cues and the intelligibility of sung lyrics. To tackle this challenge, we propose the MultiModal Automatic Lyric Transcription system (MM-ALT), together with a new dataset, N20EM, which consists of audio recordings, videos of lip movements, and inertial measurement unit (IMU) data of an earbud worn by the performing singer. We first adapt the wav2vec 2.0 framework from automatic speech recognition (ASR) to the ALT task. We then propose a video-based ALT method and an IMU-based voice activity detection (VAD) method. In addition, we put forward the Residual Cross Attention (RCA) mechanism to fuse data from the three modalities (i.e., audio, video, and IMU). Experiments show the effectiveness of our proposed MM-ALT system, especially in terms of noise robustness. Project page is at https://n20em.github.io.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SP" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-07-13T11:23:34Z</published>
+    <arxiv:comment>Accepted by ACM Multimedia 2022. Camera ready version and appendix</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Xiangming Gu</name>
+    </author>
+    <author>
+      <name>Longshen Ou</name>
+    </author>
+    <author>
+      <name>Danielle Ong</name>
+    </author>
+    <author>
+      <name>Ye Wang</name>
+    </author>
+    <arxiv:doi>10.1145/3503161.3548411</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1145/3503161.3548411" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2204.03307v1</id>
+    <title>Genre-conditioned Acoustic Models for Automatic Lyrics Transcription of Polyphonic Music</title>
+    <updated>2022-04-07T09:15:46Z</updated>
+    <link href="https://arxiv.org/abs/2204.03307v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2204.03307v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Lyrics transcription of polyphonic music is challenging not only because the singing vocals are corrupted by the background music, but also because the background music and the singing style vary across music genres, such as pop, metal, and hip hop, which affects lyrics intelligibility of the song in different ways. In this work, we propose to transcribe the lyrics of polyphonic music using a novel genre-conditioned network. The proposed network adopts pre-trained model parameters, and incorporates the genre adapters between layers to capture different genre peculiarities for lyrics-genre pairs, thereby only requiring lightweight genre-specific parameters for training. Our experiments show that the proposed genre-conditioned network outperforms the existing lyrics transcription systems.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-04-07T09:15:46Z</published>
+    <arxiv:comment>5 pages, 1 figure, accepted by IEEE ICASSP 2022</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Xiaoxue Gao</name>
+    </author>
+    <author>
+      <name>Chitralekha Gupta</name>
+    </author>
+    <author>
+      <name>Haizhou Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2204.03306v2</id>
+    <title>Music-robust Automatic Lyrics Transcription of Polyphonic Music</title>
+    <updated>2022-04-22T12:06:57Z</updated>
+    <link href="https://arxiv.org/abs/2204.03306v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2204.03306v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Lyrics transcription of polyphonic music is challenging because singing vocals are corrupted by the background music. To improve the robustness of lyrics transcription to the background music, we propose a strategy of combining the features that emphasize the singing vocals, i.e. music-removed features that represent singing vocal extracted features, and the features that capture the singing vocals as well as the background music, i.e. music-present features. We show that these two sets of features complement each other, and their combination performs better than when they are used alone, thus improving the robustness of the acoustic model to the background music. Furthermore, language model interpolation between a general-purpose language model and an in-domain lyrics-specific language model provides further improvement in transcription results. Our experiments show that our proposed strategy outperforms the existing lyrics transcription systems for polyphonic music. Moreover, we find that our proposed music-robust features specially improve the lyrics transcription performance in metal genre of songs, where the background music is loud and dominant.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-04-07T09:14:58Z</published>
+    <arxiv:comment>7 pages, 2 figures, accepted by 2022 Sound and Music Computing</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Xiaoxue Gao</name>
+    </author>
+    <author>
+      <name>Chitralekha Gupta</name>
+    </author>
+    <author>
+      <name>Haizhou Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2109.07940v2</id>
+    <title>PDAugment: Data Augmentation by Pitch and Duration Adjustments for Automatic Lyrics Transcription</title>
+    <updated>2021-09-17T05:53:11Z</updated>
+    <link href="https://arxiv.org/abs/2109.07940v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2109.07940v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic lyrics transcription (ALT), which can be regarded as automatic speech recognition (ASR) on singing voice, is an interesting and practical topic in academia and industry. ALT has not been well developed mainly due to the dearth of paired singing voice and lyrics datasets for model training. Considering that there is a large amount of ASR training data, a straightforward method is to leverage ASR data to enhance ALT training. However, the improvement is marginal when training the ALT system directly with ASR data, because of the gap between the singing voice and standard speech data which is rooted in music-specific acoustic characteristics in singing voice. In this paper, we propose PDAugment, a data augmentation method that adjusts pitch and duration of speech at syllable level under the guidance of music scores to help ALT training. Specifically, we adjust the pitch and duration of each syllable in natural speech to those of the corresponding note extracted from music scores, so as to narrow the gap between natural speech and singing voice. Experiments on DSing30 and Dali corpus show that the ALT system equipped with our PDAugment outperforms previous state-of-the-art systems by 5.9% and 18.1% WERs respectively, demonstrating the effectiveness of PDAugment for ALT.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-09-16T12:48:25Z</published>
+    <arxiv:comment>7 pages</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Chen Zhang</name>
+    </author>
+    <author>
+      <name>Jiaxing Yu</name>
+    </author>
+    <author>
+      <name>LuChin Chang</name>
+    </author>
+    <author>
+      <name>Xu Tan</name>
+    </author>
+    <author>
+      <name>Jiawei Chen</name>
+    </author>
+    <author>
+      <name>Tao Qin</name>
+    </author>
+    <author>
+      <name>Kejun Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2108.02625v1</id>
+    <title>MSTRE-Net: Multistreaming Acoustic Modeling for Automatic Lyrics Transcription</title>
+    <updated>2021-08-05T13:59:11Z</updated>
+    <link href="https://arxiv.org/abs/2108.02625v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2108.02625v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper makes several contributions to automatic lyrics transcription (ALT) research. Our main contribution is a novel variant of the Multistreaming Time-Delay Neural Network (MTDNN) architecture, called MSTRE-Net, which processes the temporal information using multiple streams in parallel with varying resolutions keeping the network more compact, and thus with a faster inference and an improved recognition rate than having identical TDNN streams. In addition, two novel preprocessing steps prior to training the acoustic model are proposed. First, we suggest using recordings from both monophonic and polyphonic domains during training the acoustic model. Second, we tag monophonic and polyphonic recordings with distinct labels for discriminating non-vocal silence and music instances during alignment. Moreover, we present a new test set with a considerably larger size and a higher musical variability compared to the existing datasets used in ALT literature, while maintaining the gender balance of the singers. Our best performing model sets the state-of-the-art in lyrics transcription by a large margin. For reproducibility, we publicly share the identifiers to retrieve the data used in this paper.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.IR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-08-05T13:59:11Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Emir Demirel</name>
+    </author>
+    <author>
+      <name>Sven Ahlbäck</name>
+    </author>
+    <author>
+      <name>Simon Dixon</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2106.10977v1</id>
+    <title>Computational Pronunciation Analysis in Sung Utterances</title>
+    <updated>2021-06-21T10:53:47Z</updated>
+    <link href="https://arxiv.org/abs/2106.10977v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2106.10977v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent automatic lyrics transcription (ALT) approaches focus on building stronger acoustic models or in-domain language models, while the pronunciation aspect is seldom touched upon. This paper applies a novel computational analysis on the pronunciation variances in sung utterances and further proposes a new pronunciation model adapted for singing. The singing-adapted model is tested on multiple public datasets via word recognition experiments. It performs better than the standard speech dictionary in all settings reporting the best results on ALT in a capella recordings using n-gram language models. For reproducibility, we share the sentence-level annotations used in testing, providing a new benchmark evaluation set for ALT.</summary>
+    <category term="cs.IR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-06-21T10:53:47Z</published>
+    <arxiv:primary_category term="cs.IR"/>
+    <author>
+      <name>Emir Demirel</name>
+    </author>
+    <author>
+      <name>Sven Ahlback</name>
+    </author>
+    <author>
+      <name>Simon Dixon</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2102.09202v1</id>
+    <title>Low Resource Audio-to-Lyrics Alignment From Polyphonic Music Recordings</title>
+    <updated>2021-02-18T07:54:56Z</updated>
+    <link href="https://arxiv.org/abs/2102.09202v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2102.09202v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Lyrics alignment in long music recordings can be memory exhaustive when performed in a single pass. In this study, we present a novel method that performs audio-to-lyrics alignment with a low memory consumption footprint regardless of the duration of the music recording. The proposed system first spots the anchoring words within the audio signal. With respect to these anchors, the recording is then segmented and a second-pass alignment is performed to obtain the word timings. We show that our audio-to-lyrics alignment system performs competitively with the state-of-the-art, while requiring much less computational resources. In addition, we utilise our lyrics alignment system to segment the music recordings into sentence-level chunks. Notably on the segmented recordings, we report the lyrics transcription scores on a number of benchmark test sets. Finally, our experiments highlight the importance of the source separation step for good performance on the transcription and alignment tasks. For reproducibility, we publicly share our code with the research community.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-02-18T07:54:56Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Emir Demirel</name>
+    </author>
+    <author>
+      <name>Sven Ahlbäck</name>
+    </author>
+    <author>
+      <name>Simon Dixon</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2102.08575v1</id>
+    <title>End-to-end lyrics Recognition with Voice to Singing Style Transfer</title>
+    <updated>2021-02-17T04:52:52Z</updated>
+    <link href="https://arxiv.org/abs/2102.08575v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2102.08575v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Automatic transcription of monophonic/polyphonic music is a challenging task due to the lack of availability of large amounts of transcribed data. In this paper, we propose a data augmentation method that converts natural speech to singing voice based on vocoder based speech synthesizer. This approach, called voice to singing (V2S), performs the voice style conversion by modulating the F0 contour of the natural speech with that of a singing voice. The V2S model based style transfer can generate good quality singing voice thereby enabling the conversion of large corpora of natural speech to singing voice that is useful in building an E2E lyrics transcription system. In our experiments on monophonic singing voice data, the V2S style transfer provides a significant gain (relative improvements of 21%) for the E2E lyrics transcription system. We also discuss additional components like transfer learning and lyrics based language modeling to improve the performance of the lyrics transcription system.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-02-17T04:52:52Z</published>
+    <arxiv:comment>accepted at ICASSP 2021</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Sakya Basak</name>
+    </author>
+    <author>
+      <name>Shrutina Agarwal</name>
+    </author>
+    <author>
+      <name>Sriram Ganapathy</name>
+    </author>
+    <author>
+      <name>Naoya Takahashi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2007.06486v2</id>
+    <title>Automatic Lyrics Transcription using Dilated Convolutional Neural Networks with Self-Attention</title>
+    <updated>2020-07-24T15:26:48Z</updated>
+    <link href="https://arxiv.org/abs/2007.06486v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2007.06486v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Speech recognition is a well developed research field so that the current state of the art systems are being used in many applications in the software industry, yet as by today, there still does not exist such robust system for the recognition of words and sentences from singing voice. This paper proposes a complete pipeline for this task which may commonly be referred as automatic lyrics transcription (ALT). We have trained convolutional time-delay neural networks with self-attention on monophonic karaoke recordings using a sequence classification objective for building the acoustic model. The dataset used in this study, DAMP - Sing! 300x30x2 [1] is filtered to have songs with only English lyrics. Different language models are tested including MaxEnt and Recurrent Neural Networks based methods which are trained on the lyrics of pop songs in English. An in-depth analysis of the self-attention mechanism is held while tuning its context width and the number of attention heads. Using the best settings, our system achieves notable improvement to the state-of-the-art in ALT and provides a new baseline for the task.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-07-13T16:36:30Z</published>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Emir Demirel</name>
+    </author>
+    <author>
+      <name>Sven Ahlback</name>
+    </author>
+    <author>
+      <name>Simon Dixon</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1909.10200v2</id>
+    <title>Automatic Lyrics Alignment and Transcription in Polyphonic Music: Does Background Music Help?</title>
+    <updated>2019-10-22T07:21:56Z</updated>
+    <link href="https://arxiv.org/abs/1909.10200v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1909.10200v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Background music affects lyrics intelligibility of singing vocals in a music piece. Automatic lyrics alignment and transcription in polyphonic music are challenging tasks because the singing vocals are corrupted by the background music. In this work, we propose to learn music genre-specific characteristics to train polyphonic acoustic models. We first compare several automatic speech recognition pipelines for the application of lyrics transcription. We then present the lyrics alignment and transcription performance of music-informed acoustic models for the best-performing pipeline, and systematically study the impact of music genre and language model on the performance. With such genre-based approach, we explicitly model the music without removing it during acoustic modeling. The proposed approach outperforms all competing systems in the lyrics alignment and transcription tasks on several well-known polyphonic test datasets.</summary>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2019-09-23T07:57:07Z</published>
+    <arxiv:comment>Submitted to 45th International Conference on Acoustics, Speech, and Signal Processing (ICASSP 2020)</arxiv:comment>
+    <arxiv:primary_category term="eess.AS"/>
+    <author>
+      <name>Chitralekha Gupta</name>
+    </author>
+    <author>
+      <name>Emre Yılmaz</name>
+    </author>
+    <author>
+      <name>Haizhou Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1810.11520v2</id>
+    <title>Spectrogram-channels u-net: a source separation model viewing each channel as the spectrogram of each source</title>
+    <updated>2018-10-30T15:08:52Z</updated>
+    <link href="https://arxiv.org/abs/1810.11520v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1810.11520v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Sound source separation has attracted attention from Music Information Retrieval(MIR) researchers, since it is related to many MIR tasks such as automatic lyric transcription, singer identification, and voice conversion. In this paper, we propose an intuitive spectrogram-based model for source separation by adapting U-Net. We call it Spectrogram-Channels U-Net, which means each channel of the output corresponds to the spectrogram of separated source itself. The proposed model can be used for not only singing voice separation but also multi-instrument separation by changing only the number of output channels. In addition, we propose a loss function that balances volumes between different sources. Finally, we yield performance that is state-of-the-art on both separation tasks.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.AS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SP" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="stat.ML" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2018-10-26T20:23:17Z</published>
+    <arxiv:comment>3 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Jaehoon Oh</name>
+    </author>
+    <author>
+      <name>Duyeon Kim</name>
+    </author>
+    <author>
+      <name>Se-Young Yun</name>
+    </author>
+  </entry>
+</feed>

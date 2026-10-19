@@ -1,0 +1,9631 @@
+{
+ "schema": 1,
+ "meta": {
+  "id": "07-あのバンド",
+  "title": "07 あのバンド",
+  "artist": "결속밴드",
+  "default_lang": "ko",
+  "duration": 213.786667,
+  "tuning": 0.13,
+  "stems": {
+   "mix": "audio/mix.wav",
+   "vocals": "audio/vocals.wav",
+   "instrumental": "audio/instrumental.wav"
+  },
+  "prep": {
+   "created": "2026-10-13T04:43:19+00:00",
+   "version": "0.1.0",
+   "options": {
+    "default_lang": "ko",
+    "sep_model": "bs_roformer_vocals_resurrection_unwa.ckpt",
+    "lead": false,
+    "refine": "auto",
+    "vocals": null
+   },
+   "models": {
+    "separation": "bs_roformer_vocals_resurrection_unwa.ckpt",
+    "lead": null,
+    "align": "mms_fa+gate+qwen"
+   },
+   "languages": {
+    "ko": 125
+   },
+   "align_stem": "vocals",
+   "tuning_params": {
+    "sr": 16000,
+    "n_fft": 4096,
+    "hop_length": 1024,
+    "resolution": 0.01,
+    "bins_per_octave": 12
+   },
+   "packages": {
+    "lyricprompter": "0.1.0",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "librosa": "1.0.0",
+    "soundfile": "0.14.0",
+    "soxr": "1.1.0",
+    "torch": "2.14.1",
+    "torchaudio": "2.11.0",
+    "transformers": "5.19.0",
+    "audio-separator": "0.47.0",
+    "uroman": "1.3.1.1",
+    "pyopenjtalk-plus": "0.4.1.post9",
+    "cmudict": "1.1.3",
+    "pyphen": "0.18.1",
+    "ffmpeg": "8.1.1"
+   },
+   "timings": {
+    "convert": 0.162,
+    "parse": 0.966,
+    "separate": 62.632,
+    "align": 9.336,
+    "finalize": 0.401,
+    "total": 73.497
+   }
+  },
+  "style": "pop"
+ },
+ "lines": [
+  {
+   "idx": 0,
+   "text": "아노 바은도노 우타가 와타시니와",
+   "raw": "아노 바은도노 우타가 와타시니와",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "아노",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "아노",
+     "syllables": [
+      {
+       "text": "아",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 14.28,
+         "end": 14.62,
+         "score": 0.628
+        }
+       ],
+       "start": 14.28,
+       "end": 14.62
+      },
+      {
+       "text": "노",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 14.9,
+         "end": 15.38,
+         "score": 0.4364
+        }
+       ],
+       "start": 14.9,
+       "end": 15.38
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "바은도노",
+     "span": [
+      3,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "바은도노",
+     "syllables": [
+      {
+       "text": "바",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "바",
+         "roman": "ba",
+         "start": 15.38,
+         "end": 15.54,
+         "score": 0.3781
+        }
+       ],
+       "start": 15.38,
+       "end": 15.54
+      },
+      {
+       "text": "은",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 15.54,
+         "end": 15.86,
+         "score": 0.0428
+        }
+       ],
+       "start": 15.54,
+       "end": 15.86
+      },
+      {
+       "text": "도",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "도",
+         "roman": "do",
+         "start": 15.86,
+         "end": 16.26,
+         "score": 0.5112
+        }
+       ],
+       "start": 15.86,
+       "end": 16.26
+      },
+      {
+       "text": "노",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 16.5,
+         "end": 16.7,
+         "score": 0.0211
+        }
+       ],
+       "start": 16.5,
+       "end": 16.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "우타가",
+     "span": [
+      8,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "우타가",
+     "syllables": [
+      {
+       "text": "우",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "우",
+         "roman": "u",
+         "start": 16.7,
+         "end": 16.8,
+         "score": 0.3444
+        }
+       ],
+       "start": 16.7,
+       "end": 16.8
+      },
+      {
+       "text": "타",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 16.8,
+         "end": 17.28,
+         "score": 0.3826
+        }
+       ],
+       "start": 16.8,
+       "end": 17.28
+      },
+      {
+       "text": "가",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 17.28,
+         "end": 17.46,
+         "score": 0.2021
+        }
+       ],
+       "start": 17.28,
+       "end": 17.46
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "와타시니와",
+     "span": [
+      12,
+      17
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "와타시니와",
+     "syllables": [
+      {
+       "text": "와",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 17.46,
+         "end": 17.92,
+         "score": 0.343
+        }
+       ],
+       "start": 17.46,
+       "end": 17.92
+      },
+      {
+       "text": "타",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 17.92,
+         "end": 18.06,
+         "score": 0.3
+        }
+       ],
+       "start": 17.92,
+       "end": 18.06
+      },
+      {
+       "text": "시",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 18.06,
+         "end": 18.4,
+         "score": 0.4147
+        }
+       ],
+       "start": 18.06,
+       "end": 18.4
+      },
+      {
+       "text": "니",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 18.4,
+         "end": 18.72,
+         "score": 0.4761
+        }
+       ],
+       "start": 18.4,
+       "end": 18.72
+      },
+      {
+       "text": "와",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 18.72,
+         "end": 19.02,
+         "score": 0.6438
+        }
+       ],
+       "start": 18.72,
+       "end": 19.02
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 14.28,
+   "end": 19.02,
+   "confidence": 0.366,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 1,
+   "text": "칸다카쿠 히비쿠 와라이고에니 키코에루",
+   "raw": "칸다카쿠 히비쿠 와라이고에니 키코에루",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "칸다카쿠",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "칸다카쿠",
+     "syllables": [
+      {
+       "text": "칸",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "칸",
+         "roman": "kan",
+         "start": 19.02,
+         "end": 19.34,
+         "score": 0.5063
+        }
+       ],
+       "start": 19.02,
+       "end": 19.34
+      },
+      {
+       "text": "다",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 19.34,
+         "end": 19.82,
+         "score": 0.7658
+        }
+       ],
+       "start": 19.34,
+       "end": 19.82
+      },
+      {
+       "text": "카",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 19.82,
+         "end": 19.98,
+         "score": 0.8444
+        }
+       ],
+       "start": 19.82,
+       "end": 19.98
+      },
+      {
+       "text": "쿠",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 19.98,
+         "end": 20.44,
+         "score": 0.4519
+        }
+       ],
+       "start": 19.98,
+       "end": 20.44
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "히비쿠",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "히비쿠",
+     "syllables": [
+      {
+       "text": "히",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "히",
+         "roman": "hi",
+         "start": 20.44,
+         "end": 20.6,
+         "score": 0.4474
+        }
+       ],
+       "start": 20.44,
+       "end": 20.6
+      },
+      {
+       "text": "비",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "비",
+         "roman": "bi",
+         "start": 20.6,
+         "end": 20.92,
+         "score": 0.5132
+        }
+       ],
+       "start": 20.6,
+       "end": 20.92
+      },
+      {
+       "text": "쿠",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 20.92,
+         "end": 21.26,
+         "score": 0.4559
+        }
+       ],
+       "start": 20.92,
+       "end": 21.26
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "와라이고에니",
+     "span": [
+      9,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "와라이고에니",
+     "syllables": [
+      {
+       "text": "와",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 21.56,
+         "end": 21.72,
+         "score": 0.6034
+        }
+       ],
+       "start": 21.56,
+       "end": 21.72
+      },
+      {
+       "text": "라",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "라",
+         "roman": "ra",
+         "start": 21.72,
+         "end": 21.96,
+         "score": 0.6806
+        }
+       ],
+       "start": 21.72,
+       "end": 21.96
+      },
+      {
+       "text": "이",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 21.96,
+         "end": 22.34,
+         "score": 0.7277
+        }
+       ],
+       "start": 21.96,
+       "end": 22.34
+      },
+      {
+       "text": "고",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "고",
+         "roman": "go",
+         "start": 22.34,
+         "end": 22.6,
+         "score": 0.1086
+        }
+       ],
+       "start": 22.34,
+       "end": 22.6
+      },
+      {
+       "text": "에",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 22.6,
+         "end": 22.96,
+         "score": 0.6677
+        }
+       ],
+       "start": 22.6,
+       "end": 22.96
+      },
+      {
+       "text": "니",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 22.96,
+         "end": 23.12,
+         "score": 0.7344
+        }
+       ],
+       "start": 22.96,
+       "end": 23.12
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "키코에루",
+     "span": [
+      16,
+      20
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "키코에루",
+     "syllables": [
+      {
+       "text": "키",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 23.12,
+         "end": 23.44,
+         "score": 0.6252
+        }
+       ],
+       "start": 23.12,
+       "end": 23.44
+      },
+      {
+       "text": "코",
+       "span": [
+        17,
+        18
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 23.44,
+         "end": 23.86,
+         "score": 0.5688
+        }
+       ],
+       "start": 23.44,
+       "end": 23.86
+      },
+      {
+       "text": "에",
+       "span": [
+        18,
+        19
+       ],
+       "units": [
+        {
+         "reading": "에",
+         "roman": "e",
+         "start": 23.86,
+         "end": 24.08,
+         "score": 0.811
+        }
+       ],
+       "start": 23.86,
+       "end": 24.08
+      },
+      {
+       "text": "루",
+       "span": [
+        19,
+        20
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 24.08,
+         "end": 24.4,
+         "score": 0.406
+        }
+       ],
+       "start": 24.08,
+       "end": 24.4
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 19.02,
+   "end": 24.4,
+   "confidence": 0.5834,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 2,
+   "text": "아노 바은도노 우타가 와타시니와",
+   "raw": "아노 바은도노 우타가 와타시니와",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "아노",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "아노",
+     "syllables": [
+      {
+       "text": "아",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 24.4,
+         "end": 24.72,
+         "score": 0.8473
+        }
+       ],
+       "start": 24.4,
+       "end": 24.72
+      },
+      {
+       "text": "노",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 25.02,
+         "end": 25.5,
+         "score": 0.6546
+        }
+       ],
+       "start": 25.02,
+       "end": 25.5
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "바은도노",
+     "span": [
+      3,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "바은도노",
+     "syllables": [
+      {
+       "text": "바",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "바",
+         "roman": "ba",
+         "start": 25.5,
+         "end": 25.72,
+         "score": 0.6308
+        }
+       ],
+       "start": 25.5,
+       "end": 25.72
+      },
+      {
+       "text": "은",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 25.72,
+         "end": 25.98,
+         "score": 0.0377
+        }
+       ],
+       "start": 25.72,
+       "end": 25.98
+      },
+      {
+       "text": "도",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "도",
+         "roman": "do",
+         "start": 25.98,
+         "end": 26.4,
+         "score": 0.7922
+        }
+       ],
+       "start": 25.98,
+       "end": 26.4
+      },
+      {
+       "text": "노",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 26.62,
+         "end": 26.82,
+         "score": 0.1146
+        }
+       ],
+       "start": 26.62,
+       "end": 26.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "우타가",
+     "span": [
+      8,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "우타가",
+     "syllables": [
+      {
+       "text": "우",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "우",
+         "roman": "u",
+         "start": 26.82,
+         "end": 26.92,
+         "score": 0.5269
+        }
+       ],
+       "start": 26.82,
+       "end": 26.92
+      },
+      {
+       "text": "타",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 26.92,
+         "end": 27.4,
+         "score": 0.6073
+        }
+       ],
+       "start": 26.92,
+       "end": 27.4
+      },
+      {
+       "text": "가",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 27.4,
+         "end": 27.56,
+         "score": 0.2505
+        }
+       ],
+       "start": 27.4,
+       "end": 27.56
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "와타시니와",
+     "span": [
+      12,
+      17
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "와타시니와",
+     "syllables": [
+      {
+       "text": "와",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 27.56,
+         "end": 28.02,
+         "score": 0.4566
+        }
+       ],
+       "start": 27.56,
+       "end": 28.02
+      },
+      {
+       "text": "타",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 28.02,
+         "end": 28.16,
+         "score": 0.4748
+        }
+       ],
+       "start": 28.02,
+       "end": 28.16
+      },
+      {
+       "text": "시",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 28.16,
+         "end": 28.48,
+         "score": 0.5647
+        }
+       ],
+       "start": 28.16,
+       "end": 28.48
+      },
+      {
+       "text": "니",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 28.48,
+         "end": 28.82,
+         "score": 0.6091
+        }
+       ],
+       "start": 28.48,
+       "end": 28.82
+      },
+      {
+       "text": "와",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 28.82,
+         "end": 29.1,
+         "score": 0.6035
+        }
+       ],
+       "start": 28.82,
+       "end": 29.1
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 24.4,
+   "end": 29.1,
+   "confidence": 0.5122,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 3,
+   "text": "츠은자쿠 후미키리노 오토 미타이",
+   "raw": "츠은자쿠 후미키리노 오토 미타이",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "츠은자쿠",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "츠은자쿠",
+     "syllables": [
+      {
+       "text": "츠",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "츠",
+         "roman": "ceu",
+         "start": 29.1,
+         "end": 29.42,
+         "score": 0.1556
+        }
+       ],
+       "start": 29.1,
+       "end": 29.42
+      },
+      {
+       "text": "은",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 29.42,
+         "end": 29.72,
+         "score": 0.1315
+        }
+       ],
+       "start": 29.42,
+       "end": 29.72
+      },
+      {
+       "text": "자",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "자",
+         "roman": "ja",
+         "start": 29.72,
+         "end": 29.94,
+         "score": 0.2656
+        }
+       ],
+       "start": 29.72,
+       "end": 29.94
+      },
+      {
+       "text": "쿠",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 29.94,
+         "end": 30.92,
+         "score": 0.5358
+        }
+       ],
+       "start": 29.94,
+       "end": 30.92
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "후미키리노",
+     "span": [
+      5,
+      10
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "후미키리노",
+     "syllables": [
+      {
+       "text": "후",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "후",
+         "roman": "hu",
+         "start": 31.66,
+         "end": 31.82,
+         "score": 0.3696
+        }
+       ],
+       "start": 31.66,
+       "end": 31.82
+      },
+      {
+       "text": "미",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 31.82,
+         "end": 31.98,
+         "score": 0.2078
+        }
+       ],
+       "start": 31.82,
+       "end": 31.98
+      },
+      {
+       "text": "키",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 31.98,
+         "end": 32.12,
+         "score": 0.4309
+        }
+       ],
+       "start": 31.98,
+       "end": 32.12
+      },
+      {
+       "text": "리",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "리",
+         "roman": "ri",
+         "start": 32.12,
+         "end": 32.46,
+         "score": 0.4568
+        }
+       ],
+       "start": 32.12,
+       "end": 32.46
+      },
+      {
+       "text": "노",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 32.46,
+         "end": 32.9,
+         "score": 0.4221
+        }
+       ],
+       "start": 32.46,
+       "end": 32.9
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오토",
+     "span": [
+      11,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오토",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 33.14,
+         "end": 33.22,
+         "score": 0.8079
+        }
+       ],
+       "start": 33.14,
+       "end": 33.22
+      },
+      {
+       "text": "토",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "토",
+         "roman": "to",
+         "start": 33.22,
+         "end": 33.54,
+         "score": 0.783
+        }
+       ],
+       "start": 33.22,
+       "end": 33.54
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "미타이",
+     "span": [
+      14,
+      17
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "미타이",
+     "syllables": [
+      {
+       "text": "미",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 33.54,
+         "end": 33.86,
+         "score": 0.8825
+        }
+       ],
+       "start": 33.54,
+       "end": 33.86
+      },
+      {
+       "text": "타",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 33.86,
+         "end": 34.32,
+         "score": 0.8858
+        }
+       ],
+       "start": 33.86,
+       "end": 34.32
+      },
+      {
+       "text": "이",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 34.32,
+         "end": 34.56,
+         "score": 0.6347
+        }
+       ],
+       "start": 34.32,
+       "end": 34.56
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 29.1,
+   "end": 34.56,
+   "confidence": 0.4978,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 4,
+   "text": "세나카오 오스나요",
+   "raw": "세나카오 오스나요",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "세나카오",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "세나카오",
+     "syllables": [
+      {
+       "text": "세",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "세",
+         "roman": "se",
+         "start": 36.04,
+         "end": 36.4,
+         "score": 0.7867
+        }
+       ],
+       "start": 36.04,
+       "end": 36.4
+      },
+      {
+       "text": "나",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 36.4,
+         "end": 36.54,
+         "score": 0.8588
+        }
+       ],
+       "start": 36.4,
+       "end": 36.54
+      },
+      {
+       "text": "카",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 36.54,
+         "end": 37.18,
+         "score": 0.8502
+        }
+       ],
+       "start": 36.54,
+       "end": 37.18
+      },
+      {
+       "text": "오",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 38.68,
+         "end": 38.78,
+         "score": 0.7793
+        }
+       ],
+       "start": 38.68,
+       "end": 38.78
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오스나요",
+     "span": [
+      5,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오스나요",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 38.78,
+         "end": 38.9,
+         "score": 0.1552
+        }
+       ],
+       "start": 38.78,
+       "end": 38.9
+      },
+      {
+       "text": "스",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 38.9,
+         "end": 39.06,
+         "score": 0.2825
+        }
+       ],
+       "start": 38.9,
+       "end": 39.06
+      },
+      {
+       "text": "나",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 39.06,
+         "end": 39.26,
+         "score": 0.8881
+        }
+       ],
+       "start": 39.06,
+       "end": 39.26
+      },
+      {
+       "text": "요",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "요",
+         "roman": "yo",
+         "start": 39.26,
+         "end": 39.86,
+         "score": 0.6812
+        }
+       ],
+       "start": 39.26,
+       "end": 39.86
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 36.04,
+   "end": 39.86,
+   "confidence": 0.6602,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 5,
+   "text": "모오 소코니 렛샤가 쿠루",
+   "raw": "모오 소코니 렛샤가 쿠루",
+   "stanza": 1,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "모오",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "모오",
+     "syllables": [
+      {
+       "text": "모",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "모",
+         "roman": "mo",
+         "start": 41.02,
+         "end": 41.26,
+         "score": 0.6892
+        }
+       ],
+       "start": 41.02,
+       "end": 41.26
+      },
+      {
+       "text": "오",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 41.26,
+         "end": 41.4,
+         "score": 0.2512
+        }
+       ],
+       "start": 41.26,
+       "end": 41.4
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "소코니",
+     "span": [
+      3,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "소코니",
+     "syllables": [
+      {
+       "text": "소",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "소",
+         "roman": "so",
+         "start": 41.4,
+         "end": 41.58,
+         "score": 0.8317
+        }
+       ],
+       "start": 41.4,
+       "end": 41.58
+      },
+      {
+       "text": "코",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 41.58,
+         "end": 41.76,
+         "score": 0.7901
+        }
+       ],
+       "start": 41.58,
+       "end": 41.76
+      },
+      {
+       "text": "니",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 41.76,
+         "end": 42.06,
+         "score": 0.5832
+        }
+       ],
+       "start": 41.76,
+       "end": 42.06
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "렛샤가",
+     "span": [
+      7,
+      10
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "렛샤가",
+     "syllables": [
+      {
+       "text": "렛",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "렛",
+         "roman": "res",
+         "start": 42.06,
+         "end": 42.48,
+         "score": 0.3094
+        }
+       ],
+       "start": 42.06,
+       "end": 42.48
+      },
+      {
+       "text": "샤",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "샤",
+         "roman": "sya",
+         "start": 42.48,
+         "end": 42.72,
+         "score": 0.4768
+        }
+       ],
+       "start": 42.48,
+       "end": 42.72
+      },
+      {
+       "text": "가",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 42.72,
+         "end": 43.02,
+         "score": 0.809
+        }
+       ],
+       "start": 42.72,
+       "end": 43.02
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "쿠루",
+     "span": [
+      11,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "쿠루",
+     "syllables": [
+      {
+       "text": "쿠",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 43.02,
+         "end": 43.24,
+         "score": 0.794
+        }
+       ],
+       "start": 43.02,
+       "end": 43.24
+      },
+      {
+       "text": "루",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 43.24,
+         "end": 43.54,
+         "score": 0.7176
+        }
+       ],
+       "start": 43.24,
+       "end": 43.54
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 41.02,
+   "end": 43.54,
+   "confidence": 0.6252,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 6,
+   "text": "메오 토지루 쿠라야미니 사스 고코오",
+   "raw": "메오 토지루 쿠라야미니 사스 고코오",
+   "stanza": 2,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "메오",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "메오",
+     "syllables": [
+      {
+       "text": "메",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "메",
+         "roman": "me",
+         "start": 43.86,
+         "end": 44.12,
+         "score": 0.7682
+        }
+       ],
+       "start": 43.86,
+       "end": 44.12
+      },
+      {
+       "text": "오",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 44.12,
+         "end": 44.18,
+         "score": 0.3094
+        }
+       ],
+       "start": 44.12,
+       "end": 44.18
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "토지루",
+     "span": [
+      3,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "토지루",
+     "syllables": [
+      {
+       "text": "토",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "토",
+         "roman": "to",
+         "start": 44.18,
+         "end": 44.32,
+         "score": 0.727
+        }
+       ],
+       "start": 44.18,
+       "end": 44.32
+      },
+      {
+       "text": "지",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "지",
+         "roman": "ji",
+         "start": 44.32,
+         "end": 44.54,
+         "score": 0.3372
+        }
+       ],
+       "start": 44.32,
+       "end": 44.54
+      },
+      {
+       "text": "루",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 44.54,
+         "end": 46.14,
+         "score": 0.451
+        }
+       ],
+       "start": 44.54,
+       "end": 46.14
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "쿠라야미니",
+     "span": [
+      7,
+      12
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "쿠라야미니",
+     "syllables": [
+      {
+       "text": "쿠",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 46.64,
+         "end": 46.82,
+         "score": 0.7764
+        }
+       ],
+       "start": 46.64,
+       "end": 46.82
+      },
+      {
+       "text": "라",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "라",
+         "roman": "ra",
+         "start": 46.82,
+         "end": 46.98,
+         "score": 0.4802
+        }
+       ],
+       "start": 46.82,
+       "end": 46.98
+      },
+      {
+       "text": "야",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "야",
+         "roman": "ya",
+         "start": 46.98,
+         "end": 47.12,
+         "score": 0.8329
+        }
+       ],
+       "start": 46.98,
+       "end": 47.12
+      },
+      {
+       "text": "미",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 47.12,
+         "end": 47.46,
+         "score": 0.863
+        }
+       ],
+       "start": 47.12,
+       "end": 47.46
+      },
+      {
+       "text": "니",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 47.46,
+         "end": 47.6,
+         "score": 0.6453
+        }
+       ],
+       "start": 47.46,
+       "end": 47.6
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "사스",
+     "span": [
+      13,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "사스",
+     "syllables": [
+      {
+       "text": "사",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "사",
+         "roman": "sa",
+         "start": 47.6,
+         "end": 47.84,
+         "score": 0.8607
+        }
+       ],
+       "start": 47.6,
+       "end": 47.84
+      },
+      {
+       "text": "스",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 47.84,
+         "end": 47.92,
+         "score": 0.1327
+        }
+       ],
+       "start": 47.84,
+       "end": 47.92
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "고코오",
+     "span": [
+      16,
+      19
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "고코오",
+     "syllables": [
+      {
+       "text": "고",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "고",
+         "roman": "go",
+         "start": 47.92,
+         "end": 48.06,
+         "score": 0.4046
+        }
+       ],
+       "start": 47.92,
+       "end": 48.06
+      },
+      {
+       "text": "코",
+       "span": [
+        17,
+        18
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 48.06,
+         "end": 48.3,
+         "score": 0.8523
+        }
+       ],
+       "start": 48.06,
+       "end": 48.3
+      },
+      {
+       "text": "오",
+       "span": [
+        18,
+        19
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 48.3,
+         "end": 48.62,
+         "score": 0.0038
+        }
+       ],
+       "start": 48.3,
+       "end": 48.62
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 43.86,
+   "end": 48.62,
+   "confidence": 0.563,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 7,
+   "text": "미미 후사구 타시카니 키자무 코도오",
+   "raw": "미미 후사구 타시카니 키자무 코도오",
+   "stanza": 2,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "미미",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "미미",
+     "syllables": [
+      {
+       "text": "미",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 48.86,
+         "end": 49.0,
+         "score": 0.9002
+        }
+       ],
+       "start": 48.86,
+       "end": 49.0
+      },
+      {
+       "text": "미",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 49.0,
+         "end": 49.14,
+         "score": 0.6468
+        }
+       ],
+       "start": 49.0,
+       "end": 49.14
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "후사구",
+     "span": [
+      3,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "후사구",
+     "syllables": [
+      {
+       "text": "후",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "후",
+         "roman": "hu",
+         "start": 49.14,
+         "end": 49.28,
+         "score": 0.0086
+        }
+       ],
+       "start": 49.14,
+       "end": 49.28
+      },
+      {
+       "text": "사",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "사",
+         "roman": "sa",
+         "start": 49.28,
+         "end": 49.5,
+         "score": 0.8084
+        }
+       ],
+       "start": 49.28,
+       "end": 49.5
+      },
+      {
+       "text": "구",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "구",
+         "roman": "gu",
+         "start": 49.5,
+         "end": 51.12,
+         "score": 0.233
+        }
+       ],
+       "start": 49.5,
+       "end": 51.12
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "타시카니",
+     "span": [
+      7,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "타시카니",
+     "syllables": [
+      {
+       "text": "타",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 51.7,
+         "end": 51.84,
+         "score": 0.9111
+        }
+       ],
+       "start": 51.7,
+       "end": 51.84
+      },
+      {
+       "text": "시",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 51.84,
+         "end": 52.02,
+         "score": 0.5408
+        }
+       ],
+       "start": 51.84,
+       "end": 52.02
+      },
+      {
+       "text": "카",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 52.02,
+         "end": 52.18,
+         "score": 0.8592
+        }
+       ],
+       "start": 52.02,
+       "end": 52.18
+      },
+      {
+       "text": "니",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 52.18,
+         "end": 52.48,
+         "score": 0.9041
+        }
+       ],
+       "start": 52.18,
+       "end": 52.48
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "키자무",
+     "span": [
+      12,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "키자무",
+     "syllables": [
+      {
+       "text": "키",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 52.48,
+         "end": 52.64,
+         "score": 0.4421
+        }
+       ],
+       "start": 52.48,
+       "end": 52.64
+      },
+      {
+       "text": "자",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "자",
+         "roman": "ja",
+         "start": 52.64,
+         "end": 52.86,
+         "score": 0.5137
+        }
+       ],
+       "start": 52.64,
+       "end": 52.86
+      },
+      {
+       "text": "무",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "무",
+         "roman": "mu",
+         "start": 52.86,
+         "end": 52.96,
+         "score": 0.1258
+        }
+       ],
+       "start": 52.86,
+       "end": 52.96
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "코도오",
+     "span": [
+      16,
+      19
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "코도오",
+     "syllables": [
+      {
+       "text": "코",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 52.96,
+         "end": 53.12,
+         "score": 0.6536
+        }
+       ],
+       "start": 52.96,
+       "end": 53.12
+      },
+      {
+       "text": "도",
+       "span": [
+        17,
+        18
+       ],
+       "units": [
+        {
+         "reading": "도",
+         "roman": "do",
+         "start": 53.12,
+         "end": 53.4,
+         "score": 0.0464
+        }
+       ],
+       "start": 53.12,
+       "end": 53.4
+      },
+      {
+       "text": "오",
+       "span": [
+        18,
+        19
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 53.4,
+         "end": 53.62,
+         "score": 0.0024
+        }
+       ],
+       "start": 53.4,
+       "end": 53.62
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 48.86,
+   "end": 53.62,
+   "confidence": 0.5064,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 8,
+   "text": "무네노 오쿠 미오 유라스 시은조오",
+   "raw": "무네노 오쿠 미오 유라스 시은조오",
+   "stanza": 2,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "무네노",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "무네노",
+     "syllables": [
+      {
+       "text": "무",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "무",
+         "roman": "mu",
+         "start": 53.94,
+         "end": 54.08,
+         "score": 0.3264
+        }
+       ],
+       "start": 53.94,
+       "end": 54.08
+      },
+      {
+       "text": "네",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "네",
+         "roman": "ne",
+         "start": 54.08,
+         "end": 54.24,
+         "score": 0.7893
+        }
+       ],
+       "start": 54.08,
+       "end": 54.24
+      },
+      {
+       "text": "노",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 54.24,
+         "end": 54.44,
+         "score": 0.5766
+        }
+       ],
+       "start": 54.24,
+       "end": 54.44
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오쿠",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오쿠",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 54.44,
+         "end": 54.56,
+         "score": 0.8524
+        }
+       ],
+       "start": 54.44,
+       "end": 54.56
+      },
+      {
+       "text": "쿠",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 54.56,
+         "end": 56.16,
+         "score": 0.3682
+        }
+       ],
+       "start": 54.56,
+       "end": 56.16
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "미오",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "미오",
+     "syllables": [
+      {
+       "text": "미",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 56.74,
+         "end": 56.98,
+         "score": 0.9078
+        }
+       ],
+       "start": 56.74,
+       "end": 56.98
+      },
+      {
+       "text": "오",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 56.98,
+         "end": 57.1,
+         "score": 0.2411
+        }
+       ],
+       "start": 56.98,
+       "end": 57.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "유라스",
+     "span": [
+      10,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "유라스",
+     "syllables": [
+      {
+       "text": "유",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "유",
+         "roman": "yu",
+         "start": 57.1,
+         "end": 57.24,
+         "score": 0.6974
+        }
+       ],
+       "start": 57.1,
+       "end": 57.24
+      },
+      {
+       "text": "라",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "라",
+         "roman": "ra",
+         "start": 57.24,
+         "end": 57.52,
+         "score": 0.4746
+        }
+       ],
+       "start": 57.24,
+       "end": 57.52
+      },
+      {
+       "text": "스",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 57.52,
+         "end": 57.7,
+         "score": 0.4507
+        }
+       ],
+       "start": 57.52,
+       "end": 57.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "시은조오",
+     "span": [
+      14,
+      18
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "시은조오",
+     "syllables": [
+      {
+       "text": "시",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 57.7,
+         "end": 57.78,
+         "score": 0.2125
+        }
+       ],
+       "start": 57.7,
+       "end": 57.78
+      },
+      {
+       "text": "은",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 57.78,
+         "end": 58.0,
+         "score": 0.2587
+        }
+       ],
+       "start": 57.78,
+       "end": 58.0
+      },
+      {
+       "text": "조",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "조",
+         "roman": "jo",
+         "start": 58.0,
+         "end": 58.32,
+         "score": 0.4896
+        }
+       ],
+       "start": 58.0,
+       "end": 58.32
+      },
+      {
+       "text": "오",
+       "span": [
+        17,
+        18
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 58.32,
+         "end": 58.98,
+         "score": 0.0052
+        }
+       ],
+       "start": 58.32,
+       "end": 58.98
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 53.94,
+   "end": 58.98,
+   "confidence": 0.475,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 9,
+   "text": "호카니 나니모 키키타쿠 나이",
+   "raw": "호카니 나니모 키키타쿠 나이",
+   "stanza": 2,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "호카니",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "호카니",
+     "syllables": [
+      {
+       "text": "호",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "호",
+         "roman": "ho",
+         "start": 59.28,
+         "end": 59.42,
+         "score": 0.2341
+        }
+       ],
+       "start": 59.28,
+       "end": 59.42
+      },
+      {
+       "text": "카",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 59.42,
+         "end": 59.6,
+         "score": 0.5657
+        }
+       ],
+       "start": 59.42,
+       "end": 59.6
+      },
+      {
+       "text": "니",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 59.6,
+         "end": 59.76,
+         "score": 0.8547
+        }
+       ],
+       "start": 59.6,
+       "end": 59.76
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "나니모",
+     "span": [
+      4,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "나니모",
+     "syllables": [
+      {
+       "text": "나",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 59.76,
+         "end": 59.86,
+         "score": 0.7905
+        }
+       ],
+       "start": 59.76,
+       "end": 59.86
+      },
+      {
+       "text": "니",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 59.86,
+         "end": 59.98,
+         "score": 0.0159
+        }
+       ],
+       "start": 59.86,
+       "end": 59.98
+      },
+      {
+       "text": "모",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "모",
+         "roman": "mo",
+         "start": 59.98,
+         "end": 60.24,
+         "score": 0.0106
+        }
+       ],
+       "start": 59.98,
+       "end": 60.24
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "키키타쿠",
+     "span": [
+      8,
+      12
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "키키타쿠",
+     "syllables": [
+      {
+       "text": "키",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 60.24,
+         "end": 60.7,
+         "score": 0.0016
+        }
+       ],
+       "start": 60.24,
+       "end": 60.7
+      },
+      {
+       "text": "키",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 60.7,
+         "end": 60.86,
+         "score": 0.0015
+        }
+       ],
+       "start": 60.7,
+       "end": 60.86
+      },
+      {
+       "text": "타",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 60.86,
+         "end": 61.24,
+         "score": 0.0156
+        }
+       ],
+       "start": 60.86,
+       "end": 61.24
+      },
+      {
+       "text": "쿠",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 61.24,
+         "end": 61.34,
+         "score": 0.0106
+        }
+       ],
+       "start": 61.24,
+       "end": 61.34
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "나이",
+     "span": [
+      13,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "나이",
+     "syllables": [
+      {
+       "text": "나",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 61.34,
+         "end": 61.64,
+         "score": 0.0335
+        }
+       ],
+       "start": 61.34,
+       "end": 61.64
+      },
+      {
+       "text": "이",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 61.64,
+         "end": 61.94,
+         "score": 0.0054
+        }
+       ],
+       "start": 61.64,
+       "end": 61.94
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 59.28,
+   "end": 61.94,
+   "confidence": 0.2116,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 10,
+   "text": "와타시가 하나츠 오토 이가이",
+   "raw": "와타시가 하나츠 오토 이가이",
+   "stanza": 2,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "와타시가",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "와타시가",
+     "syllables": [
+      {
+       "text": "와",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 61.94,
+         "end": 62.14,
+         "score": 0.0092
+        }
+       ],
+       "start": 61.94,
+       "end": 62.14
+      },
+      {
+       "text": "타",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 62.14,
+         "end": 62.5,
+         "score": 0.0144
+        }
+       ],
+       "start": 62.14,
+       "end": 62.5
+      },
+      {
+       "text": "시",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 62.5,
+         "end": 62.6,
+         "score": 0.0173
+        }
+       ],
+       "start": 62.5,
+       "end": 62.6
+      },
+      {
+       "text": "가",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 62.6,
+         "end": 62.82,
+         "score": 0.0069
+        }
+       ],
+       "start": 62.6,
+       "end": 62.82
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "하나츠",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "하나츠",
+     "syllables": [
+      {
+       "text": "하",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "하",
+         "roman": "ha",
+         "start": 62.82,
+         "end": 63.24,
+         "score": 0.0041
+        }
+       ],
+       "start": 62.82,
+       "end": 63.24
+      },
+      {
+       "text": "나",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 63.24,
+         "end": 63.4,
+         "score": 0.0143
+        }
+       ],
+       "start": 63.24,
+       "end": 63.4
+      },
+      {
+       "text": "츠",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "츠",
+         "roman": "ceu",
+         "start": 63.4,
+         "end": 63.78,
+         "score": 0.004
+        }
+       ],
+       "start": 63.4,
+       "end": 63.78
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오토",
+     "span": [
+      9,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오토",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 64.06,
+         "end": 64.16,
+         "score": 0.0062
+        }
+       ],
+       "start": 64.06,
+       "end": 64.16
+      },
+      {
+       "text": "토",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "토",
+         "roman": "to",
+         "start": 64.16,
+         "end": 64.4,
+         "score": 0.0076
+        }
+       ],
+       "start": 64.16,
+       "end": 64.4
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "이가이",
+     "span": [
+      12,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이가이",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 64.4,
+         "end": 64.5,
+         "score": 0.014
+        }
+       ],
+       "start": 64.4,
+       "end": 64.5
+      },
+      {
+       "text": "가",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 64.5,
+         "end": 64.74,
+         "score": 0.0143
+        }
+       ],
+       "start": 64.5,
+       "end": 64.74
+      },
+      {
+       "text": "이",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 64.74,
+         "end": 65.04,
+         "score": 0.0065
+        }
+       ],
+       "start": 64.74,
+       "end": 65.04
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 61.94,
+   "end": 65.04,
+   "confidence": 0.0099,
+   "needs_review": true,
+   "flags": [
+    "low_confidence",
+    "mms_qwen_disagree"
+   ]
+  },
+  {
+   "idx": 11,
+   "text": "후쿄오와온니 이바쇼오 사가시타리",
+   "raw": "후쿄오와온니 이바쇼오 사가시타리",
+   "stanza": 3,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "후쿄오와온니",
+     "span": [
+      0,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "후쿄오와온니",
+     "syllables": [
+      {
+       "text": "후",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "후",
+         "roman": "hu",
+         "start": 74.9,
+         "end": 75.5,
+         "score": 0.3772
+        }
+       ],
+       "start": 74.9,
+       "end": 75.5
+      },
+      {
+       "text": "쿄",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "쿄",
+         "roman": "kyo",
+         "start": 75.5,
+         "end": 75.84,
+         "score": 0.3239
+        }
+       ],
+       "start": 75.5,
+       "end": 75.84
+      },
+      {
+       "text": "오",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 75.84,
+         "end": 76.02,
+         "score": 0.0121
+        }
+       ],
+       "start": 75.84,
+       "end": 76.02
+      },
+      {
+       "text": "와",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 76.02,
+         "end": 76.28,
+         "score": 0.7643
+        }
+       ],
+       "start": 76.02,
+       "end": 76.28
+      },
+      {
+       "text": "온",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "온",
+         "roman": "on",
+         "start": 76.28,
+         "end": 76.48,
+         "score": 0.3468
+        }
+       ],
+       "start": 76.28,
+       "end": 76.48
+      },
+      {
+       "text": "니",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 76.48,
+         "end": 77.44,
+         "score": 0.8104
+        }
+       ],
+       "start": 76.48,
+       "end": 77.44
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "이바쇼오",
+     "span": [
+      7,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이바쇼오",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 77.8,
+         "end": 77.88,
+         "score": 0.9053
+        }
+       ],
+       "start": 77.8,
+       "end": 77.88
+      },
+      {
+       "text": "바",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "바",
+         "roman": "ba",
+         "start": 77.88,
+         "end": 78.04,
+         "score": 0.8916
+        }
+       ],
+       "start": 77.88,
+       "end": 78.04
+      },
+      {
+       "text": "쇼",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "쇼",
+         "roman": "syo",
+         "start": 78.04,
+         "end": 78.28,
+         "score": 0.3508
+        }
+       ],
+       "start": 78.04,
+       "end": 78.28
+      },
+      {
+       "text": "오",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 78.28,
+         "end": 78.36,
+         "score": 0.3857
+        }
+       ],
+       "start": 78.28,
+       "end": 78.36
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "사가시타리",
+     "span": [
+      12,
+      17
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "사가시타리",
+     "syllables": [
+      {
+       "text": "사",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "사",
+         "roman": "sa",
+         "start": 78.36,
+         "end": 78.54,
+         "score": 0.8179
+        }
+       ],
+       "start": 78.36,
+       "end": 78.54
+      },
+      {
+       "text": "가",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 78.54,
+         "end": 78.68,
+         "score": 0.7554
+        }
+       ],
+       "start": 78.54,
+       "end": 78.68
+      },
+      {
+       "text": "시",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 78.68,
+         "end": 79.02,
+         "score": 0.5877
+        }
+       ],
+       "start": 78.68,
+       "end": 79.02
+      },
+      {
+       "text": "타",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 79.02,
+         "end": 79.34,
+         "score": 0.8332
+        }
+       ],
+       "start": 79.02,
+       "end": 79.34
+      },
+      {
+       "text": "리",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "리",
+         "roman": "ri",
+         "start": 79.34,
+         "end": 79.66,
+         "score": 0.6307
+        }
+       ],
+       "start": 79.34,
+       "end": 79.66
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 74.9,
+   "end": 79.66,
+   "confidence": 0.5862,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 12,
+   "text": "카나시이 우타니 스쿠와레테 이탄다케도",
+   "raw": "카나시이 우타니 스쿠와레테 이탄다케도",
+   "stanza": 3,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "카나시이",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "카나시이",
+     "syllables": [
+      {
+       "text": "카",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 79.66,
+         "end": 79.96,
+         "score": 0.7924
+        }
+       ],
+       "start": 79.66,
+       "end": 79.96
+      },
+      {
+       "text": "나",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 79.96,
+         "end": 80.56,
+         "score": 0.8783
+        }
+       ],
+       "start": 79.96,
+       "end": 80.56
+      },
+      {
+       "text": "시",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 80.56,
+         "end": 80.84,
+         "score": 0.6829
+        }
+       ],
+       "start": 80.56,
+       "end": 80.84
+      },
+      {
+       "text": "이",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 80.84,
+         "end": 81.14,
+         "score": 0.0241
+        }
+       ],
+       "start": 80.84,
+       "end": 81.14
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "우타니",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "우타니",
+     "syllables": [
+      {
+       "text": "우",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "우",
+         "roman": "u",
+         "start": 81.14,
+         "end": 81.24,
+         "score": 0.7103
+        }
+       ],
+       "start": 81.14,
+       "end": 81.24
+      },
+      {
+       "text": "타",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 81.24,
+         "end": 81.56,
+         "score": 0.9173
+        }
+       ],
+       "start": 81.24,
+       "end": 81.56
+      },
+      {
+       "text": "니",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 81.56,
+         "end": 82.38,
+         "score": 0.8496
+        }
+       ],
+       "start": 81.56,
+       "end": 82.38
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "스쿠와레테",
+     "span": [
+      9,
+      14
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "스쿠와레테",
+     "syllables": [
+      {
+       "text": "스",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 82.74,
+         "end": 82.94,
+         "score": 0.0598
+        }
+       ],
+       "start": 82.74,
+       "end": 82.94
+      },
+      {
+       "text": "쿠",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 82.94,
+         "end": 83.12,
+         "score": 0.4976
+        }
+       ],
+       "start": 82.94,
+       "end": 83.12
+      },
+      {
+       "text": "와",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 83.12,
+         "end": 83.3,
+         "score": 0.6534
+        }
+       ],
+       "start": 83.12,
+       "end": 83.3
+      },
+      {
+       "text": "레",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "레",
+         "roman": "re",
+         "start": 83.3,
+         "end": 83.44,
+         "score": 0.8456
+        }
+       ],
+       "start": 83.3,
+       "end": 83.44
+      },
+      {
+       "text": "테",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "테",
+         "roman": "te",
+         "start": 83.44,
+         "end": 83.64,
+         "score": 0.4898
+        }
+       ],
+       "start": 83.44,
+       "end": 83.64
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "이탄다케도",
+     "span": [
+      15,
+      20
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이탄다케도",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 83.64,
+         "end": 83.74,
+         "score": 0.8988
+        }
+       ],
+       "start": 83.64,
+       "end": 83.74
+      },
+      {
+       "text": "탄",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "탄",
+         "roman": "tan",
+         "start": 83.74,
+         "end": 84.06,
+         "score": 0.792
+        }
+       ],
+       "start": 83.74,
+       "end": 84.06
+      },
+      {
+       "text": "다",
+       "span": [
+        17,
+        18
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 84.06,
+         "end": 84.38,
+         "score": 0.4999
+        }
+       ],
+       "start": 84.06,
+       "end": 84.38
+      },
+      {
+       "text": "케",
+       "span": [
+        18,
+        19
+       ],
+       "units": [
+        {
+         "reading": "케",
+         "roman": "ke",
+         "start": 84.38,
+         "end": 84.68,
+         "score": 0.7057
+        }
+       ],
+       "start": 84.38,
+       "end": 84.68
+      },
+      {
+       "text": "도",
+       "span": [
+        19,
+        20
+       ],
+       "units": [
+        {
+         "reading": "도",
+         "roman": "do",
+         "start": 84.68,
+         "end": 85.02,
+         "score": 0.5324
+        }
+       ],
+       "start": 84.68,
+       "end": 85.02
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 79.66,
+   "end": 85.02,
+   "confidence": 0.6371,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 13,
+   "text": "아노 바은도노 우타가 다레카니와 기프스데",
+   "raw": "아노 바은도노 우타가 다레카니와 기프스데",
+   "stanza": 3,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "아노",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "아노",
+     "syllables": [
+      {
+       "text": "아",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 85.02,
+         "end": 85.38,
+         "score": 0.9572
+        }
+       ],
+       "start": 85.02,
+       "end": 85.38
+      },
+      {
+       "text": "노",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 85.64,
+         "end": 86.1,
+         "score": 0.676
+        }
+       ],
+       "start": 85.64,
+       "end": 86.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "바은도노",
+     "span": [
+      3,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "바은도노",
+     "syllables": [
+      {
+       "text": "바",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "바",
+         "roman": "ba",
+         "start": 86.1,
+         "end": 86.28,
+         "score": 0.5567
+        }
+       ],
+       "start": 86.1,
+       "end": 86.28
+      },
+      {
+       "text": "은",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 86.28,
+         "end": 86.6,
+         "score": 0.0077
+        }
+       ],
+       "start": 86.28,
+       "end": 86.6
+      },
+      {
+       "text": "도",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "도",
+         "roman": "do",
+         "start": 86.6,
+         "end": 87.02,
+         "score": 0.7903
+        }
+       ],
+       "start": 86.6,
+       "end": 87.02
+      },
+      {
+       "text": "노",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 87.22,
+         "end": 87.42,
+         "score": 0.6329
+        }
+       ],
+       "start": 87.22,
+       "end": 87.42
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "우타가",
+     "span": [
+      8,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "우타가",
+     "syllables": [
+      {
+       "text": "우",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "우",
+         "roman": "u",
+         "start": 87.42,
+         "end": 87.52,
+         "score": 0.4512
+        }
+       ],
+       "start": 87.42,
+       "end": 87.52
+      },
+      {
+       "text": "타",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 87.52,
+         "end": 87.86,
+         "score": 0.927
+        }
+       ],
+       "start": 87.52,
+       "end": 87.86
+      },
+      {
+       "text": "가",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 87.86,
+         "end": 88.0,
+         "score": 0.9299
+        }
+       ],
+       "start": 87.86,
+       "end": 88.0
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "다레카니와",
+     "span": [
+      12,
+      17
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "다레카니와",
+     "syllables": [
+      {
+       "text": "다",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 88.0,
+         "end": 88.2,
+         "score": 0.9495
+        }
+       ],
+       "start": 88.0,
+       "end": 88.2
+      },
+      {
+       "text": "레",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "레",
+         "roman": "re",
+         "start": 88.2,
+         "end": 88.34,
+         "score": 0.8239
+        }
+       ],
+       "start": 88.2,
+       "end": 88.34
+      },
+      {
+       "text": "카",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 88.34,
+         "end": 88.5,
+         "score": 0.8353
+        }
+       ],
+       "start": 88.34,
+       "end": 88.5
+      },
+      {
+       "text": "니",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 88.5,
+         "end": 88.66,
+         "score": 0.7965
+        }
+       ],
+       "start": 88.5,
+       "end": 88.66
+      },
+      {
+       "text": "와",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 88.66,
+         "end": 88.8,
+         "score": 0.7846
+        }
+       ],
+       "start": 88.66,
+       "end": 88.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "기프스데",
+     "span": [
+      18,
+      22
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "기프스데",
+     "syllables": [
+      {
+       "text": "기",
+       "span": [
+        18,
+        19
+       ],
+       "units": [
+        {
+         "reading": "기",
+         "roman": "gi",
+         "start": 88.8,
+         "end": 89.12,
+         "score": 0.4666
+        }
+       ],
+       "start": 88.8,
+       "end": 89.12
+      },
+      {
+       "text": "프",
+       "span": [
+        19,
+        20
+       ],
+       "units": [
+        {
+         "reading": "프",
+         "roman": "peu",
+         "start": 89.12,
+         "end": 89.4,
+         "score": 0.1078
+        }
+       ],
+       "start": 89.12,
+       "end": 89.4
+      },
+      {
+       "text": "스",
+       "span": [
+        20,
+        21
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 89.4,
+         "end": 89.74,
+         "score": 0.1527
+        }
+       ],
+       "start": 89.4,
+       "end": 89.74
+      },
+      {
+       "text": "데",
+       "span": [
+        21,
+        22
+       ],
+       "units": [
+        {
+         "reading": "데",
+         "roman": "de",
+         "start": 89.74,
+         "end": 90.06,
+         "score": 0.0081
+        }
+       ],
+       "start": 89.74,
+       "end": 90.06
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 85.02,
+   "end": 90.06,
+   "confidence": 0.603,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 14,
+   "text": "와타시(다케가) 마치가이 바카리 미타이",
+   "raw": "와타시(다케가) 마치가이 바카리 미타이",
+   "stanza": 3,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "와타시",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "와타시",
+     "syllables": [
+      {
+       "text": "와",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 90.06,
+         "end": 90.54,
+         "score": 0.1439
+        }
+       ],
+       "start": 90.06,
+       "end": 90.54
+      },
+      {
+       "text": "타",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 90.54,
+         "end": 90.68,
+         "score": 0.1955
+        }
+       ],
+       "start": 90.54,
+       "end": 90.68
+      },
+      {
+       "text": "시",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 90.68,
+         "end": 90.8,
+         "score": 0.263
+        }
+       ],
+       "start": 90.68,
+       "end": 90.8
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "다케가",
+     "span": [
+      4,
+      7
+     ],
+     "lang": "ko",
+     "kind": "backing",
+     "reading": "다케가",
+     "syllables": [
+      {
+       "text": "다",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 90.8,
+         "end": 91.05,
+         "score": null
+        }
+       ],
+       "start": 90.8,
+       "end": 91.05
+      },
+      {
+       "text": "케",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "케",
+         "roman": "ke",
+         "start": 91.05,
+         "end": 91.3,
+         "score": null
+        }
+       ],
+       "start": 91.05,
+       "end": 91.3
+      },
+      {
+       "text": "가",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 91.3,
+         "end": 92.28,
+         "score": null
+        }
+       ],
+       "start": 91.3,
+       "end": 92.28
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "마치가이",
+     "span": [
+      9,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "마치가이",
+     "syllables": [
+      {
+       "text": "마",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "마",
+         "roman": "ma",
+         "start": 92.28,
+         "end": 92.44,
+         "score": 0.5939
+        }
+       ],
+       "start": 92.28,
+       "end": 92.44
+      },
+      {
+       "text": "치",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "치",
+         "roman": "ci",
+         "start": 92.44,
+         "end": 92.6,
+         "score": 0.782
+        }
+       ],
+       "start": 92.44,
+       "end": 92.6
+      },
+      {
+       "text": "가",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 92.6,
+         "end": 92.98,
+         "score": 0.5016
+        }
+       ],
+       "start": 92.6,
+       "end": 92.98
+      },
+      {
+       "text": "이",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 92.98,
+         "end": 93.08,
+         "score": 0.6498
+        }
+       ],
+       "start": 92.98,
+       "end": 93.08
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "바카리",
+     "span": [
+      14,
+      17
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "바카리",
+     "syllables": [
+      {
+       "text": "바",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "바",
+         "roman": "ba",
+         "start": 93.08,
+         "end": 93.22,
+         "score": 0.4277
+        }
+       ],
+       "start": 93.08,
+       "end": 93.22
+      },
+      {
+       "text": "카",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 93.22,
+         "end": 93.4,
+         "score": 0.5714
+        }
+       ],
+       "start": 93.22,
+       "end": 93.4
+      },
+      {
+       "text": "리",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "리",
+         "roman": "ri",
+         "start": 93.4,
+         "end": 93.54,
+         "score": 0.6775
+        }
+       ],
+       "start": 93.4,
+       "end": 93.54
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "미타이",
+     "span": [
+      18,
+      21
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "미타이",
+     "syllables": [
+      {
+       "text": "미",
+       "span": [
+        18,
+        19
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 93.54,
+         "end": 94.02,
+         "score": 0.7915
+        }
+       ],
+       "start": 93.54,
+       "end": 94.02
+      },
+      {
+       "text": "타",
+       "span": [
+        19,
+        20
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 94.02,
+         "end": 94.26,
+         "score": 0.2312
+        }
+       ],
+       "start": 94.02,
+       "end": 94.26
+      },
+      {
+       "text": "이",
+       "span": [
+        20,
+        21
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 94.26,
+         "end": 94.34,
+         "score": 0.646
+        }
+       ],
+       "start": 94.26,
+       "end": 94.34
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 90.06,
+   "end": 94.34,
+   "confidence": 0.4981,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 15,
+   "text": "메오 토지루 쿠라야미니 사스 고코오",
+   "raw": "메오 토지루 쿠라야미니 사스 고코오",
+   "stanza": 4,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "메오",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "메오",
+     "syllables": [
+      {
+       "text": "메",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "메",
+         "roman": "me",
+         "start": 94.34,
+         "end": 94.56,
+         "score": 0.111
+        }
+       ],
+       "start": 94.34,
+       "end": 94.56
+      },
+      {
+       "text": "오",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 94.56,
+         "end": 94.64,
+         "score": 0.1643
+        }
+       ],
+       "start": 94.56,
+       "end": 94.64
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "토지루",
+     "span": [
+      3,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "토지루",
+     "syllables": [
+      {
+       "text": "토",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "토",
+         "roman": "to",
+         "start": 94.64,
+         "end": 94.78,
+         "score": 0.4253
+        }
+       ],
+       "start": 94.64,
+       "end": 94.78
+      },
+      {
+       "text": "지",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "지",
+         "roman": "ji",
+         "start": 94.78,
+         "end": 94.98,
+         "score": 0.2925
+        }
+       ],
+       "start": 94.78,
+       "end": 94.98
+      },
+      {
+       "text": "루",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 94.98,
+         "end": 96.62,
+         "score": 0.3184
+        }
+       ],
+       "start": 94.98,
+       "end": 96.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "쿠라야미니",
+     "span": [
+      7,
+      12
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "쿠라야미니",
+     "syllables": [
+      {
+       "text": "쿠",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 97.16,
+         "end": 97.34,
+         "score": 0.4988
+        }
+       ],
+       "start": 97.16,
+       "end": 97.34
+      },
+      {
+       "text": "라",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "라",
+         "roman": "ra",
+         "start": 97.34,
+         "end": 97.5,
+         "score": 0.606
+        }
+       ],
+       "start": 97.34,
+       "end": 97.5
+      },
+      {
+       "text": "야",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "야",
+         "roman": "ya",
+         "start": 97.5,
+         "end": 97.64,
+         "score": 0.2116
+        }
+       ],
+       "start": 97.5,
+       "end": 97.64
+      },
+      {
+       "text": "미",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 97.64,
+         "end": 97.98,
+         "score": 0.67
+        }
+       ],
+       "start": 97.64,
+       "end": 97.98
+      },
+      {
+       "text": "니",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 97.98,
+         "end": 98.1,
+         "score": 0.2885
+        }
+       ],
+       "start": 97.98,
+       "end": 98.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "사스",
+     "span": [
+      13,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "사스",
+     "syllables": [
+      {
+       "text": "사",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "사",
+         "roman": "sa",
+         "start": 98.1,
+         "end": 98.34,
+         "score": 0.6255
+        }
+       ],
+       "start": 98.1,
+       "end": 98.34
+      },
+      {
+       "text": "스",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 98.34,
+         "end": 98.44,
+         "score": 0.226
+        }
+       ],
+       "start": 98.34,
+       "end": 98.44
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "고코오",
+     "span": [
+      16,
+      19
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "고코오",
+     "syllables": [
+      {
+       "text": "고",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "고",
+         "roman": "go",
+         "start": 98.44,
+         "end": 98.6,
+         "score": 0.0338
+        }
+       ],
+       "start": 98.44,
+       "end": 98.6
+      },
+      {
+       "text": "코",
+       "span": [
+        17,
+        18
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 98.6,
+         "end": 99.02,
+         "score": 0.4362
+        }
+       ],
+       "start": 98.6,
+       "end": 99.02
+      },
+      {
+       "text": "오",
+       "span": [
+        18,
+        19
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 99.02,
+         "end": 99.18,
+         "score": 0.0005
+        }
+       ],
+       "start": 99.02,
+       "end": 99.18
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 94.34,
+   "end": 99.18,
+   "confidence": 0.3272,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 16,
+   "text": "미미 후사구 타시카니 키자무 코도오",
+   "raw": "미미 후사구 타시카니 키자무 코도오",
+   "stanza": 4,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "미미",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "미미",
+     "syllables": [
+      {
+       "text": "미",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 99.38,
+         "end": 99.54,
+         "score": 0.523
+        }
+       ],
+       "start": 99.38,
+       "end": 99.54
+      },
+      {
+       "text": "미",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 99.54,
+         "end": 99.68,
+         "score": 0.3349
+        }
+       ],
+       "start": 99.54,
+       "end": 99.68
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "후사구",
+     "span": [
+      3,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "후사구",
+     "syllables": [
+      {
+       "text": "후",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "후",
+         "roman": "hu",
+         "start": 99.68,
+         "end": 99.82,
+         "score": 0.0299
+        }
+       ],
+       "start": 99.68,
+       "end": 99.82
+      },
+      {
+       "text": "사",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "사",
+         "roman": "sa",
+         "start": 99.82,
+         "end": 100.04,
+         "score": 0.5171
+        }
+       ],
+       "start": 99.82,
+       "end": 100.04
+      },
+      {
+       "text": "구",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "구",
+         "roman": "gu",
+         "start": 100.04,
+         "end": 101.64,
+         "score": 0.024
+        }
+       ],
+       "start": 100.04,
+       "end": 101.64
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "타시카니",
+     "span": [
+      7,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "타시카니",
+     "syllables": [
+      {
+       "text": "타",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 102.24,
+         "end": 102.38,
+         "score": 0.2509
+        }
+       ],
+       "start": 102.24,
+       "end": 102.38
+      },
+      {
+       "text": "시",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 102.38,
+         "end": 102.54,
+         "score": 0.3591
+        }
+       ],
+       "start": 102.38,
+       "end": 102.54
+      },
+      {
+       "text": "카",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 102.54,
+         "end": 102.72,
+         "score": 0.6316
+        }
+       ],
+       "start": 102.54,
+       "end": 102.72
+      },
+      {
+       "text": "니",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 102.72,
+         "end": 103.0,
+         "score": 0.8166
+        }
+       ],
+       "start": 102.72,
+       "end": 103.0
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "키자무",
+     "span": [
+      12,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "키자무",
+     "syllables": [
+      {
+       "text": "키",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 103.0,
+         "end": 103.16,
+         "score": 0.6017
+        }
+       ],
+       "start": 103.0,
+       "end": 103.16
+      },
+      {
+       "text": "자",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "자",
+         "roman": "ja",
+         "start": 103.16,
+         "end": 103.38,
+         "score": 0.2538
+        }
+       ],
+       "start": 103.16,
+       "end": 103.38
+      },
+      {
+       "text": "무",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "무",
+         "roman": "mu",
+         "start": 103.38,
+         "end": 103.48,
+         "score": 0.4229
+        }
+       ],
+       "start": 103.38,
+       "end": 103.48
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "코도오",
+     "span": [
+      16,
+      19
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "코도오",
+     "syllables": [
+      {
+       "text": "코",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 103.48,
+         "end": 103.64,
+         "score": 0.4637
+        }
+       ],
+       "start": 103.48,
+       "end": 103.64
+      },
+      {
+       "text": "도",
+       "span": [
+        17,
+        18
+       ],
+       "units": [
+        {
+         "reading": "도",
+         "roman": "do",
+         "start": 103.64,
+         "end": 103.9,
+         "score": 0.0922
+        }
+       ],
+       "start": 103.64,
+       "end": 103.9
+      },
+      {
+       "text": "오",
+       "span": [
+        18,
+        19
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 103.9,
+         "end": 104.12,
+         "score": 0.0014
+        }
+       ],
+       "start": 103.9,
+       "end": 104.12
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 99.38,
+   "end": 104.12,
+   "confidence": 0.3549,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 17,
+   "text": "무네노 오쿠 미오 유라스 시은조오",
+   "raw": "무네노 오쿠 미오 유라스 시은조오",
+   "stanza": 4,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "무네노",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "무네노",
+     "syllables": [
+      {
+       "text": "무",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "무",
+         "roman": "mu",
+         "start": 104.44,
+         "end": 104.6,
+         "score": 0.1001
+        }
+       ],
+       "start": 104.44,
+       "end": 104.6
+      },
+      {
+       "text": "네",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "네",
+         "roman": "ne",
+         "start": 104.6,
+         "end": 104.76,
+         "score": 0.2162
+        }
+       ],
+       "start": 104.6,
+       "end": 104.76
+      },
+      {
+       "text": "노",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 104.76,
+         "end": 104.96,
+         "score": 0.4042
+        }
+       ],
+       "start": 104.76,
+       "end": 104.96
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오쿠",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오쿠",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 104.96,
+         "end": 105.08,
+         "score": 0.2443
+        }
+       ],
+       "start": 104.96,
+       "end": 105.08
+      },
+      {
+       "text": "쿠",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 105.08,
+         "end": 106.7,
+         "score": 0.3891
+        }
+       ],
+       "start": 105.08,
+       "end": 106.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "미오",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "미오",
+     "syllables": [
+      {
+       "text": "미",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "미",
+         "roman": "mi",
+         "start": 107.26,
+         "end": 107.52,
+         "score": 0.7245
+        }
+       ],
+       "start": 107.26,
+       "end": 107.52
+      },
+      {
+       "text": "오",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 107.52,
+         "end": 107.62,
+         "score": 0.1014
+        }
+       ],
+       "start": 107.52,
+       "end": 107.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "유라스",
+     "span": [
+      10,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "유라스",
+     "syllables": [
+      {
+       "text": "유",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "유",
+         "roman": "yu",
+         "start": 107.62,
+         "end": 107.76,
+         "score": 0.1107
+        }
+       ],
+       "start": 107.62,
+       "end": 107.76
+      },
+      {
+       "text": "라",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "라",
+         "roman": "ra",
+         "start": 107.76,
+         "end": 108.04,
+         "score": 0.257
+        }
+       ],
+       "start": 107.76,
+       "end": 108.04
+      },
+      {
+       "text": "스",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 108.04,
+         "end": 108.2,
+         "score": 0.1731
+        }
+       ],
+       "start": 108.04,
+       "end": 108.2
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "시은조오",
+     "span": [
+      14,
+      18
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "시은조오",
+     "syllables": [
+      {
+       "text": "시",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 108.2,
+         "end": 108.4,
+         "score": 0.5509
+        }
+       ],
+       "start": 108.2,
+       "end": 108.4
+      },
+      {
+       "text": "은",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "은",
+         "roman": "eun",
+         "start": 108.4,
+         "end": 108.52,
+         "score": 0.3054
+        }
+       ],
+       "start": 108.4,
+       "end": 108.52
+      },
+      {
+       "text": "조",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "조",
+         "roman": "jo",
+         "start": 108.52,
+         "end": 109.42,
+         "score": 0.1268
+        }
+       ],
+       "start": 108.52,
+       "end": 109.42
+      },
+      {
+       "text": "오",
+       "span": [
+        17,
+        18
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 109.76,
+         "end": 109.8,
+         "score": 0.0014
+        }
+       ],
+       "start": 109.76,
+       "end": 109.8
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 104.44,
+   "end": 109.8,
+   "confidence": 0.2647,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 18,
+   "text": "호카니 나니모 키키타쿠 나이",
+   "raw": "호카니 나니모 키키타쿠 나이",
+   "stanza": 4,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "호카니",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "호카니",
+     "syllables": [
+      {
+       "text": "호",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "호",
+         "roman": "ho",
+         "start": 109.8,
+         "end": 109.96,
+         "score": 0.4293
+        }
+       ],
+       "start": 109.8,
+       "end": 109.96
+      },
+      {
+       "text": "카",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 109.96,
+         "end": 110.14,
+         "score": 0.6659
+        }
+       ],
+       "start": 109.96,
+       "end": 110.14
+      },
+      {
+       "text": "니",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 110.14,
+         "end": 110.3,
+         "score": 0.8669
+        }
+       ],
+       "start": 110.14,
+       "end": 110.3
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "나니모",
+     "span": [
+      4,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "나니모",
+     "syllables": [
+      {
+       "text": "나",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 110.3,
+         "end": 110.54,
+         "score": 0.5993
+        }
+       ],
+       "start": 110.3,
+       "end": 110.54
+      },
+      {
+       "text": "니",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 110.54,
+         "end": 110.58,
+         "score": 0.0193
+        }
+       ],
+       "start": 110.54,
+       "end": 110.58
+      },
+      {
+       "text": "모",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "모",
+         "roman": "mo",
+         "start": 110.58,
+         "end": 110.76,
+         "score": 0.4795
+        }
+       ],
+       "start": 110.58,
+       "end": 110.76
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "키키타쿠",
+     "span": [
+      8,
+      12
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "키키타쿠",
+     "syllables": [
+      {
+       "text": "키",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 110.76,
+         "end": 111.22,
+         "score": 0.6866
+        }
+       ],
+       "start": 110.76,
+       "end": 111.22
+      },
+      {
+       "text": "키",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 111.22,
+         "end": 111.38,
+         "score": 0.7645
+        }
+       ],
+       "start": 111.22,
+       "end": 111.38
+      },
+      {
+       "text": "타",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 111.38,
+         "end": 111.76,
+         "score": 0.6223
+        }
+       ],
+       "start": 111.38,
+       "end": 111.76
+      },
+      {
+       "text": "쿠",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 111.76,
+         "end": 111.86,
+         "score": 0.4074
+        }
+       ],
+       "start": 111.76,
+       "end": 111.86
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "나이",
+     "span": [
+      13,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "나이",
+     "syllables": [
+      {
+       "text": "나",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 111.86,
+         "end": 112.18,
+         "score": 0.6137
+        }
+       ],
+       "start": 111.86,
+       "end": 112.18
+      },
+      {
+       "text": "이",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 112.18,
+         "end": 112.48,
+         "score": 0.5097
+        }
+       ],
+       "start": 112.18,
+       "end": 112.48
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 109.8,
+   "end": 112.48,
+   "confidence": 0.5554,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 19,
+   "text": "와타시가 하나츠 오토 이가이",
+   "raw": "와타시가 하나츠 오토 이가이",
+   "stanza": 4,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "와타시가",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "와타시가",
+     "syllables": [
+      {
+       "text": "와",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 112.48,
+         "end": 112.66,
+         "score": 0.3699
+        }
+       ],
+       "start": 112.48,
+       "end": 112.66
+      },
+      {
+       "text": "타",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 112.66,
+         "end": 113.02,
+         "score": 0.6793
+        }
+       ],
+       "start": 112.66,
+       "end": 113.02
+      },
+      {
+       "text": "시",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 113.02,
+         "end": 113.12,
+         "score": 0.4086
+        }
+       ],
+       "start": 113.02,
+       "end": 113.12
+      },
+      {
+       "text": "가",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 113.12,
+         "end": 113.28,
+         "score": 0.4131
+        }
+       ],
+       "start": 113.12,
+       "end": 113.28
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "하나츠",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "하나츠",
+     "syllables": [
+      {
+       "text": "하",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "하",
+         "roman": "ha",
+         "start": 113.28,
+         "end": 113.78,
+         "score": 0.6056
+        }
+       ],
+       "start": 113.28,
+       "end": 113.78
+      },
+      {
+       "text": "나",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 113.78,
+         "end": 113.92,
+         "score": 0.1656
+        }
+       ],
+       "start": 113.78,
+       "end": 113.92
+      },
+      {
+       "text": "츠",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "츠",
+         "roman": "ceu",
+         "start": 113.92,
+         "end": 114.68,
+         "score": 0.0188
+        }
+       ],
+       "start": 113.92,
+       "end": 114.68
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오토",
+     "span": [
+      9,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오토",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 114.68,
+         "end": 114.7,
+         "score": 0.0018
+        }
+       ],
+       "start": 114.68,
+       "end": 114.7
+      },
+      {
+       "text": "토",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "토",
+         "roman": "to",
+         "start": 114.7,
+         "end": 114.92,
+         "score": 0.4365
+        }
+       ],
+       "start": 114.7,
+       "end": 114.92
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "이가이",
+     "span": [
+      12,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이가이",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 114.92,
+         "end": 115.04,
+         "score": 0.5086
+        }
+       ],
+       "start": 114.92,
+       "end": 115.04
+      },
+      {
+       "text": "가",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 115.04,
+         "end": 115.3,
+         "score": 0.5349
+        }
+       ],
+       "start": 115.04,
+       "end": 115.3
+      },
+      {
+       "text": "이",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 115.3,
+         "end": 116.82,
+         "score": 0.5281
+        }
+       ],
+       "start": 115.3,
+       "end": 116.82
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 112.48,
+   "end": 116.82,
+   "confidence": 0.3892,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 20,
+   "text": "이라나이",
+   "raw": "이라나이",
+   "stanza": 5,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "이라나이",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이라나이",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 119.6,
+         "end": 120.04,
+         "score": 0.2999
+        }
+       ],
+       "start": 119.6,
+       "end": 120.04
+      },
+      {
+       "text": "라",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "라",
+         "roman": "ra",
+         "start": 120.04,
+         "end": 120.24,
+         "score": 0.1014
+        }
+       ],
+       "start": 120.04,
+       "end": 120.24
+      },
+      {
+       "text": "나",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 120.24,
+         "end": 120.66,
+         "score": 0.5032
+        }
+       ],
+       "start": 120.24,
+       "end": 120.66
+      },
+      {
+       "text": "이",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 120.66,
+         "end": 122.18,
+         "score": 0.4697
+        }
+       ],
+       "start": 120.66,
+       "end": 122.18
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 119.6,
+   "end": 122.18,
+   "confidence": 0.3435,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 21,
+   "text": "세나카오 오스나요",
+   "raw": "세나카오 오스나요",
+   "stanza": 6,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "세나카오",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "세나카오",
+     "syllables": [
+      {
+       "text": "세",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "세",
+         "roman": "se",
+         "start": 137.08,
+         "end": 137.44,
+         "score": 0.5509
+        }
+       ],
+       "start": 137.08,
+       "end": 137.44
+      },
+      {
+       "text": "나",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 137.44,
+         "end": 137.6,
+         "score": 0.6121
+        }
+       ],
+       "start": 137.44,
+       "end": 137.6
+      },
+      {
+       "text": "카",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 137.6,
+         "end": 137.88,
+         "score": 0.6477
+        }
+       ],
+       "start": 137.6,
+       "end": 137.88
+      },
+      {
+       "text": "오",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 137.88,
+         "end": 138.1,
+         "score": 0.3106
+        }
+       ],
+       "start": 137.88,
+       "end": 138.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오스나요",
+     "span": [
+      5,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오스나요",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 139.72,
+         "end": 139.96,
+         "score": 0.5692
+        }
+       ],
+       "start": 139.72,
+       "end": 139.96
+      },
+      {
+       "text": "스",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 139.96,
+         "end": 140.12,
+         "score": 0.4925
+        }
+       ],
+       "start": 139.96,
+       "end": 140.12
+      },
+      {
+       "text": "나",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 140.12,
+         "end": 140.32,
+         "score": 0.712
+        }
+       ],
+       "start": 140.12,
+       "end": 140.32
+      },
+      {
+       "text": "요",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "요",
+         "roman": "yo",
+         "start": 140.32,
+         "end": 140.76,
+         "score": 0.5504
+        }
+       ],
+       "start": 140.32,
+       "end": 140.76
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 137.08,
+   "end": 140.76,
+   "confidence": 0.5557,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 22,
+   "text": "타야스쿠 코코로 사와루나",
+   "raw": "타야스쿠 코코로 사와루나",
+   "stanza": 6,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "타야스쿠",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "타야스쿠",
+     "syllables": [
+      {
+       "text": "타",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 142.18,
+         "end": 142.5,
+         "score": 0.7494
+        }
+       ],
+       "start": 142.18,
+       "end": 142.5
+      },
+      {
+       "text": "야",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "야",
+         "roman": "ya",
+         "start": 142.5,
+         "end": 142.66,
+         "score": 0.7763
+        }
+       ],
+       "start": 142.5,
+       "end": 142.66
+      },
+      {
+       "text": "스",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 142.66,
+         "end": 142.82,
+         "score": 0.4802
+        }
+       ],
+       "start": 142.66,
+       "end": 142.82
+      },
+      {
+       "text": "쿠",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 142.82,
+         "end": 142.92,
+         "score": 0.4497
+        }
+       ],
+       "start": 142.82,
+       "end": 142.92
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "코코로",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "코코로",
+     "syllables": [
+      {
+       "text": "코",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 143.14,
+         "end": 143.6,
+         "score": 0.6516
+        }
+       ],
+       "start": 143.14,
+       "end": 143.6
+      },
+      {
+       "text": "코",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 143.6,
+         "end": 143.8,
+         "score": 0.6871
+        }
+       ],
+       "start": 143.6,
+       "end": 143.8
+      },
+      {
+       "text": "로",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "로",
+         "roman": "ro",
+         "start": 143.8,
+         "end": 144.16,
+         "score": 0.7138
+        }
+       ],
+       "start": 143.8,
+       "end": 144.16
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "사와루나",
+     "span": [
+      9,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "사와루나",
+     "syllables": [
+      {
+       "text": "사",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "사",
+         "roman": "sa",
+         "start": 144.32,
+         "end": 144.68,
+         "score": 0.7917
+        }
+       ],
+       "start": 144.32,
+       "end": 144.68
+      },
+      {
+       "text": "와",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 144.68,
+         "end": 145.04,
+         "score": 0.5274
+        }
+       ],
+       "start": 144.68,
+       "end": 145.04
+      },
+      {
+       "text": "루",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 145.04,
+         "end": 145.26,
+         "score": 0.8627
+        }
+       ],
+       "start": 145.04,
+       "end": 145.26
+      },
+      {
+       "text": "나",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 145.26,
+         "end": 145.98,
+         "score": 0.7488
+        }
+       ],
+       "start": 145.26,
+       "end": 145.98
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 142.18,
+   "end": 145.98,
+   "confidence": 0.6762,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 23,
+   "text": "슛파츠노 베루가 나루",
+   "raw": "슛파츠노 베루가 나루",
+   "stanza": 6,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "슛파츠노",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "슛파츠노",
+     "syllables": [
+      {
+       "text": "슛",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "슛",
+         "roman": "syus",
+         "start": 146.84,
+         "end": 147.52,
+         "score": 0.1562
+        }
+       ],
+       "start": 146.84,
+       "end": 147.52
+      },
+      {
+       "text": "파",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "파",
+         "roman": "pa",
+         "start": 147.52,
+         "end": 147.7,
+         "score": 0.7097
+        }
+       ],
+       "start": 147.52,
+       "end": 147.7
+      },
+      {
+       "text": "츠",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "츠",
+         "roman": "ceu",
+         "start": 147.7,
+         "end": 147.86,
+         "score": 0.1188
+        }
+       ],
+       "start": 147.7,
+       "end": 147.86
+      },
+      {
+       "text": "노",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 147.86,
+         "end": 149.46,
+         "score": 0.451
+        }
+       ],
+       "start": 147.86,
+       "end": 149.46
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "베루가",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "베루가",
+     "syllables": [
+      {
+       "text": "베",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "베",
+         "roman": "be",
+         "start": 149.74,
+         "end": 149.92,
+         "score": 0.7482
+        }
+       ],
+       "start": 149.74,
+       "end": 149.92
+      },
+      {
+       "text": "루",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 149.92,
+         "end": 150.06,
+         "score": 0.7791
+        }
+       ],
+       "start": 149.92,
+       "end": 150.06
+      },
+      {
+       "text": "가",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 150.06,
+         "end": 150.22,
+         "score": 0.503
+        }
+       ],
+       "start": 150.06,
+       "end": 150.22
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "나루",
+     "span": [
+      9,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "나루",
+     "syllables": [
+      {
+       "text": "나",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 150.22,
+         "end": 150.4,
+         "score": 0.3224
+        }
+       ],
+       "start": 150.22,
+       "end": 150.4
+      },
+      {
+       "text": "루",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 150.4,
+         "end": 152.02,
+         "score": 0.3099
+        }
+       ],
+       "start": 150.4,
+       "end": 152.02
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 146.84,
+   "end": 152.02,
+   "confidence": 0.4553,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 24,
+   "text": "죠오캬쿠와 와타시 히토리다케",
+   "raw": "죠오캬쿠와 와타시 히토리다케",
+   "stanza": 6,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "죠오캬쿠와",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "죠오캬쿠와",
+     "syllables": [
+      {
+       "text": "죠",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "죠",
+         "roman": "jyo",
+         "start": 152.24,
+         "end": 152.46,
+         "score": 0.2202
+        }
+       ],
+       "start": 152.24,
+       "end": 152.46
+      },
+      {
+       "text": "오",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 152.46,
+         "end": 152.58,
+         "score": 0.0399
+        }
+       ],
+       "start": 152.46,
+       "end": 152.58
+      },
+      {
+       "text": "캬",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "캬",
+         "roman": "kya",
+         "start": 152.58,
+         "end": 152.76,
+         "score": 0.2961
+        }
+       ],
+       "start": 152.58,
+       "end": 152.76
+      },
+      {
+       "text": "쿠",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 152.76,
+         "end": 152.92,
+         "score": 0.3359
+        }
+       ],
+       "start": 152.76,
+       "end": 152.92
+      },
+      {
+       "text": "와",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 152.92,
+         "end": 153.1,
+         "score": 0.2972
+        }
+       ],
+       "start": 152.92,
+       "end": 153.1
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "와타시",
+     "span": [
+      6,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "와타시",
+     "syllables": [
+      {
+       "text": "와",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 153.1,
+         "end": 153.24,
+         "score": 0.17
+        }
+       ],
+       "start": 153.1,
+       "end": 153.24
+      },
+      {
+       "text": "타",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 153.24,
+         "end": 153.5,
+         "score": 0.5444
+        }
+       ],
+       "start": 153.24,
+       "end": 153.5
+      },
+      {
+       "text": "시",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 153.5,
+         "end": 153.54,
+         "score": 0.1606
+        }
+       ],
+       "start": 153.5,
+       "end": 153.54
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "히토리다케",
+     "span": [
+      10,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "히토리다케",
+     "syllables": [
+      {
+       "text": "히",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "히",
+         "roman": "hi",
+         "start": 153.54,
+         "end": 153.7,
+         "score": 0.3566
+        }
+       ],
+       "start": 153.54,
+       "end": 153.7
+      },
+      {
+       "text": "토",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "토",
+         "roman": "to",
+         "start": 153.7,
+         "end": 153.88,
+         "score": 0.2196
+        }
+       ],
+       "start": 153.7,
+       "end": 153.88
+      },
+      {
+       "text": "리",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "리",
+         "roman": "ri",
+         "start": 153.88,
+         "end": 154.16,
+         "score": 0.4714
+        }
+       ],
+       "start": 153.88,
+       "end": 154.16
+      },
+      {
+       "text": "다",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 154.16,
+         "end": 154.34,
+         "score": 0.3048
+        }
+       ],
+       "start": 154.16,
+       "end": 154.34
+      },
+      {
+       "text": "케",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "케",
+         "roman": "ke",
+         "start": 154.34,
+         "end": 154.74,
+         "score": 0.2922
+        }
+       ],
+       "start": 154.34,
+       "end": 154.74
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 152.24,
+   "end": 154.74,
+   "confidence": 0.2853,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 25,
+   "text": "테오 타타쿠 와타시다케노 오토",
+   "raw": "테오 타타쿠 와타시다케노 오토",
+   "stanza": 7,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "테오",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "테오",
+     "syllables": [
+      {
+       "text": "테",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "테",
+         "roman": "te",
+         "start": 154.96,
+         "end": 155.2,
+         "score": 0.6954
+        }
+       ],
+       "start": 154.96,
+       "end": 155.2
+      },
+      {
+       "text": "오",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 155.2,
+         "end": 155.28,
+         "score": 0.2733
+        }
+       ],
+       "start": 155.2,
+       "end": 155.28
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "타타쿠",
+     "span": [
+      3,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "타타쿠",
+     "syllables": [
+      {
+       "text": "타",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 155.28,
+         "end": 155.42,
+         "score": 0.6848
+        }
+       ],
+       "start": 155.28,
+       "end": 155.42
+      },
+      {
+       "text": "타",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 155.42,
+         "end": 155.62,
+         "score": 0.6229
+        }
+       ],
+       "start": 155.42,
+       "end": 155.62
+      },
+      {
+       "text": "쿠",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 155.62,
+         "end": 157.22,
+         "score": 0.3849
+        }
+       ],
+       "start": 155.62,
+       "end": 157.22
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "와타시다케노",
+     "span": [
+      7,
+      13
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "와타시다케노",
+     "syllables": [
+      {
+       "text": "와",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 157.8,
+         "end": 157.98,
+         "score": 0.3603
+        }
+       ],
+       "start": 157.8,
+       "end": 157.98
+      },
+      {
+       "text": "타",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 157.98,
+         "end": 158.1,
+         "score": 0.4874
+        }
+       ],
+       "start": 157.98,
+       "end": 158.1
+      },
+      {
+       "text": "시",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 158.1,
+         "end": 158.28,
+         "score": 0.3001
+        }
+       ],
+       "start": 158.1,
+       "end": 158.28
+      },
+      {
+       "text": "다",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "다",
+         "roman": "da",
+         "start": 158.28,
+         "end": 158.58,
+         "score": 0.5392
+        }
+       ],
+       "start": 158.28,
+       "end": 158.58
+      },
+      {
+       "text": "케",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "케",
+         "roman": "ke",
+         "start": 158.58,
+         "end": 158.76,
+         "score": 0.5184
+        }
+       ],
+       "start": 158.58,
+       "end": 158.76
+      },
+      {
+       "text": "노",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 158.76,
+         "end": 159.12,
+         "score": 0.4537
+        }
+       ],
+       "start": 158.76,
+       "end": 159.12
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오토",
+     "span": [
+      14,
+      16
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오토",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 159.12,
+         "end": 159.22,
+         "score": 0.2015
+        }
+       ],
+       "start": 159.12,
+       "end": 159.22
+      },
+      {
+       "text": "토",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "토",
+         "roman": "to",
+         "start": 159.22,
+         "end": 160.04,
+         "score": 0.5236
+        }
+       ],
+       "start": 159.22,
+       "end": 160.04
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 154.96,
+   "end": 160.04,
+   "confidence": 0.465,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 26,
+   "text": "아시 나라스 소쿠세키 노코스마데",
+   "raw": "아시 나라스 소쿠세키 노코스마데",
+   "stanza": 7,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "아시",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "아시",
+     "syllables": [
+      {
+       "text": "아",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 160.04,
+         "end": 160.14,
+         "score": 0.5482
+        }
+       ],
+       "start": 160.04,
+       "end": 160.14
+      },
+      {
+       "text": "시",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 160.14,
+         "end": 160.34,
+         "score": 0.419
+        }
+       ],
+       "start": 160.14,
+       "end": 160.34
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "나라스",
+     "span": [
+      3,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "나라스",
+     "syllables": [
+      {
+       "text": "나",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 160.34,
+         "end": 160.48,
+         "score": 0.5982
+        }
+       ],
+       "start": 160.34,
+       "end": 160.48
+      },
+      {
+       "text": "라",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "라",
+         "roman": "ra",
+         "start": 160.48,
+         "end": 160.66,
+         "score": 0.3532
+        }
+       ],
+       "start": 160.48,
+       "end": 160.66
+      },
+      {
+       "text": "스",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 160.66,
+         "end": 162.26,
+         "score": 0.2667
+        }
+       ],
+       "start": 160.66,
+       "end": 162.26
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "소쿠세키",
+     "span": [
+      7,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "소쿠세키",
+     "syllables": [
+      {
+       "text": "소",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "소",
+         "roman": "so",
+         "start": 162.84,
+         "end": 163.0,
+         "score": 0.3907
+        }
+       ],
+       "start": 162.84,
+       "end": 163.0
+      },
+      {
+       "text": "쿠",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 163.0,
+         "end": 163.12,
+         "score": 0.2736
+        }
+       ],
+       "start": 163.0,
+       "end": 163.12
+      },
+      {
+       "text": "세",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "세",
+         "roman": "se",
+         "start": 163.12,
+         "end": 163.32,
+         "score": 0.3503
+        }
+       ],
+       "start": 163.12,
+       "end": 163.32
+      },
+      {
+       "text": "키",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 163.32,
+         "end": 163.64,
+         "score": 0.4385
+        }
+       ],
+       "start": 163.32,
+       "end": 163.64
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "노코스마데",
+     "span": [
+      12,
+      17
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "노코스마데",
+     "syllables": [
+      {
+       "text": "노",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 163.64,
+         "end": 163.8,
+         "score": 0.3026
+        }
+       ],
+       "start": 163.64,
+       "end": 163.8
+      },
+      {
+       "text": "코",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 163.8,
+         "end": 164.04,
+         "score": 0.3733
+        }
+       ],
+       "start": 163.8,
+       "end": 164.04
+      },
+      {
+       "text": "스",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "start": 164.04,
+         "end": 164.12,
+         "score": 0.1727
+        }
+       ],
+       "start": 164.04,
+       "end": 164.12
+      },
+      {
+       "text": "마",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "마",
+         "roman": "ma",
+         "start": 164.12,
+         "end": 164.28,
+         "score": 0.5053
+        }
+       ],
+       "start": 164.12,
+       "end": 164.28
+      },
+      {
+       "text": "데",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "데",
+         "roman": "de",
+         "start": 164.28,
+         "end": 165.04,
+         "score": 0.3401
+        }
+       ],
+       "start": 164.28,
+       "end": 165.04
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 160.04,
+   "end": 165.04,
+   "confidence": 0.3809,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 27,
+   "text": "메오 아케루 코도쿠노 쇼오고오",
+   "raw": "메오 아케루 코도쿠노 쇼오고오",
+   "stanza": 7,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "메오",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "메오",
+     "syllables": [
+      {
+       "text": "메",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "메",
+         "roman": "me",
+         "start": 165.04,
+         "end": 165.28,
+         "score": 0.6776
+        }
+       ],
+       "start": 165.04,
+       "end": 165.28
+      },
+      {
+       "text": "오",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 165.28,
+         "end": 165.38,
+         "score": 0.2422
+        }
+       ],
+       "start": 165.28,
+       "end": 165.38
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "아케루",
+     "span": [
+      3,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "아케루",
+     "syllables": [
+      {
+       "text": "아",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "아",
+         "roman": "a",
+         "start": 165.38,
+         "end": 165.52,
+         "score": 0.0668
+        }
+       ],
+       "start": 165.38,
+       "end": 165.52
+      },
+      {
+       "text": "케",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "케",
+         "roman": "ke",
+         "start": 165.52,
+         "end": 165.74,
+         "score": 0.3369
+        }
+       ],
+       "start": 165.52,
+       "end": 165.74
+      },
+      {
+       "text": "루",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 165.74,
+         "end": 167.36,
+         "score": 0.5236
+        }
+       ],
+       "start": 165.74,
+       "end": 167.36
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "코도쿠노",
+     "span": [
+      7,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "코도쿠노",
+     "syllables": [
+      {
+       "text": "코",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 167.92,
+         "end": 168.1,
+         "score": 0.3645
+        }
+       ],
+       "start": 167.92,
+       "end": 168.1
+      },
+      {
+       "text": "도",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "도",
+         "roman": "do",
+         "start": 168.1,
+         "end": 168.24,
+         "score": 0.1294
+        }
+       ],
+       "start": 168.1,
+       "end": 168.24
+      },
+      {
+       "text": "쿠",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 168.24,
+         "end": 168.42,
+         "score": 0.4058
+        }
+       ],
+       "start": 168.24,
+       "end": 168.42
+      },
+      {
+       "text": "노",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 168.42,
+         "end": 168.7,
+         "score": 0.3969
+        }
+       ],
+       "start": 168.42,
+       "end": 168.7
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "쇼오고오",
+     "span": [
+      12,
+      16
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "쇼오고오",
+     "syllables": [
+      {
+       "text": "쇼",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "쇼",
+         "roman": "syo",
+         "start": 168.7,
+         "end": 168.94,
+         "score": 0.1185
+        }
+       ],
+       "start": 168.7,
+       "end": 168.94
+      },
+      {
+       "text": "오",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 168.94,
+         "end": 169.18,
+         "score": 0.1307
+        }
+       ],
+       "start": 168.94,
+       "end": 169.18
+      },
+      {
+       "text": "고",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "고",
+         "roman": "go",
+         "start": 169.18,
+         "end": 169.56,
+         "score": 0.0872
+        }
+       ],
+       "start": 169.18,
+       "end": 169.56
+      },
+      {
+       "text": "오",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 169.56,
+         "end": 169.9,
+         "score": 0.0039
+        }
+       ],
+       "start": 169.56,
+       "end": 169.9
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 165.04,
+   "end": 169.9,
+   "confidence": 0.268,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 28,
+   "text": "우케토메루 코코오노 쇼오도오",
+   "raw": "우케토메루 코코오노 쇼오도오",
+   "stanza": 7,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "우케토메루",
+     "span": [
+      0,
+      5
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "우케토메루",
+     "syllables": [
+      {
+       "text": "우",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "우",
+         "roman": "u",
+         "start": 170.18,
+         "end": 170.28,
+         "score": 0.0419
+        }
+       ],
+       "start": 170.18,
+       "end": 170.28
+      },
+      {
+       "text": "케",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "케",
+         "roman": "ke",
+         "start": 170.28,
+         "end": 170.44,
+         "score": 0.4224
+        }
+       ],
+       "start": 170.28,
+       "end": 170.44
+      },
+      {
+       "text": "토",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "토",
+         "roman": "to",
+         "start": 170.44,
+         "end": 170.58,
+         "score": 0.1197
+        }
+       ],
+       "start": 170.44,
+       "end": 170.58
+      },
+      {
+       "text": "메",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "메",
+         "roman": "me",
+         "start": 170.58,
+         "end": 170.78,
+         "score": 0.695
+        }
+       ],
+       "start": 170.58,
+       "end": 170.78
+      },
+      {
+       "text": "루",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 170.78,
+         "end": 172.38,
+         "score": 0.4989
+        }
+       ],
+       "start": 170.78,
+       "end": 172.38
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "코코오노",
+     "span": [
+      6,
+      10
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "코코오노",
+     "syllables": [
+      {
+       "text": "코",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 172.96,
+         "end": 173.12,
+         "score": 0.2699
+        }
+       ],
+       "start": 172.96,
+       "end": 173.12
+      },
+      {
+       "text": "코",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "코",
+         "roman": "ko",
+         "start": 173.12,
+         "end": 173.34,
+         "score": 0.2705
+        }
+       ],
+       "start": 173.12,
+       "end": 173.34
+      },
+      {
+       "text": "오",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 173.34,
+         "end": 173.44,
+         "score": 0.0174
+        }
+       ],
+       "start": 173.34,
+       "end": 173.44
+      },
+      {
+       "text": "노",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 173.44,
+         "end": 173.72,
+         "score": 0.3933
+        }
+       ],
+       "start": 173.44,
+       "end": 173.72
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "쇼오도오",
+     "span": [
+      11,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "쇼오도오",
+     "syllables": [
+      {
+       "text": "쇼",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "쇼",
+         "roman": "syo",
+         "start": 173.72,
+         "end": 174.0,
+         "score": 0.1409
+        }
+       ],
+       "start": 173.72,
+       "end": 174.0
+      },
+      {
+       "text": "오",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 174.0,
+         "end": 174.24,
+         "score": 0.1537
+        }
+       ],
+       "start": 174.0,
+       "end": 174.24
+      },
+      {
+       "text": "도",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "도",
+         "roman": "do",
+         "start": 174.24,
+         "end": 174.48,
+         "score": 0.2811
+        }
+       ],
+       "start": 174.24,
+       "end": 174.48
+      },
+      {
+       "text": "오",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 174.48,
+         "end": 174.9,
+         "score": 0.133
+        }
+       ],
+       "start": 174.48,
+       "end": 174.9
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 170.18,
+   "end": 174.9,
+   "confidence": 0.2644,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 29,
+   "text": "이마 무네노 오쿠 타시카메루 싱옹",
+   "raw": "이마 무네노 오쿠 타시카메루 싱옹",
+   "stanza": 8,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "이마",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이마",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 174.9,
+         "end": 175.02,
+         "score": 0.4934
+        }
+       ],
+       "start": 174.9,
+       "end": 175.02
+      },
+      {
+       "text": "마",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "마",
+         "roman": "ma",
+         "start": 175.02,
+         "end": 175.18,
+         "score": 0.4347
+        }
+       ],
+       "start": 175.02,
+       "end": 175.18
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "무네노",
+     "span": [
+      3,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "무네노",
+     "syllables": [
+      {
+       "text": "무",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "무",
+         "roman": "mu",
+         "start": 175.18,
+         "end": 175.34,
+         "score": 0.2782
+        }
+       ],
+       "start": 175.18,
+       "end": 175.34
+      },
+      {
+       "text": "네",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "네",
+         "roman": "ne",
+         "start": 175.34,
+         "end": 175.5,
+         "score": 0.4392
+        }
+       ],
+       "start": 175.34,
+       "end": 175.5
+      },
+      {
+       "text": "노",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "노",
+         "roman": "no",
+         "start": 175.5,
+         "end": 175.68,
+         "score": 0.3305
+        }
+       ],
+       "start": 175.5,
+       "end": 175.68
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오쿠",
+     "span": [
+      7,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오쿠",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 175.68,
+         "end": 175.8,
+         "score": 0.0261
+        }
+       ],
+       "start": 175.68,
+       "end": 175.8
+      },
+      {
+       "text": "쿠",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 175.8,
+         "end": 177.58,
+         "score": 0.3753
+        }
+       ],
+       "start": 175.8,
+       "end": 177.58
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "타시카메루",
+     "span": [
+      10,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "타시카메루",
+     "syllables": [
+      {
+       "text": "타",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 178.02,
+         "end": 178.2,
+         "score": 0.2861
+        }
+       ],
+       "start": 178.02,
+       "end": 178.2
+      },
+      {
+       "text": "시",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 178.2,
+         "end": 178.34,
+         "score": 0.2025
+        }
+       ],
+       "start": 178.2,
+       "end": 178.34
+      },
+      {
+       "text": "카",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 178.34,
+         "end": 178.48,
+         "score": 0.0252
+        }
+       ],
+       "start": 178.34,
+       "end": 178.48
+      },
+      {
+       "text": "메",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "메",
+         "roman": "me",
+         "start": 178.48,
+         "end": 178.8,
+         "score": 0.6059
+        }
+       ],
+       "start": 178.48,
+       "end": 178.8
+      },
+      {
+       "text": "루",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "루",
+         "roman": "ru",
+         "start": 178.8,
+         "end": 178.94,
+         "score": 0.1796
+        }
+       ],
+       "start": 178.8,
+       "end": 178.94
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "싱옹",
+     "span": [
+      16,
+      18
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "싱옹",
+     "syllables": [
+      {
+       "text": "싱",
+       "span": [
+        16,
+        17
+       ],
+       "units": [
+        {
+         "reading": "싱",
+         "roman": "sing",
+         "start": 178.94,
+         "end": 179.38,
+         "score": 0.2035
+        }
+       ],
+       "start": 178.94,
+       "end": 179.38
+      },
+      {
+       "text": "옹",
+       "span": [
+        17,
+        18
+       ],
+       "units": [
+        {
+         "reading": "옹",
+         "roman": "ong",
+         "start": 179.38,
+         "end": 180.16,
+         "score": 0.1013
+        }
+       ],
+       "start": 179.38,
+       "end": 180.16
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 174.9,
+   "end": 180.16,
+   "confidence": 0.2844,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 30,
+   "text": "호카니 난모 키키타쿠 나이",
+   "raw": "호카니 난모 키키타쿠 나이",
+   "stanza": 8,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "호카니",
+     "span": [
+      0,
+      3
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "호카니",
+     "syllables": [
+      {
+       "text": "호",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "호",
+         "roman": "ho",
+         "start": 180.54,
+         "end": 180.7,
+         "score": 0.114
+        }
+       ],
+       "start": 180.54,
+       "end": 180.7
+      },
+      {
+       "text": "카",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "카",
+         "roman": "ka",
+         "start": 180.7,
+         "end": 180.88,
+         "score": 0.2183
+        }
+       ],
+       "start": 180.7,
+       "end": 180.88
+      },
+      {
+       "text": "니",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "니",
+         "roman": "ni",
+         "start": 180.88,
+         "end": 181.04,
+         "score": 0.6685
+        }
+       ],
+       "start": 180.88,
+       "end": 181.04
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "난모",
+     "span": [
+      4,
+      6
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "난모",
+     "syllables": [
+      {
+       "text": "난",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "난",
+         "roman": "nan",
+         "start": 181.04,
+         "end": 181.34,
+         "score": 0.3904
+        }
+       ],
+       "start": 181.04,
+       "end": 181.34
+      },
+      {
+       "text": "모",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "모",
+         "roman": "mo",
+         "start": 181.34,
+         "end": 181.5,
+         "score": 0.0448
+        }
+       ],
+       "start": 181.34,
+       "end": 181.5
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "키키타쿠",
+     "span": [
+      7,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "키키타쿠",
+     "syllables": [
+      {
+       "text": "키",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 181.5,
+         "end": 181.96,
+         "score": 0.7079
+        }
+       ],
+       "start": 181.5,
+       "end": 181.96
+      },
+      {
+       "text": "키",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "키",
+         "roman": "ki",
+         "start": 181.96,
+         "end": 182.12,
+         "score": 0.6509
+        }
+       ],
+       "start": 181.96,
+       "end": 182.12
+      },
+      {
+       "text": "타",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 182.12,
+         "end": 182.5,
+         "score": 0.5669
+        }
+       ],
+       "start": 182.12,
+       "end": 182.5
+      },
+      {
+       "text": "쿠",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "쿠",
+         "roman": "ku",
+         "start": 182.5,
+         "end": 182.62,
+         "score": 0.2261
+        }
+       ],
+       "start": 182.5,
+       "end": 182.62
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "나이",
+     "span": [
+      12,
+      14
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "나이",
+     "syllables": [
+      {
+       "text": "나",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 182.62,
+         "end": 182.92,
+         "score": 0.6572
+        }
+       ],
+       "start": 182.62,
+       "end": 182.92
+      },
+      {
+       "text": "이",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 182.92,
+         "end": 183.22,
+         "score": 0.5715
+        }
+       ],
+       "start": 182.92,
+       "end": 183.22
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 180.54,
+   "end": 183.22,
+   "confidence": 0.4379,
+   "needs_review": false,
+   "flags": []
+  },
+  {
+   "idx": 31,
+   "text": "와타시가 하나츠 오토 이가이",
+   "raw": "와타시가 하나츠 오토 이가이",
+   "stanza": 8,
+   "section": null,
+   "backing": false,
+   "words": [
+    {
+     "text": "와타시가",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "와타시가",
+     "syllables": [
+      {
+       "text": "와",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "와",
+         "roman": "wa",
+         "start": 183.22,
+         "end": 183.4,
+         "score": 0.0607
+        }
+       ],
+       "start": 183.22,
+       "end": 183.4
+      },
+      {
+       "text": "타",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "start": 183.4,
+         "end": 183.78,
+         "score": 0.5453
+        }
+       ],
+       "start": 183.4,
+       "end": 183.78
+      },
+      {
+       "text": "시",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "start": 183.78,
+         "end": 183.86,
+         "score": 0.4297
+        }
+       ],
+       "start": 183.78,
+       "end": 183.86
+      },
+      {
+       "text": "가",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 183.86,
+         "end": 184.04,
+         "score": 0.2333
+        }
+       ],
+       "start": 183.86,
+       "end": 184.04
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "하나츠",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "하나츠",
+     "syllables": [
+      {
+       "text": "하",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "하",
+         "roman": "ha",
+         "start": 184.04,
+         "end": 184.5,
+         "score": 0.623
+        }
+       ],
+       "start": 184.04,
+       "end": 184.5
+      },
+      {
+       "text": "나",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "나",
+         "roman": "na",
+         "start": 184.5,
+         "end": 184.66,
+         "score": 0.3007
+        }
+       ],
+       "start": 184.5,
+       "end": 184.66
+      },
+      {
+       "text": "츠",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "츠",
+         "roman": "ceu",
+         "start": 184.66,
+         "end": 185.32,
+         "score": 0.0831
+        }
+       ],
+       "start": 184.66,
+       "end": 185.32
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "오토",
+     "span": [
+      9,
+      11
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오토",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "start": 185.32,
+         "end": 185.42,
+         "score": 0.1859
+        }
+       ],
+       "start": 185.32,
+       "end": 185.42
+      },
+      {
+       "text": "토",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "토",
+         "roman": "to",
+         "start": 185.42,
+         "end": 185.66,
+         "score": 0.4527
+        }
+       ],
+       "start": 185.42,
+       "end": 185.66
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "이가이",
+     "span": [
+      12,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "이가이",
+     "syllables": [
+      {
+       "text": "이",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 185.66,
+         "end": 185.76,
+         "score": 0.6027
+        }
+       ],
+       "start": 185.66,
+       "end": 185.76
+      },
+      {
+       "text": "가",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "start": 185.76,
+         "end": 186.06,
+         "score": 0.6364
+        }
+       ],
+       "start": 185.76,
+       "end": 186.06
+      },
+      {
+       "text": "이",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "이",
+         "roman": "i",
+         "start": 186.06,
+         "end": 186.36,
+         "score": 0.6549
+        }
+       ],
+       "start": 186.06,
+       "end": 186.36
+      }
+     ],
+     "needs_review": false
+    }
+   ],
+   "start": 183.22,
+   "end": 186.36,
+   "confidence": 0.4007,
+   "needs_review": false,
+   "flags": []
+  }
+ ]
+}

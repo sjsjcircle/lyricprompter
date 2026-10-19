@@ -1,0 +1,183 @@
+{
+ "topic": "environment",
+ "checked": [
+  {
+   "claim": "torch 2.14.1 (2026-09-30) is the latest release, requires_python >=3.10, with macOS arm64 wheels for cp310–cp314 (macosx_14_0_arm64, about 124 MB). MPS is available on this Mac.",
+   "status": "confirmed",
+   "evidence": "PyPI JSON: torch 2.14.1 was uploaded 2026-09-30T17:43, and the wheels cp310, cp311, cp312, cp313, cp314 and cp314t are all macosx_14_0_arm64. The cp312 wheel is 127.3 MB. In the prior venv, torch.backends.mps.is_available() returned True."
+  },
+  {
+   "claim": "torchaudio 2.11.0 (2026-03-23) is the final release line: it is in maintenance mode, works with torch 2.11 and every later torch, has no torch pin, and ships arm64 wheels for cp310–cp314.",
+   "status": "confirmed",
+   "evidence": "The pytorch/audio README says TorchAudio 2.11 \"works with torch 2.11 and with every future torch release\", and that it \"is the latest release, and it is the only one you need\". The v2.11.0 GitHub release is dated 2026-03-23. PyPI has arm64 wheels for cp310 through cp314t. Calling it 'final' is the report's reading of the README rather than an explicit EOL statement, but it is reasonable."
+  },
+  {
+   "claim": "torchaudio keeps transforms, functional.forced_align, pipelines.MMS_FA and load/save via torchcodec. torchaudio.io and sox effects were removed.",
+   "status": "confirmed",
+   "evidence": "Checked in the venv. torchaudio.io raises ModuleNotFoundError. hasattr(torchaudio,'sox_effects') is False. pipelines.MMS_FA exists. The torchaudio.load source references torchcodec. torchaudio.load('t.m4a') decoded AAC through Homebrew FFmpeg 8.1.1."
+  },
+  {
+   "claim": "torchaudio.functional.forced_align raises NotImplementedError on MPS and works on CPU.",
+   "status": "confirmed",
+   "evidence": "Reproduced. CPU returned shape [1,50]. MPS raised NotImplementedError: \"The operator 'torchaudio::forced_align' is not currently implemented for the MPS device\"."
+  },
+  {
+   "claim": "numpy 2.5.4 (2026-10-10), scipy 1.18.1 and librosa 1.0.0 (2026-08-11) all require Python >=3.12.",
+   "status": "confirmed",
+   "evidence": "PyPI JSON gives requires_python '>=3.12' for all three. Upload dates are numpy 2026-10-10, scipy 2026-08-21 and librosa 2026-08-11."
+  },
+  {
+   "claim": "numba 0.68.0 requires numpy<2.6 and llvmlite 0.50.x. librosa 1.0 needs numba>=0.61, numpy>=2.1, scipy>=1.15 and soxr>=1.0, and it dropped audioread.",
+   "status": "confirmed",
+   "evidence": "numba requires_dist is 'llvmlite<0.51,>=0.50.0dev0' and 'numpy<2.6,>=1.22'. The librosa 1.0 requires_dist matches the report. The librosa 1.0 blog lists the \"audioread backend for loading audio files\" among removed features. Also verified that librosa 1.0's core/audio.py load() goes through soundfile only."
+  },
+  {
+   "claim": "audio-separator 0.47.0 requires torch>=2.13,<3 on darwin arm64, pins samplerate==0.1.0, depends on diffq (non-win32), onnx-weekly and onnx2torch-py313, and has requires_python '!=3.14.1,>=3.10'.",
+   "status": "confirmed",
+   "evidence": "Confirmed exactly from PyPI requires_dist (uploaded 2026-08-27). The main-branch pyproject still pins samplerate==0.1.0. The repo is nomadkaraoke/python-audio-separator; PyPI URLs point to karaokenerds/…, which redirects there."
+  },
+  {
+   "claim": "samplerate 0.1.0 bundles an x86_64-only libsamplerate.dylib, so importing it fails on arm64. Overriding to samplerate>=0.2.4 (universal2) fixes it.",
+   "status": "confirmed",
+   "evidence": "`file` on the dylib inside the samplerate-0.1.0 wheel prints 'Mach-O 64-bit dynamically linked shared library x86_64'. Upstream issue nomadkaraoke/python-audio-separator#293 (open) reports the same thing. samplerate 0.2.4 ships universal2 wheels for cp39–cp314. In the venv, samplerate 0.2.4 imports fine. audio-separator 0.47 has no `import samplerate` anywhere. One nuance: lowlevel.py in 0.1.0 tries ctypes find_library('samplerate') before the bundled dylib, but /opt/homebrew/lib is not on the default dyld fallback path, so the override is the right fix."
+  },
+  {
+   "claim": "audio-separator imports audioread without declaring it, so `from audio_separator.separator import Separator` fails with librosa 1.0 until audioread is added.",
+   "status": "confirmed",
+   "evidence": "In the 0.47.0 wheel, `import audioread` is at architectures/vr_separator.py:12 and uvr_lib_v5/spec_utils.py:1. common_separator imports spec_utils at module level. Upstream issue #310 (2026-10-04) reports needing `pip install audioread`. With audioread added, all four architecture modules import in the venv."
+  },
+  {
+   "claim": "diffq 0.2.4 has macOS wheels only for cp38–cp310, so it builds from sdist on 3.11+. It is CC-BY-NC-4.0 and its repo is archived.",
+   "status": "confirmed",
+   "evidence": "PyPI files are cp38, cp39 and cp310 macOS wheels plus an sdist. The GitHub API shows facebookresearch/diffq archived=true. The LICENSE begins 'Attribution-NonCommercial 4.0 International'."
+  },
+  {
+   "claim": "PyPI ctc-forced-aligner 1.0.2 is Deskpai's ONNX fork, an sdist uploaded 2025-02-09. MahmoudAshraf97's version should come from git at commit 64293cc (2026-09-07, __version__ 0.3.0); it has a pybind11 extension and the stated requirements.",
+   "status": "confirmed",
+   "evidence": "The PyPI homepage is github.com/deskpai/ctc_forced_aligner, and the sdist's setup.py has install_requires=['onnxruntime'] with a main.cpp. Through the GitHub API, commit 64293cc6 is dated 2026-09-07T13:35:25Z ('Update license information in README.md'). __init__ sets __version__='0.3.0'. setup.py uses Pybind11Extension, and requirements.txt lists uroman, nltk, torch, torchcodec, transformers>=4.34 and Unidecode. load_audio shells out to the ffmpeg CLI. The venv's built .so imports."
+  },
+  {
+   "claim": "MahmoudAshraf/mms-300m-1130-forced-aligner and torchaudio MMS_FA are each about 1.26 GB and CC-BY-NC-4.0. The ctc-forced-aligner code is BSD-2-Clause, although its pyproject says CC-BY-NC 4.0.",
+   "status": "confirmed",
+   "evidence": "HF API: license cc-by-nc-4.0, model.safetensors 1,261,930,388 bytes. HEAD on dl.fbaipublicfiles.com/mms/torchaudio/ctc_alignment_mling_uroman/model.pt gives content-length 1,262,047,414. The GitHub API reports the repo license as BSD-2-Clause, while pyproject.toml has license text 'CC-BY-NC 4.0'."
+  },
+  {
+   "claim": "sounddevice 0.5.6 bundles a universal2 libportaudio (PortAudio V19.7.0-devel) and loads it even when brew portaudio is installed.",
+   "status": "confirmed",
+   "evidence": "The PyPI wheel is py3-none-macosx_10_6_x86_64.macosx_10_6_universal2. In the venv, sd._libname points to _sounddevice_data/portaudio-binaries/libportaudio.dylib, reporting 'PortAudio V19.7.0-devel'. brew portaudio 19.7.0 is installed on this Mac."
+  },
+  {
+   "claim": "sd.CoreAudioSettings(channel_map=[...]) takes zero-based input channels, and sd.default.latency is ('high','high').",
+   "status": "confirmed",
+   "evidence": "The sounddevice.py docstring says: 'For input devices, channel_map is a list of integers specifying the (zero-based) channel numbers to use'. The signature includes change_device_parameters, fail_if_conversion_required and conversion_quality. sd.default.latency printed ['high','high']."
+  },
+  {
+   "claim": "soxr.ResampleStream is the best streaming resampler: about 2.8 µs per 10 ms block versus 15.7 µs for samplerate and 46 µs for resample_poly, with variable output sizes such as 0, 186, 166.",
+   "status": "partially-true",
+   "evidence": "soxr is the cheapest. My re-run on a loaded machine gave soxr HQ 12.2 µs per block, samplerate sinc_fastest 55.5 µs and resample_poly 238 µs, and all of these are negligible against a 10 ms budget. What the comparison misses is buffering latency. With 480-sample input blocks, soxr HQ emits output in bursts ([0,0,0,490,0,0,489,…]), not as 0/186/166. An impulse test gave about 30 ms end-to-end latency for soxr HQ, versus about 10 ms (one block) for soxr LQ, samplerate sinc_fastest and samplerate sinc_medium. HQ therefore adds about 20 ms (up to 37 ms backlog) of latency that the per-block microbenchmark does not show.",
+   "correction": "For a live tracker, pick the resampler on latency rather than µs. Use soxr quality='LQ'/'MQ', or samplerate.Resampler('sinc_fastest'/'sinc_medium'), or open the device at a rate the interface supports and resample offline only. If you keep soxr HQ, account for the extra 20–35 ms lag in the tracker."
+  },
+  {
+   "claim": "A tiny CRNN per hop is far faster on CPU than on MPS (0.87 ms vs 9.84 ms), so the real-time path should run on CPU.",
+   "status": "confirmed",
+   "evidence": "Re-benchmarked a similar Conv1d+BiGRU model on a 5-frame hop with 4 threads under load: CPU 2.11 ms/hop, MPS 45.2 ms/hop. The direction is confirmed, and under load MPS even exceeds the 40 ms hop budget."
+  },
+  {
+   "claim": "The reference CRNN checkpoint uni-39cls-640hop.pt loads with torch 2.14's default weights_only, with keys model_state_dict, config and consts.",
+   "status": "confirmed",
+   "evidence": "torch.load(map_location='cpu') with the default loaded it as a dict with those keys. The config shows feature_type melspec, n_mels 66, hop_length 640, num_lbl 39 and dataset TIMIT. The model was therefore trained on English TIMIT speech phonemes, which is relevant for Korean and Japanese lyrics."
+  },
+  {
+   "claim": "torchcodec 0.17.0 supports FFmpeg 4–9 and works with Homebrew FFmpeg 8.1.1.",
+   "status": "confirmed",
+   "evidence": "The torchcodec README says 'FFmpeg versions in [4, 9]', and its compatibility table lists 0.17 with torch >=2.11 and Python 3.10–3.14. ffmpeg -version prints 8.1.1. torchaudio.load of an AAC .m4a worked through torchcodec."
+  },
+  {
+   "claim": "onnxruntime 1.31.0 ships macosx_14_0_arm64 wheels for cp311–cp314 that include CoreMLExecutionProvider, and audio-separator uses CoreML for ONNX on MPS machines.",
+   "status": "confirmed",
+   "evidence": "PyPI: uploaded 2026-10-09, requires_python >=3.11, with exactly those wheels. In the venv, get_available_providers() returned ['CoreMLExecutionProvider','AzureExecutionProvider','CPUExecutionProvider']. separator.py configure_mps() sets onnx_execution_provider=['CoreMLExecutionProvider']."
+  },
+  {
+   "claim": "FastAPI 0.143.0 (2026-10-08) has opentelemetry-api as a hard dependency and makes OTEL auto-configuration opt-in. It pulls starlette 1.7.0, and uvicorn 0.54 [standard] brings uvloop 0.23, httptools 0.9, websockets 17.2 and watchfiles 1.3.",
+   "status": "confirmed",
+   "evidence": "The PyPI requires_dist includes 'opentelemetry-api>=1.44.0'. The GitHub 0.143.0 release notes say: 'Require opt-in for automatic OpenTelemetry exporter setup… FASTAPI_OTEL_AUTO_CONFIGURE=true'. All the listed versions match PyPI, and pydantic is 2.14.1, uploaded 2026-10-11."
+  },
+  {
+   "claim": "uv 0.13.0 (brew, 2026-10-09) is installed, CPython 3.12.15 is uv-managed, the lock has 117 packages and the venv is 1.5 GB.",
+   "status": "confirmed",
+   "evidence": "`uv --version` prints 'uv 0.13.0 (Homebrew 2026-10-09)'. The venv python is 3.12.15. uv.lock has 117 [[package]] entries. du -sh .venv gives 1.5G. uv_build 0.13.0 is the latest on PyPI."
+  },
+  {
+   "claim": "Without lower bounds, uv picked torch 2.11.0, onnxruntime 1.23.2 and audio-separator 0.45.0, so floors are required.",
+   "status": "partially-true",
+   "evidence": "I reproduced it only with `uv pip compile --python-platform aarch64-apple-darwin`, which assumes a macOS 13 target, while torch 2.14 and onnxruntime 1.31 publish only macosx_14_0 wheels. A real `uv lock` in a project with NO floors (Python >=3.12,<3.13 and the same environments and override) resolved torch 2.14.1, torchaudio 2.11.0, onnxruntime 1.31.0, audio-separator 0.47.0, librosa 1.0.0 and numpy 2.5.4.",
+   "correction": "Floors are harmless, but the stated reason is wrong. The downgrade comes from the pip-compile default macOS 13 target. When exporting requirements, set MACOSX_DEPLOYMENT_TARGET=14.0 (or pass a macOS 14 platform)."
+  },
+  {
+   "claim": "Python 3.11 is out: you get stuck on numpy 2.4 / scipy 1.17 / librosa 0.11, and uv also dropped back to torch 2.11 / audio-separator 0.45.",
+   "status": "refuted",
+   "evidence": "`uv lock` with requires-python '>=3.11,<3.12' and no floors resolved torch 2.14.1, torchaudio 2.11.0, onnxruntime 1.31.0, audio-separator 0.47.0 and numba 0.68.0. Only numpy (2.4.6), scipy (1.17.1) and librosa (0.11.0) are older. The torch and audio-separator fallback is the same pip-compile macOS 13 target artifact.",
+   "correction": "Python 3.11 is viable; it only loses numpy 2.5, scipy 1.18 and librosa 1.0. 3.12 is still a good default."
+  },
+  {
+   "claim": "Python 3.14 resolves only when the macOS target is >=14, and audio-separator excludes 3.14.1.",
+   "status": "partially-true",
+   "evidence": "With MACOSX_DEPLOYMENT_TARGET=14.0, the full stack resolves on Python 3.14.3 (torch 2.14.1, audio-separator 0.47.0, librosa 1.0.0, onnxruntime 1.31.0). The same macOS 14 target requirement applies to 3.12 under uv pip compile, so it is not specific to 3.14. audio-separator excludes only 3.14.1, and uv offers 3.14.8.",
+   "correction": "3.14 is not blocked by resolution. The real reasons to avoid it are untested builds (diffq, ctc-forced-aligner, mecab-ko) and a younger ecosystem."
+  },
+  {
+   "claim": "python-mecab-ko 1.3.7 and mojimoji 0.0.13 have arm64 wheels only up to cp312. kiwipiepy 0.24.0 and sudachipy 0.7.0 use abi3 wheels. PyAudio 0.2.14 has no arm64 wheel.",
+   "status": "confirmed",
+   "evidence": "Confirmed from the PyPI file lists. python-mecab-ko and mojimoji go up to cp312. kiwipiepy has cp39-abi3 and sudachipy cp310-abi3. PyAudio has only PyAudio-0.2.14.tar.gz."
+  },
+  {
+   "claim": "The reference repo pins torch/torchaudio 2.2.2, numpy 1.26.4, librosa 0.10.2, PyAudio 0.2.14, fastapi 0.111, CRA react-scripts 5 and MUI v4.",
+   "status": "confirmed",
+   "evidence": "backend/requirements.txt has fastapi==0.111.0, librosa==0.10.2.post1, nnAudio==0.3.3, numpy==1.26.4, PyAudio==0.2.14, synctoolbox==1.3.2 and torch/torchaudio==2.2.2. frontend/package.json has react-scripts ^5.0.1 and @material-ui/core ^4.11.4. The report left out that synctoolbox is also a runtime dependency."
+  },
+  {
+   "claim": "Frontend versions are vite 8.3.4, react 19.3.0, @vitejs/plugin-react 6.1.2, preact 11.0.1, htm 3.1.1, @preact/signals 2.11.3, typescript 7.0.2, with node 26.0.0 and npm 11.12.1.",
+   "status": "confirmed",
+   "evidence": "`npm view <pkg> version` returned exactly these, and node -v / npm -v match."
+  },
+  {
+   "claim": "Licenses: Unidecode, pykakasi and cmudict code are GPL; soxr is LGPL-2.1+; uroman is MIT-like.",
+   "status": "partially-true",
+   "evidence": "Unidecode is GPLv2+, pykakasi GPL-3.0-or-later, cmudict GPL-3.0-or-later and soxr LGPL-2.1-or-later, all from PyPI. uroman's PyPI classifier is Apache Software License, with a USC copyright notice, not MIT. Not mentioned in the report: pyphen is tri-licensed GPL/LGPL/MPL, and demucs 4.1's lameenc dependency is LGPL-3.0-or-later.",
+   "correction": "uroman is Apache-classified with an attribution request. Add lameenc (LGPL-3.0) to the list if you use demucs 4.1."
+  },
+  {
+   "claim": "demucs 4.1.0 (2026-07-11) is MIT, has no torchaudio dependency (it uses sphn and lameenc), and needs diffq only for [quantized].",
+   "status": "confirmed",
+   "evidence": "The PyPI requires_dist is einops, huggingface-hub, julius, lameenc, sphn, safetensors and torch>=2.1 on arm64. diffq appears only under extra 'quantized' and torchaudio only under 'train'. The homepage is now adefossez/demucs (MIT, active), and facebookresearch/demucs is archived."
+  },
+  {
+   "claim": "audio-separator's default model_file_dir is /tmp/audio-separator-models/, which is not persistent.",
+   "status": "confirmed",
+   "evidence": "separator.py:126 sets model_file_dir='/tmp/audio-separator-models/'. Lines 185–189 also honor an AUDIO_SEPARATOR_MODEL_DIR environment variable, which the report did not mention."
+  },
+  {
+   "claim": "The first numba JIT call of librosa.sequence.dtw is slow (about 0.6 s) and later calls are fast, so warm up at startup.",
+   "status": "confirmed",
+   "evidence": "Re-run under load: first call 2486 ms, second 23 ms for 750x750."
+  },
+  {
+   "claim": "macOS TCC denial typically yields silent zeros rather than an exception, and permission is attributed to the host app.",
+   "status": "unverifiable",
+   "evidence": "Not tested; opening an InputStream would trigger a TCC prompt on the user's machine. It is consistent with widely reported behavior, but there is no primary Apple documentation for the 'silent zeros' detail."
+  }
+ ],
+ "recommendation_assessment": "Most of the recommendation holds up. uv with Python 3.12, torch 2.14.1 plus the forward-compatible torchaudio 2.11.0 and torchcodec 0.17, and sounddevice for capture are all sound. So is the split of MPS for offline work and CPU for the per-hop real-time path. The three packaging fixes are real, and upstream bugs corroborate two of them:\n- samplerate 0.1.0's x86_64 dylib (issue #293)\n- the undeclared audioread (issue #310)\n- the PyPI ctc-forced-aligner name clash\n\nFive changes are needed.\n\n(1) **librosa 1.0 vs synctoolbox (biggest miss).** The reference repo imports synctoolbox at runtime (backend/app/core/utils.py: sync_via_mrmsdtw, DLNCO features) and libfmp (evaluation.py). synctoolbox 1.4.2 requires librosa<1.0, numba<0.66 and numpy<2.5. Resolving `librosa>=1.0` together with synctoolbox fails: \"your requirements are unsatisfiable\". With synctoolbox included, uv resolves librosa 0.11.0, numba 0.65.1 and numpy 2.4.6 while keeping torch 2.14.1 and audio-separator 0.47.0. librosa 1.0 also removed `get_duration(filename=)`, which the reference repo's online_dtw.py and stream_processor.py call (TypeError verified). Choose one:\n- pin librosa 0.11, numpy<2.5 and numba<0.66 (simplest if reusing reference code and MrMsDTW; audioread then comes back through librosa)\n- keep librosa 1.0 and either port the few synctoolbox functions or relax its pins with override-dependencies (untested)\n\n(2) **Transcode inputs to WAV first.** librosa 1.0 loads only through soundfile, and audio-separator passes file paths straight to librosa.load. AAC .m4a originals, common for purchased music, fail with \"Format not recognised\" (verified), and installing audioread does not help. Make the first prep step transcode every input once with ffmpeg to WAV/FLAC. Use that single canonical file for separation, alignment and reference features; this also avoids AAC priming offsets differing between decoders (an AAC encoder-delay effect, not separately measured). Alternatively, decode with torchaudio/torchcodec and pass the ndarray to Separator.\n\n(3) **onnx-weekly lock pin.** The lock pins onnx-weekly 1.24.0.dev20261012, a nightly. The ONNX release docs say weekly builds for a version may be deleted after its stable release, so the lock can become unrestorable once onnx 1.24 ships. Stable onnx is currently 1.23.2. `[tool.uv] exclude-dependencies = [\"onnx-weekly\"]` plus `onnx>=1.23` locks cleanly on uv 0.13 (verified); onnx2torch at runtime with stable onnx was not tested. Otherwise, keep a wheelhouse.\n\n(4) **Resampler criterion.** Choose the streaming resampler on latency, not µs. soxr HQ adds about 20 ms (up to about 37 ms) of buffering with 10 ms blocks. soxr LQ/MQ or samplerate sinc_fastest stay at about one block.\n\n(5) **Correct the version-floor rationale.** The downgrades to torch 2.11 / audio-separator 0.45 come from `uv pip compile`'s default macOS 13 target, not from uv's resolver. `uv lock` picks the latest versions even on Python 3.11, so 3.11 is not 'out' for torch.\n\nMinor additions: set AUDIO_SEPARATOR_MODEL_DIR, which audio-separator honors, for a persistent model cache. The reference CRNN checkpoints are trained on TIMIT (English, 39 phonemes), so the phoneme-feature track should not assume they transfer to Korean or Japanese singing.",
+ "missed_options": [
+  "Pin librosa 0.11.0, numpy 2.4.x and numba 0.65.x so synctoolbox 1.4.2 and libfmp (MrMsDTW, DLNCO features used by the reference repo) stay installable. This also restores audioread-based loading of m4a/AAC. Verified to resolve with torch 2.14.1 and audio-separator 0.47.0 on Python 3.12.",
+  "Keep librosa 1.0 but relax synctoolbox's pins (librosa<1.0, numba<0.66, numpy<2.5) with [tool.uv] override-dependencies, or vendor the few synctoolbox functions needed. Untested at runtime.",
+  "Replace onnx-weekly with stable onnx via `[tool.uv] exclude-dependencies = [\"onnx-weekly\"]` plus `onnx>=1.23`. Verified that it locks on uv 0.13; onnx2torch runtime with stable onnx is untested. Alternatively, archive the wheels in a local wheelhouse so the lock stays reproducible after weekly builds are deleted.",
+  "Make transcoding to WAV/FLAC with ffmpeg the first prep step and use one canonical file everywhere, or decode with torchaudio/torchcodec (which handles m4a through Homebrew FFmpeg) and pass the ndarray to audio_separator's Separator.",
+  "Use the AUDIO_SEPARATOR_MODEL_DIR environment variable, which audio-separator 0.47 supports, for a persistent offline model cache instead of /tmp.",
+  "Use low-latency streaming resampling: soxr quality='LQ'/'MQ' or samplerate.Resampler('sinc_fastest'/'sinc_medium'). Both measured at about 10 ms end to end with 10 ms blocks, versus about 30 ms for soxr HQ.",
+  "When exporting requirements with uv pip compile, set MACOSX_DEPLOYMENT_TARGET=14.0 (torch 2.14 and onnxruntime 1.31 publish only macosx_14_0 wheels) rather than relying on floors to dodge the macOS 13 default target.",
+  "Python 3.11 is a viable fallback: uv lock gives torch 2.14.1, audio-separator 0.47.0 and onnxruntime 1.31.0, losing only numpy 2.5, scipy 1.18 and librosa 1.0. It also pairs naturally with the synctoolbox-compatible librosa 0.11 track.",
+  "Apple-Silicon-native MLX separation ports (demucs-mlx 1.6.1, mlx-audio 0.5.8 on PyPI, both MIT) as a possibly faster offline alternative to torch MPS. Quality and speed were not verified.",
+  "demucs 4.1.0 is now maintained at adefossez/demucs (facebookresearch/demucs is archived) and avoids diffq, samplerate and audioread entirely. Note its lameenc dependency is LGPL-3.0."
+ ]
+}

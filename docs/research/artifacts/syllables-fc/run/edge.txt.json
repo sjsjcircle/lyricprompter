@@ -1,0 +1,1136 @@
+{
+ "lines": [
+  {
+   "idx": 0,
+   "text": "ガッコウの帰り道 走り出す",
+   "raw": "ガッコウの帰り道 走[はし]り出す",
+   "stanza": 0,
+   "section": "サビ",
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "ガッコウ",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "がっこう",
+     "syllables": [
+      {
+       "text": "ガ",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "が",
+         "roman": "ga",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "ッ",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "っ",
+         "roman": "k",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "コ",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "こ",
+         "roman": "ko",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "ウ",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "う",
+         "roman": "o",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "帰り道",
+     "span": [
+      5,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "かえりみち",
+     "syllables": [
+      {
+       "text": "帰",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "か",
+         "roman": "ka",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "え",
+         "roman": "e",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "り",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "り",
+         "roman": "ri",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "道",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "み",
+         "roman": "mi",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "ち",
+         "roman": "chi",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "走",
+     "span": [
+      9,
+      10
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "はし",
+     "syllables": [
+      {
+       "text": "走",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "は",
+         "roman": "ha",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "し",
+         "roman": "shi",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "り",
+     "span": [
+      10,
+      11
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "り",
+     "syllables": [
+      {
+       "text": "り",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "り",
+         "roman": "ri",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "出す",
+     "span": [
+      11,
+      13
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "だす",
+     "syllables": [
+      {
+       "text": "出",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "だ",
+         "roman": "da",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "す",
+       "span": [
+        12,
+        13
+       ],
+       "units": [
+        {
+         "reading": "す",
+         "roman": "su",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  },
+  {
+   "idx": 1,
+   "text": "東京の空〜 あ〜あ",
+   "raw": "|東京《とう.きょう》の空〜 あ〜あ",
+   "stanza": 0,
+   "section": "サビ",
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "東京",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "とうきょう",
+     "syllables": [
+      {
+       "text": "東",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "と",
+         "roman": "to",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "う",
+         "roman": "u",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "京",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "きょ",
+         "roman": "kyo",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "う",
+         "roman": "u",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "の",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "の",
+     "syllables": [
+      {
+       "text": "の",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "の",
+         "roman": "no",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "空",
+     "span": [
+      3,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "そら",
+     "syllables": [
+      {
+       "text": "空〜",
+       "span": [
+        3,
+        5
+       ],
+       "units": [
+        {
+         "reading": "そ",
+         "roman": "so",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "ら",
+         "roman": "ra",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "ー",
+         "roman": "a",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "あ〜",
+     "span": [
+      6,
+      8
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "あー",
+     "syllables": [
+      {
+       "text": "あ",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "あ",
+         "roman": "a",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "〜",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "ー",
+         "roman": "a",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "あ",
+     "span": [
+      8,
+      9
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "あ",
+     "syllables": [
+      {
+       "text": "あ",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "あ",
+         "roman": "a",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  },
+  {
+   "idx": 2,
+   "text": "ㅋㅋ 사랑해~ 널 I'm in love",
+   "raw": "ㅋㅋ 사랑해~ 널 I'm in love (x3)",
+   "stanza": 0,
+   "section": "サビ",
+   "backing": false,
+   "repeat": 3,
+   "words": [
+    {
+     "text": "ㅋㅋ",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "sym",
+     "reading": "ㅋㅋ",
+     "syllables": [],
+     "needs_review": false
+    },
+    {
+     "text": "사랑해",
+     "span": [
+      3,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "사랑해",
+     "syllables": [
+      {
+       "text": "사",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "사",
+         "roman": "sa",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "랑",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "랑",
+         "roman": "rang",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "해~",
+       "span": [
+        5,
+        7
+       ],
+       "units": [
+        {
+         "reading": "해",
+         "roman": "hae",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "ー",
+         "roman": "e",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "널",
+     "span": [
+      8,
+      9
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "널",
+     "syllables": [
+      {
+       "text": "널",
+       "span": [
+        8,
+        9
+       ],
+       "units": [
+        {
+         "reading": "널",
+         "roman": "neol",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "I'm",
+     "span": [
+      10,
+      13
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "i'm",
+     "syllables": [
+      {
+       "text": "I'm",
+       "span": [
+        10,
+        13
+       ],
+       "units": [
+        {
+         "reading": "I'm",
+         "roman": "i'm",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "in",
+     "span": [
+      14,
+      16
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "in",
+     "syllables": [
+      {
+       "text": "in",
+       "span": [
+        14,
+        16
+       ],
+       "units": [
+        {
+         "reading": "in",
+         "roman": "in",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "love",
+     "span": [
+      17,
+      21
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "love",
+     "syllables": [
+      {
+       "text": "love",
+       "span": [
+        17,
+        21
+       ],
+       "units": [
+        {
+         "reading": "love",
+         "roman": "love",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  },
+  {
+   "idx": 3,
+   "text": "24시간 100% 너만 생각해",
+   "raw": "24시간 100% 너만 생각해",
+   "stanza": 0,
+   "section": "サビ",
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "24",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "num",
+     "reading": "스물네",
+     "syllables": [
+      {
+       "text": "24",
+       "span": [
+        0,
+        2
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "물",
+         "roman": "mul",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "네",
+         "roman": "ne",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "시간",
+     "span": [
+      2,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "시간",
+     "syllables": [
+      {
+       "text": "시",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "간",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "간",
+         "roman": "gan",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "100%",
+     "span": [
+      5,
+      9
+     ],
+     "lang": "ko",
+     "kind": "num",
+     "reading": "백퍼센트",
+     "syllables": [
+      {
+       "text": "100%",
+       "span": [
+        5,
+        9
+       ],
+       "units": [
+        {
+         "reading": "백",
+         "roman": "baeg",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "퍼",
+         "roman": "peo",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "센",
+         "roman": "sen",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "트",
+         "roman": "teu",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "너만",
+     "span": [
+      10,
+      12
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "너만",
+     "syllables": [
+      {
+       "text": "너",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "너",
+         "roman": "neo",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "만",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "만",
+         "roman": "man",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "생각해",
+     "span": [
+      13,
+      16
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "생각해",
+     "syllables": [
+      {
+       "text": "생",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "생",
+         "roman": "saeng",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "각",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "가",
+         "roman": "ga",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "해",
+       "span": [
+        15,
+        16
+       ],
+       "units": [
+        {
+         "reading": "캐",
+         "roman": "kae",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  },
+  {
+   "idx": 4,
+   "text": "1000年先も Forever",
+   "raw": "1000年先も Forever ×2",
+   "stanza": 0,
+   "section": "サビ",
+   "backing": false,
+   "repeat": 2,
+   "words": [
+    {
+     "text": "1000",
+     "span": [
+      0,
+      4
+     ],
+     "lang": "ja",
+     "kind": "num",
+     "reading": "せん",
+     "syllables": [
+      {
+       "text": "1000",
+       "span": [
+        0,
+        4
+       ],
+       "units": [
+        {
+         "reading": "せ",
+         "roman": "se",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "ん",
+         "roman": "n",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "年",
+     "span": [
+      4,
+      5
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "ねん",
+     "syllables": [
+      {
+       "text": "年",
+       "span": [
+        4,
+        5
+       ],
+       "units": [
+        {
+         "reading": "ね",
+         "roman": "ne",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "ん",
+         "roman": "n",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "先",
+     "span": [
+      5,
+      6
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "さき",
+     "syllables": [
+      {
+       "text": "先",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "さ",
+         "roman": "sa",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "き",
+         "roman": "ki",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "も",
+     "span": [
+      6,
+      7
+     ],
+     "lang": "ja",
+     "kind": "lex",
+     "reading": "も",
+     "syllables": [
+      {
+       "text": "も",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "も",
+         "roman": "mo",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "Forever",
+     "span": [
+      8,
+      15
+     ],
+     "lang": "en",
+     "kind": "lex",
+     "reading": "forever",
+     "syllables": [
+      {
+       "text": "For",
+       "span": [
+        8,
+        11
+       ],
+       "units": [
+        {
+         "reading": "For",
+         "roman": "for",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "ev",
+       "span": [
+        11,
+        13
+       ],
+       "units": [
+        {
+         "reading": "ev",
+         "roman": "ev",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "er",
+       "span": [
+        13,
+        15
+       ],
+       "units": [
+        {
+         "reading": "er",
+         "roman": "er",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  }
+ ],
+ "default_lang": "ko"
+}

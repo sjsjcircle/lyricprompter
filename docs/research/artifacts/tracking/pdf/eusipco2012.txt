@@ -1,0 +1,333 @@
+    20th European Signal Processing Conference (EUSIPCO 2012)                           Bucharest, Romania, August 27 - 31, 2012
+
+
+
+
+        ADAPTIVE DISTANCE NORMALIZATION FOR REAL-TIME MUSIC TRACKING
+
+               Andreas Arzt, Gerhard Widmer                                                   Simon Dixon
+
+               Johannes Kepler University                                           Centre for Digital Music
+         Department of Computational Perception                                 Queen Mary University of London
+                     Linz, Austria                                                     London, England
+
+
+                         ABSTRACT                                    are well established in the field of audio alignment, features
+                                                                     based on onsetness have so far been somewhat neglected. A
+The goal of real-time music tracking is to follow a musical
+                                                                     difficulty with ‘onsetness’ features for alignment purposes are
+performance on-line and at any time report the current po-
+                                                                     different energy levels of onsets, which may lead to big dis-
+sition in the score. To achieve this, both the score and the
+                                                                     tances between otherwise similar frames and thus to align-
+performance have to be represented in a suitable way. In
+                                                                     ment errors. In this paper, we will tackle this problem by in-
+this paper, we first evaluate the performance of some well-
+                                                                     troducing a simple distance normalization strategy for onset
+known features and then propose a simple but effective dis-
+                                                                     features that tries to reduce the influence of the energy levels
+tance normalization strategy for onset-emphasized features,
+                                                                     on the distance computation process, while still preserving
+which greatly improves the alignment results. Finally, we
+                                                                     the onset information. We will show that using onset features
+combine both harmonic and onset-emphasized features in a
+                                                                     computed with this normalization procedure leads to better
+fashion known from off-line audio alignment, resulting in a
+                                                                     tracking results than using the prevailing normalized chroma
+combination which outperforms each individual feature re-
+                                                                     features. In a final step, we combine distances based on har-
+garding robustness and accuracy.
+                                                                     monic and onset features into one distance measure, forming
+   Index Terms— Music Processing, Real-time Music                    a combination which outperforms the individual features by
+Tracking, Audio Alignment, Audio Features, Feature Nor-              far.
+malization                                                                While the features and methods described in this paper are
+                                                                     presented and evaluated in the context of our real-time music
+                                                                     tracker, they may of course also be useful for the closely re-
+                    1. INTRODUCTION
+                                                                     lated task of off-line audio alignment.
+The task of a real-time music tracking system (a.k.a. a score
+follower) is to listen to a musical performance and automati-           2. REAL-TIME MUSIC TRACKING VIA ON-LINE
+cally recognize at any time the current position in the musical                  DYNAMIC TIME WARPING
+score. A system that achieves this task accurately and robustly
+promises to be useful in a wide range of applications (e.g., by      Our real-time audio tracking system is based on an on-line
+automatically accompanying or interacting with musicians or          version of the dynamic time warping algorithm. It takes two
+by creating visualizations of their performance). There exist        time series consisting of feature vectors as input – one known
+various approaches to this problem, most notably the systems         completely beforehand (the score) and one coming in real-
+by Raphael [1] and Cont [2], which both are based on differ-         time (the live performance) –, computes an on-line alignment,
+ent kinds of graphical models. In contrast to these approaches       and at any time returns the current position in the score. As
+our tracker is based on an on-line version of the well-known         the focus of this paper is on the feature representations used
+dynamic time warping algorithm.                                      for the alignment process, we will only give a short intuitive
+    In a real-time music tracking system the way the two time        description of this algorithm and refer the reader to [3] for
+series (the score and the live performance to be aligned) are        further details.
+represented plays a vital role. Generally we can distinguish
+                                                                         Dynamic Time Warping (DTW) is an off-line alignment
+two kinds of features: features which describe the general en-
+                                                                     method for two time series based on a local cost measure and
+ergy distribution (the harmonic content) and features which
+                                                                     an alignment cost matrix computed using dynamic program-
+describe increases in energy (modelling the onsets). While
+                                                                     ming. Each cell of the alignment cost matrix contains the
+harmonic features like the normalized chroma representation
+                                                                     cost of the optimal alignment up to this cell. When the com-
+   This research was supported by the Austrian Science Fund (FWF):   plete matrix is computed, the optimal alignment path is ob-
+TRP109-N23 and Z159.                                                 tained by tracing the dynamic programming recursion back-
+
+
+
+
+    © EURASIP, 2012 - ISSN 2076-1465                             2689
+wards (backward path).                                                 Most recent audio alignment systems are based on dif-
+    In [3] Dixon proposed an on-line version based on the          ferent variants of chroma-based harmonic features (e.g., [7,
+standard DTW algorithm which has two important properties          8, 9]). In general chroma vectors consist of 12 elements per
+that make it useable in real-time systems: the alignment is        time frame, corresponding to pitch classes; their values are
+computed incrementally by always expanding the matrix into         computed by mapping the frequency bins of the STFT to the
+the direction (row or column) containing the minimal costs         12 pitch classes and summing up the energies. There also
+(forward computation), and it has linear time and space com-       exist more sophisticated ways of computing chroma features
+plexity due to the fact that instead of the whole matrix in each   and for this paper we are in fact using the method described
+step only a fixed number of cells is computed.                     in [10]. Again each vector finally is normalized to sum up
+    Subsequently, improvements to this basic algorithm were        to 1 to make it invariant to dynamic variations (normalized
+proposed. This includes an extension called the ‘backward-         chroma features (NC)).
+forward strategy’ [4], which reconsiders past decisions and            It is also possible to compute chroma onset features by a
+tries to improve the precision of the current score position hy-   mapping of the LNSO features described earlier to the chroma
+pothesis, and relatively simple tempo models [5] which are         representation, as recently done in [6]. The authors refer to
+used to stretch or compress the score representation accord-       this representation as locally adaptive normalized chroma on-
+ingly and therefore reduce differences in absolute tempo be-       set features (LNCO). Additionally, as this introduces a desir-
+tween the score representation and the live performance. For       able property for off-line (= backward) audio alignmen,t they
+the evaluation runs in this paper, we used the simpler of the      also introduce an extra temporal decay to these features (de-
+two tempo models presented in the above-mentioned paper.           caying LNCO (DLNCO)), which should not be favourable for
+                                                                   the on-line task in question. Nonetheless we will also eval-
+                                                                   uate the effect of this delay in our on-line (= forward) audio
+           3. FEATURE REPRESENTATION                               alignment algorithm.
+                                                                       Finally, having defined a number of possible feature rep-
+In order to align a live performance to a score suitable feature   resentations, a function determining the alignment cost of 2
+representations are needed. We first convert a MIDI version        frames (distance between 2 frames) is needed. In this paper
+of the score into a sound file using a software synthesizer.       we will use the L1 distance:
+Thus we actually treat this task as an audio-to-audio align-                                      Xn
+
+ment problem, with additional knowledge about the score                                d(I, J) =     |Ik − Jk |,              (1)
+audio file (e.g., the exact timing of each note onset). Both                                      k=1
+
+streams to be aligned are represented as sequences of analysis     where I and J are either semitone or chroma frames.
+frames, computed via a short-time Fourier transform (STFT)
+of the signal with a hamming window of size 92ms and a                 4. ADAPTIVE DISTANCE NORMALIZATION
+hop size of 23ms. Then each frame resulting from the STFT
+is mapped onto a musically more meaningful representation          One problem with using the aforementioned features based
+better suited for the task of audio alignment.                     on onset information (LNSO, LNCO and DLNCO) directly
+    A natural musically motivated choice for representing the      is that they are only normalized relative to their local context
+tonal/harmonic content is to map the data into frequency bins      within their audio streams. There can be huge differences
+with semitone spacing. As we would like this representation        in onset strength between the two audio streams, especially
+to be invariant to dynamic variations, we normalize each vec-      when the score audio stream is generated from a deadpan
+tor to sum up to 1. We will refer to this representation as        MIDI file without loudness information (= with the same ve-
+normalized semitone features (NS).                                 locity for every note). In contrast to this, there are all kinds
+    For features representing the note onsets we again map         of variations in dynamics in the live performance. Take for
+the STFT data to the semitone scale but now only store the         example a piano performance in which the performer em-
+increase in energy in each bin relative to the previous frame.     phasizes the melody while playing the accompaniment very
+As described in [6] for chroma onset features we now first         softly, or ‘blurs’ the onsets by using the sustain pedal, as is of-
+take a suitable logarithm of the values in the vector, moti-       ten the case. Then the correct alignment of the louder melody
+vated by the logarithmic sensation of sound in humans, and         notes would lead to minimal distances, but there would oc-
+then normalize each vector by the maximum norm in a fixed          cur substantial alignment costs for each of the accompanying
+window around this vector. While in the original paper this        notes, possibly leading to alignment errors.
+window is centered on the vector to be normalized, we had               A simple solution to this problem is to compute a normal-
+to shift the window to only use data up to the current vector      ized distance dn of two frames by dividing d by the sum of
+to make it computable on-line. We will refer to this represen-     their L1 -norms:
+tation as locally adaptive normalized semitone onset features                                          d(I, J)
+(LNSO).                                                                                dn (I, J) =               .                (2)
+                                                                                                     |I|1 + |J|1
+
+
+
+
+                                                               2690
+  ID    Composer           Piece Name                                                              # Perf    Eval. Type
+  CE    Chopin             Etude Op. 10 No. 3 (excerpt)                                            22        Match
+  CB    Chopin             Ballade Op. 38 No. 1 (excerpt)                                          22        Match
+  MS    Mozart             1st Mov. of Sonatas KV279, KV280, KV281, KV282, KV283,                  1         Match
+                           KV284, KV330, KV331, KV332, KV333, KV457, KV475, KV533
+  RP    Rachmaninoff       Prelude Op. 23 No. 5                                                    3         Man. Annotations
+
+                                          Table 1. The data set used for the evaluation.
+
+
+
+Evidently this simple approach has its drawbacks. It intro-                          ID      NSdn       NCdn
+duces a lot of noise to the distance matrix by heavily up-                           CE     82.01%     87.78%
+scaling small distances between frames with low energy in                            CB     75.04%     79.97%
+them. Still this normalization step greatly improves the align-                      MS     90.19%     91.20%
+ment results and actually makes the semitone onset features                          RP     75.61%     81.45%
+useable – alignments based on the unnormalized distances got
+lost most of the time (see Table 3).                               Table 2. Real-time alignment results for the harmonic fea-
+    To get rid of this up-scaling effect, we introduce a weight    tures (see text).
+describing the ‘onsetness’ of the two frames involved. When
+chosen correctly, this weight can be seen as a dampening fac-
+tor: avoiding the scale-up effect for small numbers while still
+                                                                        Regarding the harmonic features, the suitability of the NC
+normalizing the distance when enough energy is involved.
+                                                                   features for audio alignment purposes is well established (see
+Recall that due to the locally adaptive normalization step the
+                                                                   e.g., [12]) and again confirmed by our experiments (see Table
+L1 -norm of each frame is a measure of its ‘onsetness’, rang-
+                                                                   2). In contrast to that the performance of the LNSO features,
+ing from 0 to 1. Thus the mean of the L1 -norms of two frames
+                                                                   which work far better than the related LNCO features, may
+is a natural measure of their combined ‘onsetness’. Based on
+                                                                   come as a bit of a surprise (see Table 3). It seems that when
+experimental results we chose to apply a suitable function to
+                                                                   it comes to modelling onsets the mapping to the chroma scale
+this value, leading to the desired dampening effect and result-
+                                                                   destroys crucial information (the absolute height of the on-
+ing in the normalized and weighted distance dnw :
+                                      r                            sets). As also shown in this table, the normalization step for
+                                      4 |I|1 + |J|1
+                                                                   onset features is indispensable. While with the unnormalized
+            dnw (I, J) = dn (I, J) ∗                .       (3)    distances the tracker in many cases gets completely lost or at
+                                              2
+                                                                   least produces a lot of errors both normalized versions lead to
+It is important to note that the main point of the formula above   robust and accurate alignments, the weighted one even clearly
+is not the application of exactly the 4th root – this function     outperforming the NC features.
+merely gave the best results in our evaluation, but only by             Interestingly the basic DLNCO features outperformed the
+a very small margin. We achieved very similar results with         LNSO and LNCO features. But while the normalization pro-
+other functions (the square root, cubic root or also a function    cess also has a positive influence on the DLNCO features in
+based on the logarithm), as long as the function fulfilled the     general (interestingly, the Rachmaninov Prelude is an excep-
+intended dampening task described above.                           tion) they do not benefit to the same extent. When comparing
+                                                                   the evaluation runs using the distance normalization process
+4.1. Results                                                       the LNSO features are clearly preferable at least for on-line
+The performance of each feature configuration was thor-            trackers such as ours.
+oughly tested on various pieces of piano music (see Table 1).
+This table also indicates how the ground truth data was pre-          5. MIXING CHROMA AND ONSET INFORMATION
+pared, where ‘match’ means that the we have access to very
+accurate data about every note onset, as these were recorded       Having evaluated their accuracy when used individually it
+on a computer-monitored grand piano. The Tables 2 and 3            seems reasonable to try to combine the two presented feature
+show the percentage of correctly aligned notes for the differ-     types (harmonic and onset) into one feature set, something
+ent configurations mentioned in the text. A note is accepted       which has already been suggested in [6] in a different (off-
+as correctly aligned if the computed time differs from the         line) alignment setting. There the authors mix NC features
+actual onset time not more than 250 ms (see also [11] for          with the DLNCO features described above by simply com-
+more details on the evaluation of real-time audio-to-score         puting 2 distinct local cost matrices, and finally summing up
+alignment systems).                                                both matrices to get a distance measure which accounts for
+
+
+
+
+                                                               2691
+  ID     LNSOd      LNSOdn       LNSOdnw        LNCOd       LNCOdn       LNCOdnw       DLNCOd           DLNCOdn    DLNCOdnw
+  CE     9.68%      91.93%        96.09%        43.66%       92.78%       95.85%        77.01%           89.46%     93.26%
+  CB      5.8%      91.79%        95.61%        28.92%       86.74%       93.72%        65.97%           79.05%     85.27%
+  MS      1.2%      97.41%        93.76%        18.23%       90.28%       90.91%        48.18%           79.14%     85.18%
+  RP     2.28%      78.71%        86.25%        20.77%       42.67%       71.77%        33.73%           2.91%      23.56%
+
+                              Table 3. Real-time alignment results for the onset features (see text).
+
+
+
+     ID       NCdn      LNSOdnw        NCdn +LNSOdnw                   Err. (sec)    NCdn     LNSOdnw        NCdn +LNSOdnw
+     CE      87.78%      96.09%           96.13%                        ≤ 0.05      35.53%     44.69%           46.24%
+     CB      79.97%      95.61%           96.38%                        ≤ 0.10      67.64%     86.95%           89.00%
+     MS      91.20%      93.76%           98.20%                        ≤ 0.15      78.23%     90.49%           94.13%
+     RP      81.45%      86.25%           93.73%                        ≤ 0.20      83.75%     92.42%           96.03%
+                                                                        ≤ 0.25      87.12%     93.32%           96.93%
+Table 4. Real-time alignment results for the single best fea-           ≤ 0.30      89.75%     94.05%           97.57%
+tures and their combination (see text).                                 ≤ 0.35      91.65%     94.58%           97.96%
+                                                                        ≤ 0.40      92.91%     94.99%           98.28%
+                                                                        ≤ 0.45      93.98%     95.36%           98.47%
+                                                                        ≤ 0.50      94.77%     95.66%           98.71%
+both types of information.
+                                                                        ≤ 1.0       98.16%     97.44%           99.59%
+    We will now combine the best features of both classes
+according to our evaluation runs in the same fashion. For          Table 5. Real-time alignment results for the single best fea-
+this we picked the NC features (see Table 2) and the LNSO          tures and their combination on the whole test set (79178 notes
+features with the distance normalization procedure described       in total) shown as cumulative frequencies of errors of match-
+above (see Table 3). Thus as the total distance dtot of 2 frames   ing pairs of notes.
+we get:
+
+
+          dtot (I, J) = dLN
+                         nw
+                            SO
+                               (I, J) + dN C
+                                         n (I, J).          (4)             6. CONCLUSION AND FUTURE WORK
+
+    We also experimented with an additional weighting of the       In this paper, we presented a detailed evaluation of differ-
+distances such that in case of onsets dLN
+                                       nw
+                                          SO
+                                             (I, J) is dominant    ent feature configurations for real-time music matching. The
+      NC                                                           main contribution of this paper is an adaptive distance nor-
+and dn (I, J) otherwise, but – despite some promising re-
+sults with some of the ‘weaker’ features – we did not achieve      malization strategy for onset features. The final configuration,
+further improvements by this strategy.                             a combination of normalized chroma features and locally nor-
+                                                                   malized semitone onset features, together with this distance
+                                                                   normalization strategy led to a huge increase in alignment pre-
+5.1. Results                                                       cision. So far we only presented evaluation results on piano
+                                                                   music. First experiments on other kinds of music (e.g., or-
+As expected, these features, which complement one another          chestral music) show promising results, and we are now col-
+in a natural way, lead to a substantial increase in alignment      lecting the necessary ground truth data for a larger scale eval-
+precision and robustness compared to their individual results      uation. In our opinion, at least regarding our real-time mu-
+(see Table 4). The combination outperformed each configura-        sic tracking system, the possibilities of signal processing are
+tion with single features we tested for this paper.                exhausted and further serious improvements both in robust-
+    Table 5 gives a more in-depth comparison of the com-           ness and in precision are only possible by introducing musi-
+bined features to the individual ones based on the cumulative      cal knowledge. We will be working on this in the form of
+frequency of errors. It again confirms that in this natural com-   anticipative tempo models and explicit event anticipation.
+bination the NC features mainly add robustness (i.e., these
+features show fewer extreme errors larger than 1 second than                            7. REFERENCES
+the LNSO features). On the other hand the LNSO features
+greatly improve the precision (e.g., 86.95% of the notes are          [1] C. Raphael, “Current directions with music plus one,”
+aligned with an error smaller or equal 0.1 seconds, compared              in Proc. of the Sound and Music Computing Conference,
+to 67.64% when using the NC features).                                    2009.
+
+
+
+
+                                                               2692
+ [2] A. Cont, “A coupled duration-focused architecture for
+     realtime music to score alignment,” IEEE Transactions
+     on Pattern Analysis and Machine Intelligence, vol. 32,
+     no. 6, pp. 837–846, 2010.
+ [3] S. Dixon, “An on-line time warping algorithm for track-
+     ing musical performances,” in Proc. of the International
+     Joint Conference on Artificial Intelligence, 2005.
+ [4] A. Arzt, G. Widmer, and S. Dixon, “Automatic page
+     turning for musicians via real-time machine listening,”
+     in Proc. of the European Conference on Artificial Intel-
+     ligence, 2008.
+ [5] A. Arzt and G. Widmer, “Simple tempo models for real-
+     time music tracking,” in Proc. of the Sound and Music
+     Computing Conference, 2010.
+ [6] S. Ewert, M. Müller, and P. Grosche, “High resolution
+     audio synchronization using chroma onset features,” in
+     Proc. of the IEEE International Conference on Acous-
+     tics, Speech and Signal Processing, 2009.
+ [7] N. Hu, R. Dannenberg, and G. Tzanetakis, “Polyphonic
+     audio matching and alignment for music retrieval,” in
+     IEEE Workshop on Applications of Signal Processing to
+     Audio and Acoustics, 2003.
+ [8] M. Müller, H. Mattes, and F. Kurth, “An efficient mul-
+     tiscale approach to audio synchronization,” in Proc. of
+     the International Conference on Music Information Re-
+     trieval, 2006.
+ [9] B. Niedermayer and G. Widmer, “A multi-pass algo-
+     rithm for accurate audio-to-score alignment,” in Proc.
+     of the International Conference on Music Information
+     Retrieval, 2010.
+
+[10] D. P. W. Ellis and G. E. Poliner, “Identifying ‘cover
+     songs’ with chroma features and dynamic programming
+     beat tracking,” in Proc. of the IEEE International Con-
+     ference on Acoustics, Speech and Signal Processing,
+     2007.
+
+[11] A. Cont, D. Schwarz, N. Schnell, and C. Raphael,
+     “Evaluation of real-time audio-to-score alignment,” in
+     Proceedings of the 8th International Conference on Mu-
+     sic Information Retrieval (ISMIR 2007), Vienna, Aus-
+     tria, 2007.
+
+[12] C. Joder, S. Essid, and G. Richard, “A comparative study
+     of tonal acoustic features for a symbolic level music-
+     to-score alignment,” in IEEE International Conference
+     on Acoustics, Speech and Signal Processing (ICASSP)
+     2010. IEEE, 2010, pp. 409–412.
+
+
+
+
+                                                            2693
+

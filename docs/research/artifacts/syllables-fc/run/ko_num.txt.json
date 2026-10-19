@@ -1,0 +1,620 @@
+{
+ "lines": [
+  {
+   "idx": 0,
+   "text": "스무 살 20살 1번째 3시 30분",
+   "raw": "스무 살 20살 1번째 3시 30분",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "스무",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "스무",
+     "syllables": [
+      {
+       "text": "스",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "무",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "무",
+         "roman": "mu",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "살",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "살",
+     "syllables": [
+      {
+       "text": "살",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "살",
+         "roman": "sal",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "20",
+     "span": [
+      5,
+      7
+     ],
+     "lang": "ko",
+     "kind": "num",
+     "reading": "스물",
+     "syllables": [
+      {
+       "text": "20",
+       "span": [
+        5,
+        7
+       ],
+       "units": [
+        {
+         "reading": "스",
+         "roman": "seu",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "물",
+         "roman": "mul",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "살",
+     "span": [
+      7,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "살",
+     "syllables": [
+      {
+       "text": "살",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "살",
+         "roman": "sal",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "1",
+     "span": [
+      9,
+      10
+     ],
+     "lang": "ko",
+     "kind": "num",
+     "reading": "한",
+     "syllables": [
+      {
+       "text": "1",
+       "span": [
+        9,
+        10
+       ],
+       "units": [
+        {
+         "reading": "한",
+         "roman": "han",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "번째",
+     "span": [
+      10,
+      12
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "번째",
+     "syllables": [
+      {
+       "text": "번",
+       "span": [
+        10,
+        11
+       ],
+       "units": [
+        {
+         "reading": "번",
+         "roman": "beon",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "째",
+       "span": [
+        11,
+        12
+       ],
+       "units": [
+        {
+         "reading": "째",
+         "roman": "jjae",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "3",
+     "span": [
+      13,
+      14
+     ],
+     "lang": "ko",
+     "kind": "num",
+     "reading": "세",
+     "syllables": [
+      {
+       "text": "3",
+       "span": [
+        13,
+        14
+       ],
+       "units": [
+        {
+         "reading": "세",
+         "roman": "se",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "시",
+     "span": [
+      14,
+      15
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "시",
+     "syllables": [
+      {
+       "text": "시",
+       "span": [
+        14,
+        15
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "30",
+     "span": [
+      16,
+      18
+     ],
+     "lang": "ko",
+     "kind": "num",
+     "reading": "삼십",
+     "syllables": [
+      {
+       "text": "30",
+       "span": [
+        16,
+        18
+       ],
+       "units": [
+        {
+         "reading": "삼",
+         "roman": "sam",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "십",
+         "roman": "sib",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "분",
+     "span": [
+      18,
+      19
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "분",
+     "syllables": [
+      {
+       "text": "분",
+       "span": [
+        18,
+        19
+       ],
+       "units": [
+        {
+         "reading": "분",
+         "roman": "bun",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  },
+  {
+   "idx": 1,
+   "text": "난 1번 타자",
+   "raw": "난 1번 타자",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "난",
+     "span": [
+      0,
+      1
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "난",
+     "syllables": [
+      {
+       "text": "난",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "난",
+         "roman": "nan",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "1",
+     "span": [
+      2,
+      3
+     ],
+     "lang": "ko",
+     "kind": "num",
+     "reading": "한",
+     "syllables": [
+      {
+       "text": "1",
+       "span": [
+        2,
+        3
+       ],
+       "units": [
+        {
+         "reading": "한",
+         "roman": "han",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "번",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "번",
+     "syllables": [
+      {
+       "text": "번",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "번",
+         "roman": "beon",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "타자",
+     "span": [
+      5,
+      7
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "타자",
+     "syllables": [
+      {
+       "text": "타",
+       "span": [
+        5,
+        6
+       ],
+       "units": [
+        {
+         "reading": "타",
+         "roman": "ta",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "자",
+       "span": [
+        6,
+        7
+       ],
+       "units": [
+        {
+         "reading": "자",
+         "roman": "ja",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  },
+  {
+   "idx": 2,
+   "text": "오늘 밤 11시",
+   "raw": "오늘 밤 11시",
+   "stanza": 0,
+   "section": null,
+   "backing": false,
+   "repeat": 1,
+   "words": [
+    {
+     "text": "오늘",
+     "span": [
+      0,
+      2
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "오늘",
+     "syllables": [
+      {
+       "text": "오",
+       "span": [
+        0,
+        1
+       ],
+       "units": [
+        {
+         "reading": "오",
+         "roman": "o",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      },
+      {
+       "text": "늘",
+       "span": [
+        1,
+        2
+       ],
+       "units": [
+        {
+         "reading": "늘",
+         "roman": "neul",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "밤",
+     "span": [
+      3,
+      4
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "밤",
+     "syllables": [
+      {
+       "text": "밤",
+       "span": [
+        3,
+        4
+       ],
+       "units": [
+        {
+         "reading": "밤",
+         "roman": "bam",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    },
+    {
+     "text": "11",
+     "span": [
+      5,
+      7
+     ],
+     "lang": "ko",
+     "kind": "num",
+     "reading": "열한",
+     "syllables": [
+      {
+       "text": "11",
+       "span": [
+        5,
+        7
+       ],
+       "units": [
+        {
+         "reading": "열",
+         "roman": "yeol",
+         "t0": null,
+         "t1": null
+        },
+        {
+         "reading": "한",
+         "roman": "han",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": true
+    },
+    {
+     "text": "시",
+     "span": [
+      7,
+      8
+     ],
+     "lang": "ko",
+     "kind": "lex",
+     "reading": "시",
+     "syllables": [
+      {
+       "text": "시",
+       "span": [
+        7,
+        8
+       ],
+       "units": [
+        {
+         "reading": "시",
+         "roman": "si",
+         "t0": null,
+         "t1": null
+        }
+       ]
+      }
+     ],
+     "needs_review": false
+    }
+   ]
+  }
+ ],
+ "default_lang": "ko"
+}

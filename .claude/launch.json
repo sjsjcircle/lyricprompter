@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lyricprompter",
+      "runtimeExecutable": "uv",
+      "runtimeArgs": ["run", "lyricprompter", "serve", "--host", "127.0.0.1", "--port", "8765"],
+      "port": 8765
+    }
+  ]
+}
