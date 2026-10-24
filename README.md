@@ -16,17 +16,132 @@
 
 ## 설치 (macOS, Apple Silicon)
 
-```bash
-brew install ffmpeg uv
-```
+현재 설치 대상은 **Apple Silicon(M 시리즈) Mac의 macOS**입니다. 저장소의 `uv.lock`도 이 환경(`arm64`)을 기준으로 작성되어 있습니다. 최초 설치와 첫 곡 준비에는 Python·패키지·모델을 내려받을 인터넷 연결과, 모델 및 곡별 WAV 파일을 저장할 여유 디스크 공간이 필요합니다.
+
+### 1) 터미널과 Homebrew 준비
+
+**응용 프로그램 › 유틸리티 › 터미널**을 열고, 아래 명령을 한 줄씩 붙여 넣은 뒤 Enter를 누르세요. 다음 명령의 결과가 `arm64`인지 확인합니다.
 
 ```bash
-uv sync
+uname -m
 ```
 
-- Python 3.12 venv(`.venv`)가 만들어집니다.
-- 모델은 첫 사용 때 `.cache/models/`에 내려받습니다(보컬 분리 약 200 MB, MMS 정렬 약 1.2 GB, 선택 사항인 Qwen3 보정 1.8 GB).
-- 마이크 입력을 쓰려면 터미널 앱에 macOS 마이크 권한(설정 › 개인정보 보호 › 마이크)이 있어야 합니다.
+Homebrew가 없다면 [공식 홈페이지](https://brew.sh/)의 설치 명령을 실행합니다. 이미 `brew --version`이 작동하면 이 단계는 건너뛰세요.
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+설치 중 Mac 로그인 암호를 물으면 입력하세요. 암호는 입력해도 화면에 표시되지 않습니다. 설치가 끝나면 출력된 **Next steps**의 명령을 실행해 `brew`를 PATH에 추가하세요. Apple Silicon의 기본 설치 위치는 `/opt/homebrew`입니다. 새 터미널을 열어 다음 명령이 작동하는지 확인합니다.
+
+```bash
+brew --version
+```
+
+### 2) 필수 도구 설치
+
+```bash
+brew install git ffmpeg uv
+```
+
+`git`은 저장소를 받고 업데이트할 때, `ffmpeg`는 음원을 변환할 때, `uv`는 Python과 프로젝트 패키지를 관리할 때 씁니다.
+
+### 3) 저장소와 Python 패키지 설치
+
+설치할 위치에서 저장소를 받은 뒤 프로젝트 폴더로 이동합니다.
+
+```bash
+git clone https://github.com/sjsjcircle/lyricprompter.git
+cd lyricprompter
+```
+
+이 프로젝트는 **Python 3.12**를 사용합니다(`.python-version`, `pyproject.toml`). [uv로 Python을 설치](https://docs.astral.sh/uv/guides/install-python/)하고, 저장소에 고정된 버전의 패키지를 설치합니다.
+
+```bash
+uv python install 3.12
+uv sync --locked
+```
+
+`uv sync --locked`는 프로젝트 안에 `.venv`를 만들고 `uv.lock`에 기록된 패키지를 설치합니다. 잠금 파일과 프로젝트 설정이 맞지 않으면 파일을 임의로 갱신하지 않고 오류로 알려줍니다([uv 문서](https://docs.astral.sh/uv/concepts/projects/sync/)). 이후 명령은 모두 이 `lyricprompter` 폴더에서 실행하세요. `uv run`이 프로젝트의 Python 환경을 사용합니다.
+
+### 4) 설치 확인과 첫 실행
+
+```bash
+uv run python --version
+uv run lyricprompter --help
+ffmpeg -version
+```
+
+Python은 `3.12.x`, 프롬프터는 `prep`, `serve`, `devices` 등의 명령 목록을 출력하면 됩니다. `ffmpeg`도 버전 정보를 출력해야 합니다.
+
+이어서 서버를 시작합니다.
+
+```bash
+uv run lyricprompter serve
+```
+
+터미널에 시작 주소가 나오면 브라우저에서 엽니다.
+
+- [콘솔 — 곡 추가와 공연 제어](http://127.0.0.1:8000/)
+- [프롬프터 — 가사를 띄우는 화면](http://127.0.0.1:8000/prompter)
+
+사용하는 동안 터미널을 열어 두세요. 종료할 때는 서버가 실행 중인 터미널에서 **Ctrl+C**를 누릅니다. 다음에 사용할 때도 프로젝트 폴더에서 같은 `serve` 명령을 실행하면 됩니다.
+
+### 5) 내 음원으로 첫 곡 준비
+
+저장소의 `songs/`에는 일부 곡의 타이밍 정보가 있지만 **실제 음원 파일은 포함하지 않습니다.** 목록에 보이는 예시 곡을 바로 재생하는 대신 내 음원으로 곡을 준비하세요.
+
+1. 음원 파일(WAV, MP3, M4A, FLAC 등)과 실제로 부르는 순서대로 적은 가사를 준비합니다. CLI에서 가사 파일을 쓴다면 **UTF-8로 저장한 일반 텍스트 `.txt`**를 사용하세요.
+2. 실행 중인 콘솔의 **Add song**에서 음원 파일을 선택하고 가사를 넣어 준비를 시작합니다.
+3. 작업이 끝나면 곡을 선택하고 **Lines › Play**로 타이밍을 확인합니다. 명령줄로 준비하는 방법과 가사 형식은 [곡 준비](#1-곡-준비-자동-타이밍)를 참고하세요.
+
+서버 화면을 여는 것과 곡을 준비하는 것은 별도입니다. 모델은 **첫 곡 준비 중** 필요한 시점에 자동으로 내려받으므로, 첫 작업은 이후 작업보다 오래 걸릴 수 있습니다. 기본 `--refine auto`는 Qwen3 모델이 이미 캐시에 있을 때만 보정하며, `--refine qwen`을 선택하면 필요한 모델을 내려받습니다.
+
+별도 캐시 설정을 하지 않았을 때 모델 저장 위치는 다음과 같습니다.
+
+| 용도 | 프로젝트 안의 기본 경로 |
+|---|---|
+| 보컬 분리 모델 | `.cache/models/audio-separator/` |
+| MMS 가사 정렬 모델 | `.cache/models/torch/hub/checkpoints/` |
+| 선택 사항인 Qwen3 보정 모델 | `.cache/models/hf/hub/` |
+
+준비한 곡의 음원·가사·타이밍은 `songs/<id>/`에 저장됩니다. `.venv/`, `.cache/`, 곡의 WAV·FLAC 파일과 `lyrics.txt`는 `.gitignore`로 Git 관리에서 제외됩니다.
+
+### 마이크와 오디오 인터페이스
+
+실시간 마이크 입력을 사용할 때는 **시스템 설정 › 개인정보 보호 및 보안 › 마이크**에서 서버를 실행한 앱(터미널, iTerm 등)의 권한을 허용하세요. 오디오 인터페이스를 연결한 뒤 다음 명령으로 입력 장치를 확인할 수 있습니다.
+
+```bash
+uv run lyricprompter devices
+```
+
+서버가 실행 중이면 새 터미널에서 프로젝트 폴더로 이동해 실행하세요. 콘솔에서는 **Input › Audio interface**의 장치와 입력 채널을 고릅니다. 장치를 새로 연결했다면 세션을 멈춘 뒤 **Rescan devices**를 누르세요. 마이크 없이 확인하려면 내 곡을 준비한 뒤 **Recording (rehearsal)** 입력으로 녹음 파일을 사용할 수 있습니다.
+
+### 설치 중 막혔을 때
+
+| 증상 | 확인할 내용 |
+|---|---|
+| `brew` 또는 `uv`를 찾지 못함 | Homebrew 설치 후 **Next steps**를 실행했는지 확인하고 새 터미널을 여세요. `brew install uv`가 완료되었는지도 확인합니다. |
+| `uname -m`이 `x86_64`로 나옴 | Apple Silicon Mac에서 터미널을 Rosetta로 실행 중인지 확인하고, `arm64`로 실행되는 터미널에서 설치하세요. |
+| `pyproject.toml`을 찾지 못함 | `cd lyricprompter`로 저장소 폴더에 들어온 뒤 명령을 실행하세요. |
+| Python 버전이 맞지 않음 | 프로젝트 폴더에서 `uv python install 3.12`와 `uv sync --locked`를 다시 실행하세요. |
+| `ffmpeg not found on PATH` | `brew install ffmpeg`를 완료한 뒤 새 터미널에서 `ffmpeg -version`을 확인하세요. |
+| `Address already in use` | 기존 서버를 Ctrl+C로 종료하거나 `uv run lyricprompter serve --port 8001`로 시작하세요. 브라우저 주소의 포트도 `8001`로 바꿉니다. |
+| 장치가 없거나 입력 신호가 없음 | 위의 마이크 권한, 장치 연결, 입력 채널을 확인한 뒤 세션을 멈추고 장치를 다시 검색하세요. |
+
+다운로드 중 연결이 끊겼다면 인터넷 연결을 확인한 뒤 실패한 `uv sync --locked` 또는 곡 준비 작업을 다시 실행하세요.
+
+### 업데이트
+
+서버를 Ctrl+C로 종료하고 **`songs/` 폴더 전체를 저장소 밖에 복사해 백업**하세요. 직접 고친 타이밍도 `song.json`에 저장되므로 음원만 복사하면 타이밍 수정은 보관되지 않습니다. 프로젝트 폴더에서 다음을 실행합니다.
+
+```bash
+git pull --ff-only
+uv sync --locked
+uv run lyricprompter serve
+```
+
+`git pull`이 로컬 변경이나 충돌 때문에 중단되면 `git status`로 변경 파일을 먼저 확인하세요. 곡을 보관하려면 강제 초기화나 파일 삭제로 해결하지 말고, 백업과 로컬 변경을 확인한 뒤 업데이트를 이어가세요.
 
 ## 1. 곡 준비 (자동 타이밍)
 
