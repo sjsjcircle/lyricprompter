@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1b1e23">
+<title>OSC cue console</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/console.css">
+</head>
+<body>
+<header class="bar">
+  <h1>oscsender</h1>
+  <span id="conn" class="pill" data-status="offline"><i></i><b>Disconnected</b></span>
+  <p id="notice" role="status" aria-live="polite"></p>
+  <button id="b-arm" class="arm" type="button" aria-pressed="true" data-armed="unknown"
+          title="OSC output. OSC LIVE: cues are sent to the targets. SAFE: dry run, cues are only logged.">
+    <i></i><b>OSC …</b>
+  </button>
+</header>
+
+<main class="desk">
+  <!-- ============================================================ projects -->
+  <aside id="library" aria-label="Projects">
+    <div class="head">
+      <h2>Projects</h2>
+      <button id="b-new" class="btn small" type="button" aria-expanded="false" aria-controls="f-new">New project</button>
+    </div>
+
+    <form id="f-new" hidden>
+      <label>Title <input name="title" required autocomplete="off"></label>
+      <label>Reference audio <input name="audio" type="file" accept="audio/*,video/*,.wav,.flac,.mp3,.m4a,.aac,.ogg,.aif,.aiff" required></label>
+      <label>Cue file <input name="cues" type="file" accept=".txt,.cue,.cues,.lrc,text/plain"></label>
+      <label>… or paste the cues
+        <textarea name="cues_text" rows="5" spellcheck="false"
+          placeholder="@target lights 192.168.0.50:8000&#10;0:12.480  lights  /cue/go 12   # verse 1"></textarea>
+      </label>
+      <label>Vocal stem (optional, for vocal mode) <input name="vocals" type="file" accept="audio/*,.wav,.flac,.mp3,.m4a,.aac,.ogg,.aif,.aiff"></label>
+      <label title="How the live tracker follows this piece (can be changed later in Session). Classical: follows tempo changes and waits for the voice. Pop &amp; band: keeps the band's steady tempo.">Tracking style
+        <select name="style">
+          <option value="classic">Classical — flexible tempo</option>
+          <option value="pop">Pop &amp; band — steady tempo</option>
+        </select>
+      </label>
+      <div class="upload" id="new-progress" hidden>
+        <progress max="1" value="0"></progress>
+        <span class="msg"></span>
+      </div>
+      <div class="row">
+        <button class="btn primary" type="submit">Create project</button>
+        <button class="btn ghost" type="button" id="b-new-cancel">Cancel</button>
+      </div>
+    </form>
+
+    <ul id="projects" class="projects" role="listbox" aria-label="Projects"></ul>
+    <p id="projects-empty" class="empty" hidden>No projects yet. Create one from a reference recording and a cue file.</p>
+    <details id="logs" class="logs" hidden>
+      <summary id="logs-sum">Show logs</summary>
+      <ul id="logs-list"></ul>
+    </details>
+  </aside>
+
+  <!-- ============================================================ live + session + targets -->
+  <section id="middle" aria-label="Live session">
+    <div class="live" id="live">
+      <div class="live-top">
+        <span id="st" class="pill big" data-status="idle"><i></i><b>No session</b></span>
+        <span id="live-project" class="live-project"></span>
+      </div>
+      <div class="bigtime"><span id="r-ref">–</span><small>reference</small></div>
+      <dl class="readout">
+        <div><dt>Live time</dt><dd id="r-live">–</dd></div>
+        <div><dt>Tempo</dt><dd id="r-tempo">–</dd></div>
+        <div class="wide"><dt>Confidence</dt><dd><span class="meter"><span id="m-conf"></span></span></dd></div>
+        <div class="wide"><dt>Input <span id="r-level"></span></dt><dd><span class="meter level"><span id="m-level"></span><i id="m-peak"></i></span></dd></div>
+      </dl>
+      <div class="stepper" aria-label="Key">
+        <span>Key</span>
+        <button class="btn small" type="button" data-transpose="-1" aria-label="Down a semitone">−</button>
+        <output id="o-transpose">0</output>
+        <button class="btn small" type="button" data-transpose="1" aria-label="Up a semitone">+</button>
+        <button class="btn small on" type="button" id="b-autokey" aria-pressed="true"
+                title="Detect the performance key automatically during the first seconds">Auto</button>
+        <button class="btn small" type="button" id="b-keysuggest" hidden
+                title="Detection leans to this key but is not sure: click to use it"></button>
+      </div>
+      <div class="next" id="next">
+        <span class="lbl">Next cue</span>
+        <span id="next-eta" class="eta">–</span>
+        <span id="next-what" class="what"></span>
+        <span id="next-more" class="more"></span>
+      </div>
+      <p id="live-warn" class="warn" hidden></p>
+      <div class="fired-head">
+        <h3>Fired</h3>
+        <span id="counts" class="counts"></span>
+        <button class="btn ghost small" type="button" id="b-clear-log" title="Clear this console's fired log">Clear</button>
+      </div>
+      <div class="fired-wrap">
+        <table id="t-fired" class="fired">
+          <colgroup><col class="w-time"><col class="w-id"><col class="w-cue"><col class="w-tgt"><col><col class="w-res"><col class="w-late"></colgroup>
+          <thead><tr><th>Time</th><th>#</th><th>Cue</th><th>Target</th><th>Message</th><th title="Result and why it fired (track: on time; catchup: late after a correction; chase / start: sent for skipped cues; skipped: jumped over, not sent; manual: Fire during the live session; dry: SAFE)">Result</th><th class="num" title="Milliseconds of reference time past the cue when it fired">Late</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p id="fired-empty" class="empty small">Cues the live session fires show up here, newest first.</p>
+      </div>
+    </div>
+
+    <form id="f-session" class="controls" autocomplete="off">
+      <fieldset>
+        <legend>Listen to</legend>
+        <label class="radio"><input type="radio" name="mode" value="mix" checked> Full band mix</label>
+        <label class="radio" id="mode-vocal" title="Needs a vocal stem in the project"><input type="radio" name="mode" value="vocal"> Vocal mic only</label>
+        <button class="btn ghost small" type="button" id="b-vocals"
+                title="The vocal stem separated from this project's reference recording (same length and timing)">Add vocal stem…</button>
+        <input type="file" id="f-vocals" accept="audio/*,.wav,.flac,.mp3,.m4a,.aac,.ogg" hidden>
+      </fieldset>
+
+      <fieldset>
+        <legend>Input</legend>
+        <div class="row tight">
+          <label class="radio"><input type="radio" name="kind" value="device" checked> Audio interface</label>
+          <label class="radio"><input type="radio" name="kind" value="file"> Rehearsal</label>
+        </div>
+        <div data-kind="device">
+          <label>Device <select name="device"></select></label>
+          <div class="chans" id="chans" aria-label="Channels"></div>
+          <button class="btn ghost small" type="button" id="b-rescan">Rescan devices</button>
+        </div>
+        <div data-kind="file" hidden>
+          <label>Play
+            <select name="file_src">
+              <option value="stem:mix">This project's mix</option>
+              <option value="stem:vocals">This project's vocals</option>
+              <option value="path">Another file…</option>
+            </select>
+          </label>
+          <label data-path hidden>File path <input name="path" placeholder="/path/to/take.wav"></label>
+          <label class="check"><input type="checkbox" name="monitor"> Play through speakers</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Session</legend>
+        <label title="Saved with the selected project and applied to its live session at once. Classical: follows tempo changes and waits for the voice. Pop &amp; band: keeps the band's steady tempo.">Style
+          <select name="style" disabled>
+            <option value="classic">Classical — flexible tempo</option>
+            <option value="pop">Pop &amp; band — steady tempo</option>
+          </select>
+        </label>
+        <div class="row tight">
+          <label class="grow">Start at
+            <select name="start_at"><option value="">Beginning</option><option value="time">Time…</option></select>
+          </label>
+          <label data-start-time hidden>Time <input name="start_time" placeholder="1:05.200" size="8"></label>
+        </div>
+        <div class="row">
+          <button class="btn primary" type="button" id="b-start">Start</button>
+          <button class="btn" type="button" id="b-stop" disabled>Stop</button>
+          <button class="btn" type="button" id="b-hold" title="H" disabled>Hold</button>
+          <button class="btn" type="button" data-nudge="-0.5" title="[" disabled>−0.5 s</button>
+          <button class="btn" type="button" data-nudge="0.5" title="]" disabled>+0.5 s</button>
+        </div>
+        <label title="Tracker latency compensation: audio interface + processing (saved in the settings)">Input latency (ms)
+          <input name="input_latency" type="number" step="5" min="-500" max="2000" value="0">
+        </label>
+        <p class="hint" id="lat-reported" hidden></p>
+      </fieldset>
+    </form>
+
+    <section class="targets" aria-label="OSC targets">
+      <div class="head">
+        <h2>OSC targets</h2>
+        <button class="btn small" type="button" id="b-add-target">Add target</button>
+      </div>
+      <p id="settings-warn" class="warn" hidden></p>
+      <table id="t-targets" class="tgt">
+        <thead><tr><th class="c-name">Name</th><th>Host</th><th class="c-port">Port</th>
+          <th class="c-lat" title="Output delay of the receiver (ms): its cues are sent this much earlier">Lat. ms</th>
+          <th class="c-on" title="Enabled">On</th><th class="c-x"></th></tr></thead>
+      </table>
+      <div class="tgt-opts">
+        <label>Default target <select id="s-default"></select></label>
+        <label title="What a jump forward does with the cues it skipped">Skipped cues
+          <select id="s-skip">
+            <option value="skip">Skip</option>
+            <option value="latest">Send latest per address</option>
+            <option value="all">Send all</option>
+          </select>
+        </label>
+        <label title="Forward corrections up to this send every crossed cue (late); larger moves count as a jump">Catch-up window (s)
+          <input id="s-catchup" type="number" min="0.1" max="30" step="0.1">
+        </label>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============================================================ cue editor -->
+  <section id="editor" aria-label="Cue editor">
+    <div class="head">
+      <h2 id="cues-title">Cues</h2>
+      <div class="tools">
+        <button class="btn ghost small" type="button" id="b-undo" title="Undo the last cue edit (⌘Z / Ctrl+Z)">Undo</button>
+        <button class="btn ghost small" type="button" id="b-tap" aria-pressed="false"
+                title="Tap mode: while the preview plays, press T at each cue. Click a cue number to choose the cue to tap. Esc leaves.">Tap</button>
+        <button class="btn ghost small" type="button" id="b-add" aria-expanded="false" aria-controls="f-add">Add cue at playhead</button>
+        <button class="btn ghost small" type="button" id="b-editfile">Edit file</button>
+        <a class="btn ghost small" id="a-download" href="#" download="cues.txt">Download cues.txt</a>
+        <button class="btn ghost small" type="button" id="b-replace">Replace file</button>
+        <input type="file" id="i-replace" accept=".txt,.cue,.cues,.lrc,text/plain" hidden>
+      </div>
+    </div>
+
+    <div class="transport" aria-label="Preview">
+      <button class="btn play" type="button" id="b-play" title="Play / pause the reference (Space)" disabled>Play</button>
+      <span class="pos"><span id="p-pos">0:00.000</span> / <span id="p-dur">–</span></span>
+      <span id="p-load" class="load"></span>
+      <label class="check small"><input type="checkbox" id="c-click" checked> Click at cues</label>
+      <input type="range" id="c-vol" min="0" max="1" step="0.05" value="0.5" aria-label="Click volume" title="Click volume">
+      <label class="check small osc-preview" title="Sends each cue's OSC while the preview plays, early by the target's latency so the effect lands on the music">
+        <input type="checkbox" id="c-osc"> Send OSC while previewing</label>
+      <label class="check small"><input type="checkbox" id="follow" checked> Follow live</label>
+    </div>
+
+    <div class="wave">
+      <canvas id="wave" aria-label="Waveform: click to move the preview playhead"></canvas>
+      <div id="wave-tip" class="tip" hidden></div>
+    </div>
+    <div class="zoom">
+      <canvas id="zoom" aria-label="Zoom: drag a cue marker to move its cue"></canvas>
+      <div id="zoom-tip" class="tip" hidden></div>
+    </div>
+
+    <form id="f-add" class="addcue" hidden autocomplete="off">
+      <label>Time <input name="time" size="9"></label>
+      <label>Target <select name="target"></select></label>
+      <label class="grow">Message <input name="message" placeholder="/cue/go 12 # note" spellcheck="false"></label>
+      <button class="btn primary small" type="submit">Add</button>
+      <button class="btn ghost small" type="button" id="b-add-cancel">Cancel</button>
+    </form>
+
+    <details id="issues" class="issues" hidden>
+      <summary id="issues-sum"></summary>
+      <ul id="issues-list"></ul>
+    </details>
+
+    <div class="table-wrap">
+      <table id="t-cues">
+        <thead>
+          <tr><th class="c-go">Go</th><th class="c-idx">#</th><th class="c-time">Time</th><th class="c-tgt">Target</th>
+            <th>Message</th><th class="c-note">Note</th><th class="c-act">Edit</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p id="cues-empty" class="empty">Pick a project to edit its cues and preview them against the reference.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ============================================================ dialogs -->
+<dialog id="d-file" class="dlg wide">
+  <form method="dialog" id="f-file">
+    <h2>Edit cue file</h2>
+    <textarea name="text" rows="22" spellcheck="false" wrap="off"></textarea>
+    <ul class="dlg-issues" id="file-issues"></ul>
+    <div class="row end">
+      <span class="msg" id="file-msg"></span>
+      <button class="btn ghost" type="button" value="cancel" id="b-file-cancel">Close</button>
+      <button class="btn primary" type="button" id="b-file-save">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="d-measure" class="dlg">
+  <form method="dialog" id="f-measure" autocomplete="off">
+    <h2>Measure latency: <span id="m-target"></span></h2>
+    <div class="row tight">
+      <label class="radio"><input type="radio" name="method" value="echo" checked> Network echo</label>
+      <label class="radio"><input type="radio" name="method" value="loopback"> Audio loopback</label>
+    </div>
+    <div data-method="echo">
+      <div class="row tight">
+        <label class="radio"><input type="radio" name="echo_via" value="responder" checked> <span>oscsender echo on the receiver</span></label>
+        <label class="radio"><input type="radio" name="echo_via" value="message"> <span>The receiver answers a message</span></label>
+      </div>
+      <p class="hint" data-via="responder">Run <code>oscsender echo --port 9001</code> on the receiving machine, then measure to its port. The estimate is half the round trip.</p>
+      <div class="grid2">
+        <label data-via="responder">Echo port <input name="echo_port" type="number" min="1" max="65535" value="9001"></label>
+        <label data-via="message" hidden>Reply message <input name="echo_message" placeholder="/workspace/version" spellcheck="false"></label>
+        <label data-via="message" hidden>Listen port (optional) <input name="listen_port" type="number" min="1" max="65535"></label>
+        <label>Pings <input name="echo_count" type="number" min="1" max="200" value="20"></label>
+        <label>Timeout (ms) <input name="timeout_ms" type="number" min="10" max="5000" value="500"></label>
+      </div>
+    </div>
+    <div data-method="loopback" hidden>
+      <p class="hint">Sends the target's test message and listens for the sound it makes at the audio input (a sampler, a click, QLab audio). Not available while a session uses an audio interface.</p>
+      <div class="grid2">
+        <label class="span2">Input device <select name="device"></select></label>
+        <div class="chans span2" id="m-chans" aria-label="Channels"></div>
+        <label class="span2">Test message <input name="message" placeholder="/oscsender/test" spellcheck="false"></label>
+        <label>Trials <input name="lb_count" type="number" min="1" max="50" value="8"></label>
+        <label>Threshold (dB) <input name="threshold_db" type="number" min="3" max="60" value="20"></label>
+      </div>
+    </div>
+    <div class="result" id="m-result" hidden></div>
+    <div class="row end">
+      <button class="btn" type="button" id="b-m-run">Run</button>
+      <button class="btn primary" type="button" id="b-m-use" disabled>Use as latency</button>
+      <button class="btn ghost" type="button" id="b-m-cancel">Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="/static/console.js"></script>
+</body>
+</html>

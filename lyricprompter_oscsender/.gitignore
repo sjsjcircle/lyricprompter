@@ -1,0 +1,7 @@
+# projects hold the user's reference recordings and cue files: keep them local
+projects/*
+!projects/.gitkeep
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
