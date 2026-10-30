@@ -1,0 +1,46 @@
+[project]
+name = "lyricprompter-oscsender"
+version = "0.1.0"
+description = "Performance OSC cue sender: live audio-to-audio tracking (lyricprompter's tracker) against a reference recording fires OSC messages at reference timestamps"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  # numeric / audio (the realtime path is CPU + numpy only, like lyricprompter's tracker)
+  "numpy>=2.4,<2.6",
+  "scipy>=1.17,<1.19",
+  "librosa>=0.11,<1.1",          # filterbanks + tuning estimate
+  "soundfile>=0.13,<0.15",
+  "soxr>=1.0,<1.2",
+  "sounddevice>=0.5.2,<0.6",
+  # server
+  "fastapi>=0.143,<0.144",
+  "uvicorn[standard]>=0.54,<0.55",
+  "pydantic>=2.14,<3",
+  "python-multipart>=0.0.20",
+]
+
+[project.scripts]
+oscsender = "lyricprompter_oscsender.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=9", "ruff>=0.17", "httpx>=0.28", "python-osc>=1.9"]
+
+[tool.uv]
+environments = ["sys_platform == 'darwin' and platform_machine == 'arm64'"]
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 110
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "slow: long-running end-to-end checks (deselect with -m 'not slow')",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# copied from lyricprompter unchanged except that STYLES comes from ..config (keeps the line in place)
+"src/lyricprompter_oscsender/tracking/tracker.py" = ["I001"]

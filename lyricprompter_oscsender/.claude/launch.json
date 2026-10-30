@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "oscsender",
+      "runtimeExecutable": "uv",
+      "runtimeArgs": ["run", "oscsender", "serve", "--host", "127.0.0.1", "--port", "8800"],
+      "port": 8800
+    }
+  ]
+}
